@@ -25,6 +25,42 @@ export const NAV_LINKS = [
   { href: "#cli", label: "CLI" },
   { href: "#usage", label: "Usage" },
   { href: "#why", label: "Why" },
+  { href: "#roadmap", label: "Roadmap" },
+] as const;
+
+/** Public horizon only — no pricing, no “buy Team”, no ship dates (M-005). */
+export const ROADMAP_PHASES = [
+  {
+    id: "now",
+    label: "Now",
+    title: "Shipped",
+    items: [
+      "Open-source CLI (MIT)",
+      "Plan → safety → approve → apply",
+      "Deploy, scale, rollback, explain, logs",
+      "Your LLM keys (BYOK)",
+    ],
+  },
+  {
+    id: "next",
+    label: "Next",
+    title: "Building",
+    items: [
+      "Prompt and plan history",
+      "JSON plan output for CI",
+      "Install polish (Homebrew and domain)",
+    ],
+  },
+  {
+    id: "later",
+    label: "Later",
+    title: "Exploring",
+    items: [
+      "Team: org policy sync",
+      "Team: audit of prompts and applies",
+      "Team: shared identity (no SSO promise)",
+    ],
+  },
 ] as const;
 
 export const INSTALL_STEPS = [

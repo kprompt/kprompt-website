@@ -12,6 +12,9 @@ export function Footer() {
             Natural language interface for Kubernetes. Open source. Built for
             operators and platform teams.
           </p>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground/90">
+            OSS CLI today · team policy &amp; audit on the horizon.
+          </p>
         </div>
 
         <div className="flex flex-wrap gap-x-10 gap-y-6 text-sm">
@@ -43,6 +46,11 @@ export function Footer() {
                   className="hover:text-foreground"
                 >
                   Documentation
+                </a>
+              </li>
+              <li>
+                <a href="#roadmap" className="hover:text-foreground">
+                  Roadmap
                 </a>
               </li>
               <li>
