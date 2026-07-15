@@ -29,8 +29,8 @@ export const NAV_LINKS = [
 
 export const INSTALL_STEPS = [
   "Install the CLI",
+  "Configure defaults",
   "Set an LLM API key",
-  "Connect kubeconfig",
   "Prompt your cluster",
 ] as const;
 
@@ -46,37 +46,45 @@ export const SETUP_STEPS = [
   {
     id: "path",
     title: "Put kprompt on your PATH",
-    description:
-      "Make the binary available in new terminal sessions.",
+    description: "Make the binary available in new terminal sessions.",
     commands: [
       'echo \'export PATH="$HOME/.local/bin:$PATH"\' >> ~/.zshrc',
       "source ~/.zshrc",
       "kprompt version",
     ],
-    note: "You should see a version like 0.1.0. Then run kprompt config and kprompt config set provider openai.",
+    note: "You should see a version number. Prefer installing from source (go install …@main) until the next release if you need the newest commands.",
+  },
+  {
+    id: "config",
+    title: "Save defaults with kprompt config",
+    description:
+      "Persist provider, model, and namespace in ~/.kprompt/config.yaml. API keys are never written to that file — config only shows whether a key is set or unset.",
+    commands: [
+      "kprompt config",
+      "kprompt config set provider gemini",
+      "kprompt config set model gemini-2.0-flash",
+      "kprompt config set namespace default",
+    ],
+    note: "Allowed keys: provider, model, base_url, context, namespace. Example view after set: provider gemini, api_key unset (until you export KPROMPT_GEMINI_API_KEY).",
   },
   {
     id: "api-key",
     title: "Set an LLM API key",
     description:
-      "kprompt needs a model to turn your sentence into a plan. Without a key you get: missing API key for openai.",
+      "kprompt needs a model to turn your sentence into a plan. Without a key you get a missing API key error for your chosen provider.",
     commands: [
-      'export KPROMPT_OPENAI_API_KEY="sk-..."',
-      'echo \'export KPROMPT_OPENAI_API_KEY="sk-..."\' >> ~/.zshrc',
-      'kprompt --provider gemini "list deployments"   # needs KPROMPT_GEMINI_API_KEY',
+      'export KPROMPT_GEMINI_API_KEY="..."',
+      'echo \'export KPROMPT_GEMINI_API_KEY="..."\' >> ~/.zshrc',
+      "kprompt config   # api_key should now say: set",
     ],
-    note: "Also supported: anthropic, gemini, groq, mistral, deepseek, openrouter, together, ollama. Example: export KPROMPT_GEMINI_API_KEY=... then kprompt --provider gemini \"list pods\". Keys stay in your shell env — never in ~/.kprompt/config.yaml. Full table: github.com/kprompt/kprompt/blob/main/docs/providers.md",
+    note: "Also: OPENAI, ANTHROPIC, GROQ, MISTRAL, DEEPSEEK, OPENROUTER, TOGETHER — or ollama with no key. Full table on GitHub docs/providers.md. Never put secrets in config.yaml.",
   },
   {
     id: "kube",
     title: "Connect your cluster",
-    description:
-      "Uses your existing kubeconfig (same as kubectl).",
-    commands: [
-      "kubectl config current-context",
-      "kubectl get ns",
-    ],
-    note: "Point KUBECONFIG at another file if needed. Override context with kprompt --context <name> ...",
+    description: "Uses your existing kubeconfig (same as kubectl).",
+    commands: ["kubectl config current-context", "kubectl get ns"],
+    note: "Optional: kprompt config set context kind-kprompt-e2e — or pass --context / -n on each command.",
   },
   {
     id: "prompt",
@@ -84,10 +92,10 @@ export const SETUP_STEPS = [
     description:
       "Reads run immediately. Mutations show a plan, then ask y/N on a TTY (or use --approve).",
     commands: [
-      'kprompt "list deployments" -n default',
-      'kprompt "deploy redis" -n default',
-      'kprompt "scale redis to 2" -n default --approve',
-      'kprompt "explain why redis is crashing" -n default',
+      'kprompt "list deployments"',
+      'kprompt "deploy redis"',
+      'kprompt "scale redis to 2" --approve',
+      'kprompt "explain why redis is crashing"',
     ],
     note: 'A greeting like kprompt "hello" is not a cluster op — use a real Kubernetes ask after the key is set.',
   },

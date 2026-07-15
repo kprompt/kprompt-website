@@ -16,12 +16,12 @@ export function UsageGuide() {
             From zero to first prompt
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Five steps. If you skip the API key, kprompt cannot plan anything —
-            you will see{" "}
+            Install, save defaults with{" "}
             <code className="rounded bg-background px-1.5 py-0.5 font-mono text-[13px] text-foreground">
-              missing API key for openai
+              kprompt config
             </code>
-            .
+            , set an API key, then prompt. Keys never go in the config file —
+            only whether they are set or unset.
           </p>
         </Reveal>
 
@@ -47,6 +47,18 @@ export function UsageGuide() {
                       size="lg"
                     />
                   ))}
+                  {step.id === "config" ? (
+                    <pre className="mt-4 max-w-2xl overflow-x-auto rounded-lg border border-border bg-background/80 p-4 font-mono text-[12px] leading-relaxed text-foreground sm:text-[13px]">
+                      {`Config file: ~/.kprompt/config.yaml
+provider:    gemini
+model:       gemini-2.0-flash
+base_url:    -
+namespace:   default
+context:     (default kube context)
+api_key:     unset  (env: KPROMPT_GEMINI_API_KEY | …)
+Secrets are never stored in the config file.`}
+                    </pre>
+                  ) : null}
                   {step.note ? (
                     <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
                       {step.note}

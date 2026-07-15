@@ -20,7 +20,9 @@ export function FinalCta() {
             Ready to talk to your cluster?
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Install the CLI, set an LLM API key, connect kubeconfig, then prompt.
+            Install, run{" "}
+            <span className="font-mono text-sm text-foreground">kprompt config</span>
+            , set an API key, then prompt your cluster.
           </p>
 
           <CopyCommand className="mx-auto mt-8 max-w-xl text-left" size="lg" />
