@@ -94,6 +94,7 @@ export const SETUP_STEPS = [
     commands: [
       'kprompt "list deployments"',
       'kprompt "deploy redis"',
+      'kprompt "rollback payment-api"',
       'kprompt "scale redis to 2" --approve',
       'kprompt "explain why redis is crashing"',
     ],
