@@ -80,7 +80,10 @@ export function CliExamples() {
                       key={`${command}-${line}`}
                       initial={reduced ? false : { opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={cn(line.startsWith("✓") && "text-bright")}
+                      className={cn(
+                        line.startsWith("✓") && "text-bright",
+                        line.startsWith("⚠") && "text-amber-400"
+                      )}
                     >
                       {line}
                     </motion.p>

@@ -24,6 +24,7 @@ export function AnimatedTerminal({
   const [phase, setPhase] = useState<"typing" | "output" | "hold">("typing");
 
   const current = fixed ?? demos[index % demos.length];
+  const isOpener = !fixed && index === 0;
 
   useEffect(() => {
     if (reduced) {
@@ -38,6 +39,7 @@ export function AnimatedTerminal({
     setPhase("typing");
 
     let i = 0;
+    const typeMs = isOpener ? 42 : 28;
     const typeTimer = window.setInterval(() => {
       i += 1;
       setTyped(current.command.slice(0, i));
@@ -45,36 +47,46 @@ export function AnimatedTerminal({
         window.clearInterval(typeTimer);
         setPhase("output");
       }
-    }, 28);
+    }, typeMs);
 
     return () => window.clearInterval(typeTimer);
-  }, [current, reduced]);
+  }, [current, reduced, isOpener]);
 
   useEffect(() => {
     if (phase !== "output" || reduced) return;
 
     let line = 0;
-    const lineTimer = window.setInterval(() => {
+    const baseDelay = isOpener ? 720 : 420;
+    let timeoutId: number;
+
+    const showNext = () => {
       line += 1;
       setVisibleLines(line);
       if (line >= current.lines.length) {
-        window.clearInterval(lineTimer);
         setPhase("hold");
+        return;
       }
-    }, 420);
+      // Beat before the punchline lands
+      const pause =
+        isOpener && line === current.lines.length - 1 ? 1100 : baseDelay;
+      timeoutId = window.setTimeout(showNext, pause);
+    };
 
-    return () => window.clearInterval(lineTimer);
-  }, [phase, current.lines, reduced]);
+    timeoutId = window.setTimeout(showNext, isOpener ? 500 : 280);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [phase, current.lines, reduced, isOpener]);
 
   useEffect(() => {
     if (phase !== "hold" || fixed || reduced) return;
 
+    const holdMs = index === 0 ? 10000 : 2200;
     const hold = window.setTimeout(() => {
       setIndex((v) => (v + 1) % demos.length);
-    }, 2200);
+    }, holdMs);
 
     return () => window.clearTimeout(hold);
-  }, [phase, fixed, demos.length, reduced]);
+  }, [phase, fixed, demos.length, reduced, index]);
 
   return (
     <div
@@ -92,7 +104,7 @@ export function AnimatedTerminal({
         </span>
       </div>
 
-      <div className="relative min-h-[220px] bg-grid-dark px-4 py-5 sm:min-h-[240px] sm:px-5">
+      <div className="relative min-h-[240px] bg-grid-dark px-4 py-5 sm:min-h-[260px] sm:px-5">
         <AnimatePresence mode="wait">
           <motion.div
             key={current.id}
@@ -114,17 +126,42 @@ export function AnimatedTerminal({
               />
             </p>
 
-            <div className="mt-4 space-y-1.5 text-white/80">
-              {current.lines.slice(0, visibleLines).map((line) => (
-                <motion.p
-                  key={line}
-                  initial={reduced ? false : { opacity: 0, x: -4 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className={cn(line.startsWith("✓") && "text-bright")}
-                >
-                  {line}
-                </motion.p>
-              ))}
+            <div className="mt-4 space-y-2 text-white/80">
+              {current.lines.slice(0, visibleLines).map((line) => {
+                const isPunchline = line.includes("😂") || line.startsWith("…");
+                const isWarn = line.includes("🚨") || line.startsWith("⚠");
+                const isOk =
+                  line.includes("🛡️") ||
+                  line.includes("😅") ||
+                  line.startsWith("✓");
+
+                return (
+                  <motion.p
+                    key={line}
+                    initial={
+                      reduced
+                        ? false
+                        : isPunchline
+                          ? { opacity: 0, y: 8, scale: 0.97 }
+                          : { opacity: 0, x: -4 }
+                    }
+                    animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+                    transition={
+                      isPunchline
+                        ? { type: "spring", stiffness: 320, damping: 22 }
+                        : { duration: 0.25 }
+                    }
+                    className={cn(
+                      isOk && "text-bright",
+                      isWarn && "text-amber-400",
+                      isPunchline &&
+                        "text-[14px] font-medium italic text-bright sm:text-[15px]"
+                    )}
+                  >
+                    {line}
+                  </motion.p>
+                );
+              })}
             </div>
           </motion.div>
         </AnimatePresence>

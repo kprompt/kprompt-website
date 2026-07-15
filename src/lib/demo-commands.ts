@@ -4,7 +4,18 @@ export type DemoCommand = {
   lines: string[];
 };
 
+/** First entry is what visitors see when the page opens. */
 export const HERO_DEMOS: DemoCommand[] = [
+  {
+    id: "remove-cluster",
+    command: 'kprompt "remove my f*cking cluster"',
+    lines: [
+      "🚨 Intent: delete the entire cluster",
+      "🛡️ Safe execution: denied",
+      "😅 Your cluster lives another day",
+      "😂 …ok, that was a pretty good joke though.",
+    ],
+  },
   {
     id: "deploy-redis",
     command: 'kprompt "deploy redis"',
