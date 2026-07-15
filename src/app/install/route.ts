@@ -1,27 +1,34 @@
 import { SITE } from "@/lib/constants";
 
-const UPSTREAM =
-  "https://raw.githubusercontent.com/kprompt/kprompt/main/install/install.sh";
+/** Prefer jsDelivr — raw.githubusercontent.com can lag behind main for minutes. */
+const UPSTREAMS = [
+  "https://cdn.jsdelivr.net/gh/kprompt/kprompt@main/install/install.sh",
+  "https://raw.githubusercontent.com/kprompt/kprompt/main/install/install.sh",
+] as const;
 
-/** Serves the install script for curl | bash (currently on Vercel; later kprompt.ai). */
+/** Serves the install script for curl | bash (Vercel today; kprompt.ai later). */
 export async function GET() {
-  const res = await fetch(UPSTREAM, {
-    next: { revalidate: 300 },
-    headers: { "User-Agent": `${SITE.name}-website` },
-  });
-
-  if (!res.ok) {
-    return new Response(`# failed to fetch install script (${res.status})\n`, {
-      status: 502,
-      headers: { "Content-Type": "text/plain; charset=utf-8" },
+  let lastStatus = 502;
+  for (const url of UPSTREAMS) {
+    const res = await fetch(url, {
+      cache: "no-store",
+      headers: { "User-Agent": `${SITE.name}-website` },
     });
+    if (res.ok) {
+      const body = await res.text();
+      return new Response(body, {
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8",
+          "Cache-Control": "public, max-age=60",
+          "X-Install-Upstream": url,
+        },
+      });
+    }
+    lastStatus = res.status;
   }
 
-  const body = await res.text();
-  return new Response(body, {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=300",
-    },
+  return new Response(`# failed to fetch install script (${lastStatus})\n`, {
+    status: 502,
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }
