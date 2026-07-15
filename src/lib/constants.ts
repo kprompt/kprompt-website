@@ -63,8 +63,9 @@ export const SETUP_STEPS = [
     commands: [
       'export KPROMPT_OPENAI_API_KEY="sk-..."',
       'echo \'export KPROMPT_OPENAI_API_KEY="sk-..."\' >> ~/.zshrc',
+      'kprompt --provider gemini "list deployments"   # needs KPROMPT_GEMINI_API_KEY',
     ],
-    note: "Anthropic works too: export KPROMPT_ANTHROPIC_API_KEY=... and run with --provider anthropic. Keys stay in your shell env — never in ~/.kprompt/config.yaml.",
+    note: "Also supported: anthropic, gemini, groq, mistral, deepseek, openrouter, together, ollama. Example: export KPROMPT_GEMINI_API_KEY=... then kprompt --provider gemini \"list pods\". Keys stay in your shell env — never in ~/.kprompt/config.yaml. Full table: github.com/kprompt/kprompt/blob/main/docs/providers.md",
   },
   {
     id: "kube",

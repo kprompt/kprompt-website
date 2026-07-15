@@ -65,22 +65,30 @@ export function UsageGuide() {
           <dl className="mt-4 space-y-4 text-sm">
             <div>
               <dt className="font-mono text-[13px] text-foreground">
-                missing API key for openai
+                missing API key for …
               </dt>
               <dd className="mt-1 text-muted-foreground">
-                Export{" "}
+                Export the env var for your provider (
                 <code className="font-mono text-[13px] text-foreground">
                   KPROMPT_OPENAI_API_KEY
-                </code>{" "}
-                (or{" "}
+                </code>
+                ,{" "}
                 <code className="font-mono text-[13px] text-foreground">
                   KPROMPT_ANTHROPIC_API_KEY
-                </code>{" "}
-                with{" "}
-                <code className="font-mono text-[13px] text-foreground">
-                  --provider anthropic
                 </code>
-                ). Restart the terminal after editing{" "}
+                ,{" "}
+                <code className="font-mono text-[13px] text-foreground">
+                  KPROMPT_GEMINI_API_KEY
+                </code>
+                ,{" "}
+                <code className="font-mono text-[13px] text-foreground">
+                  KPROMPT_GROQ_API_KEY
+                </code>
+                , …) and pass{" "}
+                <code className="font-mono text-[13px] text-foreground">
+                  --provider …
+                </code>
+                . Restart the terminal after editing{" "}
                 <code className="font-mono text-[13px] text-foreground">
                   ~/.zshrc
                 </code>
