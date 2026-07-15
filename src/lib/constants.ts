@@ -29,6 +29,7 @@ export const NAV_LINKS = [
   { href: "/#features", label: "Features" },
   { href: "/#how-it-works", label: "How it Works" },
   { href: "/#cli", label: "CLI" },
+  { href: "/#live-demo", label: "Live demo" },
   { href: "/#usage", label: "Usage" },
   { href: "/docs", label: "Docs" },
   { href: "/#roadmap", label: "Roadmap" },

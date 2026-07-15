@@ -45,6 +45,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/#live-demo" className="hover:text-foreground">
+                  Live demo
+                </Link>
+              </li>
+              <li>
                 <Link href="/#roadmap" className="hover:text-foreground">
                   Roadmap
                 </Link>

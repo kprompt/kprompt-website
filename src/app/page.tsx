@@ -4,6 +4,7 @@ import { Features } from "@/components/sections/features";
 import { FinalCta } from "@/components/sections/final-cta";
 import { Hero } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
+import { LiveDemo } from "@/components/sections/live-demo";
 import { LookingAhead } from "@/components/sections/looking-ahead";
 import { OpenSource } from "@/components/sections/open-source";
 import { UsageGuide } from "@/components/sections/usage-guide";
@@ -27,6 +28,7 @@ export default function HomePage() {
       <Features />
       <HowItWorks />
       <CliExamples />
+      <LiveDemo />
       <UsageGuide />
       <WhyKprompt />
       <LookingAhead />
