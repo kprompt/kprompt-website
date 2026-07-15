@@ -123,14 +123,26 @@ Secrets are never stored in the config file.`}
             </div>
             <div>
               <dt className="font-mono text-[13px] text-foreground">
-                kube client config / unauthorized
+                kubeconfig / context / RBAC errors
               </dt>
               <dd className="mt-1 text-muted-foreground">
-                Confirm{" "}
+                kprompt rewrites common client-go failures into one-liners: missing{" "}
+                <code className="font-mono text-[13px] text-foreground">
+                  ~/.kube/config
+                </code>
+                , unknown{" "}
+                <code className="font-mono text-[13px] text-foreground">
+                  --context
+                </code>
+                , Unauthorized, Forbidden (with{" "}
+                <code className="font-mono text-[13px] text-foreground">
+                  kubectl auth can-i …
+                </code>{" "}
+                hints), and unreachable API. Confirm{" "}
                 <code className="font-mono text-[13px] text-foreground">
                   kubectl get ns
                 </code>{" "}
-                works with your current context before prompting again.
+                works with your current context first.
               </dd>
             </div>
           </dl>
