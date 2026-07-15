@@ -1,4 +1,5 @@
 import { DocsSidebar } from "@/components/docs/docs-sidebar";
+import { ExperimentalNotice } from "@/components/ui/experimental-notice";
 
 export default function DocsLayout({
   children,
@@ -12,7 +13,10 @@ export default function DocsLayout({
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <DocsSidebar />
         </aside>
-        <div>{children}</div>
+        <div>
+          <ExperimentalNotice className="mb-8 max-w-3xl" />
+          {children}
+        </div>
       </div>
     </div>
   );

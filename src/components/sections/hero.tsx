@@ -30,12 +30,18 @@ export function Hero() {
             priority
             className="gap-2.5 [&_span]:text-xl sm:[&_span]:text-2xl"
           />
-          <h1 className="mt-5 font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl md:leading-[1.05]">
+          <p className="mt-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            <span className="text-brand">{SITE.maturityLabel}</span>
+            <span className="mx-2 text-border">·</span>
+            Review every plan before apply
+          </p>
+          <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl md:leading-[1.05]">
             Talk to Your Cluster.
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             Natural language becomes a reviewable plan — then you approve before
-            anything touches Kubernetes.
+            anything touches Kubernetes. Early software: prefer non-production
+            clusters until you trust the workflow.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">

@@ -20,8 +20,16 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
   overview: {
     title: "Overview",
     description:
-      "kprompt is an open-source CLI that turns natural language into a reviewable Kubernetes plan, then applies with approval.",
+      "kprompt is an experimental open-source CLI that turns natural language into a reviewable Kubernetes plan, then applies with approval.",
     blocks: [
+      {
+        type: "h2",
+        text: "Experimental — use carefully",
+      },
+      {
+        type: "p",
+        text: "kprompt is early software. Plans can be wrong, incomplete, or unsafe outside the hard-deny rules. Always read the plan (and diffs) before apply. Prefer non-production or kind clusters while you learn the tool. Avoid --approve on unfamiliar prompts. You remain responsible for changes applied with your kubeconfig credentials.",
+      },
       {
         type: "p",
         text: "Talk to your cluster from the terminal you already use. kprompt uses your kubeconfig and your LLM API keys (BYOK). Mutations always produce a plan; risk checks and hard denies run before apply.",
@@ -47,6 +55,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       {
         type: "ul",
         items: [
+          "Not production-hardened or stability-guaranteed",
           "Not a hosted agent that runs inside your cluster",
           "Not Helm/Argo/CronJob/backup generation",
           "Not a paid Team control plane (explored later — nothing to buy today)",
@@ -62,6 +71,10 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
     title: "Install",
     description: "Install the kprompt CLI from GitHub Releases via the website installer.",
     blocks: [
+      {
+        type: "p",
+        text: "Installing is easy; applying is not automatically safe. After install, start on a sandbox cluster and leave --approve off until you know how plans look.",
+      },
       {
         type: "h2",
         text: "Recommended",
@@ -106,8 +119,12 @@ go install ./cmd/kprompt`,
   },
   quickstart: {
     title: "Quickstart",
-    description: "Kubeconfig, config file, API key, and your first prompts.",
+    description: "Kubeconfig, config file, API key, and your first prompts — carefully.",
     blocks: [
+      {
+        type: "p",
+        text: "Start on a disposable cluster (kind, minikube, or a dedicated sandbox). Do not point an unreviewed --approve flow at production until you have practiced the plan → approve loop.",
+      },
       {
         type: "h2",
         text: "1. Cluster access",
@@ -220,8 +237,12 @@ kprompt history rerun 3 --approve`,
   },
   safety: {
     title: "Safety",
-    description: "Approval, risk levels, and hard denies.",
+    description: "Approval, risk levels, hard denies — and why you still must review plans.",
     blocks: [
+      {
+        type: "p",
+        text: "Safety features reduce risk; they do not make kprompt safe for unattended production use. The product is experimental. Always review the plan. Skip --approve until you understand the proposed actions.",
+      },
       {
         type: "p",
         text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, logs, describe) do not require approval.",
@@ -307,6 +328,10 @@ kprompt --provider ollama --model llama3.2 "list pods"`,
     title: "CI / JSON",
     description: "Stable PlanResult output for pipeline gates.",
     blocks: [
+      {
+        type: "p",
+        text: "JSON output helps you gate risky plans in CI. It does not remove the need for human judgment — kprompt remains experimental, and auto-approve in pipelines can still apply a bad plan if your checks are too loose.",
+      },
       {
         type: "p",
         text: "Pass --output json or -o json to emit a single PlanResult document on stdout. Human confirmations and wait status go to stderr in JSON mode.",

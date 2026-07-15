@@ -2,6 +2,7 @@
 
 import { Reveal } from "@/components/ui/reveal";
 import { CopyCommand } from "@/components/ui/copy-command";
+import { ExperimentalNotice } from "@/components/ui/experimental-notice";
 import { SETUP_STEPS, SITE } from "@/lib/constants";
 
 export function UsageGuide() {
@@ -23,6 +24,7 @@ export function UsageGuide() {
             , set an API key, then prompt. Keys never go in the config file —
             only whether they are set or unset.
           </p>
+          <ExperimentalNotice className="mt-5" />
         </Reveal>
 
         <ol className="mt-12 space-y-10">

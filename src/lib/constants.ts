@@ -9,10 +9,14 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "Talk to Your Cluster.",
   description:
-    "Open-source CLI for Kubernetes: natural language in, a reviewable plan out — then apply with approval. Deploy, scale, rollback, explain, and automate day-2 ops with your own LLM keys.",
+    "Open-source CLI for Kubernetes: natural language in, a reviewable plan out — then apply with approval. Experimental — review every plan before apply.",
   github: "https://github.com/kprompt/kprompt",
   docs: "/docs",
   getStarted: "/#usage",
+  /** Short maturity line for hero / banners. */
+  maturityLabel: "Experimental",
+  maturityNotice:
+    "Early software. Always review the plan before apply, prefer non-production clusters first, and treat --approve with care.",
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:

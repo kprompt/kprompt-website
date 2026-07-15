@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { Logo } from "@/components/ui/logo";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -65,6 +66,7 @@ export function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           <a
             href={SITE.github}
             target="_blank"
@@ -74,24 +76,24 @@ export function Navbar() {
             <GithubIcon className="size-4" />
             GitHub
           </a>
-          <a
-            href={SITE.getStarted}
-            className={buttonVariants()}
-          >
+          <a href={SITE.getStarted} className={buttonVariants()}>
             Get Started
           </a>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-foreground md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="size-4" /> : <Menu className="size-4" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-foreground"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="size-4" /> : <Menu className="size-4" />}
+          </button>
+        </div>
       </nav>
 
       <div

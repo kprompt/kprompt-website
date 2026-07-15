@@ -23,7 +23,8 @@ export function FinalCta() {
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
             Install, run{" "}
             <span className="font-mono text-sm text-foreground">kprompt config</span>
-            , set an API key, then prompt your cluster.
+            , set an API key, then prompt your cluster. Experimental —
+            review every plan; prefer non-production first.
           </p>
 
           <CopyCommand className="mx-auto mt-8 max-w-xl text-left" size="lg" />

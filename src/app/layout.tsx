@@ -3,6 +3,7 @@ import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { SITE } from "@/lib/constants";
+import { THEME_BOOTSTRAP_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 const syne = Syne({
@@ -74,7 +75,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP_SCRIPT }} />
+      </head>
       <body
         className={`${syne.variable} ${dmSans.variable} ${jetbrains.variable} min-h-screen font-sans antialiased`}
       >

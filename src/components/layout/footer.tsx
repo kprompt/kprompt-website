@@ -15,6 +15,10 @@ export function Footer() {
             operators and platform teams.
           </p>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground/90">
+            <span className="font-medium text-foreground/80">{SITE.maturityLabel}.</span>{" "}
+            Review plans before apply · prefer non-production first.
+          </p>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground/90">
             OSS CLI today · team policy &amp; audit on the horizon.
           </p>
         </div>

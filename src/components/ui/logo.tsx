@@ -32,7 +32,7 @@ export function Logo({
         priority={priority}
       />
       {showWordmark && (
-        <span className="font-heading text-lg font-semibold tracking-tight text-navy">
+        <span className="font-heading text-lg font-semibold tracking-tight text-foreground">
           kprompt
           <span className="text-brand">.ai</span>
         </span>
