@@ -3,7 +3,7 @@ import { SITE } from "@/lib/constants";
 const UPSTREAM =
   "https://raw.githubusercontent.com/kprompt/kprompt/main/install/install.sh";
 
-/** Serves the install script at https://kprompt.ai/install for curl | bash. */
+/** Serves the install script for curl | bash (currently on Vercel; later kprompt.ai). */
 export async function GET() {
   const res = await fetch(UPSTREAM, {
     next: { revalidate: 300 },
