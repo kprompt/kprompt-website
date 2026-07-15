@@ -5,8 +5,8 @@ export const SITE = {
   tagline: "Talk to Your Cluster.",
   description:
     "Open-source AI platform to control Kubernetes with natural language. Deploy, debug, scale, and automate — like GitHub Copilot for Kubernetes.",
-  github: "https://github.com/kprompt",
-  docs: "https://github.com/kprompt",
+  github: "https://github.com/kprompt/kprompt",
+  docs: "https://github.com/kprompt/kprompt",
   getStarted: "#get-started",
   installCommand: "curl -fsSL https://kprompt.ai/install | bash",
 } as const;
