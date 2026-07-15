@@ -1,49 +1,49 @@
 import {
   MessageSquare,
-  Brain,
-  Workflow,
-  Radar,
+  ListChecks,
   ShieldCheck,
-  Code2,
+  ScrollText,
+  KeyRound,
+  Radar,
 } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 
 const FEATURES = [
   {
     icon: MessageSquare,
-    title: "Natural Language",
+    title: "Natural language",
     description:
-      "Ask for deploys, rollbacks, and scale-ups in plain English — no kubectl flags to memorize.",
+      "Ask for deploys, rollbacks, scales, logs, and deletes in plain English — same kubeconfig as kubectl.",
   },
   {
-    icon: Brain,
-    title: "AI Planning",
+    icon: ListChecks,
+    title: "Plan before apply",
     description:
-      "Intent is parsed into a concrete plan before anything touches the cluster.",
-  },
-  {
-    icon: Workflow,
-    title: "Workflow Generation",
-    description:
-      "Produces Argo Workflows and manifests automatically from your prompt.",
-  },
-  {
-    icon: Radar,
-    title: "Cluster Intelligence",
-    description:
-      "Explains resources, events, and failures with context from live cluster state.",
+      "Intent becomes a concrete execution plan with live before/after diffs when the resource already exists.",
   },
   {
     icon: ShieldCheck,
-    title: "Safe Execution",
+    title: "Safety + approval",
     description:
-      "Approval mode lets you review diffs and risk before applying changes.",
+      "Risk evaluation and hard denies for wipe-class prompts. Mutating plans need TTY y/N or --approve.",
   },
   {
-    icon: Code2,
-    title: "Open Source",
+    icon: Radar,
+    title: "Day-2 intelligence",
     description:
-      "Inspect the code, extend the agents, and contribute — no black box.",
+      "Explain-lite from status and events, log tails, compact describe, and OOM → suggested memory patches.",
+  },
+  {
+    icon: ScrollText,
+    title: "History + CI JSON",
+    description:
+      "Local prompt history with rerun. --output json emits a stable PlanResult for pipeline gates.",
+  },
+  {
+    icon: KeyRound,
+    title: "BYOK models",
+    description:
+      "OpenAI, Anthropic, Gemini, Groq, Ollama, and more. Keys stay in env vars — never in config.yaml.",
   },
 ] as const;
 
@@ -56,16 +56,16 @@ export function Features() {
             Built for real cluster work.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            From deploy to debug — one interface, grounded in Kubernetes.
+            What ships today in the MIT CLI — not a wishlist.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((feature, i) => (
             <Reveal key={feature.title} delay={i * 0.05}>
               <div className="group">
                 <feature.icon
-                  className="mb-4 size-5 text-brand transition-colors group-hover:text-indigo"
+                  className="mb-4 size-5 text-brand transition-colors group-hover:text-bright"
                   strokeWidth={1.75}
                 />
                 <h3 className="font-heading text-base font-semibold tracking-tight">

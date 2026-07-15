@@ -45,12 +45,21 @@ export function Navbar() {
         <ul className="hidden items-center gap-7 md:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </a>
+              {link.href.startsWith("/") ? (
+                <Link
+                  href={link.href}
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  href={link.href}
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -93,16 +102,27 @@ export function Navbar() {
         )}
       >
         <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
-              onClick={() => setOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.href.startsWith("/") ? (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                onClick={() => setOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                onClick={() => setOpen(false)}
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <div className="mt-3 flex flex-col gap-2 border-t border-border pt-3">
             <a
               href={SITE.github}

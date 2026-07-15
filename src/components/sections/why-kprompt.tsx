@@ -2,18 +2,17 @@ import { Check, X } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 
 const TRADITIONAL = [
-  "Write YAML",
-  "Remember kubectl syntax",
-  "Search StackOverflow",
-  "Copy manifests",
-  "Manual debugging",
+  "Hand-write YAML for routine changes",
+  "Memorize kubectl flags under pressure",
+  "Guess risk from a long diff alone",
+  "No shared trail of who applied what locally",
 ] as const;
 
 const KPROMPT = [
-  "Describe what you want",
-  "AI plans everything",
-  "Safe execution",
-  "Human language",
+  "Describe the change; get a concrete plan",
+  "Review diffs and risk before apply",
+  "Hard denies for wipe-class prompts",
+  "History + JSON PlanResult for CI gates",
 ] as const;
 
 export function WhyKprompt() {
@@ -25,13 +24,13 @@ export function WhyKprompt() {
             Why kprompt
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Less ceremony. More cluster control.
+            Less ceremony. More reviewable cluster control.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
+        <div className="mt-12 grid gap-8 md:grid-cols-2 md:gap-12">
           <Reveal>
-            <div className="h-full rounded-xl border border-border/60 bg-muted/30 p-6 sm:p-7">
+            <div>
               <h3 className="font-heading text-sm font-medium uppercase tracking-wider text-muted-foreground">
                 Traditional Kubernetes
               </h3>
@@ -53,7 +52,7 @@ export function WhyKprompt() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="h-full rounded-xl border border-brand/20 bg-brand/[0.04] p-6 sm:p-7">
+            <div>
               <h3 className="font-heading text-sm font-medium uppercase tracking-wider text-brand">
                 kprompt
               </h3>

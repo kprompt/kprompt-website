@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { AnimatedTerminal } from "@/components/ui/animated-terminal";
 import { buttonVariants } from "@/components/ui/button";
@@ -34,8 +34,8 @@ export function Hero() {
             Talk to Your Cluster.
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Describe what you need in natural language. kprompt plans the
-            change, shows you the plan, then applies it safely to Kubernetes.
+            Natural language becomes a reviewable plan — then you approve before
+            anything touches Kubernetes.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -47,10 +47,17 @@ export function Hero() {
               <ArrowRight className="size-4" />
             </a>
             <a
+              href={SITE.docs}
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              <BookOpen className="size-4" />
+              Docs
+            </a>
+            <a
               href={SITE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
             >
               <GithubIcon className="size-4" />
               GitHub

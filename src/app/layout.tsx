@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Sora } from "next/font/google";
+import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { SITE } from "@/lib/constants";
 import "./globals.css";
 
-const sora = Sora({
-  variable: "--font-sora",
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
   display: "swap",
 });
@@ -30,14 +36,14 @@ export const metadata: Metadata = {
   },
   keywords: [
     "Kubernetes",
-    "AI",
+    "AI CLI",
     "natural language",
     "kubectl",
-    "Helm",
-    "Argo Workflows",
-    "open source",
-    "DevOps",
     "platform engineering",
+    "SRE",
+    "open source",
+    "plan approve apply",
+    "DevOps",
   ],
   authors: [{ name: "kprompt" }],
   creator: "kprompt",
@@ -70,7 +76,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${sora.variable} ${jetbrains.variable} min-h-screen font-sans antialiased`}
+        className={`${syne.variable} ${dmSans.variable} ${jetbrains.variable} min-h-screen font-sans antialiased`}
       >
         <Navbar />
         {children}

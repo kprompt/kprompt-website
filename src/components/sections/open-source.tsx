@@ -16,18 +16,26 @@ export function OpenSource() {
             Open source by design
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Star the repo. Read the code. Shape the roadmap.
+            Star the repo. Read the docs. Shape the roadmap.
           </p>
 
-          <a
-            href={SITE.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(buttonVariants({ size: "lg" }), "mt-8")}
-          >
-            <Star className="size-4" />
-            Star us on GitHub
-          </a>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ size: "lg" }))}
+            >
+              <Star className="size-4" />
+              Star us on GitHub
+            </a>
+            <a
+              href={SITE.docs}
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              Read the docs
+            </a>
+          </div>
 
           <p className="mt-6 text-sm text-muted-foreground">
             MIT · Open source · Contributions welcome

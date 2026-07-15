@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
@@ -51,13 +52,19 @@ export function FinalCta() {
               View on GitHub
               <ArrowRight className="size-4" />
             </a>
-            <a
-              href="#usage"
+            <Link
+              href={SITE.docs}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
               <BookOpen className="size-4" />
+              Read the docs
+            </Link>
+            <Link
+              href="/#usage"
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+            >
               Usage guide
-            </a>
+            </Link>
           </div>
         </Reveal>
       </div>

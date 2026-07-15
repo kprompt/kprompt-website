@@ -147,14 +147,18 @@ Secrets are never stored in the config file.`}
             </div>
           </dl>
           <p className="mt-6 text-sm text-muted-foreground">
-            Full reference:{" "}
+            Deep dive:{" "}
+            <a href={SITE.docs} className="text-brand underline-offset-4 hover:underline">
+              Docs
+            </a>
+            {" · "}
             <a
               href={SITE.github}
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand underline-offset-4 hover:underline"
             >
-              github.com/kprompt/kprompt
+              GitHub
             </a>
           </p>
         </Reveal>

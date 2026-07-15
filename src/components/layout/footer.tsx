@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { Logo } from "@/components/ui/logo";
 import { SITE } from "@/lib/constants";
+import { DOCS_NAV } from "@/lib/docs-nav";
 
 export function Footer() {
   return (
@@ -24,40 +26,45 @@ export function Footer() {
             </p>
             <ul className="space-y-2 text-muted-foreground">
               <li>
-                <a href="#features" className="hover:text-foreground">
+                <Link href="/#features" className="hover:text-foreground">
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#usage" className="hover:text-foreground">
+                <Link href="/#usage" className="hover:text-foreground">
                   Usage
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#cli" className="hover:text-foreground">
+                <Link href="/#cli" className="hover:text-foreground">
                   CLI
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href={SITE.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-foreground"
-                >
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a href="#roadmap" className="hover:text-foreground">
+                <Link href="/#roadmap" className="hover:text-foreground">
                   Roadmap
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#open-source" className="hover:text-foreground">
+                <Link href="/#open-source" className="hover:text-foreground">
                   Open Source
-                </a>
+                </Link>
               </li>
+            </ul>
+          </div>
+
+          <div className="space-y-3">
+            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              Docs
+            </p>
+            <ul className="space-y-2 text-muted-foreground">
+              {DOCS_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="hover:text-foreground">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

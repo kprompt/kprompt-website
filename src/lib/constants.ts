@@ -9,10 +9,10 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "Talk to Your Cluster.",
   description:
-    "Open-source AI platform to control Kubernetes with natural language. Deploy, debug, scale, and automate — like GitHub Copilot for Kubernetes.",
+    "Open-source CLI for Kubernetes: natural language in, a reviewable plan out — then apply with approval. Deploy, scale, rollback, explain, and automate day-2 ops with your own LLM keys.",
   github: "https://github.com/kprompt/kprompt",
-  docs: "https://github.com/kprompt/kprompt",
-  getStarted: "#usage",
+  docs: "/docs",
+  getStarted: "/#usage",
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
@@ -20,12 +20,12 @@ export const SITE = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "#features", label: "Features" },
-  { href: "#how-it-works", label: "How it Works" },
-  { href: "#cli", label: "CLI" },
-  { href: "#usage", label: "Usage" },
-  { href: "#why", label: "Why" },
-  { href: "#roadmap", label: "Roadmap" },
+  { href: "/#features", label: "Features" },
+  { href: "/#how-it-works", label: "How it Works" },
+  { href: "/#cli", label: "CLI" },
+  { href: "/#usage", label: "Usage" },
+  { href: "/docs", label: "Docs" },
+  { href: "/#roadmap", label: "Roadmap" },
 ] as const;
 
 /** Public horizon only — no pricing, no “buy Team”, no ship dates (M-005). */
@@ -37,7 +37,9 @@ export const ROADMAP_PHASES = [
     items: [
       "Open-source CLI (MIT)",
       "Plan → safety → approve → apply",
-      "Deploy, scale, rollback, explain, logs",
+      "Deploy, scale, rollback, named delete",
+      "Explain, logs, describe, get/list",
+      "Prompt history and JSON plan output (CI)",
       "Your LLM keys (BYOK)",
     ],
   },
@@ -46,9 +48,8 @@ export const ROADMAP_PHASES = [
     label: "Next",
     title: "Building",
     items: [
-      "Prompt and plan history",
-      "JSON plan output for CI",
-      "Install polish (Homebrew and domain)",
+      "Homebrew install",
+      "Brand domain (kprompt.ai)",
     ],
   },
   {
@@ -113,20 +114,20 @@ export const SETUP_STEPS = [
       'echo \'export KPROMPT_GEMINI_API_KEY="..."\' >> ~/.zshrc',
       "kprompt config   # api_key should now say: set",
     ],
-    note: "Also: OPENAI, ANTHROPIC, GROQ, MISTRAL, DEEPSEEK, OPENROUTER, TOGETHER — or ollama with no key. Full table on GitHub docs/providers.md. Never put secrets in config.yaml.",
+    note: "Also: OPENAI, ANTHROPIC, GROQ, MISTRAL, DEEPSEEK, OPENROUTER, TOGETHER — or ollama with no key. Full table in Docs → Providers. Never put secrets in config.yaml.",
   },
   {
     id: "kube",
     title: "Connect your cluster",
     description: "Uses your existing kubeconfig (same as kubectl).",
     commands: ["kubectl config current-context", "kubectl get ns"],
-    note: "Optional: kprompt config set context kind-kprompt-e2e — or pass --context / -n on each command.",
+    note: "Optional: kprompt config set context kind-kprompt-e2e — or pass --context / -n on each command. Namespace phrases like in staging are parsed from the prompt when flags are omitted.",
   },
   {
     id: "prompt",
     title: "Run your first prompts",
     description:
-      "Reads run immediately. Mutations show a plan, then ask y/N on a TTY (or use --approve).",
+      "Reads run immediately. Mutations show a plan (with live diffs when available), then ask y/N on a TTY — or use --approve. Add --wait after apply to block until the Deployment is ready.",
     commands: [
       'kprompt "list deployments"',
       'kprompt "deploy redis"',
@@ -134,9 +135,32 @@ export const SETUP_STEPS = [
       'kprompt "logs payment-api"',
       'kprompt "describe payment-api"',
       'kprompt "delete deployment redis" --approve',
-      'kprompt "scale redis to 2" --approve',
+      'kprompt "scale redis to 2" --approve --wait',
       'kprompt "explain why redis is crashing"',
     ],
     note: 'A greeting like kprompt "hello" is not a cluster op — use a real Kubernetes ask after the key is set.',
+  },
+  {
+    id: "history",
+    title: "Replay from history",
+    description:
+      "Recent prompts and plan summaries are stored locally (never manifests or API keys).",
+    commands: [
+      "kprompt history",
+      "kprompt history rerun",
+      "kprompt history rerun 3 --approve",
+    ],
+    note: "File: ~/.kprompt/history.jsonl. Disable with KPROMPT_DISABLE_HISTORY=1 if needed.",
+  },
+  {
+    id: "ci",
+    title: "Gate plans in CI",
+    description:
+      "Emit a stable PlanResult JSON document for pipelines. Human UI goes to stderr; stdout is one JSON object.",
+    commands: [
+      'kprompt "scale api to 10" -n prod --output json',
+      'kprompt "scale api to 10" -n prod -o json | jq -e \'.risk.denied == false\'',
+    ],
+    note: "See Docs → CI for schema fields and jq helpers.",
   },
 ] as const;

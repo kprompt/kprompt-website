@@ -2,28 +2,27 @@
 
 import { ArrowDown } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { cn } from "@/lib/utils";
 
 const STEPS = [
   {
     step: "01",
     title: "Prompt",
-    description: "Describe what you want in plain English.",
+    description: "Describe the cluster change or query in plain English.",
   },
   {
     step: "02",
-    title: "AI Planning",
-    description: "Intent is parsed into concrete cluster actions.",
+    title: "Plan",
+    description: "LLM maps intent to concrete actions; live diffs when possible.",
   },
   {
     step: "03",
-    title: "Execution Plan",
-    description: "Review diffs, manifests, and risk before apply.",
+    title: "Safety",
+    description: "Risk level and hard denies (wipes, namespace deletes) run first.",
   },
   {
     step: "04",
-    title: "Kubernetes",
-    description: "Safe execution against your live cluster.",
+    title: "Apply",
+    description: "You approve on a TTY (or --approve). Optional --wait for rollouts.",
   },
 ] as const;
 
@@ -33,7 +32,7 @@ export function HowItWorks() {
       id="how-it-works"
       className="relative scroll-mt-20 border-y border-border bg-muted/60 py-20 sm:py-28"
     >
-      <div className="pointer-events-none absolute inset-0 bg-glow opacity-50" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 bg-glow opacity-40" aria-hidden />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
@@ -41,7 +40,7 @@ export function HowItWorks() {
             How it works
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Prompt in. Plan out. Apply with control.
+            Prompt in. Plan out. Apply with control — on your laptop, against your kubeconfig.
           </p>
         </Reveal>
 
@@ -49,11 +48,7 @@ export function HowItWorks() {
           {STEPS.map((item, i) => (
             <div key={item.title} className="flex flex-1 flex-col lg:flex-row lg:items-stretch">
               <Reveal delay={i * 0.08} className="flex-1">
-                <div
-                  className={cn(
-                    "h-full rounded-xl border border-border/70 bg-background/80 p-5 transition-colors hover:border-brand/35 hover:bg-brand/[0.04]"
-                  )}
-                >
+                <div className="h-full border-t border-border/80 pt-5 lg:border-t-0 lg:border-l lg:pl-5 lg:pt-0">
                   <p className="font-mono text-xs text-brand">{item.step}</p>
                   <h3 className="mt-3 font-heading text-lg font-semibold tracking-tight">
                     {item.title}

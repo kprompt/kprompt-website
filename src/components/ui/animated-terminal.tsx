@@ -80,7 +80,7 @@ export function AnimatedTerminal({
   useEffect(() => {
     if (phase !== "hold" || fixed || reduced) return;
 
-    const holdMs = index === 0 ? 10000 : 2200;
+    const holdMs = 2800;
     const hold = window.setTimeout(() => {
       setIndex((v) => (v + 1) % demos.length);
     }, holdMs);
@@ -128,34 +128,24 @@ export function AnimatedTerminal({
 
             <div className="mt-4 space-y-2 text-white/80">
               {current.lines.slice(0, visibleLines).map((line) => {
-                const isPunchline = line.includes("😂") || line.startsWith("…");
-                const isWarn = line.includes("🚨") || line.startsWith("⚠");
+                const isWarn =
+                  line.startsWith("⚠") ||
+                  line.toLowerCase().includes("denied") ||
+                  line.toLowerCase().includes("risk: denied");
                 const isOk =
-                  line.includes("🛡️") ||
-                  line.includes("😅") ||
-                  line.startsWith("✓");
+                  line.startsWith("✓") ||
+                  line.toLowerCase().includes("applied") ||
+                  line.toLowerCase().includes("ready");
 
                 return (
                   <motion.p
                     key={line}
-                    initial={
-                      reduced
-                        ? false
-                        : isPunchline
-                          ? { opacity: 0, y: 8, scale: 0.97 }
-                          : { opacity: 0, x: -4 }
-                    }
-                    animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
-                    transition={
-                      isPunchline
-                        ? { type: "spring", stiffness: 320, damping: 22 }
-                        : { duration: 0.25 }
-                    }
+                    initial={reduced ? false : { opacity: 0, x: -4 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.25 }}
                     className={cn(
                       isOk && "text-bright",
-                      isWarn && "text-amber-400",
-                      isPunchline &&
-                        "text-[14px] font-medium italic text-bright sm:text-[15px]"
+                      isWarn && "text-amber-400"
                     )}
                   >
                     {line}
