@@ -14,9 +14,9 @@ export const SITE = {
   docs: "https://github.com/kprompt/kprompt",
   getStarted: "#get-started",
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
-  /** Prefer jsDelivr; raw.githubusercontent.com CDN can serve stale main for a while. */
+  /** Commit-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
-    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@main/install/install.sh | bash",
+    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@6ccb6a4/install/install.sh | bash",
 } as const;
 
 export const NAV_LINKS = [
