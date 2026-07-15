@@ -53,7 +53,7 @@ export const SETUP_STEPS = [
       "source ~/.zshrc",
       "kprompt version",
     ],
-    note: "You should see a version like 0.1.0.",
+    note: "You should see a version like 0.1.0. Then run kprompt config and kprompt config set provider openai.",
   },
   {
     id: "api-key",
