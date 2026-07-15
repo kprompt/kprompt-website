@@ -39,8 +39,8 @@ export function CopyCommand({
       type="button"
       onClick={onCopy}
       className={cn(
-        "group inline-flex max-w-full items-center gap-3 rounded-lg border border-border bg-muted/80 text-left transition-colors hover:border-brand/30 hover:bg-muted",
-        size === "sm" && "px-3 py-2",
+        "group inline-flex min-h-11 max-w-full items-center gap-3 rounded-lg border border-border bg-muted/80 text-left transition-colors hover:border-brand/30 hover:bg-muted",
+        size === "sm" && "px-3 py-2.5",
         size === "lg" && "w-full px-4 py-3.5 sm:px-5",
         className
       )}

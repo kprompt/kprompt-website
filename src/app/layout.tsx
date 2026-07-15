@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { JsonLd } from "@/components/seo/json-ld";
 import { SITE } from "@/lib/constants";
 import { THEME_BOOTSTRAP_SCRIPT } from "@/lib/theme";
 import "./globals.css";
@@ -24,6 +26,18 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const gaId =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || SITE.gaMeasurementId;
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -31,6 +45,9 @@ export const metadata: Metadata = {
     template: "%s · kprompt.ai",
   },
   description: SITE.description,
+  alternates: {
+    canonical: SITE.url,
+  },
   icons: {
     icon: [{ url: "/favicon.png", type: "image/png" }],
     apple: [{ url: "/favicon.png" }],
@@ -78,6 +95,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP_SCRIPT }} />
+        <JsonLd />
       </head>
       <body
         className={`${syne.variable} ${dmSans.variable} ${jetbrains.variable} min-h-screen font-sans antialiased`}
@@ -85,6 +103,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
       </body>
     </html>
   );

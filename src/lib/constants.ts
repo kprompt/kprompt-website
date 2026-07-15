@@ -17,6 +17,8 @@ export const SITE = {
   maturityLabel: "Experimental",
   maturityNotice:
     "Early software. Always review the plan before apply, prefer non-production clusters first, and treat --approve with care.",
+  /** GA4 — public client id; override with NEXT_PUBLIC_GA_MEASUREMENT_ID if needed. */
+  gaMeasurementId: "G-E4624KGSE9",
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:

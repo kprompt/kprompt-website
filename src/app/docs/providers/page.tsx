@@ -1,14 +1,9 @@
-import type { Metadata } from "next";
 import { DocsArticle } from "@/components/docs/docs-article";
 import { DOCS_PAGES } from "@/lib/docs-content";
+import { docsMetadata } from "@/lib/docs-meta";
 
-const page = DOCS_PAGES.providers;
-
-export const metadata: Metadata = {
-  title: page.title,
-  description: page.description,
-};
+export const metadata = docsMetadata("providers", "/docs/providers");
 
 export default function DocsProvidersPage() {
-  return <DocsArticle page={page} />;
+  return <DocsArticle page={DOCS_PAGES.providers} />;
 }
