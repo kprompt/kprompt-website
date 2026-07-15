@@ -20,7 +20,7 @@ export function FinalCta() {
             Ready to talk to your cluster?
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Install the CLI, connect your kubeconfig, and start prompting.
+            Install the CLI, set an LLM API key, connect kubeconfig, then prompt.
           </p>
 
           <CopyCommand className="mx-auto mt-8 max-w-xl text-left" size="lg" />
@@ -50,13 +50,11 @@ export function FinalCta() {
               <ArrowRight className="size-4" />
             </a>
             <a
-              href={SITE.docs}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#usage"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
               <BookOpen className="size-4" />
-              Documentation
+              Usage guide
             </a>
           </div>
         </Reveal>

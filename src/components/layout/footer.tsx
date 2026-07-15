@@ -26,13 +26,18 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <a href="#usage" className="hover:text-foreground">
+                  Usage
+                </a>
+              </li>
+              <li>
                 <a href="#cli" className="hover:text-foreground">
                   CLI
                 </a>
               </li>
               <li>
                 <a
-                  href={SITE.docs}
+                  href={SITE.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground"

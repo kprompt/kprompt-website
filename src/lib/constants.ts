@@ -12,7 +12,7 @@ export const SITE = {
     "Open-source AI platform to control Kubernetes with natural language. Deploy, debug, scale, and automate — like GitHub Copilot for Kubernetes.",
   github: "https://github.com/kprompt/kprompt",
   docs: "https://github.com/kprompt/kprompt",
-  getStarted: "#get-started",
+  getStarted: "#usage",
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
   /** Commit-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
@@ -23,11 +23,71 @@ export const NAV_LINKS = [
   { href: "#features", label: "Features" },
   { href: "#how-it-works", label: "How it Works" },
   { href: "#cli", label: "CLI" },
+  { href: "#usage", label: "Usage" },
   { href: "#why", label: "Why" },
 ] as const;
 
 export const INSTALL_STEPS = [
   "Install the CLI",
-  "Connect your kubeconfig",
+  "Set an LLM API key",
+  "Connect kubeconfig",
   "Prompt your cluster",
+] as const;
+
+export const SETUP_STEPS = [
+  {
+    id: "install",
+    title: "Install the CLI",
+    description:
+      "Downloads the latest release binary into ~/.local/bin (no sudo on macOS).",
+    commands: [`curl -fsSL ${LIVE_ORIGIN}/install | bash`],
+    note: "If the installer says PATH is missing ~/.local/bin, run the export in the next step.",
+  },
+  {
+    id: "path",
+    title: "Put kprompt on your PATH",
+    description:
+      "Make the binary available in new terminal sessions.",
+    commands: [
+      'echo \'export PATH="$HOME/.local/bin:$PATH"\' >> ~/.zshrc',
+      "source ~/.zshrc",
+      "kprompt version",
+    ],
+    note: "You should see a version like 0.1.0.",
+  },
+  {
+    id: "api-key",
+    title: "Set an LLM API key",
+    description:
+      "kprompt needs a model to turn your sentence into a plan. Without a key you get: missing API key for openai.",
+    commands: [
+      'export KPROMPT_OPENAI_API_KEY="sk-..."',
+      'echo \'export KPROMPT_OPENAI_API_KEY="sk-..."\' >> ~/.zshrc',
+    ],
+    note: "Anthropic works too: export KPROMPT_ANTHROPIC_API_KEY=... and run with --provider anthropic. Keys stay in your shell env — never in ~/.kprompt/config.yaml.",
+  },
+  {
+    id: "kube",
+    title: "Connect your cluster",
+    description:
+      "Uses your existing kubeconfig (same as kubectl).",
+    commands: [
+      "kubectl config current-context",
+      "kubectl get ns",
+    ],
+    note: "Point KUBECONFIG at another file if needed. Override context with kprompt --context <name> ...",
+  },
+  {
+    id: "prompt",
+    title: "Run your first prompts",
+    description:
+      "Reads run immediately. Mutations show a plan, then ask y/N on a TTY (or use --approve).",
+    commands: [
+      'kprompt "list deployments" -n default',
+      'kprompt "deploy redis" -n default',
+      'kprompt "scale redis to 2" -n default --approve',
+      'kprompt "explain why redis is crashing" -n default',
+    ],
+    note: 'A greeting like kprompt "hello" is not a cluster op — use a real Kubernetes ask after the key is set.',
+  },
 ] as const;
