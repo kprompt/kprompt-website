@@ -14,9 +14,9 @@ export const SITE = {
   docs: "https://github.com/kprompt/kprompt",
   getStarted: "#usage",
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
-  /** Commit-pinned CDN fallback if the site is unreachable. */
+  /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
-    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@6ccb6a4/install/install.sh | bash",
+    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.2.0/install/install.sh | bash",
 } as const;
 
 export const NAV_LINKS = [
@@ -52,7 +52,7 @@ export const SETUP_STEPS = [
       "source ~/.zshrc",
       "kprompt version",
     ],
-    note: "You should see a version number. Prefer installing from source (go install …@main) until the next release if you need the newest commands.",
+    note: "You should see a version like 0.2.0.",
   },
   {
     id: "config",
