@@ -15,6 +15,7 @@ export function BlogPostJsonLd({ post }: { post: BlogPost }) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
+    image: `${SITE.url}/og.png`,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
     author: {
@@ -40,7 +41,12 @@ export function BlogPostJsonLd({ post }: { post: BlogPost }) {
       "@id": url,
     },
     url,
-    keywords: post.tags.join(", "),
+    isPartOf: {
+      "@type": "Blog",
+      name: `${SITE.name} blog`,
+      url: `${SITE.url}/blog`,
+    },
+    keywords: (post.keywords ?? post.tags).join(", "),
     inLanguage: "en-US",
   };
 

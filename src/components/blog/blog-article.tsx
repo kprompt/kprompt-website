@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { BlogAuthorByline } from "@/components/blog/blog-author-byline";
+import { BlogTagLink } from "@/components/blog/blog-tag-link";
+import { RelatedPosts } from "@/components/blog/related-posts";
 import { DocsBlocks } from "@/components/docs/docs-article";
 import type { BlogPost } from "@/lib/blog-posts";
 import { formatBlogDate } from "@/lib/blog-posts";
@@ -33,11 +35,11 @@ export function BlogArticle({ post }: { post: BlogPost }) {
         {post.tags.length > 0 ? (
           <ul className="mt-5 flex flex-wrap gap-2" aria-label="Tags">
             {post.tags.map((tag) => (
-              <li
-                key={tag}
-                className="rounded-full border border-border bg-muted/50 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground"
-              >
-                {tag}
+              <li key={tag}>
+                <BlogTagLink
+                  tag={tag}
+                  className="border border-border bg-muted/50"
+                />
               </li>
             ))}
           </ul>
@@ -51,6 +53,8 @@ export function BlogArticle({ post }: { post: BlogPost }) {
       <footer className="mt-12">
         <BlogAuthorByline author={post.author} variant="full" />
       </footer>
+
+      <RelatedPosts post={post} />
     </article>
   );
 }

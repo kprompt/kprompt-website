@@ -1639,6 +1639,46 @@ export function getAllPostSlugs(): string[] {
   return BLOG_POSTS.map((post) => post.slug);
 }
 
+export function blogTagSlug(tag: string): string {
+  return tag
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export function getAllBlogTags(): string[] {
+  return [...new Set(BLOG_POSTS.flatMap((post) => post.tags))].sort((a, b) =>
+    a.localeCompare(b)
+  );
+}
+
+export function getBlogTagBySlug(slug: string): string | undefined {
+  return getAllBlogTags().find((tag) => blogTagSlug(tag) === slug);
+}
+
+export function getPostsByTag(tag: string): BlogPost[] {
+  return getAllPosts().filter((post) => post.tags.includes(tag));
+}
+
+export function getRelatedPosts(post: BlogPost, limit = 3): BlogPost[] {
+  return getAllPosts()
+    .filter((candidate) => candidate.slug !== post.slug)
+    .map((candidate) => ({
+      post: candidate,
+      score: candidate.tags.filter((tag) => post.tags.includes(tag)).length,
+    }))
+    .filter(({ score }) => score > 0)
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        new Date(b.post.publishedAt).getTime() -
+          new Date(a.post.publishedAt).getTime()
+    )
+    .slice(0, limit)
+    .map(({ post: relatedPost }) => relatedPost);
+}
+
 export function formatBlogDate(isoDate: string): string {
   return new Date(isoDate).toLocaleDateString("en-US", {
     year: "numeric",

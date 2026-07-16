@@ -1,4 +1,5 @@
 import { BlogCard } from "@/components/blog/blog-card";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getAllPosts } from "@/lib/blog-posts";
 import { blogIndexMetadata } from "@/lib/blog-meta";
 
@@ -11,6 +12,12 @@ export default function BlogIndexPage() {
 
   return (
     <div>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+        ]}
+      />
       <header className="max-w-2xl">
         <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
           Blog

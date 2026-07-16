@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BlogAuthorAvatar, BlogAuthorName } from "@/components/blog/blog-author-byline";
+import { BlogTagLink } from "@/components/blog/blog-tag-link";
 import type { BlogPost } from "@/lib/blog-posts";
 import { formatBlogDate } from "@/lib/blog-posts";
 
@@ -28,11 +29,8 @@ export function BlogCard({ post }: { post: BlogPost }) {
       {post.tags.length > 0 ? (
         <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tags">
           {post.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-full bg-muted px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground"
-            >
-              {tag}
+            <li key={tag}>
+              <BlogTagLink tag={tag} />
             </li>
           ))}
         </ul>

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import type { DocsBlock, DocsPage } from "@/lib/docs-content";
+import { DOCS_NAV } from "@/lib/docs-nav";
 
 function LinkedText({
   text,
@@ -134,17 +136,29 @@ function Block({ block }: { block: DocsBlock }) {
 }
 
 export function DocsArticle({ page }: { page: DocsPage }) {
+  const path =
+    DOCS_NAV.find((item) => item.label === page.title)?.href ?? "/docs";
+
   return (
-    <article className="max-w-3xl">
-      <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-        {page.title}
-      </h1>
-      <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-        {page.description}
-      </p>
-      <div className="mt-10">
-        <DocsBlocks blocks={page.blocks} />
-      </div>
-    </article>
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Docs", path: "/docs" },
+          ...(path === "/docs" ? [] : [{ name: page.title, path }]),
+        ]}
+      />
+      <article className="max-w-3xl">
+        <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+          {page.title}
+        </h1>
+        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+          {page.description}
+        </p>
+        <div className="mt-10">
+          <DocsBlocks blocks={page.blocks} />
+        </div>
+      </article>
+    </>
   );
 }

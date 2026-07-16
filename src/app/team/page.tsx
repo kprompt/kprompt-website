@@ -1,5 +1,6 @@
 import { TeamMemberCard } from "@/components/team/team-member-card";
 import { ContributeSection } from "@/components/team/contribute-section";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { teamMetadata } from "@/lib/team-meta";
 import { TEAM_MEMBERS, TEAM_PAGE } from "@/lib/team";
 
@@ -8,6 +9,12 @@ export const metadata = teamMetadata();
 export default function TeamPage() {
   return (
     <div>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Team", path: "/team" },
+        ]}
+      />
       <header className="max-w-2xl">
         <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
           {TEAM_PAGE.title}
