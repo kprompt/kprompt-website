@@ -27,10 +27,94 @@ export const NAV_LINKS = [
   { href: "/#features", label: "Features" },
   { href: "/#how-it-works", label: "How it Works" },
   { href: "/#cli", label: "CLI" },
-  { href: "/#live-demo", label: "Live demo" },
+  { href: "/#integrations", label: "Integrations" },
   { href: "/#usage", label: "Usage" },
   { href: "/docs", label: "Docs" },
   { href: "/#roadmap", label: "Roadmap" },
+] as const;
+
+/** Future tool integrations — not shipped; honest horizon only (M-005 / T-047). */
+export const INTEGRATION_ROADMAP = [
+  {
+    id: "v03",
+    label: "Next",
+    title: "Helm & deeper Kubernetes",
+    items: [
+      {
+        name: "Helm",
+        description: "Chart install and upgrade via helm CLI — shown in the plan before exec.",
+        example: 'kprompt "install redis"',
+      },
+      {
+        name: "Kubernetes depth",
+        description: "Chain Deployment → ReplicaSet → Pods → Events → Logs in one explain.",
+        example: 'kprompt "why isn\'t my deployment ready?"',
+      },
+    ],
+  },
+  {
+    id: "v04",
+    label: "Later",
+    title: "Workflows & metrics",
+    items: [
+      {
+        name: "Argo Workflows",
+        description: "Generate and submit Workflows from a prompt — ML pipelines, batch jobs.",
+        example: 'kprompt "train a yolov11 model"',
+      },
+      {
+        name: "Prometheus",
+        description: "Query metrics for performance explains — CPU, latency, HPA.",
+        example: 'kprompt "why is my api slow?"',
+      },
+    ],
+  },
+  {
+    id: "v05",
+    label: "Later",
+    title: "Traces & dashboards",
+    items: [
+      {
+        name: "OpenTelemetry",
+        description: "Walk distributed traces and call out slow spans.",
+        example: 'kprompt "trace payment request"',
+      },
+      {
+        name: "Grafana",
+        description: "Open or summarize dashboards from the terminal.",
+        example: 'kprompt "show dashboard"',
+      },
+    ],
+  },
+  {
+    id: "v10",
+    label: "Exploring",
+    title: "Cloud-native ecosystem",
+    items: [
+      {
+        name: "GitOps",
+        description: "Flux CD / Argo CD sync status, promote, rollback.",
+        example: 'kprompt "rollback yesterday\'s deployment"',
+      },
+      {
+        name: "Tekton · KEDA · Istio",
+        description: "CI pipelines, event-driven scale, traffic management — via real CRDs/APIs.",
+        example: 'kprompt "create a CI pipeline"',
+      },
+      {
+        name: "Crossplane",
+        description: "Cloud resource claims with strong approval gates.",
+        example: 'kprompt "provision a postgres database"',
+      },
+    ],
+  },
+] as const;
+
+export const NORTH_STAR_PROMPTS = [
+  'kprompt "deploy my app"',
+  'kprompt "why is production slow"',
+  'kprompt "optimize my cluster"',
+  'kprompt "show service dependency graph"',
 ] as const;
 
 /** Public horizon only — no pricing, no “buy Team”, no ship dates (M-005). */
@@ -55,6 +139,8 @@ export const ROADMAP_PHASES = [
     title: "Building",
     items: [
       "Homebrew install",
+      "Helm orchestration (install / upgrade)",
+      "Deeper Kubernetes investigation chain",
     ],
   },
   {
@@ -62,9 +148,9 @@ export const ROADMAP_PHASES = [
     label: "Later",
     title: "Exploring",
     items: [
-      "Team: org policy sync",
-      "Team: audit of prompts and applies",
-      "Team: shared identity (no SSO promise)",
+      "Argo Workflows · Prometheus · OpenTelemetry · Grafana",
+      "GitOps (Flux / Argo CD) · Tekton · KEDA · Istio",
+      "Team: org policy sync · audit · shared identity",
     ],
   },
 ] as const;

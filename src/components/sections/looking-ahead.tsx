@@ -14,9 +14,8 @@ export function LookingAhead() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             The CLI stays open source and free — and still experimental.
-            We&apos;re also exploring a future Team layer for org policy and
-            audit — so groups can trust natural-language changes the way they
-            trust kubectl reviews. Nothing to buy today.
+            Tool integrations above are planned, not shipped. We&apos;re also
+            exploring a Team layer for org policy and audit. Nothing to buy today.
           </p>
         </Reveal>
 

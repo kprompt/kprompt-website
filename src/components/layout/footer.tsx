@@ -45,8 +45,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#live-demo" className="hover:text-foreground">
-                  Live demo
+                <Link href="/#integrations" className="hover:text-foreground">
+                  Integrations
                 </Link>
               </li>
               <li>
