@@ -10,7 +10,7 @@ export const SITE = {
     "Open-source CLI for Kubernetes: natural language in, a reviewable plan out — then apply with approval. Experimental — review every plan before apply.",
   github: "https://github.com/kprompt/kprompt",
   docs: "/docs",
-  getStarted: "/#usage",
+  getStarted: "/docs/quickstart",
   /** Short maturity line for hero / banners. */
   maturityLabel: "Experimental",
   maturityNotice:
@@ -24,13 +24,9 @@ export const SITE = {
 } as const;
 
 export const NAV_LINKS = [
-  { href: "/#features", label: "Features" },
-  { href: "/#how-it-works", label: "How it Works" },
-  { href: "/#cli", label: "CLI" },
-  { href: "/#integrations", label: "Integrations" },
-  { href: "/#usage", label: "Usage" },
   { href: "/docs", label: "Docs" },
-  { href: "/#roadmap", label: "Roadmap" },
+  { href: "/blog", label: "Blog" },
+  { href: "/team", label: "Team" },
 ] as const;
 
 /** Future tool integrations — not shipped; honest horizon only (M-005 / T-047). */

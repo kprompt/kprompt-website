@@ -1,5 +1,15 @@
 import type { DocsBlock, DocsPage } from "@/lib/docs-content";
 
+export function DocsBlocks({ blocks }: { blocks: DocsBlock[] }) {
+  return (
+    <div className="space-y-4">
+      {blocks.map((block, i) => (
+        <Block key={i} block={block} />
+      ))}
+    </div>
+  );
+}
+
 function Block({ block }: { block: DocsBlock }) {
   switch (block.type) {
     case "p":
@@ -86,10 +96,8 @@ export function DocsArticle({ page }: { page: DocsPage }) {
       <p className="mt-3 text-base leading-relaxed text-muted-foreground">
         {page.description}
       </p>
-      <div className="mt-10 space-y-4">
-        {page.blocks.map((block, i) => (
-          <Block key={i} block={block} />
-        ))}
+      <div className="mt-10">
+        <DocsBlocks blocks={page.blocks} />
       </div>
     </article>
   );

@@ -3,8 +3,11 @@ import { GithubIcon } from "@/components/ui/github-icon";
 import { Logo } from "@/components/ui/logo";
 import { SITE } from "@/lib/constants";
 import { DOCS_NAV } from "@/lib/docs-nav";
+import { getAllPosts } from "@/lib/blog-posts";
 
 export function Footer() {
+  const recentPosts = getAllPosts().slice(0, 4);
+
   return (
     <footer className="border-t border-border bg-muted/40">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 md:flex-row md:items-start md:justify-between">
@@ -79,9 +82,34 @@ export function Footer() {
 
           <div className="space-y-3">
             <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              Blog
+            </p>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>
+                <Link href="/blog" className="hover:text-foreground">
+                  All posts
+                </Link>
+              </li>
+              {recentPosts.map((post) => (
+                <li key={post.slug}>
+                  <Link href={`/blog/${post.slug}`} className="hover:text-foreground">
+                    {post.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-3">
+            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               Community
             </p>
             <ul className="space-y-2 text-muted-foreground">
+              <li>
+                <Link href="/team" className="hover:text-foreground">
+                  Team
+                </Link>
+              </li>
               <li>
                 <a
                   href={SITE.github}

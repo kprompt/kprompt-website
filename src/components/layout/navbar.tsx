@@ -2,7 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  ArrowRight,
+  BookOpen,
+  Menu,
+  Newspaper,
+  Users,
+  X,
+} from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { Logo } from "@/components/ui/logo";
@@ -10,12 +19,117 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
+const NAV_ICONS = {
+  Docs: BookOpen,
+  Blog: Newspaper,
+  Team: Users,
+} as const;
+
+function isNavActive(pathname: string, href: string) {
+  if (href === "/docs") {
+    return pathname === "/docs" || pathname.startsWith("/docs/");
+  }
+  if (href === "/blog") {
+    return pathname === "/blog" || pathname.startsWith("/blog/");
+  }
+  if (href === "/team") {
+    return pathname === "/team" || pathname.startsWith("/team/");
+  }
+  return pathname === href;
+}
+
+function DesktopNavLink({
+  href,
+  label,
+  active,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+}) {
+  return (
+    <li>
+      <Link
+        href={href}
+        aria-current={active ? "page" : undefined}
+        className={cn(
+          "group relative px-3 py-2 text-sm font-medium transition-colors",
+          active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        {label}
+        <span
+          aria-hidden
+          className={cn(
+            "absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand transition-transform duration-200",
+            active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+          )}
+        />
+      </Link>
+    </li>
+  );
+}
+
+function MobileNavLink({
+  href,
+  label,
+  active,
+  onNavigate,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+  onNavigate: () => void;
+}) {
+  const Icon = NAV_ICONS[label as keyof typeof NAV_ICONS];
+
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        "flex items-center gap-4 rounded-2xl border px-4 py-4 transition-colors",
+        active
+          ? "border-brand/25 bg-brand/5 text-foreground"
+          : "border-border/70 bg-muted/20 text-muted-foreground hover:border-border hover:bg-muted/40 hover:text-foreground"
+      )}
+    >
+      <span
+        className={cn(
+          "flex size-10 shrink-0 items-center justify-center rounded-xl border",
+          active
+            ? "border-brand/20 bg-brand/10 text-brand"
+            : "border-border bg-background text-muted-foreground"
+        )}
+      >
+        <Icon className="size-4" aria-hidden />
+      </span>
+      <span className="flex-1">
+        <span className="block font-heading text-base font-semibold tracking-tight">
+          {label}
+        </span>
+        <span className="mt-0.5 block text-xs text-muted-foreground">
+          {label === "Docs"
+            ? "Install, commands, safety, CI"
+            : label === "Blog"
+              ? "Updates and notes from the team"
+              : "People building kprompt"}
+        </span>
+      </span>
+      <ArrowRight className="size-4 shrink-0 opacity-50" aria-hidden />
+    </Link>
+  );
+}
+
 export function Navbar() {
+  const pathname = usePathname();
+  const reduced = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -28,44 +142,39 @@ export function Navbar() {
     };
   }, [open]);
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  const closeMenu = () => setOpen(false);
+
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        scrolled || open ? "glass" : "bg-transparent"
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300",
+        scrolled || open ? "glass shadow-sm" : "border-b border-transparent"
       )}
     >
       <nav
-        className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6"
+        className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6"
         aria-label="Primary"
       >
-        <Link href="/" aria-label="kprompt.ai home">
+        <Link href="/" aria-label="kprompt.ai home" className="shrink-0">
           <Logo size={28} priority />
         </Link>
 
-        <ul className="hidden items-center gap-7 md:flex">
+        <ul className="hidden flex-1 items-center justify-center gap-2 md:flex">
           {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              {link.href.startsWith("/") ? (
-                <Link
-                  href={link.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {link.label}
-                </Link>
-              ) : (
-                <a
-                  href={link.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {link.label}
-                </a>
-              )}
-            </li>
+            <DesktopNavLink
+              key={link.href}
+              href={link.href}
+              label={link.label}
+              active={isNavActive(pathname, link.href)}
+            />
           ))}
         </ul>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 md:ml-auto md:flex">
           <ThemeToggle />
           <a
             href={SITE.github}
@@ -76,79 +185,97 @@ export function Navbar() {
             <GithubIcon className="size-4" />
             GitHub
           </a>
-          <a href={SITE.getStarted} className={buttonVariants()}>
+          <Link href={SITE.getStarted} className={buttonVariants()}>
             Get Started
-          </a>
+            <ArrowRight className="size-4" />
+          </Link>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="ml-auto flex items-center gap-2 md:hidden">
+          <Link
+            href={SITE.getStarted}
+            className={cn(buttonVariants({ size: "sm" }), "hidden min-[420px]:inline-flex")}
+          >
+            Get Started
+          </Link>
           <ThemeToggle />
           <button
             type="button"
-            className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-foreground"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "icon" }),
+              open && "border-brand/30 bg-brand/5 text-brand"
+            )}
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => setOpen((value) => !value)}
           >
             {open ? <X className="size-4" /> : <Menu className="size-4" />}
           </button>
         </div>
       </nav>
 
-      <div
-        id="mobile-menu"
-        className={cn(
-          "border-t border-border md:hidden",
-          open ? "block" : "hidden"
-        )}
-      >
-        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
-          {NAV_LINKS.map((link) =>
-            link.href.startsWith("/") ? (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ) : (
-              <a
-                key={link.href}
-                href={link.href}
-                className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </a>
-            )
-          )}
-          <div className="mt-3 flex flex-col gap-2 border-t border-border pt-3">
-            <a
-              href={SITE.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "w-full justify-center"
-              )}
-              onClick={() => setOpen(false)}
+      <AnimatePresence>
+        {open ? (
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close menu"
+              initial={reduced ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={reduced ? undefined : { opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 top-16 z-40 bg-background/70 backdrop-blur-sm md:hidden"
+              onClick={closeMenu}
+            />
+
+            <motion.div
+              id="mobile-menu"
+              initial={reduced ? false : { opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduced ? undefined : { opacity: 0, y: -12 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-x-0 top-16 z-50 border-b border-border glass md:hidden"
             >
-              <GithubIcon className="size-4" />
-              GitHub
-            </a>
-            <a
-              href={SITE.getStarted}
-              className={cn(buttonVariants(), "w-full justify-center")}
-              onClick={() => setOpen(false)}
-            >
-              Get Started
-            </a>
-          </div>
-        </div>
-      </div>
+              <div className="mx-auto max-w-6xl space-y-3 px-4 py-5 sm:px-6">
+                {NAV_LINKS.map((link) => (
+                  <MobileNavLink
+                    key={link.href}
+                    href={link.href}
+                    label={link.label}
+                    active={isNavActive(pathname, link.href)}
+                    onNavigate={closeMenu}
+                  />
+                ))}
+
+                <div className="grid grid-cols-1 gap-2 border-t border-border/70 pt-4 min-[420px]:grid-cols-2">
+                  <a
+                    href={SITE.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "h-11 w-full justify-center"
+                    )}
+                    onClick={closeMenu}
+                  >
+                    <GithubIcon className="size-4" />
+                    GitHub
+                  </a>
+                  <Link
+                    href={SITE.getStarted}
+                    className={cn(buttonVariants(), "h-11 w-full justify-center gap-1.5")}
+                    onClick={closeMenu}
+                  >
+                    Get Started
+                    <ArrowRight className="size-4" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        ) : null}
+      </AnimatePresence>
     </header>
   );
 }
