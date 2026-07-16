@@ -1,5 +1,9 @@
 export type DocsBlock =
-  | { type: "p"; text: string }
+  | {
+      type: "p";
+      text: string;
+      links?: { label: string; href: string }[];
+    }
   | { type: "h2"; text: string }
   | { type: "h3"; text: string }
   | { type: "ul"; items: string[] }

@@ -124,6 +124,10 @@ kprompt "list deployments"`,
       {
         type: "p",
         text: "Full install, provider, safety, and CI docs live at kprompt.ai/docs. Source and issues are on GitHub — contributions and feedback welcome. We'll publish more here as we ship Helm depth, Homebrew, and the next integration layers.",
+        links: [
+          { label: "kprompt.ai/docs", href: "/docs" },
+          { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
+        ],
       },
     ],
   },
@@ -132,7 +136,7 @@ kprompt "list deployments"`,
     title: "Kubernetes meets AI: what works, what breaks, and what's next",
     description:
       "Large language models change how operators talk to clusters — but they don't replace kube-apiserver truth. A practical map of AI + Kubernetes: use cases, failure modes, and why plan-before-apply matters.",
-    publishedAt: "2026-07-20",
+    publishedAt: "2026-07-16",
     author: MUHTALIP_DEDE,
     tags: ["kubernetes", "ai", "llm", "platform engineering", "devops"],
     blocks: [
@@ -374,7 +378,7 @@ kprompt "scale api to 2" -n staging   # review plan before y`,
       "Kubernetes CLI integrations: Helm, GitOps, Prometheus, and the cloud-native stack",
     description:
       "An open-source Kubernetes CLI should speak to Helm, Argo CD, Prometheus, and more — not just kubectl. Here's why kprompt is building natural-language integrations across the cloud-native ecosystem, what's shipping now, and what's on the horizon.",
-    publishedAt: "2026-07-24",
+    publishedAt: "2026-07-16",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -605,6 +609,14 @@ kprompt "explain why nginx is crashlooping"`,
       {
         type: "p",
         text: "Docs cover install, providers, safety, and CI JSON at kprompt.ai/docs. To influence priority — Helm vs GitOps vs metrics — comment on GitHub issues or join the contributor guide at kprompt.ai/team. The best Kubernetes CLI roadmap is the one shaped by operators running real clusters.",
+        links: [
+          { label: "kprompt.ai/docs", href: "/docs" },
+          {
+            label: "GitHub issues",
+            href: "https://github.com/kprompt/kprompt/issues",
+          },
+          { label: "kprompt.ai/team", href: "/team" },
+        ],
       },
     ],
   },
@@ -614,7 +626,7 @@ kprompt "explain why nginx is crashlooping"`,
       "How to troubleshoot Kubernetes: deployments, pods, and crash loops from the terminal",
     description:
       "A practical guide to Kubernetes troubleshooting — CrashLoopBackOff, deployments not ready, image pull errors, and rollbacks — using kubectl workflows and natural-language explains with kprompt.",
-    publishedAt: "2026-07-28",
+    publishedAt: "2026-07-16",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -849,6 +861,7 @@ kprompt "scale api to 10" -n prod -o json | jq -e '.risk.denied == false'`,
       {
         type: "p",
         text: "Install kprompt, point at a non-production cluster, and practice explain and logs prompts on a broken test deployment before you need them at 3 a.m. Full safety and command reference: kprompt.ai/docs.",
+        links: [{ label: "kprompt.ai/docs", href: "/docs" }],
       },
       {
         type: "code",
@@ -866,7 +879,7 @@ kprompt "why isn't my deployment ready?" -n staging`,
       "Kubernetes in CI/CD: gating cluster changes with plan JSON before apply",
     description:
       "How to use kprompt PlanResult JSON in CI/CD pipelines to review Kubernetes scale, deploy, and rollback plans before apply — with jq gates, GitHub Actions patterns, and production safety rules.",
-    publishedAt: "2026-08-01",
+    publishedAt: "2026-07-16",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -1107,6 +1120,7 @@ echo "$json" | jq '.result'`,
       {
         type: "p",
         text: "Install kprompt in a branch pipeline, emit JSON for a harmless list or describe prompt, then progress to scale on staging with two-stage gate + environment approval. Full schema and jq helpers: kprompt.ai/docs/ci.",
+        links: [{ label: "kprompt.ai/docs/ci", href: "/docs/ci" }],
       },
       {
         type: "code",
@@ -1124,7 +1138,7 @@ kprompt "scale api to 2" -n staging --approve --wait`,
       "Choosing an LLM for Kubernetes: BYOK providers, privacy, and what to run in prod",
     description:
       "Compare Gemini, OpenAI, Anthropic, Groq, and Ollama for Kubernetes CLI workflows with kprompt — BYOK keys, air-gapped setups, model speed vs explain quality, and security rules for operators.",
-    publishedAt: "2026-08-05",
+    publishedAt: "2026-07-16",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -1356,6 +1370,12 @@ kprompt --provider ollama --model llama3.2 "$PROMPT" -n default`,
       {
         type: "p",
         text: "Full provider table and env var reference: kprompt.ai/docs/providers. Install once, swap models as your security and quality bar evolves — no hosted kprompt account required.",
+        links: [
+          {
+            label: "kprompt.ai/docs/providers",
+            href: "/docs/providers",
+          },
+        ],
       },
     ],
   },
@@ -1365,7 +1385,7 @@ kprompt --provider ollama --model llama3.2 "$PROMPT" -n default`,
       "Kubernetes safety with AI: plan, approve, hard denies, and production discipline",
     description:
       "Why natural-language Kubernetes tools need plan-before-apply, risk scoring, and hard denies — with real kprompt examples for scale, rollback, and blocked wipe prompts.",
-    publishedAt: "2026-08-08",
+    publishedAt: "2026-07-16",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -1592,6 +1612,13 @@ kprompt "scale api to 2" -n staging    # review plan → y or n`,
       {
         type: "p",
         text: "Full safety reference: kprompt.ai/docs/safety. For CI gating, see our post on PlanResult JSON. The goal is simple: AI speed with operator control — not autopilot with a Kubernetes sticker.",
+        links: [
+          { label: "kprompt.ai/docs/safety", href: "/docs/safety" },
+          {
+            label: "our post on PlanResult JSON",
+            href: "/blog/kubernetes-ci-cd-plan-gates",
+          },
+        ],
       },
     ],
   },

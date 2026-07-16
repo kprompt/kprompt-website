@@ -1,4 +1,48 @@
+import Link from "next/link";
+import type { ReactNode } from "react";
 import type { DocsBlock, DocsPage } from "@/lib/docs-content";
+
+function LinkedText({
+  text,
+  links = [],
+}: {
+  text: string;
+  links?: { label: string; href: string }[];
+}) {
+  const nodes: ReactNode[] = [];
+  let cursor = 0;
+
+  for (const link of links) {
+    const index = text.indexOf(link.label, cursor);
+    if (index === -1) continue;
+
+    nodes.push(text.slice(cursor, index));
+    const className =
+      "font-medium text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-brand hover:decoration-brand";
+
+    nodes.push(
+      link.href.startsWith("/") ? (
+        <Link key={`${link.href}-${index}`} href={link.href} className={className}>
+          {link.label}
+        </Link>
+      ) : (
+        <a
+          key={`${link.href}-${index}`}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+        >
+          {link.label}
+        </a>
+      )
+    );
+    cursor = index + link.label.length;
+  }
+
+  nodes.push(text.slice(cursor));
+  return nodes;
+}
 
 export function DocsBlocks({ blocks }: { blocks: DocsBlock[] }) {
   return (
@@ -14,7 +58,9 @@ function Block({ block }: { block: DocsBlock }) {
   switch (block.type) {
     case "p":
       return (
-        <p className="text-base leading-relaxed text-muted-foreground">{block.text}</p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          <LinkedText text={block.text} links={block.links} />
+        </p>
       );
     case "h2":
       return (
