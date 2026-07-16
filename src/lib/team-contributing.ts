@@ -21,8 +21,8 @@ export const CONTRIBUTE_REPOS: ContributeRepo[] = [
     name: "CLI",
     href: "https://github.com/kprompt/kprompt",
     description:
-      "Go binary: planner, safety, executor, providers, Helm depth, and E2E against kind.",
-    stack: "Go · kubectl · LLM APIs",
+      "Go binary: planner, safety, executor, providers, tool integrations, and E2E against kind.",
+    stack: "Go · Kubernetes · Helm · LLM APIs",
   },
   {
     name: "Website",
@@ -36,9 +36,9 @@ export const CONTRIBUTE_REPOS: ContributeRepo[] = [
 export const CONTRIBUTE_FOCUS_AREAS = [
   "Safety rules, risk scoring, and hard-deny coverage",
   "New LLM providers and preset quality",
-  "Helm install/upgrade flows and deeper Kubernetes investigation chains",
-  "Docs accuracy — install, providers, CI JSON, and operator examples",
-  "E2E tests on kind (deploy, scale, rollback, explain, logs)",
+  "Trace-walk diagnosis, Grafana summaries, and integration adapters",
+  "Docs accuracy — integrations, themes, providers, CI JSON, and operator examples",
+  "E2E tests on kind (core ops, Helm, Argo Workflows, performance)",
   "Website UX, accessibility, and content (blog, docs, team)",
 ] as const;
 

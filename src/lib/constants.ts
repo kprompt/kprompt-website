@@ -7,7 +7,7 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "Talk to Your Cluster.",
   description:
-    "Open-source CLI for Kubernetes: natural language in, a reviewable plan out — then apply with approval. Experimental — review every plan before apply.",
+    "Open-source Kubernetes CLI with reviewable plans, Helm and Argo orchestration, Prometheus performance explains, and approval-gated apply.",
   github: "https://github.com/kprompt/kprompt",
   docs: "/docs",
   getStarted: "/docs/quickstart",
@@ -29,54 +29,60 @@ export const NAV_LINKS = [
   { href: "/team", label: "Team" },
 ] as const;
 
-/** Future tool integrations — not shipped; honest horizon only (M-005 / T-047). */
+/** Shipped integration surface plus the honest next horizon (M-005 / T-047). */
 export const INTEGRATION_ROADMAP = [
   {
-    id: "v03",
-    label: "Next",
-    title: "Helm & deeper Kubernetes",
+    id: "shipped-core",
+    label: "Shipped · v0.3.0",
+    title: "Kubernetes & Helm",
     items: [
       {
         name: "Helm",
-        description: "Chart install and upgrade via helm CLI — shown in the plan before exec.",
+        status: "Shipped",
+        description: "Chart install and upgrade via the real Helm CLI, with template and dry-run previews before execution.",
         example: 'kprompt "install redis"',
       },
       {
         name: "Kubernetes depth",
+        status: "Shipped",
         description: "Chain Deployment → ReplicaSet → Pods → Events → Logs in one explain.",
         example: 'kprompt "why isn\'t my deployment ready?"',
       },
     ],
   },
   {
-    id: "v04",
-    label: "Later",
+    id: "shipped-signals",
+    label: "Shipped · v0.3.0",
     title: "Workflows & metrics",
     items: [
       {
         name: "Argo Workflows",
-        description: "Generate and submit Workflows from a prompt — ML pipelines, batch jobs.",
+        status: "Shipped",
+        description: "Generate, preview, submit, wait for, and read Workflow status through the installed CRD.",
         example: 'kprompt "train a yolov11 model"',
       },
       {
         name: "Prometheus",
-        description: "Query metrics for performance explains — CPU, latency, HPA.",
+        status: "Shipped",
+        description: "Run bounded PromQL queries and explain workload CPU, memory, p95 latency, replicas, and HPA signals.",
         example: 'kprompt "why is my api slow?"',
       },
     ],
   },
   {
-    id: "v05",
-    label: "Later",
+    id: "observability-next",
+    label: "Foundation + next",
     title: "Traces & dashboards",
     items: [
       {
-        name: "OpenTelemetry",
-        description: "Walk distributed traces and call out slow spans.",
+        name: "Jaeger / Tempo",
+        status: "Foundation",
+        description: "Trace query adapters ship now; natural-language trace walking and bottleneck narration come next.",
         example: 'kprompt "trace payment request"',
       },
       {
         name: "Grafana",
+        status: "Planned",
         description: "Open or summarize dashboards from the terminal.",
         example: 'kprompt "show dashboard"',
       },
@@ -89,16 +95,19 @@ export const INTEGRATION_ROADMAP = [
     items: [
       {
         name: "GitOps",
+        status: "Exploring",
         description: "Flux CD / Argo CD sync status, promote, rollback.",
         example: 'kprompt "rollback yesterday\'s deployment"',
       },
       {
         name: "Tekton · KEDA · Istio",
+        status: "Exploring",
         description: "CI pipelines, event-driven scale, traffic management — via real CRDs/APIs.",
         example: 'kprompt "create a CI pipeline"',
       },
       {
         name: "Crossplane",
+        status: "Exploring",
         description: "Cloud resource claims with strong approval gates.",
         example: 'kprompt "provision a postgres database"',
       },
@@ -123,8 +132,13 @@ export const ROADMAP_PHASES = [
       "Open-source CLI (MIT)",
       "Plan → safety → approve → apply",
       "Deploy, scale, rollback, named delete",
-      "Explain, logs, describe, get/list",
-      "Prompt history and JSON plan output (CI)",
+      "Deep explain, logs, describe, get/list",
+      "Helm install/upgrade plans and dry-run previews",
+      "Argo Workflow generate/submit/status/wait",
+      "Prometheus performance diagnosis",
+      "Jaeger/Tempo query adapter foundation",
+      "Prompt history, CI JSON, and terminal themes",
+      "Integration discovery with kprompt tools",
       "Your LLM keys (BYOK)",
       "Brand domain (kprompt.ai)",
     ],
@@ -135,8 +149,9 @@ export const ROADMAP_PHASES = [
     title: "Building",
     items: [
       "Homebrew install",
-      "Helm orchestration (install / upgrade)",
-      "Deeper Kubernetes investigation chain",
+      "Natural-language trace walk and bottleneck narration",
+      "Grafana dashboard API and terminal summaries",
+      "Integration E2E matrix and operator docs",
     ],
   },
   {
@@ -144,8 +159,8 @@ export const ROADMAP_PHASES = [
     label: "Later",
     title: "Exploring",
     items: [
-      "Argo Workflows · Prometheus · OpenTelemetry · Grafana",
       "GitOps (Flux / Argo CD) · Tekton · KEDA · Istio",
+      "Crossplane · cluster optimization · dependency graph",
       "Team: org policy sync · audit · shared identity",
     ],
   },
@@ -188,8 +203,9 @@ export const SETUP_STEPS = [
       "kprompt config set provider gemini",
       "kprompt config set model gemini-2.0-flash",
       "kprompt config set namespace default",
+      "kprompt config set theme dracula",
     ],
-    note: "Allowed keys: provider, model, base_url, context, namespace. Example view after set: provider gemini, api_key unset (until you export KPROMPT_GEMINI_API_KEY).",
+    note: "Allowed keys include provider, model, base_url, context, namespace, theme, and tools.* integration endpoints. API keys stay in environment variables.",
   },
   {
     id: "api-key",
@@ -226,6 +242,31 @@ export const SETUP_STEPS = [
       'kprompt "explain why redis is crashing"',
     ],
     note: 'A greeting like kprompt "hello" is not a cluster op — use a real Kubernetes ask after the key is set.',
+  },
+  {
+    id: "theme",
+    title: "Choose a terminal theme",
+    description:
+      "Colorize plans, risks, findings, and tables. Themes only render on a TTY and respect NO_COLOR.",
+    commands: [
+      'kprompt --theme dracula "list deployments"',
+      "kprompt config set theme nord",
+      'export KPROMPT_THEME="gruvbox"',
+    ],
+    note: "Built-ins: auto, dracula, nord, gruvbox, mono, none. Use KPROMPT_FORCE_COLOR=1 only when your output consumer supports ANSI.",
+  },
+  {
+    id: "tools",
+    title: "Discover integrations",
+    description:
+      "See which real backends are ready before using Helm, Argo, Prometheus, or trace features.",
+    commands: [
+      "kprompt tools",
+      'kprompt "install redis"',
+      'kprompt "train a yolov11 model" --approve --wait',
+      'kprompt "why is my api slow?" -n production',
+    ],
+    note: "Helm needs its binary on PATH; Argo needs the Workflow CRD; Prometheus and Jaeger/Tempo use tools.* config or KPROMPT_* environment endpoints.",
   },
   {
     id: "history",

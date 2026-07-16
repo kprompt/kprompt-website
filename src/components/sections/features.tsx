@@ -13,7 +13,7 @@ const FEATURES = [
     icon: MessageSquare,
     title: "Natural language",
     description:
-      "Ask for deploys, rollbacks, scales, logs, and deletes in plain English — same kubeconfig as kubectl.",
+      "Ask for workload changes, troubleshooting, charts, workflows, and performance in plain English.",
   },
   {
     icon: ListChecks,
@@ -29,15 +29,15 @@ const FEATURES = [
   },
   {
     icon: Radar,
-    title: "Day-2 intelligence",
+    title: "Grounded investigation",
     description:
-      "Explain-lite from status and events, log tails, compact describe, and OOM → suggested memory patches.",
+      "Deep Kubernetes explain plus Prometheus-backed CPU, memory, latency, replica, and HPA findings.",
   },
   {
     icon: ScrollText,
-    title: "History + CI JSON",
+    title: "Operator-friendly output",
     description:
-      "Local prompt history with rerun. --output json emits a stable PlanResult for pipeline gates.",
+      "Local history, CI-stable JSON, tool discovery, and auto, Dracula, Nord, Gruvbox, mono, or plain themes.",
   },
   {
     icon: KeyRound,

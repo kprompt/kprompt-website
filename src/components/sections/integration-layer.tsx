@@ -11,7 +11,7 @@ export function IntegrationLayer() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <p className="font-mono text-xs uppercase tracking-wider text-brand">
-            On the horizon
+            Integration layer
           </p>
           <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
             One natural-language layer for your stack
@@ -19,8 +19,8 @@ export function IntegrationLayer() {
           <p className="mt-3 text-muted-foreground">
             kprompt is not here to replace Helm, Argo, or Prometheus — it
             orchestrates them through their real APIs and CLIs. You describe the
-            outcome; we show the plan, then you approve.{" "}
-            <span className="text-foreground/90">Nothing below is shipped yet.</span>
+            outcome; kprompt checks what is installed, shows the plan, and keeps
+            mutations behind approval.
           </p>
         </Reveal>
 
@@ -71,8 +71,15 @@ export function IntegrationLayer() {
                         <h4 className="font-heading text-sm font-semibold">
                           {item.name}
                         </h4>
-                        <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
-                          Planned
+                        <span
+                          className={cn(
+                            "shrink-0 rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide",
+                            item.status === "Shipped"
+                              ? "bg-brand/10 text-brand"
+                              : "bg-muted text-muted-foreground"
+                          )}
+                        >
+                          {item.status}
                         </span>
                       </div>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

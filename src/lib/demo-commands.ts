@@ -48,6 +48,37 @@ export const HERO_DEMOS: DemoCommand[] = [
     ],
   },
   {
+    id: "helm-preview",
+    command: 'kprompt "install redis"',
+    lines: [
+      "Intent: Helm install",
+      "Preview: helm template + dry-run",
+      "Action: install release redis",
+      "Risk: medium — requires approval",
+      "Apply? [y/N]",
+    ],
+  },
+  {
+    id: "workflow",
+    command: 'kprompt "train a yolov11 model" --approve --wait',
+    lines: [
+      "Generated Workflow/train-yolov11",
+      "✓ Submitted to argoproj.io/v1alpha1",
+      "Phase: Running",
+      "✓ Phase: Succeeded",
+    ],
+  },
+  {
+    id: "performance",
+    command: 'kprompt "why is my api slow?" -n production',
+    lines: [
+      "Prometheus window: 15m",
+      "Finding: p95 latency elevated",
+      "CPU saturation: high · replicas: 2",
+      "Suggestion: review HPA target or scale to 3",
+    ],
+  },
+  {
     id: "rollback",
     command: 'kprompt "rollback payment-api" --approve',
     lines: [
@@ -95,6 +126,11 @@ export const CLI_EXAMPLES = [
   'kprompt "logs payment-api"',
   'kprompt "describe payment-api"',
   'kprompt "explain why payment-api is crashing"',
+  'kprompt "install redis"',
+  'kprompt "train a yolov11 model" --approve --wait',
+  'kprompt "why is my api slow?" -n production',
+  "kprompt tools",
+  'kprompt --theme dracula "list deployments"',
   'kprompt "delete deployment redis" --approve',
   'kprompt "list deployments" -n staging',
   "kprompt history",
@@ -130,9 +166,35 @@ export const CLI_DEMO_OUTPUT: Record<string, string[]> = {
     "  Conditions: Available=True",
   ],
   'kprompt "explain why payment-api is crashing"': [
-    "Scanning status + events…",
+    "Deployment → ReplicaSet → Pods → Events → Logs",
     "⚠ OOMKilled — limit 256Mi",
     "Suggested patch: memory → 512Mi",
+  ],
+  'kprompt "install redis"': [
+    "Helm release: redis",
+    "Running template + dry-run preview…",
+    "Risk: medium — awaiting approval",
+  ],
+  'kprompt "train a yolov11 model" --approve --wait': [
+    "✓ Workflow/train-yolov11 submitted",
+    "Waiting for terminal phase…",
+    "✓ Succeeded",
+  ],
+  'kprompt "why is my api slow?" -n production': [
+    "Prometheus: CPU · memory · p95 latency · HPA",
+    "Finding: p95 elevated while replicas remain at 2",
+    "Suggestion: inspect HPA target or scale",
+  ],
+  "kprompt tools": [
+    "Kubernetes       ready",
+    "Helm             ready",
+    "Argo Workflows   ready",
+    "Prometheus       configured",
+  ],
+  'kprompt --theme dracula "list deployments"': [
+    "Theme: dracula (TTY only)",
+    "NAMESPACE   NAME           READY",
+    "default     api            3/3",
   ],
   'kprompt "delete deployment redis" --approve': [
     "✓ Deleting deployment/redis",

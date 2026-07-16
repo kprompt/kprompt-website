@@ -26,6 +26,7 @@ export const BLOG_POSTS: BlogPost[] = [
     description:
       "We built an open-source CLI that turns plain English into a reviewable Kubernetes plan — then applies with your approval. Here's why, what shipped, and how to try it.",
     publishedAt: "2026-07-16",
+    updatedAt: "2026-07-16",
     author: MUHTALIP_DEDE,
     tags: ["announcement", "open source", "kubernetes"],
     featured: true,
@@ -75,7 +76,7 @@ Apply? [y/N]`,
       },
       {
         type: "h2",
-        text: "What's in v0.2 today",
+        text: "What's in v0.3.0 today",
       },
       {
         type: "ul",
@@ -83,8 +84,14 @@ Apply? [y/N]`,
           "Deploy, scale, rollback, and named delete",
           "Read path: get/list, explain, logs, describe",
           "Plan → safety → approve → apply with optional --wait on rollouts",
+          "Deep Deployment → ReplicaSet → Pods → Events → Logs investigation",
+          "Helm install/upgrade plans with template and dry-run previews",
+          "Argo Workflow generation, submission, status, and wait",
+          "Prometheus-backed workload performance diagnosis",
+          "Jaeger/Tempo trace query adapter foundations",
           "Local prompt history (~/.kprompt/history.jsonl) — no manifests or keys stored",
           "CI-stable JSON PlanResult output for pipeline gates",
+          "Terminal themes: auto, Dracula, Nord, Gruvbox, mono, and none",
           "Multiple LLM providers (Gemini, OpenAI, Anthropic, Groq, Ollama, and others) via BYOK",
         ],
       },
@@ -94,7 +101,7 @@ Apply? [y/N]`,
       },
       {
         type: "p",
-        text: "kprompt is early software. Plans can be incomplete or wrong. Hard-deny rules catch known-dangerous patterns, but they don't replace your judgment. We don't ship Helm orchestration, GitOps, or in-cluster agents yet — those are on the public roadmap, not hidden behind a paywall.",
+        text: "kprompt is early software. Plans can be incomplete or wrong. Hard-deny rules catch known-dangerous patterns, but they don't replace your judgment. Helm, Argo Workflows, and Prometheus support now ship, but GitOps, natural-language trace walking, Grafana, and in-cluster agents remain on the public roadmap.",
       },
       {
         type: "ul",
@@ -123,7 +130,7 @@ kprompt "list deployments"`,
       },
       {
         type: "p",
-        text: "Full install, provider, safety, and CI docs live at kprompt.ai/docs. Source and issues are on GitHub — contributions and feedback welcome. We'll publish more here as we ship Helm depth, Homebrew, and the next integration layers.",
+        text: "Full install, integration, theme, provider, safety, and CI docs live at kprompt.ai/docs. Source and issues are on GitHub — contributions and feedback welcome. We'll publish more here as we deepen observability, add Homebrew, and build the next integration layers.",
         links: [
           { label: "kprompt.ai/docs", href: "/docs" },
           { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
@@ -298,20 +305,21 @@ Aborted.`,
       },
       {
         type: "h2",
-        text: "Kubernetes objects AI should understand next",
+        text: "What shipped in v0.3 — and what comes next",
       },
       {
         type: "p",
-        text: "v0.2 focuses on core workload operations. The interesting AI + K8s frontier is deeper integration with the ecosystem — always via real APIs, always with plans operators can read.",
+        text: "v0.3 moves beyond core workload operations with deep Kubernetes investigation, Helm orchestration, Argo Workflows, Prometheus diagnosis, and Jaeger/Tempo query adapters. The frontier still expands through real APIs and reviewable plans.",
       },
       {
         type: "ul",
         items: [
-          "Helm — chart install/upgrade as first-class plans, not YAML pasted from chat",
-          "HorizontalPodAutoscaler + metrics — “why didn't it scale?” needs Prometheus or metrics-server context",
+          "Helm — chart install/upgrade is now a first-class plan with preview, not YAML pasted from chat",
+          "HorizontalPodAutoscaler + metrics — Prometheus-backed performance explains now ground CPU, memory, latency, and replica findings",
+          "Argo Workflows — generate, submit, inspect, and wait for batch or ML workflows",
           "Argo CD / Flux — sync status, drift, promote/rollback as GitOps-aware prompts",
           "CustomResourceDefinitions — Tekton, KEDA, Istio: models must call real CRD APIs, not invent fields",
-          "OpenTelemetry traces — “why is checkout slow?” spans across Services, not single Pod logs",
+          "OpenTelemetry traces — Jaeger/Tempo adapters ship; natural-language slow-span diagnosis comes next",
         ],
       },
       {
@@ -409,7 +417,7 @@ kprompt "scale api to 2" -n staging   # review plan before y`,
       },
       {
         type: "p",
-        text: "kprompt is an open-source, MIT-licensed Kubernetes CLI that adds a natural-language layer on top of that ecosystem — with a non-negotiable rule: every mutation produces a reviewable plan before apply. Today we ship core workload operations (deploy, scale, rollback, explain, logs). Tomorrow we're wiring the rest of the stack the same way: real CLI calls and APIs, not hallucinated YAML from chat. This post is our public integration roadmap — what we're building, why it matters for Kubernetes operators, and how to try what's already live.",
+        text: "kprompt is an open-source, MIT-licensed Kubernetes CLI that adds a natural-language layer on top of that ecosystem — with a non-negotiable rule: every mutation produces a reviewable plan before apply. v0.3.0 ships core workload operations, Helm, Argo Workflows, Prometheus performance diagnosis, and Jaeger/Tempo query adapters. The rest of the stack follows the same rule: real CLI calls and APIs, not hallucinated YAML from chat.",
       },
       {
         type: "h2",
@@ -447,6 +455,11 @@ kprompt "scale api to 2" -n staging   # review plan before y`,
           "Natural-language deploy, scale, rollback, and named delete",
           "Kubernetes read path: get, list, describe, logs, explain",
           "Plan → safety → approve → apply with optional --wait on rollouts",
+          "Helm install/upgrade plans with template and dry-run previews",
+          "Argo Workflow generation, submission, status, and wait",
+          "Prometheus-backed CPU, memory, latency, replica, and HPA findings",
+          "Jaeger/Tempo trace search and trace-by-ID adapter foundations",
+          "Selectable terminal themes and integration discovery with kprompt tools",
           "Bring your own LLM keys (Gemini, OpenAI, Anthropic, Groq, Ollama, and more)",
           "CI-stable JSON PlanResult for pipeline gates",
           "Local prompt history — no manifests or secrets stored server-side",
@@ -462,7 +475,7 @@ kprompt "rollback payment-api" -n prod`,
       },
       {
         type: "h2",
-        text: "Next: Helm and deeper Kubernetes investigation",
+        text: "Shipped: Helm and deeper Kubernetes investigation",
       },
       {
         type: "h3",
@@ -470,11 +483,11 @@ kprompt "rollback payment-api" -n prod`,
       },
       {
         type: "p",
-        text: "Most teams don't raw-apply every YAML. Helm packages Kubernetes apps as charts with values, release history, and rollback. A Kubernetes CLI that ignores Helm ignores how Redis, Postgres, and ingress controllers actually land on clusters. kprompt is adding Helm orchestration so prompts like install redis map to helm upgrade --install steps you read before exec — version, namespace, values diff when available.",
+        text: "Most teams don't raw-apply every YAML. Helm packages Kubernetes apps as charts with values, release history, and rollback. kprompt now maps install and upgrade prompts to Helm steps you read before execution, including chart/version context plus template and dry-run previews.",
       },
       {
         type: "code",
-        caption: "Helm integration (building)",
+        caption: "Helm integration (shipped)",
         code: `kprompt "install redis" -n cache
 kprompt "upgrade prometheus chart" -n monitoring`,
       },
@@ -484,7 +497,7 @@ kprompt "upgrade prometheus chart" -n monitoring`,
       },
       {
         type: "p",
-        text: "“Why isn't my deployment ready?” should not return a generic LLM essay. It should walk Deployment → ReplicaSet → Pod → Events → Logs in one explain flow, grounded in your apiserver. That's the difference between a Kubernetes AI toy and a troubleshooting CLI operators trust — especially during incidents when tab count is already too high.",
+        text: "“Why isn't my deployment ready?” now walks Deployment → ReplicaSet → Pods → Events → Logs in one explain flow grounded in your apiserver. That's the difference between a generic LLM essay and an operator investigation — especially during incidents when tab count is already too high.",
       },
       {
         type: "h2",
@@ -496,11 +509,11 @@ kprompt "upgrade prometheus chart" -n monitoring`,
       },
       {
         type: "p",
-        text: "Pods running is not the same as pods healthy. HorizontalPodAutoscaler decisions, CPU throttling, and p99 latency live in metrics — usually Prometheus or a compatible backend. Integrating PromQL (or metrics-server reads) lets kprompt answer why is my api slow with data, not guesses: replica count vs CPU vs request rate, surfaced in the plan or explain output before you change anything.",
+        text: "Pods running is not the same as pods healthy. kprompt's bounded Prometheus queries now answer why is my api slow with CPU, memory, p95 latency, replica, and HPA signals instead of guesses, then return read-only findings and optional scaling suggestions.",
       },
       {
         type: "code",
-        caption: "Prometheus-aware prompts (planned)",
+        caption: "Prometheus-aware prompts (shipped)",
         code: `kprompt "why is my api slow?" -n production
 kprompt "show CPU for payment-api pods last hour"`,
       },
@@ -510,7 +523,7 @@ kprompt "show CPU for payment-api pods last hour"`,
       },
       {
         type: "p",
-        text: "Training jobs, ETL, and CI-adjacent batch work increasingly run as Argo Workflows CRDs. Operators shouldn't memorize workflow YAML to submit a run. Natural language should generate a Workflow manifest or argo submit plan — still reviewable, still approvable — for prompts like train a model or rerun last night's pipeline.",
+        text: "Training jobs, ETL, and CI-adjacent batch work increasingly run as Argo Workflows CRDs. kprompt now detects that CRD, generates a reviewable Workflow manifest, submits it after approval, reports status, and supports --wait for a terminal phase.",
       },
       {
         type: "h2",
@@ -518,12 +531,12 @@ kprompt "show CPU for payment-api pods last hour"`,
       },
       {
         type: "p",
-        text: "Logs tell you what broke; traces tell you where time went. OpenTelemetry is the lingua franca for distributed tracing on Kubernetes — sidecars and collectors feeding Jaeger, Tempo, or vendor backends. kprompt's Grafana and OpenTelemetry integrations aim to connect terminal prompts to dashboards and trace IDs: show the checkout dashboard, find slow spans on payment-service, link back to the Deployment and revision.",
+        text: "Logs tell you what broke; traces tell you where time went. v0.3.0 ships backend-agnostic trace search and trace-by-ID adapters for Jaeger and Tempo. Natural-language trace walking, slow-span narration, Grafana summaries, and cross-signal explains remain next-stage work.",
       },
       {
         type: "ul",
         items: [
-          "OpenTelemetry — walk trace trees, highlight slow spans, tie to Services and Pods",
+          "Jaeger / Tempo — query adapter foundation shipped; trace-walk diagnosis next",
           "Grafana — open or summarize dashboards without leaving the shell",
           "Cross-signal explains — metrics + traces + events in one operator narrative",
         ],
@@ -595,7 +608,7 @@ kprompt "rollback yesterday's deployment" -n production`,
       },
       {
         type: "p",
-        text: "Integrations roll out in public — issues and PRs welcome. Start with what's shipped: deploy, scale, explain, logs. Point at a non-production context, set an LLM key, and get familiar with the plan loop before Helm and Prometheus land.",
+        text: "Integrations roll out in public — issues and PRs welcome. Start with core reads, then run kprompt tools to inspect Helm, Argo Workflows, Prometheus, and observability readiness. Use a non-production context and get familiar with the plan loop before approving mutations.",
       },
       {
         type: "code",
@@ -603,12 +616,13 @@ kprompt "rollback yesterday's deployment" -n production`,
         code: `curl -fsSL https://kprompt.ai/install | bash
 export KPROMPT_GEMINI_API_KEY="..."
 kprompt config set namespace default
+kprompt tools
 kprompt "list nodes"
 kprompt "explain why nginx is crashlooping"`,
       },
       {
         type: "p",
-        text: "Docs cover install, providers, safety, and CI JSON at kprompt.ai/docs. To influence priority — Helm vs GitOps vs metrics — comment on GitHub issues or join the contributor guide at kprompt.ai/team. The best Kubernetes CLI roadmap is the one shaped by operators running real clusters.",
+        text: "Docs cover install, integrations, themes, providers, safety, and CI JSON at kprompt.ai/docs. To influence priority — trace diagnosis, Grafana, GitOps, or the next CRD — comment on GitHub issues or join the contributor guide at kprompt.ai/team.",
         links: [
           { label: "kprompt.ai/docs", href: "/docs" },
           {
