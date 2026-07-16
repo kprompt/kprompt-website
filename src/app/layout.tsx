@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
@@ -104,6 +106,8 @@ export default function RootLayout({
         {children}
         <Footer />
         {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
