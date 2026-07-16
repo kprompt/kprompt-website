@@ -20,7 +20,7 @@ export const SITE = {
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
-    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.2.0/install/install.sh | bash",
+    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.3.0/install/install.sh | bash",
 } as const;
 
 export const NAV_LINKS = [
@@ -176,7 +176,7 @@ export const SETUP_STEPS = [
       "source ~/.zshrc",
       "kprompt version",
     ],
-    note: "You should see a version like 0.2.0.",
+    note: "You should see a version like 0.3.0.",
   },
   {
     id: "config",

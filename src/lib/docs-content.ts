@@ -97,7 +97,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "code",
-        code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.2.0/install/install.sh | bash",
+        code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.3.0/install/install.sh | bash",
       },
       {
         type: "h2",

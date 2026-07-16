@@ -35,7 +35,7 @@ export function JsonLd() {
           priceCurrency: "USD",
         },
         description: SITE.description,
-        softwareVersion: "0.2.0",
+        softwareVersion: "0.3.0",
       },
     ],
   };
