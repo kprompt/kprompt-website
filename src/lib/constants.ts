@@ -1,9 +1,7 @@
-/** Live public origin until kprompt.ai DNS is attached in Vercel. */
-const LIVE_ORIGIN = "https://kprompt-website.vercel.app";
+const LIVE_ORIGIN = "https://kprompt.ai";
 
 export const SITE = {
   name: "kprompt",
-  /** Brand domain (not yet registered / DNS not attached). */
   domain: "kprompt.ai",
   /** Canonical site URL used for metadata, OG, and install CTA. */
   url: LIVE_ORIGIN,
@@ -48,6 +46,7 @@ export const ROADMAP_PHASES = [
       "Explain, logs, describe, get/list",
       "Prompt history and JSON plan output (CI)",
       "Your LLM keys (BYOK)",
+      "Brand domain (kprompt.ai)",
     ],
   },
   {
@@ -56,7 +55,6 @@ export const ROADMAP_PHASES = [
     title: "Building",
     items: [
       "Homebrew install",
-      "Brand domain (kprompt.ai)",
     ],
   },
   {

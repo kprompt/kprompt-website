@@ -81,11 +81,11 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "code",
-        code: "curl -fsSL https://kprompt-website.vercel.app/install | bash",
+        code: "curl -fsSL https://kprompt.ai/install | bash",
       },
       {
         type: "p",
-        text: "Installs the latest release binary into ~/.local/bin (no sudo on macOS). After kprompt.ai DNS is live, the same path will be https://kprompt.ai/install.",
+        text: "Installs the latest release binary into ~/.local/bin (no sudo on macOS).",
       },
       {
         type: "h2",
