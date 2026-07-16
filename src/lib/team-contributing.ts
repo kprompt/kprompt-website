@@ -96,4 +96,6 @@ export const CONTRIBUTE_LINKS = {
   cliIssues: "https://github.com/kprompt/kprompt/issues",
   websiteIssues: "https://github.com/kprompt/kprompt-website/issues",
   cliSecurity: "https://github.com/kprompt/kprompt/security",
+  contributingGuide:
+    "https://github.com/kprompt/.github/blob/main/CONTRIBUTING.md",
 } as const;

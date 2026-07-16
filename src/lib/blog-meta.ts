@@ -20,6 +20,7 @@ export function blogIndexMetadata(): Metadata {
 
 export function blogPostMetadata(post: BlogPost): Metadata {
   const url = `${SITE.url}/blog/${post.slug}`;
+  const image = `${url}/opengraph-image`;
   return {
     title: post.title,
     description: post.description,
@@ -35,6 +36,13 @@ export function blogPostMetadata(post: BlogPost): Metadata {
       modifiedTime: post.updatedAt ?? post.publishedAt,
       tags: post.tags,
       authors: [post.author.name],
+      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [image],
     },
   };
 }

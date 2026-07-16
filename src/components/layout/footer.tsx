@@ -30,33 +30,13 @@ export function Footer() {
             </p>
             <ul className="space-y-2 text-muted-foreground">
               <li>
-                <Link href="/#features" className="hover:text-foreground">
-                  Features
+                <Link href="/" className="hover:text-foreground">
+                  Home
                 </Link>
               </li>
               <li>
-                <Link href="/#usage" className="hover:text-foreground">
-                  Usage
-                </Link>
-              </li>
-              <li>
-                <Link href="/#cli" className="hover:text-foreground">
-                  CLI
-                </Link>
-              </li>
-              <li>
-                <Link href="/#integrations" className="hover:text-foreground">
-                  Integrations
-                </Link>
-              </li>
-              <li>
-                <Link href="/#roadmap" className="hover:text-foreground">
-                  Roadmap
-                </Link>
-              </li>
-              <li>
-                <Link href="/#open-source" className="hover:text-foreground">
-                  Open Source
+                <Link href={SITE.getStarted} className="hover:text-foreground">
+                  Get Started
                 </Link>
               </li>
               <li>

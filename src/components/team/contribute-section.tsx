@@ -94,6 +94,15 @@ export function ContributeSection() {
             <GithubIcon className="size-4" />
             Website issues
           </a>
+          <a
+            href={CONTRIBUTE_LINKS.contributingGuide}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ variant: "ghost" }))}
+          >
+            Contribution guide
+            <ExternalLink className="size-3.5" />
+          </a>
           <Link
             href="/docs"
             className={cn(buttonVariants({ variant: "ghost" }), "gap-1.5")}

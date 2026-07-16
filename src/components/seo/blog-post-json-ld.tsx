@@ -15,7 +15,7 @@ export function BlogPostJsonLd({ post }: { post: BlogPost }) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
-    image: `${SITE.url}/og.png`,
+    image: `${url}/opengraph-image`,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
     author: {

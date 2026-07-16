@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   BookOpen,
@@ -124,7 +123,6 @@ function MobileNavLink({
 
 export function Navbar() {
   const pathname = usePathname();
-  const reduced = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -215,67 +213,66 @@ export function Navbar() {
         </div>
       </nav>
 
-      <AnimatePresence>
-        {open ? (
-          <>
-            <motion.button
-              type="button"
-              aria-label="Close menu"
-              initial={reduced ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={reduced ? undefined : { opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 top-16 z-40 bg-background/70 backdrop-blur-sm md:hidden"
-              onClick={closeMenu}
+      <button
+        type="button"
+        aria-label="Close menu"
+        tabIndex={-1}
+        className={cn(
+          "fixed inset-0 top-16 z-40 bg-background/70 backdrop-blur-sm transition-[opacity,visibility] duration-200 md:hidden",
+          open
+            ? "visible pointer-events-auto opacity-100"
+            : "invisible pointer-events-none opacity-0"
+        )}
+        onClick={closeMenu}
+      />
+
+      <div
+        id="mobile-menu"
+        aria-hidden={!open}
+        inert={!open}
+        className={cn(
+          "absolute inset-x-0 top-16 z-50 border-b border-border glass transition-[opacity,transform,visibility] duration-200 ease-out md:hidden",
+          open
+            ? "visible translate-y-0 opacity-100"
+            : "invisible -translate-y-3 opacity-0"
+        )}
+      >
+        <div className="mx-auto max-w-6xl space-y-3 px-4 py-5 sm:px-6">
+          {NAV_LINKS.map((link) => (
+            <MobileNavLink
+              key={link.href}
+              href={link.href}
+              label={link.label}
+              active={isNavActive(pathname, link.href)}
+              onNavigate={closeMenu}
             />
+          ))}
 
-            <motion.div
-              id="mobile-menu"
-              initial={reduced ? false : { opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduced ? undefined : { opacity: 0, y: -12 }}
-              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-x-0 top-16 z-50 border-b border-border glass md:hidden"
+          <div className="grid grid-cols-1 gap-2 border-t border-border/70 pt-4 min-[420px]:grid-cols-2">
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "h-11 w-full justify-center"
+              )}
+              onClick={closeMenu}
             >
-              <div className="mx-auto max-w-6xl space-y-3 px-4 py-5 sm:px-6">
-                {NAV_LINKS.map((link) => (
-                  <MobileNavLink
-                    key={link.href}
-                    href={link.href}
-                    label={link.label}
-                    active={isNavActive(pathname, link.href)}
-                    onNavigate={closeMenu}
-                  />
-                ))}
-
-                <div className="grid grid-cols-1 gap-2 border-t border-border/70 pt-4 min-[420px]:grid-cols-2">
-                  <a
-                    href={SITE.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      buttonVariants({ variant: "outline" }),
-                      "h-11 w-full justify-center"
-                    )}
-                    onClick={closeMenu}
-                  >
-                    <GithubIcon className="size-4" />
-                    GitHub
-                  </a>
-                  <Link
-                    href={SITE.getStarted}
-                    className={cn(buttonVariants(), "h-11 w-full justify-center gap-1.5")}
-                    onClick={closeMenu}
-                  >
-                    Get Started
-                    <ArrowRight className="size-4" />
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        ) : null}
-      </AnimatePresence>
+              <GithubIcon className="size-4" />
+              GitHub
+            </a>
+            <Link
+              href={SITE.getStarted}
+              className={cn(buttonVariants(), "h-11 w-full justify-center gap-1.5")}
+              onClick={closeMenu}
+            >
+              Get Started
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
