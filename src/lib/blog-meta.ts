@@ -24,6 +24,7 @@ export function blogPostMetadata(post: BlogPost): Metadata {
     title: post.title,
     description: post.description,
     alternates: { canonical: url },
+    keywords: post.keywords ?? post.tags,
     authors: [{ name: post.author.name, url: post.author.github ?? post.author.linkedin }],
     openGraph: {
       title: `${post.title} · kprompt.ai`,

@@ -12,6 +12,8 @@ export type BlogPost = {
   updatedAt?: string;
   author: BlogAuthor;
   tags: string[];
+  /** Extra SEO keywords beyond display tags. */
+  keywords?: string[];
   blocks: DocsBlock[];
   /** Shown prominently on the blog index. */
   featured?: boolean;
@@ -363,6 +365,246 @@ kprompt "scale api to 2" -n staging   # review plan before y`,
       {
         type: "p",
         text: "We'll keep writing here about Helm depth, provider tuning, and safety patterns as we ship them. If you're experimenting with AI on your fleet, open an issue or PR — real operator feedback beats roadmap fiction.",
+      },
+    ],
+  },
+  {
+    slug: "kubernetes-integrations-roadmap",
+    title:
+      "Kubernetes CLI integrations: Helm, GitOps, Prometheus, and the cloud-native stack",
+    description:
+      "An open-source Kubernetes CLI should speak to Helm, Argo CD, Prometheus, and more — not just kubectl. Here's why kprompt is building natural-language integrations across the cloud-native ecosystem, what's shipping now, and what's on the horizon.",
+    publishedAt: "2026-07-24",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "kubernetes cli",
+      "helm",
+      "gitops",
+      "prometheus",
+      "platform engineering",
+    ],
+    keywords: [
+      "kubernetes cli",
+      "kubectl natural language",
+      "kubernetes troubleshooting",
+      "helm kubernetes",
+      "argo cd kubernetes",
+      "prometheus kubernetes",
+      "gitops cli",
+      "open source kubernetes tools",
+      "kubernetes AI",
+      "platform engineering tools",
+      "cloud native operations",
+      "kprompt",
+    ],
+    blocks: [
+      {
+        type: "p",
+        text: "If you search for a Kubernetes CLI, kubectl is the default answer — and for good reason. It's the official client for the kube-apiserver: get Pods, apply manifests, debug Services, manage RBAC. But real platform work rarely stops at kubectl. You install charts with Helm, sync releases with Argo CD or Flux, ask Prometheus why latency spiked, trace requests with OpenTelemetry, and scale event-driven workloads with KEDA. Each tool has its own flags, CRDs, and failure modes.",
+      },
+      {
+        type: "p",
+        text: "kprompt is an open-source, MIT-licensed Kubernetes CLI that adds a natural-language layer on top of that ecosystem — with a non-negotiable rule: every mutation produces a reviewable plan before apply. Today we ship core workload operations (deploy, scale, rollback, explain, logs). Tomorrow we're wiring the rest of the stack the same way: real CLI calls and APIs, not hallucinated YAML from chat. This post is our public integration roadmap — what we're building, why it matters for Kubernetes operators, and how to try what's already live.",
+      },
+      {
+        type: "h2",
+        text: "Why a Kubernetes CLI needs more than kubectl",
+      },
+      {
+        type: "p",
+        text: "Kubernetes won because it standardized how workloads run. It did not standardize how you operate them day to day. A production cluster is a graph of controllers, metrics, Git repos, and policy engines. When payment-api is slow, the answer might live in Deployment events, HPA metrics, Istio routes, or yesterday's GitOps sync — not in a single kubectl get pods.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Helm owns packaged releases — install, upgrade, rollback charts without hand-writing every manifest",
+          "GitOps controllers (Argo CD, Flux) own desired state in Git — drift and sync status matter as much as Pod status",
+          "Prometheus and Grafana own SLOs — CPU, memory, latency, and error rates explain “slow” better than describe pod",
+          "Workflow engines (Argo Workflows, Tekton) own batch and ML pipelines — different objects, same approval problem",
+          "Service mesh and autoscaling (Istio, KEDA) change traffic and scale — operators need cross-tool context",
+        ],
+      },
+      {
+        type: "p",
+        text: "A useful Kubernetes CLI in 2026 connects those surfaces with guardrails. kprompt's approach: parse operator intent in plain English, assemble a structured plan against live cluster state, run safety checks, then apply only after approval — whether the underlying step is kubectl, helm, or a PromQL query wrapper.",
+      },
+      {
+        type: "h2",
+        text: "What's live today in kprompt",
+      },
+      {
+        type: "p",
+        text: "Before the horizon, here's what you can run on a real kubeconfig right now — experimental software, always review plans before apply on production.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Natural-language deploy, scale, rollback, and named delete",
+          "Kubernetes read path: get, list, describe, logs, explain",
+          "Plan → safety → approve → apply with optional --wait on rollouts",
+          "Bring your own LLM keys (Gemini, OpenAI, Anthropic, Groq, Ollama, and more)",
+          "CI-stable JSON PlanResult for pipeline gates",
+          "Local prompt history — no manifests or secrets stored server-side",
+        ],
+      },
+      {
+        type: "code",
+        caption: "Kubernetes CLI examples (shipped)",
+        code: `kprompt "list deployments" -n production
+kprompt "why isn't redis ready?" -n staging
+kprompt "scale api to 5" -n staging        # plan + approve
+kprompt "rollback payment-api" -n prod`,
+      },
+      {
+        type: "h2",
+        text: "Next: Helm and deeper Kubernetes investigation",
+      },
+      {
+        type: "h3",
+        text: "Helm — chart install and upgrade in the plan",
+      },
+      {
+        type: "p",
+        text: "Most teams don't raw-apply every YAML. Helm packages Kubernetes apps as charts with values, release history, and rollback. A Kubernetes CLI that ignores Helm ignores how Redis, Postgres, and ingress controllers actually land on clusters. kprompt is adding Helm orchestration so prompts like install redis map to helm upgrade --install steps you read before exec — version, namespace, values diff when available.",
+      },
+      {
+        type: "code",
+        caption: "Helm integration (building)",
+        code: `kprompt "install redis" -n cache
+kprompt "upgrade prometheus chart" -n monitoring`,
+      },
+      {
+        type: "h3",
+        text: "Deeper Kubernetes troubleshooting chains",
+      },
+      {
+        type: "p",
+        text: "“Why isn't my deployment ready?” should not return a generic LLM essay. It should walk Deployment → ReplicaSet → Pod → Events → Logs in one explain flow, grounded in your apiserver. That's the difference between a Kubernetes AI toy and a troubleshooting CLI operators trust — especially during incidents when tab count is already too high.",
+      },
+      {
+        type: "h2",
+        text: "Metrics and workflows: Prometheus, Argo Workflows",
+      },
+      {
+        type: "h3",
+        text: "Prometheus — Kubernetes performance questions need numbers",
+      },
+      {
+        type: "p",
+        text: "Pods running is not the same as pods healthy. HorizontalPodAutoscaler decisions, CPU throttling, and p99 latency live in metrics — usually Prometheus or a compatible backend. Integrating PromQL (or metrics-server reads) lets kprompt answer why is my api slow with data, not guesses: replica count vs CPU vs request rate, surfaced in the plan or explain output before you change anything.",
+      },
+      {
+        type: "code",
+        caption: "Prometheus-aware prompts (planned)",
+        code: `kprompt "why is my api slow?" -n production
+kprompt "show CPU for payment-api pods last hour"`,
+      },
+      {
+        type: "h3",
+        text: "Argo Workflows — batch and ML on Kubernetes",
+      },
+      {
+        type: "p",
+        text: "Training jobs, ETL, and CI-adjacent batch work increasingly run as Argo Workflows CRDs. Operators shouldn't memorize workflow YAML to submit a run. Natural language should generate a Workflow manifest or argo submit plan — still reviewable, still approvable — for prompts like train a model or rerun last night's pipeline.",
+      },
+      {
+        type: "h2",
+        text: "Observability stack: OpenTelemetry and Grafana",
+      },
+      {
+        type: "p",
+        text: "Logs tell you what broke; traces tell you where time went. OpenTelemetry is the lingua franca for distributed tracing on Kubernetes — sidecars and collectors feeding Jaeger, Tempo, or vendor backends. kprompt's Grafana and OpenTelemetry integrations aim to connect terminal prompts to dashboards and trace IDs: show the checkout dashboard, find slow spans on payment-service, link back to the Deployment and revision.",
+      },
+      {
+        type: "ul",
+        items: [
+          "OpenTelemetry — walk trace trees, highlight slow spans, tie to Services and Pods",
+          "Grafana — open or summarize dashboards without leaving the shell",
+          "Cross-signal explains — metrics + traces + events in one operator narrative",
+        ],
+      },
+      {
+        type: "h2",
+        text: "GitOps: Argo CD, Flux, and safe rollbacks",
+      },
+      {
+        type: "p",
+        text: "GitOps shifts the source of truth to Git — but operators still ask operational questions: Is staging synced? Why did prod drift? Roll back to yesterday's commit. A Kubernetes CLI that only speaks kubectl misses the controller that actually applied the change. GitOps integrations mean kprompt plans against argocd app get, flux reconcile, or equivalent — promote, diff, rollback with the same approval gate as kubectl scale.",
+      },
+      {
+        type: "code",
+        caption: "GitOps prompts (exploring)",
+        code: `kprompt "is payment-api synced in prod?"
+kprompt "rollback yesterday's deployment" -n production`,
+      },
+      {
+        type: "h2",
+        text: "Cloud-native ecosystem: Tekton, KEDA, Istio, Crossplane",
+      },
+      {
+        type: "p",
+        text: "Mature Kubernetes platforms mix CRDs from across the CNCF landscape. Each adds power and operational surface area.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Tekton — CI/CD pipelines as Kubernetes resources; create and debug pipeline runs from prompts",
+          "KEDA — event-driven autoscaling; explain why replicas hit zero or scale on queue depth",
+          "Istio / service mesh — traffic policies, mTLS, and routing; debug 503s across VirtualServices",
+          "Crossplane — cloud resources as claims; provision databases and buckets with strict approval gates",
+        ],
+      },
+      {
+        type: "p",
+        text: "We're exploring these via real CRD APIs — not invented schema in model weights. If a tool isn't installed on your cluster, kprompt should say so clearly instead of fabricating a apply.",
+      },
+      {
+        type: "h2",
+        text: "One loop for every integration: plan before apply",
+      },
+      {
+        type: "p",
+        text: "The integration list is long because Kubernetes operations are long. The safety model stays short: Prompt → Plan → Safety → Apply. Helm upgrade, GitOps rollback, or Crossplane claim — you see steps, risk level, and hard-deny checks first. That's how an open-source Kubernetes CLI scales to the full cloud-native stack without becoming an autopilot you can't audit.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Structured plans — not raw chat text sent to a shell",
+          "Risk scoring for destructive or production-scoped operations",
+          "Hard denies on known-dangerous patterns",
+          "JSON output for CI — gate plans without silent prod apply",
+          "BYOK LLMs — no vendor lock-in on the model provider",
+        ],
+      },
+      {
+        type: "h2",
+        text: "How this compares to other Kubernetes tools",
+      },
+      {
+        type: "p",
+        text: "kubectl remains essential — kprompt doesn't replace it; it orchestrates intent above it. Hosted “chat with your cluster” products optimize for demo speed; kprompt optimizes for operator control on your laptop with your kubeconfig. IDE copilots help write YAML; kprompt helps execute and investigate against live state. The goal is not the flashiest Kubernetes AI demo — it's a CLI you can use in staging on Tuesday and trust enough to review plans for prod on Wednesday.",
+      },
+      {
+        type: "h2",
+        text: "Try kprompt on your cluster today",
+      },
+      {
+        type: "p",
+        text: "Integrations roll out in public — issues and PRs welcome. Start with what's shipped: deploy, scale, explain, logs. Point at a non-production context, set an LLM key, and get familiar with the plan loop before Helm and Prometheus land.",
+      },
+      {
+        type: "code",
+        caption: "Install the open-source Kubernetes CLI",
+        code: `curl -fsSL https://kprompt.ai/install | bash
+export KPROMPT_GEMINI_API_KEY="..."
+kprompt config set namespace default
+kprompt "list nodes"
+kprompt "explain why nginx is crashlooping"`,
+      },
+      {
+        type: "p",
+        text: "Docs cover install, providers, safety, and CI JSON at kprompt.ai/docs. To influence priority — Helm vs GitOps vs metrics — comment on GitHub issues or join the contributor guide at kprompt.ai/team. The best Kubernetes CLI roadmap is the one shaped by operators running real clusters.",
       },
     ],
   },
