@@ -64,7 +64,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Not production-hardened or stability-guaranteed",
           "Not a hosted agent that runs inside your cluster",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
-          "Not yet a natural-language trace walker, Grafana client, CronJob, or backup generator",
+          "Not yet: Tekton, KEDA, Istio, Crossplane, Flux/Argo CD, optimize-cluster, or dependency graph",
           "Not a paid Team control plane (explored later — nothing to buy today)",
         ],
       },
@@ -336,7 +336,7 @@ export KPROMPT_THEME=gruvbox`,
   },
   integrations: {
     title: "Integrations",
-    description: "Use Helm, Argo Workflows, Prometheus, and Jaeger/Tempo through detected tools and real APIs.",
+    description: "Use Helm, Argo Workflows, Prometheus, OpenTelemetry, and Grafana through detected tools and real APIs.",
     blocks: [
       {
         type: "p",
@@ -345,6 +345,20 @@ export KPROMPT_THEME=gruvbox`,
       {
         type: "code",
         code: "kprompt tools",
+      },
+      {
+        type: "h2",
+        text: "Generic Kubernetes reads",
+      },
+      {
+        type: "p",
+        text: "Get/list any discoverable built-in or CRD via discovery and the dynamic client. Cluster-scoped resources (Node) ignore namespace; Secrets use the same table path (type + key count). Authorization is your kubeconfig RBAC.",
+      },
+      {
+        type: "code",
+        code: `kprompt "how many nodes are in the cluster"
+kprompt "list configmaps" -n default
+kprompt "list widgets.example.com" -n demo`,
       },
       {
         type: "h2",
@@ -388,16 +402,30 @@ kprompt "why is my api slow?" -n production`,
       },
       {
         type: "h2",
-        text: "Jaeger / Tempo",
+        text: "OpenTelemetry (Jaeger / Tempo)",
       },
       {
         type: "p",
-        text: "v0.3.0 includes normalized trace search and trace-by-ID adapter foundations for Jaeger and Tempo. Natural-language trace-walk diagnosis is not shipped yet.",
+        text: "Trace intents search the configured Jaeger or Tempo backend, print a span tree, and narrate bottleneck spans when present.",
       },
       {
         type: "code",
         code: `kprompt config set tools.otel.endpoint http://tempo.monitoring:3200
-kprompt config set tools.otel.backend tempo`,
+kprompt config set tools.otel.backend tempo
+kprompt "trace payment request"`,
+      },
+      {
+        type: "h2",
+        text: "Grafana",
+      },
+      {
+        type: "p",
+        text: "Dashboard intents search Grafana and summarize panel metadata (read-only). Configure URL and API token via tools.grafana.* or environment variables.",
+      },
+      {
+        type: "code",
+        code: `kprompt config set tools.grafana.url https://grafana.example
+kprompt "show payments dashboard"`,
       },
     ],
   },
@@ -411,7 +439,7 @@ kprompt config set tools.otel.backend tempo`,
       },
       {
         type: "p",
-        text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, logs, describe, performance) do not require approval.",
+        text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, logs, describe, performance, trace, dashboard) do not require approval.",
       },
       {
         type: "h2",

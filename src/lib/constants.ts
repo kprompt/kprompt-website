@@ -7,7 +7,7 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "Talk to Your Cluster.",
   description:
-    "Open-source Kubernetes CLI with reviewable plans, Helm and Argo orchestration, Prometheus performance explains, and approval-gated apply.",
+    "Open-source Kubernetes CLI with reviewable plans, Helm and Argo orchestration, Prometheus and OpenTelemetry explains, Grafana dashboards, and approval-gated apply.",
   github: "https://github.com/kprompt/kprompt",
   docs: "/docs",
   getStarted: "/docs/quickstart",
@@ -37,15 +37,24 @@ export const INTEGRATION_ROADMAP = [
     title: "Kubernetes & Helm",
     items: [
       {
+        name: "Generic Kubernetes read",
+        status: "Shipped",
+        description:
+          "Discovery-backed get/list for built-ins and CRDs (Node, ConfigMap, Secret, …) with RBAC boundaries.",
+        example: 'kprompt "how many nodes are in the cluster"',
+      },
+      {
         name: "Helm",
         status: "Shipped",
-        description: "Chart install and upgrade via the real Helm CLI, with template and dry-run previews before execution.",
+        description:
+          "Chart install and upgrade via the real Helm CLI, with template and dry-run previews before execution.",
         example: 'kprompt "install redis"',
       },
       {
         name: "Kubernetes depth",
         status: "Shipped",
-        description: "Chain Deployment → ReplicaSet → Pods → Events → Logs in one explain.",
+        description:
+          "Chain Deployment → ReplicaSet → Pods → Events → Logs in one explain.",
         example: 'kprompt "why isn\'t my deployment ready?"',
       },
     ],
@@ -58,33 +67,44 @@ export const INTEGRATION_ROADMAP = [
       {
         name: "Argo Workflows",
         status: "Shipped",
-        description: "Generate, preview, submit, wait for, and read Workflow status through the installed CRD.",
+        description:
+          "Generate, preview, submit, wait for, and read Workflow status through the installed CRD.",
         example: 'kprompt "train a yolov11 model"',
       },
       {
         name: "Prometheus",
         status: "Shipped",
-        description: "Run bounded PromQL queries and explain workload CPU, memory, p95 latency, replicas, and HPA signals.",
+        description:
+          "Run bounded PromQL queries and explain workload CPU, memory, p95 latency, replicas, and HPA signals.",
         example: 'kprompt "why is my api slow?"',
       },
     ],
   },
   {
-    id: "observability-next",
-    label: "Foundation + next",
+    id: "shipped-observability",
+    label: "Shipped · v0.3.0",
     title: "Traces & dashboards",
     items: [
       {
         name: "Jaeger / Tempo",
-        status: "Foundation",
-        description: "Trace query adapters ship now; natural-language trace walking and bottleneck narration come next.",
+        status: "Shipped",
+        description:
+          "Natural-language trace walk with span trees and bottleneck narration over Jaeger or Tempo.",
         example: 'kprompt "trace payment request"',
       },
       {
         name: "Grafana",
-        status: "Planned",
-        description: "Open or summarize dashboards from the terminal.",
+        status: "Shipped",
+        description:
+          "Search dashboards and summarize panels from the Grafana HTTP API.",
         example: 'kprompt "show dashboard"',
+      },
+      {
+        name: "Multi-tool router",
+        status: "Shipped",
+        description:
+          "Chain read steps across backends (e.g. performance then trace) in one prompt.",
+        example: 'kprompt "why is api slow then trace payment"',
       },
     ],
   },
@@ -102,7 +122,8 @@ export const INTEGRATION_ROADMAP = [
       {
         name: "Tekton · KEDA · Istio",
         status: "Exploring",
-        description: "CI pipelines, event-driven scale, traffic management — via real CRDs/APIs.",
+        description:
+          "CI pipelines, event-driven scale, traffic management — via real CRDs/APIs.",
         example: 'kprompt "create a CI pipeline"',
       },
       {
@@ -110,6 +131,13 @@ export const INTEGRATION_ROADMAP = [
         status: "Exploring",
         description: "Cloud resource claims with strong approval gates.",
         example: 'kprompt "provision a postgres database"',
+      },
+      {
+        name: "Optimize & graphs",
+        status: "Exploring",
+        description:
+          "Read-only optimize reports and service dependency graphs (north-star).",
+        example: 'kprompt "optimize my cluster"',
       },
     ],
   },
@@ -133,10 +161,13 @@ export const ROADMAP_PHASES = [
       "Plan → safety → approve → apply",
       "Deploy, scale, rollback, named delete",
       "Deep explain, logs, describe, get/list",
+      "Discovery-backed generic Kubernetes reads (built-ins + CRDs)",
       "Helm install/upgrade plans and dry-run previews",
       "Argo Workflow generate/submit/status/wait",
       "Prometheus performance diagnosis",
-      "Jaeger/Tempo query adapter foundation",
+      "OpenTelemetry trace walk and bottleneck narration",
+      "Grafana dashboard search and panel summaries",
+      "Multi-tool route chaining",
       "Prompt history, CI JSON, and terminal themes",
       "Integration discovery with kprompt tools",
       "Your LLM keys (BYOK)",
@@ -149,9 +180,9 @@ export const ROADMAP_PHASES = [
     title: "Building",
     items: [
       "Homebrew install",
-      "Natural-language trace walk and bottleneck narration",
-      "Grafana dashboard API and terminal summaries",
-      "Integration E2E matrix and operator docs",
+      "Optimize-cluster read-only report (idle / rightsizing / HPA hints)",
+      "Service dependency graph from Kubernetes (+ optional OTel)",
+      "Unified single-approval multi-tool mutating routes",
     ],
   },
   {
@@ -160,7 +191,7 @@ export const ROADMAP_PHASES = [
     title: "Exploring",
     items: [
       "GitOps (Flux / Argo CD) · Tekton · KEDA · Istio",
-      "Crossplane · cluster optimization · dependency graph",
+      "Crossplane",
       "Team: org policy sync · audit · shared identity",
     ],
   },
@@ -266,7 +297,7 @@ export const SETUP_STEPS = [
       'kprompt "train a yolov11 model" --approve --wait',
       'kprompt "why is my api slow?" -n production',
     ],
-    note: "Helm needs its binary on PATH; Argo needs the Workflow CRD; Prometheus and Jaeger/Tempo use tools.* config or KPROMPT_* environment endpoints.",
+    note: "Helm needs its binary on PATH; Argo needs the Workflow CRD; Prometheus, Jaeger/Tempo, and Grafana use tools.* config or KPROMPT_* environment endpoints.",
   },
   {
     id: "history",
