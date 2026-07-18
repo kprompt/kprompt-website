@@ -29,7 +29,6 @@ export const BLOG_POSTS: BlogPost[] = [
     updatedAt: "2026-07-16",
     author: MUHTALIP_DEDE,
     tags: ["announcement", "open source", "kubernetes"],
-    featured: true,
     blocks: [
       {
         type: "p",
@@ -600,7 +599,13 @@ kprompt "rollback yesterday's deployment" -n production`,
       },
       {
         type: "p",
-        text: "kubectl remains essential — kprompt doesn't replace it; it orchestrates intent above it. Hosted “chat with your cluster” products optimize for demo speed; kprompt optimizes for operator control on your laptop with your kubeconfig. IDE copilots help write YAML; kprompt helps execute and investigate against live state. The goal is not the flashiest Kubernetes AI demo — it's a CLI you can use in staging on Tuesday and trust enough to review plans for prod on Wednesday.",
+        text: "kubectl remains essential — kprompt doesn't replace it; it orchestrates intent above it. We are not a unique AI category: K8sGPT owns diagnosis, kubectl-ai shares our natural-language CLI lane with a different mutate contract, and Kagent covers in-cluster agents. Hosted chat products optimize for demo speed; IDE copilots help write YAML. For that honest map, see our Kubernetes AI tools comparison. The goal is not the flashiest demo — it's a gated plan you can review in staging on Tuesday and trust enough for prod on Wednesday.",
+        links: [
+          {
+            label: "Kubernetes AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+        ],
       },
       {
         type: "h2",
@@ -1892,6 +1897,363 @@ kprompt "explain why api is not ready" -n staging`,
         links: [
           { label: "quickstart", href: "/docs/quickstart" },
           { label: "safety guide", href: "/docs/safety" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "kubernetes-ai-tools-comparison",
+    title:
+      "Kubernetes AI tools compared: K8sGPT, kubectl-ai, Kagent, and plan-before-apply CLIs",
+    description:
+      "Honest map of Kubernetes AI peers: K8sGPT diagnoses, kubectl-ai and kprompt share the NL-CLI lane with different contracts, Kagent runs in-cluster agents, hosted chat and IDE copilots cover the rest.",
+    publishedAt: "2026-07-18",
+    updatedAt: "2026-07-18",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "ai",
+      "kubernetes cli",
+      "devops",
+      "platform engineering",
+    ],
+    keywords: [
+      "k8sgpt",
+      "k8sgpt vs kubectl-ai",
+      "kubernetes ai tools",
+      "kubectl-ai",
+      "kagent kubernetes",
+      "ai kubernetes troubleshooting",
+      "chat with kubernetes cluster",
+      "natural language kubernetes",
+      "kubernetes ai cli",
+      "kprompt",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "The Kubernetes AI category is crowded with demos that look similar in a screenshot: type English, get cluster help. Underneath, only some of the differences are category-level. K8sGPT is not competing with a mutate CLI. Kagent is not a laptop kubectl wrapper. kubectl-ai and kprompt, though, share a lane — natural language on a local CLI — and the honest question is whether the contract differs enough to matter.",
+      },
+      {
+        type: "p",
+        text: "This field guide maps the strongest peers without inventing a unique category for ourselves: K8sGPT (analyzer-first diagnosis), kubectl-ai (NL → kubectl), Kagent (Kubernetes-native agents), hosted “chat with your cluster” products, and IDE copilots. kprompt is a local BYOK CLI in the same intent lane as kubectl-ai, with a stricter bet: structured plan → safety → approve before apply, plus day-2 paths that reach Helm and observability tools. None of these replace kubectl, RBAC, or admission policy.",
+        links: [
+          { label: "K8sGPT", href: "https://k8sgpt.ai/" },
+          {
+            label: "kubectl-ai",
+            href: "https://github.com/GoogleCloudPlatform/kubectl-ai",
+          },
+          { label: "Kagent", href: "https://github.com/kagent-dev/kagent" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Quick comparison",
+      },
+      {
+        type: "table",
+        headers: ["Tool", "Primary job", "Where it runs", "Mutation model"],
+        rows: [
+          [
+            "K8sGPT",
+            "Scan cluster → explain issues",
+            "CLI (+ optional operator / MCP)",
+            "Optional remediation; diagnosis-first",
+          ],
+          [
+            "kubectl-ai",
+            "NL → kubectl commands",
+            "Local CLI",
+            "Often executes generated kubectl",
+          ],
+          [
+            "Kagent",
+            "Build/run AI agents on K8s",
+            "In-cluster framework + CRDs",
+            "Agent workflows you design",
+          ],
+          [
+            "Hosted chat",
+            "Managed cluster chat / SRE UI",
+            "Vendor SaaS",
+            "Varies; credentials often leave laptop",
+          ],
+          [
+            "IDE copilots",
+            "Write manifests / runbooks",
+            "Editor",
+            "Suggest YAML; apply is separate",
+          ],
+          [
+            "kprompt",
+            "Intent CLI + gated plan/apply",
+            "Local CLI (BYOK)",
+            "Same lane as kubectl-ai; stricter defaults",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Three jobs — and one crowded lane",
+      },
+      {
+        type: "p",
+        text: "Most “AI for Kubernetes” products optimize for one of three jobs. Mixing them up is how you end up with a scanner when you needed a mutate gate — or an agent framework when you needed a five-minute explain.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Diagnose — what is broken right now, and why (analyzers + LLM narration)",
+          "Intent CLI — turn a sentence into cluster actions from the operator laptop",
+          "Automate — long-running or multi-step agents that act without a human at the keyboard",
+        ],
+      },
+      {
+        type: "p",
+        text: "K8sGPT owns diagnose. Kagent owns automate (as a platform). kubectl-ai and kprompt both sit in the intent-CLI lane. Inside that lane, kubectl-ai optimizes for kubectl fluency; kprompt optimizes for a gated ops contract (printable plan, risk, hard denies, CI JSON) and for pulling Helm / explain-style workflows into the same loop. That is a product bet — not a new category.",
+      },
+      {
+        type: "h2",
+        text: "K8sGPT: the strongest diagnosis peer",
+      },
+      {
+        type: "p",
+        text: "K8sGPT is the CNCF-adjacent tool most teams mean when they say “AI that understands my cluster.” It runs analyzers over live resources, surfaces problems (CrashLoopBackOff, misconfigured Services, and similar), and can enrich findings with an LLM via --explain. Multiple backends are supported — including local models — and sensitive fields can be anonymized before they leave your environment.",
+        links: [
+          { label: "K8sGPT", href: "https://k8sgpt.ai/" },
+          {
+            label: "GitHub repository",
+            href: "https://github.com/k8sgpt-ai/k8sgpt",
+          },
+        ],
+      },
+      {
+        type: "ul",
+        items: [
+          "Best when something is already wrong and you need triage in plain English",
+          "Analyzer catalog encodes SRE-shaped checks — not just free-form chat",
+          "MCP server mode plugs analysis into assistants like Claude Desktop",
+          "Optional auto-remediation exists; the core value remains scan + explain",
+        ],
+      },
+      {
+        type: "code",
+        caption: "Typical K8sGPT loop",
+        code: `k8sgpt analyze
+k8sgpt analyze --explain
+# Optional: remediation paths when you enable them`,
+      },
+      {
+        type: "p",
+        text: "Where it differs from kprompt: K8sGPT starts from cluster findings. kprompt starts from operator intent (“scale api to 3”, “why isn't redis ready?”, “install redis”). If your pain is “walk me the unhealthy objects,” reach for K8sGPT first. If your pain is “turn this sentence into a reviewable change,” reach for a plan-before-apply CLI.",
+      },
+      {
+        type: "h2",
+        text: "kubectl-ai: same lane, different contract",
+      },
+      {
+        type: "p",
+        text: "kubectl-ai (Google Cloud open source) is the peer we take most seriously for day-2 natural language. Same shape: local CLI, describe the operation, get kubectl (and often run it). If your bottleneck is flag order, jsonpath, or custom columns, it is an excellent fit — and putting kprompt on a shortlist next to it is correct, not confused.",
+        links: [
+          {
+            label: "kubectl-ai",
+            href: "https://github.com/GoogleCloudPlatform/kubectl-ai",
+          },
+        ],
+      },
+      {
+        type: "ul",
+        items: [
+          "Best for terminal natives who already think in kubectl verbs",
+          "Strong for awkward queries and interactive sessions",
+          "Multi-model backends including local options",
+          "Less opinionated about plan artifacts, risk labels, and hard-deny policy",
+        ],
+      },
+      {
+        type: "p",
+        text: "We do not claim a separate category here. The differentiation is the contract we enforce by default: structured PlanResult, risk scoring, hard denies for wipe-class language, interactive approval unless --approve, CI-friendly JSON before automated apply, and first-class plans that can reach Helm or performance explains — not only a generated kubectl line. If those gates do not matter to your team, kubectl-ai may be enough. If they do, evaluate both on the same prompts and keep the one whose mutation path you would trust on a shared cluster.",
+      },
+      {
+        type: "h2",
+        text: "Kagent: in-cluster agent framework",
+      },
+      {
+        type: "p",
+        text: "Kagent is a Kubernetes-native framework for building and running AI agents as cluster resources — controllers, tools, model configs, and a UI/CLI to manage them. It is not a drop-in “type English, fix CrashLoop” product. It is infrastructure for teams that want agents as first-class workloads next to the apps they operate.",
+        links: [
+          { label: "Kagent", href: "https://github.com/kagent-dev/kagent" },
+        ],
+      },
+      {
+        type: "ul",
+        items: [
+          "Best when you need multi-step, reusable agent workflows in-cluster",
+          "Agents and tools managed as CRDs with familiar kubectl workflows",
+          "Powerful for platform teams building internal AIOps — heavier to adopt",
+          "Credential and blast-radius questions live with whatever ServiceAccount the agent uses",
+        ],
+      },
+      {
+        type: "p",
+        text: "Compared with kprompt's laptop-local CLI: Kagent moves intelligence into the cluster; kprompt keeps kubeconfig and LLM keys where operators already run kubectl. Choose Kagent when autonomous or shared agent runtimes are the product. Choose a local CLI when you want zero new in-cluster AI surface for day-2 work.",
+      },
+      {
+        type: "h2",
+        text: "Hosted chat-with-cluster and IDE copilots",
+      },
+      {
+        type: "h3",
+        text: "Hosted / SaaS control planes",
+      },
+      {
+        type: "p",
+        text: "Vendored “chat with your cluster” products optimize for time-to-demo: connect a cluster, ask questions in a browser, sometimes remediate from the same UI. Pros: managed models, polished SRE narratives, less CLI setup. Cons: credential handling, data residency, another control plane to trust, and mutation policies that are vendor-specific rather than “the plan printed in your terminal.”",
+      },
+      {
+        type: "p",
+        text: "kprompt's bet is the opposite shape: no hosted agent required, BYOK providers, plans and approvals on the operator machine. Hosted products can still win for organizations that want a managed AIOps console — evaluate them on audit logs, RBAC mapping, and whether apply can be forced through human review.",
+      },
+      {
+        type: "h3",
+        text: "IDE copilots",
+      },
+      {
+        type: "p",
+        text: "GitHub Copilot, Cursor, and similar tools accelerate writing Deployment YAML, Helm values, and runbooks. They are not live-cluster operators unless you wire extra MCP or kubectl plugins. Pair them with kubectl, K8sGPT, or kprompt: generate manifests in the editor; diagnose and mutate against real state with a cluster-aware tool.",
+      },
+      {
+        type: "h2",
+        text: "Where kprompt fits — and what we are not claiming",
+      },
+      {
+        type: "p",
+        text: "kprompt is an experimental MIT CLI in the intent-CLI lane: natural language in, structured plan out, safety checks, then apply only after approval (unless you explicitly pass --approve). Reads (list, explain, logs, describe) run immediately. Mutations always show the plan — with risk labels and hard denies for wipe-class prompts. Integrations extend the same loop toward Helm, Argo Workflows, and Prometheus-backed performance explains.",
+      },
+      {
+        type: "code",
+        caption: "Plan-before-apply (mutations)",
+        code: `$ kprompt "scale api to 3" -n staging
+
+Plan
+  1. kubectl scale deployment/api --replicas=3 -n staging
+
+Risk: low
+Apply? [y/N]`,
+      },
+      {
+        type: "ul",
+        items: [
+          "Not a K8sGPT replacement — we are not an analyzer-first fleet scanner",
+          "Not a Kagent replacement — we do not ship an in-cluster agent runtime",
+          "Not “unique NL kubectl” — kubectl-ai shares that job; we share the lane",
+          "Our bet — gated plan/apply + multi-tool day-2 plans on your laptop (BYOK)",
+          "Experimental — wrong plans still happen; hard denies are not a production certificate",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Honest overlap matrix",
+      },
+      {
+        type: "table",
+        headers: ["If you need…", "Reach for", "Why"],
+        rows: [
+          [
+            "Fleet health triage / analyzer findings",
+            "K8sGPT",
+            "Built for scan → explain; mature analyzer set",
+          ],
+          [
+            "Awkward kubectl / jsonpath generation",
+            "kubectl-ai (or kprompt)",
+            "Same intent-CLI lane; kubectl-ai is the fluency specialist",
+          ],
+          [
+            "In-cluster multi-step AI agents",
+            "Kagent",
+            "Framework + CRDs for agent platforms",
+          ],
+          [
+            "Managed browser chat / AIOps console",
+            "Hosted products",
+            "Fast demo; evaluate trust and residency",
+          ],
+          [
+            "Manifest / runbook drafting",
+            "IDE copilots",
+            "Editor-native; apply is still yours",
+          ],
+          [
+            "Day-2 intent with gated plan/apply + CI JSON",
+            "kprompt (evaluate vs kubectl-ai)",
+            "Same lane; stricter default contract",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Can you use more than one?",
+      },
+      {
+        type: "p",
+        text: "Yes — and strong teams will. A realistic stack looks like: K8sGPT for scheduled or on-demand cluster scans, one intent CLI (kubectl-ai or kprompt — pick by mutation contract, not by logo), kubectl for exact scripts and CI, K9s or a dashboard for live watching, and GitOps for steady-state desired state. Agents belong when you have a platform team to own their lifecycle — not as the first AI experiment on production.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Incident open: K8sGPT analyze --explain or an intent-CLI explain",
+          "Bounded fix: reviewable plan + approve (or kubectl you typed by hand)",
+          "Steady state: Argo CD / Flux + PR review",
+          "Watch: K9s, Headlamp, Grafana — not an LLM in a loop",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Decision checklist",
+      },
+      {
+        type: "ul",
+        items: [
+          "Is the bottleneck finding issues or expressing intent? → K8sGPT vs intent CLI",
+          "Inside the intent-CLI lane, do you need gated plans / CI JSON / hard denies by default? → That is the kprompt vs kubectl-ai axis",
+          "Must credentials stay on the laptop? → Prefer local CLI / local models",
+          "Do you want a new in-cluster AI runtime? → Only if you can own Kagent-class ops",
+          "Is the team still learning kubectl? → AI is an accelerator, not a substitute for RBAC literacy",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Try the contract, not the category",
+      },
+      {
+        type: "p",
+        text: "If your shortlist already includes K8sGPT and kubectl-ai, keep both jobs clear: use K8sGPT when you need analyzer findings; use an intent CLI when you already know the outcome. Then run the same mutate prompts through kubectl-ai and kprompt and compare only what matters — what prints before apply, what gets denied, and what you can gate in CI.",
+      },
+      {
+        type: "code",
+        caption: "Install kprompt and start with reads",
+        code: `curl -fsSL https://kprompt.ai/install | bash
+export KPROMPT_GEMINI_API_KEY="..."
+
+kprompt "list deployments" -n staging
+kprompt "explain why api is not ready" -n staging
+kprompt "scale api to 2" -n staging   # review plan → y or n`,
+      },
+      {
+        type: "p",
+        text: "Read the safety guide before approving mutations on shared clusters. For how kprompt sits next to kubectl and K9s (non-AI peers), see our kubectl alternatives post. For model and BYOK choices, see the LLM providers guide.",
+        links: [
+          { label: "safety guide", href: "/docs/safety" },
+          {
+            label: "kubectl alternatives post",
+            href: "/blog/kubectl-alternatives",
+          },
+          {
+            label: "LLM providers guide",
+            href: "/blog/kubernetes-llm-providers-byok",
+          },
         ],
       },
     ],
