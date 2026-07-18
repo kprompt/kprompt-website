@@ -14,10 +14,10 @@ export function LookingAhead() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             The CLI stays open source and free — and still experimental.
-            Helm, Argo Workflows, Prometheus, and the Jaeger/Tempo adapter
-            foundation now ship in v0.3.0. We&apos;re building the next
-            observability layer and exploring a Team layer for org policy and
-            audit. Nothing to buy today.
+            Day-2 integrations (Helm, Argo Workflows, Prometheus, OTel, Grafana)
+            and north-star reports (optimize, service graph) ship in the binary.
+            A Team control plane and separate web app are on the horizon for org
+            policy and audit — not open for signup, and nothing to buy today.
           </p>
         </Reveal>
 
@@ -62,7 +62,7 @@ export function LookingAhead() {
             Shape priorities on GitHub
           </a>
           <p className="text-sm text-muted-foreground">
-            OSS CLI today · team policy &amp; audit on the horizon.
+            OSS CLI today · Team policy &amp; audit explored later (no app signup yet).
           </p>
         </Reveal>
       </div>

@@ -150,7 +150,7 @@ export const NORTH_STAR_PROMPTS = [
   'kprompt "show service dependency graph"',
 ] as const;
 
-/** Public horizon only — no pricing, no “buy Team”, no ship dates (M-005). */
+/** Public horizon only — no pricing, no “buy Team”, no ship dates, no live app CTA (M-005 / A-008). */
 export const ROADMAP_PHASES = [
   {
     id: "now",
@@ -168,6 +168,8 @@ export const ROADMAP_PHASES = [
       "OpenTelemetry trace walk and bottleneck narration",
       "Grafana dashboard search and panel summaries",
       "Multi-tool route chaining",
+      "Optimize-cluster report (idle / rightsizing / HPA hints)",
+      "Service dependency graph from Kubernetes",
       "Prompt history, CI JSON, and terminal themes",
       "Integration discovery with kprompt tools",
       "Your LLM keys (BYOK)",
@@ -180,9 +182,9 @@ export const ROADMAP_PHASES = [
     title: "Building",
     items: [
       "Homebrew install",
-      "Optimize-cluster read-only report (idle / rightsizing / HPA hints)",
-      "Service dependency graph from Kubernetes (+ optional OTel)",
+      "OTel enrichment for the service dependency graph",
       "Unified single-approval multi-tool mutating routes",
+      "More ecosystem adapters (Tekton, KEDA, …)",
     ],
   },
   {
@@ -190,9 +192,9 @@ export const ROADMAP_PHASES = [
     label: "Later",
     title: "Exploring",
     items: [
-      "GitOps (Flux / Argo CD) · Tekton · KEDA · Istio",
-      "Crossplane",
-      "Team: org policy sync · audit · shared identity",
+      "GitOps (Flux / Argo CD) · Istio · Crossplane",
+      "Team control plane: org policy sync · apply audit · shared identity",
+      "Separate Team web app (planned — not open for signup; CLI stays free)",
     ],
   },
 ] as const;

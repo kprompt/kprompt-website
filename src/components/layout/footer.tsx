@@ -19,7 +19,7 @@ export function Footer() {
             Review plans before apply · prefer non-production first.
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground/90">
-            OSS CLI today · team policy &amp; audit on the horizon.
+            OSS CLI today · Team policy &amp; audit explored later (no app signup yet).
           </p>
         </div>
 

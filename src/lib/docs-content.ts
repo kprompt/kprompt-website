@@ -64,8 +64,8 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Not production-hardened or stability-guaranteed",
           "Not a hosted agent that runs inside your cluster",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
-          "Not yet: Tekton, KEDA, Istio, Crossplane, Flux/Argo CD, optimize-cluster, or dependency graph",
-          "Not a paid Team control plane (explored later — nothing to buy today)",
+          "Not yet: Tekton, KEDA, Istio, Crossplane, Flux/Argo CD, or OTel graph enrichment",
+          "Not a paid Team control plane or live Team web app (explored later — nothing to buy, no signup today)",
         ],
       },
       {
