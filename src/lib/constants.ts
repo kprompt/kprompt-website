@@ -9,6 +9,8 @@ export const SITE = {
   description:
     "Open-source Kubernetes CLI with reviewable plans, day-2 Kubernetes ops, Helm through GitOps integrations, optimize and service graphs, Homebrew install, and optional Team enrollment.",
   github: "https://github.com/kprompt/kprompt",
+  /** Team web surface (authenticated). */
+  app: "https://app.kprompt.ai",
   docs: "/docs",
   getStarted: "/docs/quickstart",
   /** Short maturity line for hero / banners. */
@@ -29,6 +31,7 @@ export const NAV_LINKS = [
   { href: "/docs", label: "Docs" },
   { href: "/blog", label: "Blog" },
   { href: "/team", label: "Team" },
+  { href: SITE.app, label: "App", external: true },
 ] as const;
 
 /** Shipped integration surface plus the honest next horizon (M-005 / T-047). */

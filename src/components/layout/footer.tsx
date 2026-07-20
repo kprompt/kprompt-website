@@ -19,7 +19,16 @@ export function Footer() {
             Review plans before apply · prefer non-production first.
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground/90">
-            OSS CLI today · Team policy &amp; audit explored later (no app signup yet).
+            OSS CLI today ·{" "}
+            <a
+              href={SITE.app}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-2 hover:text-foreground hover:underline"
+            >
+              app.kprompt.ai
+            </a>{" "}
+            is early (CLI stays free).
           </p>
         </div>
 
@@ -43,6 +52,16 @@ export function Footer() {
                 <Link href="/blog" className="hover:text-foreground">
                   Blog
                 </Link>
+              </li>
+              <li>
+                <a
+                  href={SITE.app}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground"
+                >
+                  App
+                </a>
               </li>
             </ul>
           </div>

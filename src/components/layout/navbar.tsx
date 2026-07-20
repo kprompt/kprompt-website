@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   ArrowRight,
   BookOpen,
+  LayoutDashboard,
   Menu,
   Newspaper,
   Users,
@@ -22,9 +23,24 @@ const NAV_ICONS = {
   Docs: BookOpen,
   Blog: Newspaper,
   Team: Users,
+  App: LayoutDashboard,
 } as const;
 
+const NAV_BLURBS: Record<(typeof NAV_LINKS)[number]["label"], string> = {
+  Docs: "Install, commands, safety, CI",
+  Blog: "Updates and notes from the team",
+  Team: "People building kprompt",
+  App: "Team console at app.kprompt.ai",
+};
+
+function isExternal(link: (typeof NAV_LINKS)[number]) {
+  return "external" in link && link.external === true;
+}
+
 function isNavActive(pathname: string, href: string) {
+  if (href.startsWith("http")) {
+    return false;
+  }
   if (href === "/docs") {
     return pathname === "/docs" || pathname.startsWith("/docs/");
   }
@@ -41,30 +57,49 @@ function DesktopNavLink({
   href,
   label,
   active,
+  external,
 }: {
   href: string;
   label: string;
   active: boolean;
+  external?: boolean;
 }) {
+  const className = cn(
+    "group relative px-3 py-2 text-sm font-medium transition-colors",
+    active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+  );
+  const underline = (
+    <span
+      aria-hidden
+      className={cn(
+        "absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand transition-transform duration-200",
+        active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+      )}
+    />
+  );
+
   return (
     <li>
-      <Link
-        href={href}
-        aria-current={active ? "page" : undefined}
-        className={cn(
-          "group relative px-3 py-2 text-sm font-medium transition-colors",
-          active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-        )}
-      >
-        {label}
-        <span
-          aria-hidden
-          className={cn(
-            "absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand transition-transform duration-200",
-            active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-          )}
-        />
-      </Link>
+      {external ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+        >
+          {label}
+          {underline}
+        </a>
+      ) : (
+        <Link
+          href={href}
+          aria-current={active ? "page" : undefined}
+          className={className}
+        >
+          {label}
+          {underline}
+        </Link>
+      )}
     </li>
   );
 }
@@ -73,27 +108,24 @@ function MobileNavLink({
   href,
   label,
   active,
+  external,
   onNavigate,
 }: {
   href: string;
-  label: string;
+  label: keyof typeof NAV_BLURBS;
   active: boolean;
+  external?: boolean;
   onNavigate: () => void;
 }) {
-  const Icon = NAV_ICONS[label as keyof typeof NAV_ICONS];
-
-  return (
-    <Link
-      href={href}
-      onClick={onNavigate}
-      aria-current={active ? "page" : undefined}
-      className={cn(
-        "flex items-center gap-4 rounded-2xl border px-4 py-4 transition-colors",
-        active
-          ? "border-brand/25 bg-brand/5 text-foreground"
-          : "border-border/70 bg-muted/20 text-muted-foreground hover:border-border hover:bg-muted/40 hover:text-foreground"
-      )}
-    >
+  const Icon = NAV_ICONS[label];
+  const className = cn(
+    "flex items-center gap-4 rounded-2xl border px-4 py-4 transition-colors",
+    active
+      ? "border-brand/25 bg-brand/5 text-foreground"
+      : "border-border/70 bg-muted/20 text-muted-foreground hover:border-border hover:bg-muted/40 hover:text-foreground"
+  );
+  const body = (
+    <>
       <span
         className={cn(
           "flex size-10 shrink-0 items-center justify-center rounded-xl border",
@@ -109,14 +141,35 @@ function MobileNavLink({
           {label}
         </span>
         <span className="mt-0.5 block text-xs text-muted-foreground">
-          {label === "Docs"
-            ? "Install, commands, safety, CI"
-            : label === "Blog"
-              ? "Updates and notes from the team"
-              : "People building kprompt"}
+          {NAV_BLURBS[label]}
         </span>
       </span>
       <ArrowRight className="size-4 shrink-0 opacity-50" aria-hidden />
+    </>
+  );
+
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onNavigate}
+        className={className}
+      >
+        {body}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
+      className={className}
+    >
+      {body}
     </Link>
   );
 }
@@ -168,6 +221,7 @@ export function Navbar() {
               href={link.href}
               label={link.label}
               active={isNavActive(pathname, link.href)}
+              external={isExternal(link)}
             />
           ))}
         </ul>
@@ -182,6 +236,14 @@ export function Navbar() {
           >
             <GithubIcon className="size-4" />
             GitHub
+          </a>
+          <a
+            href={SITE.app}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonVariants({ variant: "outline" })}
+          >
+            App
           </a>
           <Link href={SITE.getStarted} className={buttonVariants()}>
             Get Started
@@ -244,6 +306,7 @@ export function Navbar() {
               href={link.href}
               label={link.label}
               active={isNavActive(pathname, link.href)}
+              external={isExternal(link)}
               onNavigate={closeMenu}
             />
           ))}
@@ -262,9 +325,24 @@ export function Navbar() {
               <GithubIcon className="size-4" />
               GitHub
             </a>
+            <a
+              href={SITE.app}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "h-11 w-full justify-center"
+              )}
+              onClick={closeMenu}
+            >
+              App
+            </a>
             <Link
               href={SITE.getStarted}
-              className={cn(buttonVariants(), "h-11 w-full justify-center gap-1.5")}
+              className={cn(
+                buttonVariants(),
+                "h-11 w-full justify-center gap-1.5 min-[420px]:col-span-2"
+              )}
               onClick={closeMenu}
             >
               Get Started

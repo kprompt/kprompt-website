@@ -63,7 +63,16 @@ export function LookingAhead() {
             Shape priorities on GitHub
           </a>
           <p className="text-sm text-muted-foreground">
-            OSS CLI today · Team policy &amp; audit explored later (no app signup yet).
+            OSS CLI today ·{" "}
+            <a
+              href={SITE.app}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-2 hover:text-foreground hover:underline"
+            >
+              app.kprompt.ai
+            </a>{" "}
+            is early (nothing to buy).
           </p>
         </Reveal>
       </div>
