@@ -64,7 +64,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Not production-hardened or stability-guaranteed",
           "Not a hosted agent that runs inside your cluster",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
-          "Not yet: unified single-approval multi-tool mutating routes (T-058)",
+          "Not yet: Team control plane / hosted agent (explored separately)",
           "Not a paid Team control plane or live Team web app (explored later — nothing to buy, no signup today)",
         ],
       },

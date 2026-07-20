@@ -103,8 +103,8 @@ export const INTEGRATION_ROADMAP = [
         name: "Multi-tool router",
         status: "Shipped",
         description:
-          "Chain read steps across backends (e.g. performance then trace) in one prompt.",
-        example: 'kprompt "why is api slow then trace payment"',
+          "Chain steps across backends with one aggregate plan and a single approval for mutating chains.",
+        example: 'kprompt "why is api slow then scale api to 4"',
       },
     ],
   },
@@ -167,6 +167,7 @@ export const ROADMAP_PHASES = [
       "Istio VirtualService traffic summary (read-first)",
       "Crossplane cloud claims (RiskHigh + strong approval)",
       "GitOps Flux/Argo CD sync+health and approved sync",
+      "Multi-tool routes with one aggregate plan + single approval",
       "Optimize-cluster report (idle / rightsizing / HPA hints)",
       "Service dependency graph from Kubernetes (+ optional OTel edges)",
       "Prompt history, CI JSON, and terminal themes",
@@ -181,7 +182,6 @@ export const ROADMAP_PHASES = [
     title: "Building",
     items: [
       "Homebrew install",
-      "Unified single-approval multi-tool mutating routes",
     ],
   },
   {
