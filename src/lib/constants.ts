@@ -115,9 +115,9 @@ export const INTEGRATION_ROADMAP = [
     items: [
       {
         name: "GitOps",
-        status: "Exploring",
-        description: "Flux CD / Argo CD sync status, promote, rollback.",
-        example: 'kprompt "rollback yesterday\'s deployment"',
+        status: "Shipped",
+        description: "Flux Kustomization + Argo CD Application sync/health; approved sync/promote/rollback.",
+        example: 'kprompt "show gitops sync status"',
       },
       {
         name: "Tekton · KEDA · Istio · Crossplane",
@@ -166,6 +166,7 @@ export const ROADMAP_PHASES = [
       "KEDA ScaledObject generate/submit/status",
       "Istio VirtualService traffic summary (read-first)",
       "Crossplane cloud claims (RiskHigh + strong approval)",
+      "GitOps Flux/Argo CD sync+health and approved sync",
       "Optimize-cluster report (idle / rightsizing / HPA hints)",
       "Service dependency graph from Kubernetes (+ optional OTel edges)",
       "Prompt history, CI JSON, and terminal themes",
@@ -181,7 +182,6 @@ export const ROADMAP_PHASES = [
     items: [
       "Homebrew install",
       "Unified single-approval multi-tool mutating routes",
-      "GitOps adapters (Flux / Argo CD)",
     ],
   },
   {
@@ -189,7 +189,7 @@ export const ROADMAP_PHASES = [
     label: "Later",
     title: "Exploring",
     items: [
-      "GitOps (Flux / Argo CD) deepen: promote / rollback",
+      "GitOps deepen: multi-source promote / progressive delivery",
       "Team control plane: org policy sync · apply audit · shared identity",
       "Separate Team web app (planned — not open for signup; CLI stays free)",
     ],
