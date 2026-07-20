@@ -120,16 +120,10 @@ export const INTEGRATION_ROADMAP = [
         example: 'kprompt "rollback yesterday\'s deployment"',
       },
       {
-        name: "Tekton · KEDA · Istio",
+        name: "Tekton · KEDA · Istio · Crossplane",
         status: "Shipped",
         description:
-          "CI PipelineRuns, event-driven ScaledObjects, and VirtualService traffic/canary reads.",
-        example: 'kprompt "show virtualservice for payments"',
-      },
-      {
-        name: "Crossplane",
-        status: "Exploring",
-        description: "Cloud resource claims with strong approval gates.",
+          "CI PipelineRuns, ScaledObjects, VirtualService traffic reads, and cloud claims with strong approval.",
         example: 'kprompt "provision a postgres database"',
       },
       {
@@ -171,6 +165,7 @@ export const ROADMAP_PHASES = [
       "Tekton PipelineRun generate/submit/status",
       "KEDA ScaledObject generate/submit/status",
       "Istio VirtualService traffic summary (read-first)",
+      "Crossplane cloud claims (RiskHigh + strong approval)",
       "Optimize-cluster report (idle / rightsizing / HPA hints)",
       "Service dependency graph from Kubernetes (+ optional OTel edges)",
       "Prompt history, CI JSON, and terminal themes",
@@ -186,7 +181,7 @@ export const ROADMAP_PHASES = [
     items: [
       "Homebrew install",
       "Unified single-approval multi-tool mutating routes",
-      "Crossplane / GitOps adapters",
+      "GitOps adapters (Flux / Argo CD)",
     ],
   },
   {
@@ -194,7 +189,7 @@ export const ROADMAP_PHASES = [
     label: "Later",
     title: "Exploring",
     items: [
-      "GitOps (Flux / Argo CD) · Crossplane",
+      "GitOps (Flux / Argo CD) deepen: promote / rollback",
       "Team control plane: org policy sync · apply audit · shared identity",
       "Separate Team web app (planned — not open for signup; CLI stays free)",
     ],
