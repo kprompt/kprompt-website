@@ -36,7 +36,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         type: "p",
-        text: "kprompt is an experimental, MIT-licensed CLI. You type what you want in natural language. The tool turns that into a structured plan against your existing kubeconfig, runs safety checks, asks you to approve on a TTY (unless you pass --approve), and only then executes. No hosted agent in your cluster. No vendor lock-in on the model — bring your own API keys.",
+        text: "kprompt is an experimental, Apache-2.0-licensed CLI. You type what you want in natural language. The tool turns that into a structured plan against your existing kubeconfig, runs safety checks, asks you to approve on a TTY (unless you pass --approve), and only then executes. No hosted agent in your cluster. No vendor lock-in on the model — bring your own API keys.",
       },
       {
         type: "h2",
@@ -416,7 +416,7 @@ kprompt "scale api to 2" -n staging   # review plan before y`,
       },
       {
         type: "p",
-        text: "kprompt is an open-source, MIT-licensed Kubernetes CLI that adds a natural-language layer on top of that ecosystem — with a non-negotiable rule: every mutation produces a reviewable plan before apply. v0.3.0 ships core workload operations, Helm, Argo Workflows, Prometheus performance diagnosis, and Jaeger/Tempo query adapters. The rest of the stack follows the same rule: real CLI calls and APIs, not hallucinated YAML from chat.",
+        text: "kprompt is an open-source, Apache-2.0-licensed Kubernetes CLI that adds a natural-language layer on top of that ecosystem — with a non-negotiable rule: every mutation produces a reviewable plan before apply. v0.3.0 ships core workload operations, Helm, Argo Workflows, Prometheus performance diagnosis, and Jaeger/Tempo query adapters. The rest of the stack follows the same rule: real CLI calls and APIs, not hallucinated YAML from chat.",
       },
       {
         type: "h2",
@@ -1610,7 +1610,7 @@ kprompt "rollback api" -n staging   # separate plan + approve`,
       },
       {
         type: "p",
-        text: "kprompt is early-stage MIT CLI. Safety rules reduce risk; they do not certify production readiness. Plans can be wrong within allowed operations — wrong deployment name, wrong replica count, wrong namespace if flags are ambiguous. Hard denies don't catch every mistake. Start on kind or non-production; keep --approve off until plans feel familiar.",
+        text: "kprompt is early-stage Apache-2.0 CLI. Safety rules reduce risk; they do not certify production readiness. Plans can be wrong within allowed operations — wrong deployment name, wrong replica count, wrong namespace if flags are ambiguous. Hard denies don't catch every mistake. Start on kind or non-production; keep --approve off until plans feel familiar.",
       },
       {
         type: "h2",
@@ -2140,7 +2140,7 @@ k8sgpt analyze --explain
       },
       {
         type: "p",
-        text: "kprompt is an experimental MIT CLI in the intent-CLI lane: natural language in, structured plan out, safety checks, then apply only after approval (unless you explicitly pass --approve). Reads (list, explain, logs, describe) run immediately. Mutations always show the plan — with risk labels and hard denies for wipe-class prompts. Integrations extend the same loop toward Helm, Argo Workflows, and Prometheus-backed performance explains.",
+        text: "kprompt is an experimental Apache-2.0 CLI in the intent-CLI lane: natural language in, structured plan out, safety checks, then apply only after approval (unless you explicitly pass --approve). Reads (list, explain, logs, describe) run immediately. Mutations always show the plan — with risk labels and hard denies for wipe-class prompts. Integrations extend the same loop toward Helm, Argo Workflows, and Prometheus-backed performance explains.",
       },
       {
         type: "code",
@@ -3806,7 +3806,7 @@ kprompt "explain why api is crashing" -n staging
       },
       {
         type: "p",
-        text: "Honesty is part of the positioning. The MIT CLI is free, local, and BYOK. Org policy sync, shared audit, and Team enrollment are explored for later — there is nothing to buy on the site today, and this post is not a pricing page. When governance ships, it should attach to the same PlanResult artifact, not invent a parallel chatbot product.",
+        text: "Honesty is part of the positioning. The Apache-2.0 CLI is free, local, and BYOK. Org policy sync, shared audit, and Team enrollment are explored for later — there is nothing to buy on the site today, and this post is not a pricing page. When governance ships, it should attach to the same PlanResult artifact, not invent a parallel chatbot product.",
       },
       {
         type: "ul",

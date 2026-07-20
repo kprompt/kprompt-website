@@ -118,7 +118,7 @@ export function ContributeSection() {
           <SectionHeading
             id="where-to-contribute"
             title="Where to contribute"
-            description="Pick the repo that matches your change. Both are MIT licensed."
+            description="Pick the repo that matches your change. Both are Apache-2.0 licensed."
           />
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {CONTRIBUTE_REPOS.map((repo) => (

@@ -56,7 +56,7 @@ export function Features() {
             Built for real cluster work.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            What ships today in the MIT CLI — not a wishlist.
+            What ships today in the Apache-2.0 CLI — not a wishlist.
           </p>
         </Reveal>
 

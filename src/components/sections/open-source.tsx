@@ -38,7 +38,7 @@ export function OpenSource() {
           </div>
 
           <p className="mt-6 text-sm text-muted-foreground">
-            MIT · Open source · Contributions welcome
+            Apache-2.0 · Open source · Contributions welcome
           </p>
         </Reveal>
       </div>

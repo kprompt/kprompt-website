@@ -157,7 +157,7 @@ export const ROADMAP_PHASES = [
     label: "Now",
     title: "Shipped",
     items: [
-      "Open-source CLI (MIT)",
+      "Open-source CLI (Apache-2.0)",
       "Plan → safety → approve → apply",
       "Deploy, scale, rollback, named delete",
       "Deep explain, logs, describe, get/list",

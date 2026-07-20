@@ -13,7 +13,7 @@ export type ContributeStep = {
 export const CONTRIBUTE_PAGE = {
   title: "Become a contributor",
   description:
-    "kprompt is MIT licensed and built in public. You do not need permission to open an issue or send a PR — start small, keep safety in mind, and link your work to a clear problem.",
+    "kprompt is Apache-2.0 licensed and built in public. You do not need permission to open an issue or send a PR — start small, keep safety in mind, and link your work to a clear problem.",
 } as const;
 
 export const CONTRIBUTE_REPOS: ContributeRepo[] = [

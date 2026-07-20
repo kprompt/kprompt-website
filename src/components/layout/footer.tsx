@@ -100,7 +100,7 @@ export function Footer() {
 
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>© {new Date().getFullYear()} kprompt. MIT licensed.</p>
+          <p>© {new Date().getFullYear()} kprompt. Apache-2.0 licensed.</p>
           <p>Kubernetes is a trademark of The Linux Foundation.</p>
         </div>
       </div>

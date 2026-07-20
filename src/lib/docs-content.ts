@@ -45,7 +45,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       {
         type: "ul",
         items: [
-          "MIT CLI for day-2 Kubernetes ops",
+          "Apache-2.0 CLI for day-2 Kubernetes ops",
           "Plan → safety → approve → apply loop",
           "Deploy, scale, rollback, named delete",
           "Deep read path: get/list, explain, logs, describe",
