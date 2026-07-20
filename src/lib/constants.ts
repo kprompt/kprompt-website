@@ -18,6 +18,8 @@ export const SITE = {
   /** GA4 — public client id; override with NEXT_PUBLIC_GA_MEASUREMENT_ID if needed. */
   gaMeasurementId: "G-E4624KGSE9",
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
+  /** Homebrew tap (official release binaries). */
+  installCommandBrew: "brew install kprompt/tap/kprompt",
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
     "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.3.0/install/install.sh | bash",
@@ -174,6 +176,7 @@ export const ROADMAP_PHASES = [
       "Integration discovery with kprompt tools",
       "Your LLM keys (BYOK)",
       "Brand domain (kprompt.ai)",
+      "Homebrew install (brew install kprompt/tap/kprompt)",
     ],
   },
   {
@@ -181,7 +184,7 @@ export const ROADMAP_PHASES = [
     label: "Next",
     title: "Building",
     items: [
-      "Homebrew install",
+      "Team control plane: org policy sync · apply audit · shared identity",
     ],
   },
   {
@@ -190,7 +193,6 @@ export const ROADMAP_PHASES = [
     title: "Exploring",
     items: [
       "GitOps deepen: multi-source promote / progressive delivery",
-      "Team control plane: org policy sync · apply audit · shared identity",
       "Separate Team web app (planned — not open for signup; CLI stays free)",
     ],
   },
@@ -208,9 +210,12 @@ export const SETUP_STEPS = [
     id: "install",
     title: "Install the CLI",
     description:
-      "Downloads the latest release binary into ~/.local/bin (no sudo on macOS).",
-    commands: [`curl -fsSL ${LIVE_ORIGIN}/install | bash`],
-    note: "If the installer says PATH is missing ~/.local/bin, run the export in the next step.",
+      "curl installer into ~/.local/bin, or Homebrew: brew install kprompt/tap/kprompt.",
+    commands: [
+      `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
+      "brew install kprompt/tap/kprompt",
+    ],
+    note: "Use either path. If the curl installer says PATH is missing ~/.local/bin, run the export in the next step.",
   },
   {
     id: "path",

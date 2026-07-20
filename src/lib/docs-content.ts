@@ -76,7 +76,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
   },
   install: {
     title: "Install",
-    description: "Install the kprompt CLI from GitHub Releases via the website installer.",
+    description: "Install the kprompt CLI from GitHub Releases, Homebrew, or source.",
     blocks: [
       {
         type: "p",
@@ -93,6 +93,18 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       {
         type: "p",
         text: "Installs the latest release binary into ~/.local/bin (no sudo on macOS).",
+      },
+      {
+        type: "h2",
+        text: "Homebrew",
+      },
+      {
+        type: "code",
+        code: "brew install kprompt/tap/kprompt",
+      },
+      {
+        type: "p",
+        text: "Installs the official GitHub Release binary via the kprompt/homebrew-tap formula (macOS and Linux).",
       },
       {
         type: "h2",
