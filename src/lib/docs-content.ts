@@ -49,9 +49,10 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Plan → safety → approve → apply loop",
           "Deploy, scale, rollback, named delete",
           "Deep read path: get/list, explain, logs, describe",
-          "Helm install/upgrade previews and Argo Workflow execution",
-          "Prometheus performance diagnosis and Jaeger/Tempo query adapters",
-          "Local history, CI-stable JSON PlanResult, tool discovery, and terminal themes",
+          "Helm, Argo Workflows, Prometheus, OpenTelemetry, Grafana",
+          "Tekton, KEDA, Istio (read-first), Crossplane, Flux/Argo CD GitOps",
+          "Optimize reports, service dependency graphs, multi-tool routes",
+          "Local history, CI JSON PlanResult, Homebrew install, optional Team login",
         ],
       },
       {
@@ -64,8 +65,8 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Not production-hardened or stability-guaranteed",
           "Not a hosted agent that runs inside your cluster",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
-          "Not yet: Team control plane / hosted agent (explored separately)",
-          "Not a paid Team control plane or live Team web app (explored later — nothing to buy, no signup today)",
+          "Not a public Team signup product — CLI enrollment is opt-in for orgs that already have access",
+          "Nothing to buy today; Free CLI stays free",
         ],
       },
       {
@@ -112,7 +113,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "code",
-        code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.3.0/install/install.sh | bash",
+        code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.4.0/install/install.sh | bash",
       },
       {
         type: "h2",
@@ -213,12 +214,31 @@ kprompt config set theme nord
         code: `kprompt tools
 kprompt "install redis"                         # Helm
 kprompt "train a yolov11 model" --approve --wait # Argo Workflows
-kprompt "why is my api slow?" -n production      # Prometheus`,
+kprompt "why is my api slow?" -n production      # Prometheus
+kprompt "optimize my cluster"                    # read-only report
+kprompt "show service dependency graph"
+kprompt "show gitops sync status"`,
       },
       {
         type: "p",
-        text: "Run kprompt tools first. Integrations use the real Helm binary, Argo Workflow CRD, and configured Prometheus endpoint; missing dependencies produce setup hints instead of fabricated output.",
+        text: "Run kprompt tools first. Integrations use real CLIs/CRDs and configured endpoints; missing dependencies produce setup hints instead of fabricated output.",
         links: [{ label: "Integrations", href: "/docs/integrations" }],
+      },
+      {
+        type: "h2",
+        text: "7. Optional Team enrollment",
+      },
+      {
+        type: "code",
+        code: `kprompt login --open
+kprompt whoami
+kprompt policy pull
+kprompt policy`,
+      },
+      {
+        type: "p",
+        text: "Free CLI behavior is unchanged until you enroll. Login is for orgs that already have Team access — not a public signup funnel.",
+        links: [{ label: "Team enrollment", href: "/docs/team" }],
       },
       {
         type: "h2",
@@ -234,7 +254,7 @@ kprompt history rerun 3 --approve`,
   },
   commands: {
     title: "Commands",
-    description: "Supported intents and useful flags in the shipped CLI.",
+    description: "Supported intents, prompt examples, and useful flags in the shipped CLI.",
     blocks: [
       {
         type: "h2",
@@ -248,14 +268,54 @@ kprompt history rerun 3 --approve`,
           ["scale", '"scale api to 10"', "Deployment replicas"],
           ["rollback", '"rollback payment-api"', "Rollout undo"],
           ["delete", '"delete deployment redis"', "Named Pod/Deployment/Service only"],
-          ["get / list", '"list deployments"', "Read-only"],
+          ["get / list", '"list deployments"', "Read-only; built-ins + discoverable CRDs"],
           ["explain", '"explain why api is crashing"', "Deployment → ReplicaSet → Pods → Events → Logs; may suggest patch"],
           ["logs", '"logs payment-api"', "Tail"],
           ["describe", '"describe payment-api"', "Compact describe"],
           ["Helm install / upgrade", '"install redis"', "Template and dry-run preview before approval"],
-          ["workflow", '"train a yolov11 model"', "Generate and submit an Argo Workflow; supports status and --wait"],
+          ["workflow", '"train a yolov11 model"', "Argo Workflow generate/submit/status/--wait"],
           ["performance", '"why is my api slow?"', "Read-only Prometheus-backed diagnosis"],
+          ["trace", '"trace payment request"', "Jaeger/Tempo span tree + bottlenecks"],
+          ["dashboard", '"show payments dashboard"', "Grafana search + panel summary"],
+          ["optimize", '"optimize my cluster"', "Read-only idle / rightsizing / HPA hints"],
+          ["graph", '"show service dependency graph"', "Service graph (+ optional OTel edges)"],
+          ["GitOps", '"show gitops sync status"', "Flux/Argo CD health; approved sync"],
+          ["Tekton", '"run the build pipeline"', "PipelineRun generate/submit/status"],
+          ["KEDA", '"autoscale api with KEDA"', "ScaledObject generate/submit/status"],
+          ["Istio", '"show traffic for checkout"', "VirtualService traffic summary (read-first)"],
+          ["Crossplane", '"provision a postgres database"', "Cloud claims; RiskHigh + strong approval"],
+          ["route", '"why is api slow then scale api to 4"', "Multi-tool chain; one aggregate approval"],
         ],
+      },
+      {
+        type: "h2",
+        text: "Prompt examples",
+      },
+      {
+        type: "code",
+        code: `# Kubernetes day-2
+kprompt "list deployments"
+kprompt "how many nodes are in the cluster"
+kprompt "scale api to 3" -n staging
+kprompt "rollback payment-api" --approve --wait
+kprompt "explain why redis is crashing"
+
+# Observability
+kprompt "why is my api slow?" -n production
+kprompt "trace payment request"
+kprompt "show dashboard"
+
+# North-star reports
+kprompt "optimize my cluster"
+kprompt "show service dependency graph"
+
+# Ecosystem
+kprompt "install redis" -n cache
+kprompt "show gitops sync status"
+kprompt "provision a postgres database"
+
+# Multi-tool route (one plan, one approval for mutating chains)
+kprompt "why is api slow then scale api to 4"`,
       },
       {
         type: "h2",
@@ -266,7 +326,7 @@ kprompt history rerun 3 --approve`,
         headers: ["Flag", "Description"],
         rows: [
           ["--approve", "Apply without interactive confirmation"],
-          ["--wait", "After apply, wait for Deployment rollout or Argo Workflow terminal phase"],
+          ["--wait", "After apply, wait for Deployment rollout or Workflow/PipelineRun terminal phase"],
           ["--timeout", "Timeout for --wait (default 5m)"],
           ["--output / -o", "text (default) or json (PlanResult)"],
           ["--theme", "auto, dracula, nord, gruvbox, mono, or none"],
@@ -274,6 +334,7 @@ kprompt history rerun 3 --approve`,
           ["--model", "Model id"],
           ["--context", "kubeconfig context"],
           ["-n / --namespace", "Namespace (wins over prompt phrases)"],
+          ["--open", "With login: open the browser for device approval"],
         ],
       },
       {
@@ -286,6 +347,8 @@ kprompt history rerun 3 --approve`,
           "kprompt config / config set …",
           "kprompt history / history rerun [n]",
           "kprompt tools",
+          "kprompt login / login --open / logout / whoami",
+          "kprompt policy / policy pull",
           "kprompt version",
         ],
       },
@@ -348,7 +411,8 @@ export KPROMPT_THEME=gruvbox`,
   },
   integrations: {
     title: "Integrations",
-    description: "Use Helm, Argo Workflows, Prometheus, OpenTelemetry, and Grafana through detected tools and real APIs.",
+    description:
+      "Use Helm, Argo, Prometheus, OTel, Grafana, Tekton, KEDA, Istio, Crossplane, and GitOps through detected tools and real APIs.",
     blocks: [
       {
         type: "p",
@@ -439,6 +503,121 @@ kprompt "trace payment request"`,
         code: `kprompt config set tools.grafana.url https://grafana.example
 kprompt "show payments dashboard"`,
       },
+      {
+        type: "h2",
+        text: "Optimize & service graph",
+      },
+      {
+        type: "p",
+        text: "Optimize is a read-only cluster report (idle workloads, rightsizing, HPA hints). Optional follow-up scale/patch plans still require their own approval. Service graphs build from Kubernetes Services/Endpoints and can add OTel call edges when configured.",
+      },
+      {
+        type: "code",
+        code: `kprompt "optimize my cluster"
+kprompt "show service dependency graph"
+kprompt "show service dependency graph for payments"`,
+      },
+      {
+        type: "h2",
+        text: "Tekton · KEDA · Istio · Crossplane",
+      },
+      {
+        type: "p",
+        text: "Tekton PipelineRuns and KEDA ScaledObjects generate reviewable CRs before submit. Istio is read-first (VirtualService traffic/canary summary). Crossplane cloud claims are RiskHigh and need strong approval.",
+      },
+      {
+        type: "code",
+        code: `kprompt "run the build pipeline"
+kprompt "autoscale api with KEDA to zero when idle"
+kprompt "show traffic for checkout"
+kprompt "provision a postgres database"`,
+      },
+      {
+        type: "h2",
+        text: "GitOps (Flux / Argo CD)",
+      },
+      {
+        type: "p",
+        text: "Status and health are read-only. Sync / promote / rollback paths require approval and apply through the real Flux Kustomization or Argo CD Application APIs.",
+      },
+      {
+        type: "code",
+        code: `kprompt "show gitops sync status"
+kprompt "sync the payments application" --approve`,
+      },
+      {
+        type: "h2",
+        text: "Multi-tool routes",
+      },
+      {
+        type: "p",
+        text: "Chain steps across backends with then / and then. Mutating chains show one aggregate plan and ask for a single approval.",
+      },
+      {
+        type: "code",
+        code: `kprompt "why is api slow then scale api to 4"
+kprompt "show gitops sync status then sync payments" --approve`,
+      },
+    ],
+  },
+  team: {
+    title: "Team enrollment",
+    description:
+      "Optional CLI login for org policy sync and audit push. Free CLI stays free; enrollment does not change behavior until you enroll.",
+    blocks: [
+      {
+        type: "p",
+        text: "Team enrollment is opt-in. Until you run kprompt login, the CLI behaves as Free: local safety only, no control-plane calls. There is no public buy/signup CTA on this site — enrollment is for orgs that already have Team access.",
+      },
+      {
+        type: "h2",
+        text: "Login",
+      },
+      {
+        type: "code",
+        code: `kprompt login            # device code → approve at app.kprompt.ai/connect
+kprompt login --open     # also open the browser
+kprompt whoami           # org + member
+kprompt logout           # revoke token + clear credentials/policy`,
+      },
+      {
+        type: "p",
+        text: "The kp_… token is stored only in ~/.kprompt/credentials.yaml (mode 0600), never in config.yaml. Override the API with KPROMPT_API_URL / KPROMPT_API_TOKEN when needed.",
+      },
+      {
+        type: "h2",
+        text: "Org policy",
+      },
+      {
+        type: "p",
+        text: "Pull caches org policy locally. Cached policy only tightens local hard-denies (namespace allow/deny, max risk, deny intents, require approve) — it never relaxes them.",
+      },
+      {
+        type: "code",
+        code: `kprompt policy pull      # fetch org policy → ~/.kprompt/policy.yaml
+kprompt policy           # show cached policy`,
+      },
+      {
+        type: "h2",
+        text: "Audit push",
+      },
+      {
+        type: "p",
+        text: "When enrolled, each plan best-effort pushes an audit event (planned / denied / applied) to the control plane. Failures print a warning and never fail the local command. Disable with KPROMPT_DISABLE_AUDIT=1.",
+      },
+      {
+        type: "h2",
+        text: "What stays local",
+      },
+      {
+        type: "ul",
+        items: [
+          "Kubeconfig, cluster traffic, and LLM keys stay on your machine",
+          "Audit payloads omit manifests and secrets",
+          "History remains local (~/.kprompt/history.jsonl)",
+          "You can logout anytime and return to Free CLI behavior",
+        ],
+      },
     ],
   },
   safety: {
@@ -451,7 +630,7 @@ kprompt "show payments dashboard"`,
       },
       {
         type: "p",
-        text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, logs, describe, performance, trace, dashboard) do not require approval.",
+        text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, logs, describe, performance, trace, dashboard, optimize, graph, Istio traffic, GitOps status) do not require approval.",
       },
       {
         type: "h2",
@@ -472,7 +651,16 @@ kprompt "show payments dashboard"`,
       },
       {
         type: "p",
-        text: "Plans surface low / medium / high / denied. Denied plans never apply. Medium/high mutations still need explicit approval.",
+        text: "Plans surface low / medium / high / denied. Denied plans never apply. Medium/high mutations still need explicit approval. Crossplane claims are RiskHigh. Multi-tool mutating routes use one aggregate plan and a single approval.",
+      },
+      {
+        type: "h2",
+        text: "Org policy (when enrolled)",
+      },
+      {
+        type: "p",
+        text: "Pulled Team policy can only tighten local rules. See Team enrollment.",
+        links: [{ label: "Team enrollment", href: "/docs/team" }],
       },
       {
         type: "h2",
@@ -557,11 +745,12 @@ kprompt --provider ollama --model llama3.2 "list pods"`,
           ["apiVersion", "always kprompt.io/v1"],
           ["kind", "always PlanResult"],
           ["schemaVersion", '"1" — bump only on breaking changes'],
-          ["plan.intent", "scale, deploy, workflow, performance, get, …"],
+          ["plan.intent", "scale, deploy, workflow, performance, get, route, …"],
           ["plan.actions", "ops without YAML manifests"],
           ["risk.level", "low / medium / high / denied"],
           ["risk.denied", "hard deny"],
           ["applied", "whether a mutation ran"],
+          ["requiresApproval", "true when a mutating plan needs approve"],
           ["result", "optional get/explain/logs/describe/workflow/performance payload"],
         ],
       },

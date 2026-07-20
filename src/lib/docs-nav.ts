@@ -10,6 +10,7 @@ export const DOCS_NAV: DocsNavItem[] = [
   { href: "/docs/commands", label: "Commands" },
   { href: "/docs/themes", label: "Themes" },
   { href: "/docs/integrations", label: "Integrations" },
+  { href: "/docs/team", label: "Team" },
   { href: "/docs/safety", label: "Safety" },
   { href: "/docs/providers", label: "Providers" },
   { href: "/docs/ci", label: "CI / JSON" },

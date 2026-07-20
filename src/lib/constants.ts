@@ -7,7 +7,7 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "Talk to Your Cluster.",
   description:
-    "Open-source Kubernetes CLI with reviewable plans, Helm and Argo orchestration, Prometheus and OpenTelemetry explains, Grafana dashboards, and approval-gated apply.",
+    "Open-source Kubernetes CLI with reviewable plans, day-2 Kubernetes ops, Helm through GitOps integrations, optimize and service graphs, Homebrew install, and optional Team enrollment.",
   github: "https://github.com/kprompt/kprompt",
   docs: "/docs",
   getStarted: "/docs/quickstart",
@@ -22,7 +22,7 @@ export const SITE = {
   installCommandBrew: "brew install kprompt/tap/kprompt",
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
-    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.3.0/install/install.sh | bash",
+    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.4.0/install/install.sh | bash",
 } as const;
 
 export const NAV_LINKS = [
@@ -35,7 +35,7 @@ export const NAV_LINKS = [
 export const INTEGRATION_ROADMAP = [
   {
     id: "shipped-core",
-    label: "Shipped · v0.3.0",
+    label: "Shipped · v0.4.0",
     title: "Kubernetes & Helm",
     items: [
       {
@@ -63,7 +63,7 @@ export const INTEGRATION_ROADMAP = [
   },
   {
     id: "shipped-signals",
-    label: "Shipped · v0.3.0",
+    label: "Shipped · v0.4.0",
     title: "Workflows & metrics",
     items: [
       {
@@ -84,8 +84,8 @@ export const INTEGRATION_ROADMAP = [
   },
   {
     id: "shipped-observability",
-    label: "Shipped · v0.3.0",
-    title: "Traces & dashboards",
+    label: "Shipped · v0.4.0",
+    title: "Traces, dashboards & routes",
     items: [
       {
         name: "Jaeger / Tempo",
@@ -111,14 +111,15 @@ export const INTEGRATION_ROADMAP = [
     ],
   },
   {
-    id: "v10",
-    label: "Exploring",
+    id: "shipped-ecosystem",
+    label: "Shipped · v0.4.0",
     title: "Cloud-native ecosystem",
     items: [
       {
         name: "GitOps",
         status: "Shipped",
-        description: "Flux Kustomization + Argo CD Application sync/health; approved sync/promote/rollback.",
+        description:
+          "Flux Kustomization + Argo CD Application sync/health; approved sync/promote/rollback.",
         example: 'kprompt "show gitops sync status"',
       },
       {
@@ -132,7 +133,7 @@ export const INTEGRATION_ROADMAP = [
         name: "Optimize & graphs",
         status: "Shipped",
         description:
-          "Read-only optimize reports and service dependency graphs.",
+          "Read-only optimize reports and service dependency graphs (+ optional OTel edges).",
         example: 'kprompt "optimize my cluster"',
       },
     ],
@@ -177,6 +178,7 @@ export const ROADMAP_PHASES = [
       "Your LLM keys (BYOK)",
       "Brand domain (kprompt.ai)",
       "Homebrew install (brew install kprompt/tap/kprompt)",
+      "Optional Team CLI login · policy pull · audit push",
     ],
   },
   {
@@ -184,7 +186,7 @@ export const ROADMAP_PHASES = [
     label: "Next",
     title: "Building",
     items: [
-      "Team control plane: org policy sync · apply audit · shared identity",
+      "Team control plane: richer audit viewer · invite mailer · public signup path",
     ],
   },
   {
@@ -193,7 +195,7 @@ export const ROADMAP_PHASES = [
     title: "Exploring",
     items: [
       "GitOps deepen: multi-source promote / progressive delivery",
-      "Separate Team web app (planned — not open for signup; CLI stays free)",
+      "Separate Team web app polish (CLI stays free)",
     ],
   },
 ] as const;
@@ -226,7 +228,7 @@ export const SETUP_STEPS = [
       "source ~/.zshrc",
       "kprompt version",
     ],
-    note: "You should see a version like 0.3.0.",
+    note: "You should see a version like 0.4.0.",
   },
   {
     id: "config",
@@ -268,6 +270,7 @@ export const SETUP_STEPS = [
       "Reads run immediately. Mutations show a plan (with live diffs when available), then ask y/N on a TTY — or use --approve. Add --wait after apply to block until the Deployment is ready.",
     commands: [
       'kprompt "list deployments"',
+      'kprompt "how many nodes are in the cluster"',
       'kprompt "deploy redis"',
       'kprompt "rollback payment-api"',
       'kprompt "logs payment-api"',
@@ -275,6 +278,9 @@ export const SETUP_STEPS = [
       'kprompt "delete deployment redis" --approve',
       'kprompt "scale redis to 2" --approve --wait',
       'kprompt "explain why redis is crashing"',
+      'kprompt "optimize my cluster"',
+      'kprompt "show service dependency graph"',
+      'kprompt "why is api slow then scale api to 4"',
     ],
     note: 'A greeting like kprompt "hello" is not a cluster op — use a real Kubernetes ask after the key is set.',
   },
@@ -294,14 +300,30 @@ export const SETUP_STEPS = [
     id: "tools",
     title: "Discover integrations",
     description:
-      "See which real backends are ready before using Helm, Argo, Prometheus, or trace features.",
+      "See which real backends are ready before using Helm, Argo, Prometheus, GitOps, or other features.",
     commands: [
       "kprompt tools",
       'kprompt "install redis"',
       'kprompt "train a yolov11 model" --approve --wait',
       'kprompt "why is my api slow?" -n production',
+      'kprompt "show gitops sync status"',
+      'kprompt "show traffic for checkout"',
     ],
-    note: "Helm needs its binary on PATH; Argo needs the Workflow CRD; Prometheus, Jaeger/Tempo, and Grafana use tools.* config or KPROMPT_* environment endpoints.",
+    note: "Helm needs its binary on PATH; Argo/Tekton/KEDA/Crossplane/GitOps need their CRDs; Prometheus, Jaeger/Tempo, and Grafana use tools.* config or KPROMPT_* environment endpoints.",
+  },
+  {
+    id: "team",
+    title: "Optional Team enrollment",
+    description:
+      "Device-login for org policy and audit push. Free CLI behavior is unchanged until you enroll — not a public signup funnel.",
+    commands: [
+      "kprompt login --open",
+      "kprompt whoami",
+      "kprompt policy pull",
+      "kprompt policy",
+      "kprompt logout",
+    ],
+    note: "Token lives in ~/.kprompt/credentials.yaml (0600). Cached policy only tightens local denies. Disable audit with KPROMPT_DISABLE_AUDIT=1.",
   },
   {
     id: "history",

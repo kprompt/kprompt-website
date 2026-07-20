@@ -14,10 +14,11 @@ export function LookingAhead() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             The CLI stays open source and free — and still experimental.
-            Day-2 integrations (Helm, Argo Workflows, Prometheus, OTel, Grafana)
-            and north-star reports (optimize, service graph) ship in the binary.
-            A Team control plane and separate web app are on the horizon for org
-            policy and audit — not open for signup, and nothing to buy today.
+            Day-2 integrations (Helm through GitOps), north-star reports
+            (optimize, service graph), Homebrew install, and optional Team
+            login/policy/audit ship in the binary. A fuller Team control plane
+            and web app continue to evolve — not a public signup product today,
+            and nothing to buy.
           </p>
         </Reveal>
 
