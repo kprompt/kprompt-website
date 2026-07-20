@@ -120,11 +120,18 @@ export const INTEGRATION_ROADMAP = [
         example: 'kprompt "rollback yesterday\'s deployment"',
       },
       {
-        name: "Tekton · KEDA · Istio",
+        name: "Tekton · KEDA",
+        status: "Shipped",
+        description:
+          "CI PipelineRuns and event-driven ScaledObjects — via real CRDs/APIs.",
+        example: 'kprompt "scale api to zero with keda"',
+      },
+      {
+        name: "Istio",
         status: "Exploring",
         description:
-          "CI pipelines, event-driven scale, traffic management — via real CRDs/APIs.",
-        example: 'kprompt "create a CI pipeline"',
+          "VirtualService, traffic, canary — read-first mesh intents.",
+        example: 'kprompt "show virtualservice for payments"',
       },
       {
         name: "Crossplane",
@@ -134,9 +141,9 @@ export const INTEGRATION_ROADMAP = [
       },
       {
         name: "Optimize & graphs",
-        status: "Exploring",
+        status: "Shipped",
         description:
-          "Read-only optimize reports and service dependency graphs (north-star).",
+          "Read-only optimize reports and service dependency graphs.",
         example: 'kprompt "optimize my cluster"',
       },
     ],
@@ -168,8 +175,10 @@ export const ROADMAP_PHASES = [
       "OpenTelemetry trace walk and bottleneck narration",
       "Grafana dashboard search and panel summaries",
       "Multi-tool route chaining",
+      "Tekton PipelineRun generate/submit/status",
+      "KEDA ScaledObject generate/submit/status",
       "Optimize-cluster report (idle / rightsizing / HPA hints)",
-      "Service dependency graph from Kubernetes",
+      "Service dependency graph from Kubernetes (+ optional OTel edges)",
       "Prompt history, CI JSON, and terminal themes",
       "Integration discovery with kprompt tools",
       "Your LLM keys (BYOK)",
@@ -182,9 +191,8 @@ export const ROADMAP_PHASES = [
     title: "Building",
     items: [
       "Homebrew install",
-      "OTel enrichment for the service dependency graph",
       "Unified single-approval multi-tool mutating routes",
-      "More ecosystem adapters (Tekton, KEDA, …)",
+      "Istio / Crossplane / GitOps adapters",
     ],
   },
   {
