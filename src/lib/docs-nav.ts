@@ -8,6 +8,7 @@ export const DOCS_NAV: DocsNavItem[] = [
   { href: "/docs/install", label: "Install" },
   { href: "/docs/quickstart", label: "Quickstart" },
   { href: "/docs/commands", label: "Commands" },
+  { href: "/docs/dash", label: "Local cluster dash" },
   { href: "/docs/themes", label: "Themes" },
   { href: "/docs/integrations", label: "Integrations" },
   { href: "/docs/team", label: "Team" },

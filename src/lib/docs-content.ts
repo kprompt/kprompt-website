@@ -65,6 +65,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Not production-hardened or stability-guaranteed",
           "Not a hosted agent that runs inside your cluster",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
+          "Not a Lens/Headlamp replacement — optional local read-only inventory is kprompt-dash (localhost only)",
           "Not a public Team signup product — CLI enrollment is opt-in for orgs that already have access",
           "Nothing to buy today; Free CLI stays free",
         ],
@@ -347,9 +348,73 @@ kprompt "why is api slow then scale api to 4"`,
           "kprompt config / config set …",
           "kprompt history / history rerun [n]",
           "kprompt tools",
+          "kprompt doctor",
+          "kprompt dash — local read-only cluster UI (requires kprompt-dash on PATH; not a Lens replacement)",
           "kprompt login / login --open / logout / whoami",
           "kprompt policy / policy pull",
+          "kprompt secrets pull",
           "kprompt version",
+        ],
+      },
+      {
+        type: "p",
+        text: "For the local dash quickstart and security defaults, see the Local cluster dash docs.",
+        links: [{ label: "Local cluster dash", href: "/docs/dash" }],
+      },
+    ],
+  },
+  dash: {
+    title: "Local cluster dash",
+    description:
+      "kprompt-dash is a simple localhost, read-only cluster inventory — see the cluster, then hand off to kprompt for plan → approve → apply. Not a Lens or Headlamp replacement.",
+    blocks: [
+      {
+        type: "p",
+        text: "kprompt-dash is an optional OSS companion binary. It binds to 127.0.0.1 by default, uses your kubeconfig like kubectl, and stays read-only. Mutations remain in the CLI plan → approve loop.",
+        links: [
+          {
+            label: "github.com/kprompt/kprompt-dash",
+            href: "https://github.com/kprompt/kprompt-dash",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Install & run",
+      },
+      {
+        type: "code",
+        code: `go install github.com/kprompt/kprompt-dash/cmd/kprompt-dash@latest
+kprompt dash
+# or: kprompt-dash -open`,
+      },
+      {
+        type: "p",
+        text: "Opens http://127.0.0.1:7474 with Cluster, Nodes, Deployments, ReplicaSets, and Pods — plus detail (events / short logs) and copyable kprompt prompt handoff.",
+      },
+      {
+        type: "h2",
+        text: "What it is not",
+      },
+      {
+        type: "ul",
+        items: [
+          "Not a hosted multi-tenant dashboard on app.kprompt.ai",
+          "Not in-browser mutate / apply",
+          "Not a full CRD / RBAC / Helm explorer",
+          "Not Lens or Headlamp parity",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Security",
+      },
+      {
+        type: "ul",
+        items: [
+          "No HTTP authentication — anyone who can reach the port shares your kube privileges",
+          "Default listen address is loopback only",
+          "Non-loopback binds require an explicit -allow-remote flag",
         ],
       },
     ],
