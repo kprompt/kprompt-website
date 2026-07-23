@@ -345,7 +345,7 @@ kprompt "why is api slow then scale api to 4"`,
       {
         type: "ul",
         items: [
-          "kprompt config / config set …",
+          "kprompt config / config set … / config alias set|unset",
           "kprompt history / history rerun [n]",
           "kprompt tools",
           "kprompt doctor",
@@ -355,6 +355,21 @@ kprompt "why is api slow then scale api to 4"`,
           "kprompt secrets pull",
           "kprompt version",
         ],
+      },
+      {
+        type: "h2",
+        text: "Context aliases",
+      },
+      {
+        type: "p",
+        text: "Map short names to kubeconfig contexts. Optional require_alias_match refuses mutating apply when kubectl’s current-context does not match the resolved target (wrong-cluster guard).",
+      },
+      {
+        type: "code",
+        code: `kprompt config alias set prod gke_myproj_us-central1_prod
+kprompt config alias set staging kind-staging
+kprompt --context prod "list deployments"
+kprompt config set require_alias_match true`,
       },
       {
         type: "p",
