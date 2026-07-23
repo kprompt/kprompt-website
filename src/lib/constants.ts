@@ -7,12 +7,13 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "Talk to Your Cluster.",
   description:
-    "Open-source Kubernetes CLI with reviewable plans, day-2 Kubernetes ops, Helm through GitOps integrations, optimize and service graphs, Homebrew install, and optional Team enrollment.",
+    "Open-source Kubernetes CLI: natural language → reviewable plans → approve before apply. Day-2 ops, integrations, optimize/graph — building toward AI SRE investigation.",
   github: "https://github.com/kprompt/kprompt",
   /** Team web surface (authenticated). */
   app: "https://app.kprompt.ai",
   docs: "/docs",
   getStarted: "/docs/quickstart",
+  roadmap: "/docs/roadmap",
   /** Short maturity line for hero / banners. */
   maturityLabel: "Experimental",
   maturityNotice:
@@ -34,115 +35,6 @@ export const NAV_LINKS = [
   { href: SITE.app, label: "App", external: true },
 ] as const;
 
-/** Shipped integration surface plus the honest next horizon (M-005 / T-047). */
-export const INTEGRATION_ROADMAP = [
-  {
-    id: "shipped-core",
-    label: "Shipped · v0.4.0",
-    title: "Kubernetes & Helm",
-    items: [
-      {
-        name: "Generic Kubernetes read",
-        status: "Shipped",
-        description:
-          "Discovery-backed get/list for built-ins and CRDs (Node, ConfigMap, Secret, …) with RBAC boundaries.",
-        example: 'kprompt "how many nodes are in the cluster"',
-      },
-      {
-        name: "Helm",
-        status: "Shipped",
-        description:
-          "Chart install and upgrade via the real Helm CLI, with template and dry-run previews before execution.",
-        example: 'kprompt "install redis"',
-      },
-      {
-        name: "Kubernetes depth",
-        status: "Shipped",
-        description:
-          "Chain Deployment → ReplicaSet → Pods → Events → Logs in one explain.",
-        example: 'kprompt "why isn\'t my deployment ready?"',
-      },
-    ],
-  },
-  {
-    id: "shipped-signals",
-    label: "Shipped · v0.4.0",
-    title: "Workflows & metrics",
-    items: [
-      {
-        name: "Argo Workflows",
-        status: "Shipped",
-        description:
-          "Generate, preview, submit, wait for, and read Workflow status through the installed CRD.",
-        example: 'kprompt "train a yolov11 model"',
-      },
-      {
-        name: "Prometheus",
-        status: "Shipped",
-        description:
-          "Run bounded PromQL queries and explain workload CPU, memory, p95 latency, replicas, and HPA signals.",
-        example: 'kprompt "why is my api slow?"',
-      },
-    ],
-  },
-  {
-    id: "shipped-observability",
-    label: "Shipped · v0.4.0",
-    title: "Traces, dashboards & routes",
-    items: [
-      {
-        name: "Jaeger / Tempo",
-        status: "Shipped",
-        description:
-          "Natural-language trace walk with span trees and bottleneck narration over Jaeger or Tempo.",
-        example: 'kprompt "trace payment request"',
-      },
-      {
-        name: "Grafana",
-        status: "Shipped",
-        description:
-          "Search dashboards and summarize panels from the Grafana HTTP API.",
-        example: 'kprompt "show dashboard"',
-      },
-      {
-        name: "Multi-tool router",
-        status: "Shipped",
-        description:
-          "Chain steps across backends with one aggregate plan and a single approval for mutating chains.",
-        example: 'kprompt "why is api slow then scale api to 4"',
-      },
-    ],
-  },
-  {
-    id: "shipped-ecosystem",
-    label: "Shipped · v0.4.0",
-    title: "Cloud-native ecosystem",
-    items: [
-      {
-        name: "GitOps",
-        status: "Shipped",
-        description:
-          "Flux Kustomization + Argo CD Application sync/health; approved sync/promote/rollback.",
-        example: 'kprompt "show gitops sync status"',
-      },
-      {
-        name: "Tekton · KEDA · Istio · Crossplane",
-        status: "Shipped",
-        description:
-          "CI PipelineRuns, ScaledObjects, VirtualService traffic reads, and cloud claims with strong approval.",
-        example: 'kprompt "provision a postgres database"',
-      },
-      {
-        name: "Optimize & graphs",
-        status: "Shipped",
-        description:
-          "Read-only optimize reports and service dependency graphs (+ optional OTel edges).",
-        example: 'kprompt "optimize my cluster"',
-      },
-    ],
-  },
-] as const;
-
 export const NORTH_STAR_PROMPTS = [
   'kprompt "deploy my app"',
   'kprompt "why is production slow"',
@@ -150,205 +42,34 @@ export const NORTH_STAR_PROMPTS = [
   'kprompt "show service dependency graph"',
 ] as const;
 
-/** Public horizon only — no pricing, no “buy Team”, no ship dates, no live app CTA (M-005 / A-008). */
-export const ROADMAP_PHASES = [
-  {
-    id: "now",
-    label: "Now",
-    title: "Shipped",
-    items: [
-      "Open-source CLI (Apache-2.0)",
-      "Plan → safety → approve → apply",
-      "Deploy, scale, rollback, named delete",
-      "Deep explain, logs, describe, get/list",
-      "Discovery-backed generic Kubernetes reads (built-ins + CRDs)",
-      "Helm install/upgrade plans and dry-run previews",
-      "Argo Workflow generate/submit/status/wait",
-      "Prometheus performance diagnosis",
-      "OpenTelemetry trace walk and bottleneck narration",
-      "Grafana dashboard search and panel summaries",
-      "Multi-tool route chaining",
-      "Tekton PipelineRun generate/submit/status",
-      "KEDA ScaledObject generate/submit/status",
-      "Istio VirtualService traffic summary (read-first)",
-      "Crossplane cloud claims (RiskHigh + strong approval)",
-      "GitOps Flux/Argo CD sync+health and approved sync",
-      "Multi-tool routes with one aggregate plan + single approval",
-      "Optimize-cluster report (idle / rightsizing / HPA hints)",
-      "Service dependency graph from Kubernetes (+ optional OTel edges)",
-      "Prompt history, CI JSON, and terminal themes",
-      "Integration discovery with kprompt tools",
-      "Your LLM keys (BYOK)",
-      "Brand domain (kprompt.ai)",
-      "Homebrew install (brew install kprompt/tap/kprompt)",
-      "Optional Team CLI login · policy pull · audit push",
-    ],
-  },
-  {
-    id: "next",
-    label: "Next",
-    title: "Building",
-    items: [
-      "Team control plane: richer audit viewer · invite mailer · public signup path",
-    ],
-  },
-  {
-    id: "later",
-    label: "Later",
-    title: "Exploring",
-    items: [
-      "GitOps deepen: multi-source promote / progressive delivery",
-      "Separate Team web app polish (CLI stays free)",
-    ],
-  },
-] as const;
+/** Homepage teaser only — full detail on /docs/roadmap. */
+export const ROADMAP_TEASER = {
+  lead: "Intent compiler today. AI SRE next — still plan → approve → apply, never a silent controller.",
+  pillars: [
+    {
+      label: "Now",
+      title: "Shipped",
+      blurb:
+        "Plan/approve loop, deep explain, Helm through GitOps, optimize & graphs, aliases, optional Team enrollment.",
+    },
+    {
+      label: "Next",
+      title: "Trust & investigate",
+      blurb:
+        "Blast-radius, post-apply verify, multi-hop investigate / why / timeline, audit and GitOps PR mode.",
+    },
+    {
+      label: "Later",
+      title: "Proactive & fleet",
+      blurb:
+        "Opt-in local watch, multi-cluster fan-out without uploading kubeconfig, Team app Insights polish.",
+    },
+  ],
+} as const;
 
 export const INSTALL_STEPS = [
   "Install the CLI",
   "Configure defaults",
   "Set an LLM API key",
   "Prompt your cluster",
-] as const;
-
-export const SETUP_STEPS = [
-  {
-    id: "install",
-    title: "Install the CLI",
-    description:
-      "curl installer into ~/.local/bin, or Homebrew: brew install kprompt/tap/kprompt.",
-    commands: [
-      `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
-      "brew install kprompt/tap/kprompt",
-    ],
-    note: "Use either path. If the curl installer says PATH is missing ~/.local/bin, run the export in the next step.",
-  },
-  {
-    id: "path",
-    title: "Put kprompt on your PATH",
-    description: "Make the binary available in new terminal sessions.",
-    commands: [
-      'echo \'export PATH="$HOME/.local/bin:$PATH"\' >> ~/.zshrc',
-      "source ~/.zshrc",
-      "kprompt version",
-    ],
-    note: "You should see a version like 0.4.0.",
-  },
-  {
-    id: "config",
-    title: "Save defaults with kprompt config",
-    description:
-      "Persist provider, model, and namespace in ~/.kprompt/config.yaml. API keys are never written to that file — config only shows whether a key is set or unset.",
-    commands: [
-      "kprompt config",
-      "kprompt config set provider gemini",
-      "kprompt config set model gemini-2.0-flash",
-      "kprompt config set namespace default",
-      "kprompt config set theme dracula",
-    ],
-    note: "Allowed keys include provider, model, base_url, context, namespace, theme, and tools.* integration endpoints. API keys stay in environment variables.",
-  },
-  {
-    id: "api-key",
-    title: "Set an LLM API key",
-    description:
-      "kprompt needs a model to turn your sentence into a plan. Without a key you get a missing API key error for your chosen provider.",
-    commands: [
-      'export KPROMPT_GEMINI_API_KEY="..."',
-      'echo \'export KPROMPT_GEMINI_API_KEY="..."\' >> ~/.zshrc',
-      "kprompt config   # api_key should now say: set",
-    ],
-    note: "Also: OPENAI, ANTHROPIC, GROQ, MISTRAL, DEEPSEEK, OPENROUTER, TOGETHER — or ollama with no key. Full table in Docs → Providers. Never put secrets in config.yaml.",
-  },
-  {
-    id: "kube",
-    title: "Connect your cluster",
-    description: "Uses your existing kubeconfig (same as kubectl).",
-    commands: ["kubectl config current-context", "kubectl get ns"],
-    note: "Optional: kprompt config set context kind-kprompt-e2e — or pass --context / -n on each command. Namespace phrases like in staging are parsed from the prompt when flags are omitted.",
-  },
-  {
-    id: "prompt",
-    title: "Run your first prompts",
-    description:
-      "Reads run immediately. Mutations show a plan (with live diffs when available), then ask y/N on a TTY — or use --approve. Add --wait after apply to block until the Deployment is ready.",
-    commands: [
-      'kprompt "list deployments"',
-      'kprompt "how many nodes are in the cluster"',
-      'kprompt "deploy redis"',
-      'kprompt "rollback payment-api"',
-      'kprompt "logs payment-api"',
-      'kprompt "describe payment-api"',
-      'kprompt "delete deployment redis" --approve',
-      'kprompt "scale redis to 2" --approve --wait',
-      'kprompt "explain why redis is crashing"',
-      'kprompt "optimize my cluster"',
-      'kprompt "show service dependency graph"',
-      'kprompt "why is api slow then scale api to 4"',
-    ],
-    note: 'A greeting like kprompt "hello" is not a cluster op — use a real Kubernetes ask after the key is set.',
-  },
-  {
-    id: "theme",
-    title: "Choose a terminal theme",
-    description:
-      "Colorize plans, risks, findings, and tables. Themes only render on a TTY and respect NO_COLOR.",
-    commands: [
-      'kprompt --theme dracula "list deployments"',
-      "kprompt config set theme nord",
-      'export KPROMPT_THEME="gruvbox"',
-    ],
-    note: "Built-ins: auto, dracula, nord, gruvbox, mono, none. Use KPROMPT_FORCE_COLOR=1 only when your output consumer supports ANSI.",
-  },
-  {
-    id: "tools",
-    title: "Discover integrations",
-    description:
-      "See which real backends are ready before using Helm, Argo, Prometheus, GitOps, or other features.",
-    commands: [
-      "kprompt tools",
-      'kprompt "install redis"',
-      'kprompt "train a yolov11 model" --approve --wait',
-      'kprompt "why is my api slow?" -n production',
-      'kprompt "show gitops sync status"',
-      'kprompt "show traffic for checkout"',
-    ],
-    note: "Helm needs its binary on PATH; Argo/Tekton/KEDA/Crossplane/GitOps need their CRDs; Prometheus, Jaeger/Tempo, and Grafana use tools.* config or KPROMPT_* environment endpoints.",
-  },
-  {
-    id: "team",
-    title: "Optional Team enrollment",
-    description:
-      "Device-login for org policy and audit push. Free CLI behavior is unchanged until you enroll — not a public signup funnel.",
-    commands: [
-      "kprompt login --open",
-      "kprompt whoami",
-      "kprompt policy pull",
-      "kprompt policy",
-      "kprompt logout",
-    ],
-    note: "Token lives in ~/.kprompt/credentials.yaml (0600). Cached policy only tightens local denies. Disable audit with KPROMPT_DISABLE_AUDIT=1.",
-  },
-  {
-    id: "history",
-    title: "Replay from history",
-    description:
-      "Recent prompts and plan summaries are stored locally (never manifests or API keys).",
-    commands: [
-      "kprompt history",
-      "kprompt history rerun",
-      "kprompt history rerun 3 --approve",
-    ],
-    note: "File: ~/.kprompt/history.jsonl. Disable with KPROMPT_DISABLE_HISTORY=1 if needed.",
-  },
-  {
-    id: "ci",
-    title: "Gate plans in CI",
-    description:
-      "Emit a stable PlanResult JSON document for pipelines. Human UI goes to stderr; stdout is one JSON object.",
-    commands: [
-      'kprompt "scale api to 10" -n prod --output json',
-      'kprompt "scale api to 10" -n prod -o json | jq -e \'.risk.denied == false\'',
-    ],
-    note: "See Docs → CI for schema fields and jq helpers.",
-  },
 ] as const;

@@ -11,6 +11,7 @@ export const DOCS_NAV: DocsNavItem[] = [
   { href: "/docs/dash", label: "Local cluster dash" },
   { href: "/docs/themes", label: "Themes" },
   { href: "/docs/integrations", label: "Integrations" },
+  { href: "/docs/roadmap", label: "Roadmap & vision" },
   { href: "/docs/team", label: "Team" },
   { href: "/docs/safety", label: "Safety" },
   { href: "/docs/providers", label: "Providers" },

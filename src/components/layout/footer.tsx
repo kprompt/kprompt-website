@@ -49,6 +49,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href={SITE.roadmap} className="hover:text-foreground">
+                  Roadmap
+                </Link>
+              </li>
+              <li>
                 <Link href="/blog" className="hover:text-foreground">
                   Blog
                 </Link>

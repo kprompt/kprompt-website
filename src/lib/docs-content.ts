@@ -72,6 +72,11 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
+        text: "Where we are headed (AI SRE investigate, trust loops, multi-cluster) is documented honestly on Roadmap & vision — shipped vs building vs exploring.",
+        links: [{ label: "Roadmap & vision", href: "/docs/roadmap" }],
+      },
+      {
+        type: "p",
         text: "Source of truth for the binary: github.com/kprompt/kprompt. This site mirrors install, safety, providers, and CI docs for operators who land here first.",
       },
     ],
@@ -334,6 +339,7 @@ kprompt "why is api slow then scale api to 4"`,
           ["--provider", "LLM provider id"],
           ["--model", "Model id"],
           ["--context", "kubeconfig context"],
+          ["--contexts", "comma-separated contexts for read-only fan-out (aliases ok)"],
           ["-n / --namespace", "Namespace (wins over prompt phrases)"],
           ["--open", "With login: open the browser for device approval"],
         ],
@@ -363,13 +369,15 @@ kprompt "why is api slow then scale api to 4"`,
       },
       {
         type: "p",
-        text: "Map short names to kubeconfig contexts. Optional require_alias_match refuses mutating apply when kubectl’s current-context does not match the resolved target (wrong-cluster guard). Inventory: kprompt contexts.",
+        text: "Map short names to kubeconfig contexts. Optional require_alias_match refuses mutating apply when kubectl’s current-context does not match the resolved target (wrong-cluster guard). Inventory: kprompt contexts. Read-only fan-out: --contexts or “across staging and prod” (get/list/explain/logs/describe). Mutating multi-context plans are denied.",
       },
       {
         type: "code",
         code: `kprompt config alias set prod gke_myproj_us-central1_prod
 kprompt config alias set staging kind-staging
 kprompt contexts
+kprompt --contexts staging,prod "list deployments"
+kprompt "list pods across staging and prod"
 kprompt --context prod "list deployments"
 kprompt config set require_alias_match true`,
       },
@@ -864,6 +872,109 @@ echo "$json" | jq -e '[.plan.actions[].op] | index("delete") | not'
 
 # High-risk gate
 echo "$json" | jq -e '.risk.level != "high"'`,
+      },
+    ],
+  },
+  roadmap: {
+    title: "Roadmap & vision",
+    description:
+      "Where kprompt is headed: AI SRE investigation, trust loops, multi-cluster, and what stays out of scope. Honest shipped vs exploring.",
+    blocks: [
+      {
+        type: "h2",
+        text: "Positioning",
+      },
+      {
+        type: "p",
+        text: "kprompt is an intent compiler today: natural language → reviewable PlanResult → approve → apply. The long-term bet is AI SRE — thinking about the cluster (investigate, why, timeline, blast radius, verify) while keeping the same approval contract. Not a free-form chat REPL, not a silent analyzer daemon, not a hosted fleet scanner. Read Intent compiler, not chat and Kubernetes AI tools compared for public positioning.",
+        links: [
+          { label: "Intent compiler, not chat", href: "/blog/intent-compiler-not-chat" },
+          {
+            label: "Kubernetes AI tools compared",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Shipped now",
+      },
+      {
+        type: "ul",
+        items: [
+          "Plan → safety → approve → apply (deploy, scale, rollback, named delete)",
+          "Deep explain, logs, describe, discovery-backed get/list",
+          "Helm, Argo Workflows, Prometheus, OTel, Grafana, multi-tool routes",
+          "Tekton, KEDA, Istio (read-first), Crossplane, Flux/Argo CD GitOps",
+          "Optimize-cluster report (idle / rightsizing / HPA) and service dependency graph",
+          "Context aliases, doctor, Homebrew, optional Team login / policy / audit",
+          "Local read-only inventory via kprompt dash (localhost)",
+        ],
+      },
+      {
+        type: "p",
+        text: "Full integration detail lives on Integrations — not duplicated here.",
+        links: [{ label: "Integrations", href: "/docs/integrations" }],
+      },
+      {
+        type: "h2",
+        text: "Building next — trust & AI SRE",
+      },
+      {
+        type: "p",
+        text: "These deepen “think about the cluster” without leaving the plan/approve loop. Treat as in progress — not a public ship date.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Blast-radius preview on mutating plans (who/what is affected)",
+          "Post-apply verify — confirm the goal after --wait, not only “applied”",
+          "investigate — multi-hop RCA (ingress → Service → Endpoints → Pods → events → logs → mesh/DNS)",
+          "why — causal state trees (e.g. Pending → affinity → no GPU nodes)",
+          "timeline — incident chronology from events, rollouts, HPA (+ optional metrics)",
+          "audit / cleanup / drift — hygiene scans and GitOps drift reports with optional approved remediations",
+          "GitOps PR mode — open/update a PR instead of live mutate when Flux/Argo CD is in play",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Exploring later",
+      },
+      {
+        type: "ul",
+        items: [
+          "Proactive local watch (opt-in): signal → “latency up; investigate?” — never auto-mutate",
+          "Local remember / session digests (facts stay on your machine by default)",
+          "Multi-cluster: contexts inventory, read fan-out, explicit per-cluster mutate safety; org registry metadata without uploading kubeconfig",
+          "Team web polish on app.kprompt.ai (policy, audit, Insights) — CLI stays free; nothing to buy today",
+          "Workflow recipe packs (harden production, Ingress → Gateway API) as curated plan chains",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What we will not do",
+      },
+      {
+        type: "ul",
+        items: [
+          "Silent apply across clusters from one --approve",
+          "Upload kubeconfig / cluster credentials to the control plane",
+          "Replace Lens/Headlamp as a hosted live cluster browser",
+          "Compete on free-form agent chat with kubectl-ai",
+          "Claim K8sGPT analyzer parity as a fleet scanner",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Shape priorities",
+      },
+      {
+        type: "p",
+        text: "Star issues and PRs on GitHub. The CLI stays Apache-2.0 and experimental — review every plan before apply. Start with Quickstart when you are ready to try it.",
+        links: [
+          { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
+          { label: "Quickstart", href: "/docs/quickstart" },
+        ],
       },
     ],
   },

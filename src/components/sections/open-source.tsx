@@ -30,10 +30,10 @@ export function OpenSource() {
               Star us on GitHub
             </a>
             <a
-              href={SITE.docs}
+              href={SITE.roadmap}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
-              Read the docs
+              Roadmap & vision
             </a>
           </div>
 

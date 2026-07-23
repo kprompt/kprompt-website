@@ -13,6 +13,7 @@ const KPROMPT = [
   "Review diffs and risk before apply",
   "Hard denies for wipe-class prompts",
   "History + JSON PlanResult for CI gates",
+  "Same loop for optimize, graphs, and day-2 tools",
 ] as const;
 
 export function WhyKprompt() {

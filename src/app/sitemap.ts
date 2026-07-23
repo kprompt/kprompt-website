@@ -8,7 +8,7 @@ import {
   getPostsByTag,
 } from "@/lib/blog-posts";
 
-const STATIC_CONTENT_UPDATED_AT = new Date("2026-07-16T00:00:00.000Z");
+const STATIC_CONTENT_UPDATED_AT = new Date("2026-07-23T00:00:00.000Z");
 
 function contentDate(value: string): Date {
   return new Date(value.includes("T") ? value : `${value}T00:00:00.000Z`);

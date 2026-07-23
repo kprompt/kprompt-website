@@ -31,7 +31,7 @@ const FEATURES = [
     icon: Radar,
     title: "Grounded investigation",
     description:
-      "Deep Kubernetes explain plus Prometheus-backed CPU, memory, latency, replica, and HPA findings.",
+      "Deep Kubernetes explain plus Prometheus-backed CPU, memory, latency, replica, and HPA findings — building toward multi-hop RCA.",
   },
   {
     icon: ScrollText,

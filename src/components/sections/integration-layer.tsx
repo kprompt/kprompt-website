@@ -1,12 +1,30 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { INTEGRATION_ROADMAP, NORTH_STAR_PROMPTS } from "@/lib/constants";
+import { buttonVariants } from "@/components/ui/button";
+import { NORTH_STAR_PROMPTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+
+const HIGHLIGHTS = [
+  {
+    title: "Kubernetes & Helm",
+    blurb: "Generic get/list, deep explain chains, chart install/upgrade with dry-run.",
+  },
+  {
+    title: "Signals & GitOps",
+    blurb: "Prometheus, OTel, Grafana, Flux/Argo CD — real backends, one approval loop.",
+  },
+  {
+    title: "Optimize & graphs",
+    blurb: "Idle/rightsizing reports and service dependency graphs when tools are present.",
+  },
+] as const;
 
 export function IntegrationLayer() {
   return (
     <section
       id="integrations"
-      className="relative scroll-mt-20 border-y border-border bg-muted/40 py-20 sm:py-28"
+      className="relative scroll-mt-20 border-y border-border bg-muted/40 py-16 sm:py-20"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
@@ -14,96 +32,31 @@ export function IntegrationLayer() {
             Integration layer
           </p>
           <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            One natural-language layer for your stack
+            One NL layer for your stack
           </h2>
           <p className="mt-3 text-muted-foreground">
-            kprompt is not here to replace Helm, Argo, or Prometheus — it
-            orchestrates them through their real APIs and CLIs. You describe the
-            outcome; kprompt checks what is installed, shows the plan, and keeps
-            mutations behind approval.
+            Orchestrate Helm, Argo, Prometheus, and friends through their real
+            APIs — not a replacement for them. Detail lives in the docs.
           </p>
         </Reveal>
 
-        <Reveal delay={0.06} className="mt-10">
-          <div className="rounded-lg border border-border bg-background/80 p-5 font-mono text-[11px] leading-relaxed text-muted-foreground sm:p-6 sm:text-xs">
-            <p className="text-center text-brand">kprompt</p>
-            <p className="text-center text-muted-foreground/70">
-              NL · plan · safety · approve
-            </p>
-            <div className="my-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-              {["Helm", "Argo", "Prometheus", "OpenTelemetry", "Grafana"].map(
-                (tool) => (
-                  <span
-                    key={tool}
-                    className="rounded-md border border-border/80 bg-muted/60 px-2.5 py-1 text-foreground/80"
-                  >
-                    {tool}
-                  </span>
-                )
-              )}
-            </div>
-            <p className="text-center text-muted-foreground/70">
-              ↓ Kubernetes API (client-go) ↓
-            </p>
-          </div>
-        </Reveal>
-
-        <div className="mt-12 space-y-10">
-          {INTEGRATION_ROADMAP.map((phase, pi) => (
-            <Reveal key={phase.id} delay={pi * 0.05}>
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {HIGHLIGHTS.map((item, i) => (
+            <Reveal key={item.title} delay={i * 0.05}>
               <div>
-                <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-                  {phase.label}
-                </p>
-                <h3 className="mt-1 font-heading text-lg font-semibold tracking-tight">
-                  {phase.title}
+                <h3 className="font-heading text-base font-semibold tracking-tight">
+                  {item.title}
                 </h3>
-                <div className="mt-5 grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {phase.items.map((item) => (
-                    <div
-                      key={item.name}
-                      className={cn(
-                        "min-w-0 rounded-lg border border-border/80 bg-background/70 p-4",
-                        "transition-colors hover:border-brand/25"
-                      )}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <h4 className="font-heading text-sm font-semibold">
-                          {item.name}
-                        </h4>
-                        <span
-                          className={cn(
-                            "shrink-0 rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide",
-                            item.status === "Shipped"
-                              ? "bg-brand/10 text-brand"
-                              : "bg-muted text-muted-foreground"
-                          )}
-                        >
-                          {item.status}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                        {item.description}
-                      </p>
-                      <p className="mt-3 break-all font-mono text-[11px] text-brand/90 sm:text-xs">
-                        {item.example}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  {item.blurb}
+                </p>
               </div>
             </Reveal>
           ))}
         </div>
 
-        <Reveal delay={0.12} className="mt-12 max-w-2xl">
-          <h3 className="font-heading text-base font-semibold tracking-tight">
-            North-star prompts
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            The end state: you stop thinking about which tool to open.
-          </p>
-          <ul className="mt-4 flex max-w-full flex-wrap gap-2">
+        <Reveal delay={0.12} className="mt-10">
+          <ul className="flex max-w-full flex-wrap gap-2">
             {NORTH_STAR_PROMPTS.map((prompt) => (
               <li
                 key={prompt}
@@ -113,6 +66,13 @@ export function IntegrationLayer() {
               </li>
             ))}
           </ul>
+          <Link
+            href="/docs/integrations"
+            className={cn(buttonVariants({ variant: "outline" }), "mt-6 inline-flex")}
+          >
+            Full integrations guide
+            <ArrowRight className="size-4" />
+          </Link>
         </Reveal>
       </div>
     </section>
