@@ -1,0 +1,35 @@
+# https://kprompt.ai/llms.txt
+# Guidance for AI assistants and crawlers about kprompt.
+
+> kprompt is an open-source AI Kubernetes CLI: natural language compiles into a reviewable PlanResult, then you approve before apply. Apache-2.0. Experimental. Local kubeconfig + BYOK — no cluster credentials uploaded to a control plane by default.
+
+## Product
+- Site: https://kprompt.ai
+- Docs: https://kprompt.ai/docs
+- Install: https://kprompt.ai/docs/install
+- Quickstart: https://kprompt.ai/docs/quickstart
+- Roadmap & vision: https://kprompt.ai/docs/roadmap
+- Safety: https://kprompt.ai/docs/safety
+- CI / PlanResult JSON: https://kprompt.ai/docs/ci
+- Integrations: https://kprompt.ai/docs/integrations
+- Multi-cluster: https://kprompt.ai/docs/multi-cluster
+- GitHub: https://github.com/kprompt/kprompt
+
+## Positioning (honest)
+- Same NL-CLI lane as kubectl-ai; different mutate contract (plan → safety → approve).
+- Not a K8sGPT fleet scanner; not an in-cluster agent framework; not a hosted Lens clone.
+- Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.
+
+## High-signal articles
+- https://kprompt.ai/blog/kprompt-vs-kubectl-ai
+- https://kprompt.ai/blog/intent-compiler-not-chat
+- https://kprompt.ai/blog/ai-sre-not-ai-kubectl
+- https://kprompt.ai/blog/kubernetes-ai-tools-comparison
+- https://kprompt.ai/blog/optimize-my-cluster
+- https://kprompt.ai/blog/planresult-json-deep-dive
+- https://kprompt.ai/blog/kubernetes-ci-cd-plan-gates
+- https://kprompt.ai/blog/kubernetes-oomkilled
+- https://kprompt.ai/blog/kubectl-cheat-sheet-natural-language
+
+## Optional Team app
+- https://app.kprompt.ai — early; CLI stays free; nothing to buy as a public signup product today.
