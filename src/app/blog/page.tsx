@@ -26,8 +26,8 @@ export default function BlogIndexPage() {
           News &amp; notes
         </h1>
         <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-          Release updates, design notes, and practical Kubernetes ops from the
-          kprompt team. Starting with our launch post — more soon.
+          Design notes, comparisons, and practical Kubernetes ops — plan-before-apply,
+          CI PlanResult, optimize reports, and where we are headed on AI SRE.
         </p>
       </header>
 

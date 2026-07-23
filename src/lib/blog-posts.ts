@@ -3865,15 +3865,23 @@ kprompt "scale api to 2" -n staging
       },
       {
         type: "p",
-        text: "For the peer map, read the AI tools comparison. For the safety loop, read plan → approve. For CI, read PlanResult gates — a schema deep dive is next on our content queue. Talk to your cluster — but make the cluster change look like something you would sign.",
+        text: "For the peer map, read the AI tools comparison. For a direct head-to-head, see kprompt vs kubectl-ai. For the safety loop, read plan → approve. For CI schema, read PlanResult JSON deep dive and PlanResult gates. Talk to your cluster — but make the cluster change look like something you would sign.",
         links: [
           {
             label: "AI tools comparison",
             href: "/blog/kubernetes-ai-tools-comparison",
           },
           {
+            label: "kprompt vs kubectl-ai",
+            href: "/blog/kprompt-vs-kubectl-ai",
+          },
+          {
             label: "plan → approve",
             href: "/blog/kubernetes-safety-plan-approve",
+          },
+          {
+            label: "PlanResult JSON deep dive",
+            href: "/blog/planresult-json-deep-dive",
           },
           {
             label: "PlanResult gates",

@@ -59,6 +59,14 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link
+                  href="/blog/kprompt-vs-kubectl-ai"
+                  className="hover:text-foreground"
+                >
+                  vs kubectl-ai
+                </Link>
+              </li>
+              <li>
                 <a
                   href={SITE.app}
                   target="_blank"
