@@ -4174,6 +4174,170 @@ kprompt "list deployments" -n staging`,
       },
     ],
   },
+  {
+    slug: "ai-sre-not-ai-kubectl",
+    title: "Beyond AI kubectl: why kprompt is aiming at AI SRE",
+    description:
+      "Natural language → plan → approve is the wedge. The differentiator is thinking about the cluster — investigate, why, timeline, blast radius, verify — still under the same approval contract. Honest shipped vs building vs exploring.",
+    publishedAt: "2026-07-23",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "ai",
+      "sre",
+      "platform engineering",
+      "devops",
+      "kubernetes cli",
+    ],
+    keywords: [
+      "ai sre kubernetes",
+      "kubernetes root cause analysis ai",
+      "kprompt investigate",
+      "ai kubectl alternative",
+      "kubernetes blast radius",
+      "proactive kubernetes operations",
+      "k8sgpt vs kprompt",
+      "intent compiler kubernetes sre",
+      "natural language kubernetes troubleshooting",
+      "kprompt roadmap",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "Most Kubernetes AI tools are reactive. kubectl runs a command. K9s and Lens show state. K8sGPT explains what a scanner already found. None of them reliably say: “Error rate on payment rose in the last 24 hours — yesterday’s rollout is the likely cause. Want a rollback plan?” That sentence is the product category we care about: AI SRE, not AI kubectl.",
+      },
+      {
+        type: "p",
+        text: "kprompt’s wedge is still the intent compiler: plain English becomes a reviewable PlanResult, then you approve before apply. That contract does not go away. What changes over time is how much the tool can think about the cluster before and after the mutate — investigation chains, causal why trees, timelines, blast radius, post-apply verify — without turning into a silent agent or a chat REPL.",
+        links: [
+          {
+            label: "intent compiler",
+            href: "/blog/intent-compiler-not-chat",
+          },
+          {
+            label: "AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "What ships today (the foundation)",
+      },
+      {
+        type: "p",
+        text: "You can already run day-2 ops under plan → safety → approve → apply: deploy, scale, rollback, named delete, deep explain chains, logs, Helm through GitOps integrations, Prometheus performance explain, optimize reports, and service dependency graphs. Context aliases and doctor help you stay on the right cluster. That is the wedge — not a wishlist.",
+        links: [
+          { label: "Integrations", href: "/docs/integrations" },
+          { label: "Quickstart", href: "/docs/quickstart" },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Shipped north-star prompts",
+        code: `kprompt "why isn't my deployment ready?"
+kprompt "why is my api slow?" -n production
+kprompt "optimize my cluster"
+kprompt "show service dependency graph"`,
+      },
+      {
+        type: "h2",
+        text: "Building next — think about the cluster",
+      },
+      {
+        type: "p",
+        text: "The next layer is investigation and trust, not more one-shot commands. These are in progress on our public Roadmap & vision — no ship dates, no fake demos.",
+        links: [{ label: "Roadmap & vision", href: "/docs/roadmap" }],
+      },
+      {
+        type: "ul",
+        items: [
+          "Blast-radius preview on mutating plans — who/what is affected before you type y",
+          "Post-apply verify — confirm the goal after --wait, not only “applied”",
+          "investigate — multi-hop RCA across ingress, Service, Endpoints, Pods, events, logs, NetworkPolicy, mesh/DNS",
+          "why — structured cause trees (Pending → affinity → no matching GPU nodes)",
+          "timeline — incident chronology from events, rollouts, HPA (+ optional metrics)",
+          "audit / cleanup / drift — hygiene and GitOps drift with optional approved remediations",
+          "GitOps PR mode — open/update a PR instead of live mutate when Flux/Argo CD owns desired state",
+        ],
+      },
+      {
+        type: "p",
+        text: "The shape we want for RCA is still PlanResult-shaped: evidence refs, a root-cause summary, and an optional suggested fix that still needs approval. Never auto-apply because the model sounded confident.",
+      },
+      {
+        type: "code",
+        caption: "Target investigate shape (illustrative — building)",
+        code: `$ kprompt "why are my APIs returning 503?"
+
+Root cause
+  Deployment healthy
+  Service selector does not match pods
+  No endpoints found
+
+Suggested fix
+  Plan: patch Service selector …  → Apply? [y/N]`,
+      },
+      {
+        type: "h2",
+        text: "Exploring later — proactive, not unsupervised",
+      },
+      {
+        type: "ul",
+        items: [
+          "Opt-in local watch: surface a signal (“latency up”) and offer investigate — never mutate without approve",
+          "Local remember / session digests — facts stay on your machine by default",
+          "Multi-cluster: contexts inventory and read fan-out; no kubeconfig upload to a control plane",
+          "Workflow recipe packs (harden production, Ingress → Gateway API) as curated plan chains",
+        ],
+      },
+      {
+        type: "p",
+        text: "Proactive ops is the category jump. Reactive tools wait for you to ask. An AI SRE should notice and propose — still under your kubeconfig, still behind approval. That requires a careful ADR before any daemon: v1 is one binary; watch must stay opt-in and fail closed on mutate.",
+      },
+      {
+        type: "h2",
+        text: "Honest boundaries",
+      },
+      {
+        type: "ul",
+        items: [
+          "We are not racing kubectl-ai on free-form chat REPL features",
+          "We are not a K8sGPT-style fleet scanner as the core identity",
+          "We will not upload cluster credentials to run prompts in the cloud",
+          "We will not silent-apply across contexts from one --approve",
+          "Everything here is experimental — prefer non-production while you learn the plans",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Try the wedge, shape the SRE layer",
+      },
+      {
+        type: "code",
+        caption: "Install and run a safe read",
+        code: `brew install kprompt/tap/kprompt
+# or: curl -fsSL https://kprompt.ai/install | bash
+
+export KPROMPT_GEMINI_API_KEY="..."
+kprompt "list deployments"
+kprompt "optimize my cluster"`,
+      },
+      {
+        type: "p",
+        text: "Star the repo, open issues, and read the roadmap when you want the full shipped / building / exploring split. The CLI stays Apache-2.0 and free. The long game is an assistant that understands impact — not another way to type kubectl.",
+        links: [
+          { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
+          { label: "Roadmap & vision", href: "/docs/roadmap" },
+          {
+            label: "error prompt playbook",
+            href: "/blog/kubernetes-error-prompt-playbook",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export function getAllPosts(): BlogPost[] {
