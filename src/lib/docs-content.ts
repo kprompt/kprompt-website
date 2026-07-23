@@ -602,7 +602,8 @@ kprompt "show payments dashboard"`,
       },
       {
         type: "p",
-        text: "Optimize is a read-only cluster report (idle workloads, rightsizing, HPA hints). Optional follow-up scale/patch plans still require their own approval. Service graphs build from Kubernetes Services/Endpoints and can add OTel call edges when configured.",
+        text: "Optimize is a read-only cluster report (idle workloads, rightsizing, HPA hints). Optional follow-up scale/patch plans still require their own approval. Service graphs build from Kubernetes Services/Endpoints and can add OTel call edges when configured. Walkthrough: optimize my cluster.",
+        links: [{ label: "optimize my cluster", href: "/blog/optimize-my-cluster" }],
       },
       {
         type: "code",
