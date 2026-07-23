@@ -112,9 +112,9 @@ export function AnimatedTerminal({
             animate={{ opacity: 1 }}
             exit={reduced ? undefined : { opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="font-mono text-[13px] leading-relaxed sm:text-sm"
+            className="min-w-0 font-mono text-[13px] leading-relaxed sm:text-sm"
           >
-            <p className="text-white/95">
+            <p className="break-all text-white/95">
               <span className="text-bright">›</span>{" "}
               <span>{typed}</span>
               <span
@@ -144,6 +144,7 @@ export function AnimatedTerminal({
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.25 }}
                     className={cn(
+                      "break-all",
                       isOk && "text-bright",
                       isWarn && "text-amber-400"
                     )}

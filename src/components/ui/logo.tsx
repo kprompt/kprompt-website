@@ -22,7 +22,7 @@ export function Logo({
   const width = Math.round(size * LOGO_ASPECT);
 
   return (
-    <span className={cn("inline-flex items-center gap-2.5", className)}>
+    <span className={cn("inline-flex min-w-0 items-center gap-2.5", className)}>
       <Image
         src="/kprompt-logo.png"
         alt={showWordmark ? "" : "kprompt"}
@@ -32,7 +32,7 @@ export function Logo({
         priority={priority}
       />
       {showWordmark && (
-        <span className="font-heading text-lg font-semibold tracking-tight text-foreground">
+        <span className="truncate font-heading text-lg font-semibold tracking-tight text-foreground">
           kprompt
           <span className="text-brand">.ai</span>
         </span>

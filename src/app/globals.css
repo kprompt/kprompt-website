@@ -143,11 +143,11 @@
   }
 
   html {
-    @apply scroll-smooth font-sans;
+    @apply scroll-smooth overflow-x-clip font-sans;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply overflow-x-clip bg-background text-foreground antialiased;
   }
 
   ::selection {

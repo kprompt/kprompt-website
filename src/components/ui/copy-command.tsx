@@ -39,16 +39,16 @@ export function CopyCommand({
       type="button"
       onClick={onCopy}
       className={cn(
-        "group inline-flex min-h-11 max-w-full items-center gap-3 rounded-lg border border-border bg-muted/80 text-left transition-colors hover:border-brand/30 hover:bg-muted",
+        "group flex min-h-11 w-full min-w-0 max-w-full items-start gap-3 rounded-lg border border-border bg-muted/80 text-left transition-colors hover:border-brand/30 hover:bg-muted",
         size === "sm" && "px-3 py-2.5",
-        size === "lg" && "w-full px-4 py-3.5 sm:px-5",
+        size === "lg" && "px-4 py-3.5 sm:px-5",
         className
       )}
       aria-label={copied ? "Copied" : "Copy install command"}
     >
       <code
         className={cn(
-          "min-w-0 flex-1 truncate font-mono text-foreground",
+          "min-w-0 flex-1 break-all font-mono leading-relaxed text-foreground",
           size === "sm" && "text-[12px] sm:text-[13px]",
           size === "lg" && "text-[13px] sm:text-sm"
         )}
@@ -57,7 +57,7 @@ export function CopyCommand({
       </code>
       <span
         className={cn(
-          "inline-flex shrink-0 items-center gap-1.5 text-muted-foreground transition-colors group-hover:text-foreground",
+          "mt-0.5 inline-flex shrink-0 items-center gap-1.5 text-muted-foreground transition-colors group-hover:text-foreground",
           size === "sm" && "text-xs",
           size === "lg" && "text-sm"
         )}

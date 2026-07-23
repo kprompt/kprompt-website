@@ -34,7 +34,7 @@ export function UsageGuide() {
                 <p className="font-mono text-xs text-brand">
                   {String(i + 1).padStart(2, "0")} · {step.id}
                 </p>
-                <div>
+                <div className="min-w-0">
                   <h3 className="font-heading text-lg font-semibold tracking-tight">
                     {step.title}
                   </h3>
@@ -45,7 +45,7 @@ export function UsageGuide() {
                     <CopyCommand
                       key={command}
                       command={command}
-                      className="mt-4 max-w-2xl"
+                      className="mt-4 w-full max-w-2xl"
                       size="lg"
                     />
                   ))}
@@ -62,7 +62,7 @@ Secrets are never stored in the config file.`}
                     </pre>
                   ) : null}
                   {step.note ? (
-                    <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
+                    <p className="mt-3 max-w-2xl break-words text-sm text-muted-foreground">
                       {step.note}
                     </p>
                   ) : null}
@@ -76,34 +76,34 @@ Secrets are never stored in the config file.`}
           <h3 className="font-heading text-base font-semibold tracking-tight">
             Common errors
           </h3>
-          <dl className="mt-4 space-y-4 text-sm">
+          <dl className="mt-4 space-y-4 break-words text-sm">
             <div>
-              <dt className="font-mono text-[13px] text-foreground">
+              <dt className="break-all font-mono text-[13px] text-foreground">
                 missing API key for …
               </dt>
               <dd className="mt-1 text-muted-foreground">
                 Export the env var for your provider (
-                <code className="font-mono text-[13px] text-foreground">
+                <code className="break-all font-mono text-[13px] text-foreground">
                   KPROMPT_OPENAI_API_KEY
                 </code>
                 ,{" "}
-                <code className="font-mono text-[13px] text-foreground">
+                <code className="break-all font-mono text-[13px] text-foreground">
                   KPROMPT_ANTHROPIC_API_KEY
                 </code>
                 ,{" "}
-                <code className="font-mono text-[13px] text-foreground">
+                <code className="break-all font-mono text-[13px] text-foreground">
                   KPROMPT_GEMINI_API_KEY
                 </code>
                 ,{" "}
-                <code className="font-mono text-[13px] text-foreground">
+                <code className="break-all font-mono text-[13px] text-foreground">
                   KPROMPT_GROQ_API_KEY
                 </code>
                 , …) and pass{" "}
-                <code className="font-mono text-[13px] text-foreground">
+                <code className="break-all font-mono text-[13px] text-foreground">
                   --provider …
                 </code>
                 . Restart the terminal after editing{" "}
-                <code className="font-mono text-[13px] text-foreground">
+                <code className="break-all font-mono text-[13px] text-foreground">
                   ~/.zshrc
                 </code>
                 .

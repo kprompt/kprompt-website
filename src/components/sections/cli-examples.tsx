@@ -32,18 +32,18 @@ export function CliExamples() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
-          <Reveal>
-            <ul className="space-y-1.5" role="listbox" aria-label="CLI examples">
+        <div className="mt-12 grid min-w-0 gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
+          <Reveal className="min-w-0">
+            <ul className="min-w-0 space-y-1.5" role="listbox" aria-label="CLI examples">
               {CLI_EXAMPLES.map((example, i) => (
-                <li key={example}>
+                <li key={example} className="min-w-0">
                   <button
                     type="button"
                     role="option"
                     aria-selected={i === active}
                     onClick={() => setActive(i)}
                     className={cn(
-                      "w-full rounded-lg border px-3.5 py-2.5 text-left font-mono text-[12px] transition-colors sm:text-[13px]",
+                      "w-full min-w-0 break-all rounded-lg border px-3.5 py-2.5 text-left font-mono text-[12px] transition-colors sm:text-[13px]",
                       i === active
                         ? "border-brand/35 bg-brand/10 text-brand"
                         : "border-transparent text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
@@ -56,8 +56,8 @@ export function CliExamples() {
             </ul>
           </Reveal>
 
-          <Reveal delay={0.08}>
-            <div className="overflow-hidden rounded-xl border border-navy/20 bg-navy terminal-glow">
+          <Reveal delay={0.08} className="min-w-0">
+            <div className="min-w-0 overflow-hidden rounded-xl border border-navy/20 bg-navy terminal-glow">
               <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
                 <span className="size-2.5 rounded-full bg-white/20" />
                 <span className="size-2.5 rounded-full bg-white/20" />
@@ -66,8 +66,8 @@ export function CliExamples() {
                   terminal
                 </span>
               </div>
-              <div className="min-h-[240px] bg-grid-dark px-4 py-5 font-mono text-[13px] leading-relaxed sm:px-5 sm:text-sm">
-                <p className="text-white/95">
+              <div className="min-h-[240px] min-w-0 bg-grid-dark px-4 py-5 font-mono text-[13px] leading-relaxed sm:px-5 sm:text-sm">
+                <p className="break-all text-white/95">
                   <span className="text-bright">›</span> {command}
                   <span
                     className="ml-0.5 inline-block h-[1.05em] w-[7px] translate-y-[2px] animate-pulse bg-bright align-baseline"
@@ -81,6 +81,7 @@ export function CliExamples() {
                       initial={reduced ? false : { opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
                       className={cn(
+                        "break-all",
                         line.startsWith("✓") && "text-bright",
                         line.startsWith("⚠") && "text-amber-400"
                       )}

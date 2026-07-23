@@ -70,7 +70,7 @@ export function Hero() {
             </a>
           </div>
 
-          <CopyCommand className="mt-5 max-w-xl" size="sm" />
+          <CopyCommand className="mt-5 w-full max-w-xl" size="sm" />
         </motion.div>
 
         <motion.div

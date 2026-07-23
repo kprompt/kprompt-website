@@ -202,19 +202,23 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300",
+        "fixed inset-x-0 top-0 z-50 overflow-x-clip transition-[background-color,box-shadow,border-color] duration-300",
         scrolled || open ? "glass shadow-sm" : "border-b border-transparent"
       )}
     >
       <nav
-        className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6"
+        className="mx-auto flex h-16 w-full min-w-0 max-w-6xl items-center gap-3 px-4 sm:gap-4 sm:px-6"
         aria-label="Primary"
       >
-        <Link href="/" aria-label="kprompt.ai home" className="shrink-0">
+        <Link
+          href="/"
+          aria-label="kprompt.ai home"
+          className="min-w-0 shrink overflow-hidden"
+        >
           <Logo size={28} priority />
         </Link>
 
-        <ul className="hidden flex-1 items-center justify-center gap-2 md:flex">
+        <ul className="hidden min-w-0 flex-1 items-center justify-center gap-2 md:flex">
           {NAV_LINKS.map((link) => (
             <DesktopNavLink
               key={link.href}
@@ -251,10 +255,13 @@ export function Navbar() {
           </Link>
         </div>
 
-        <div className="ml-auto flex items-center gap-2 md:hidden">
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 md:hidden">
           <Link
             href={SITE.getStarted}
-            className={cn(buttonVariants({ size: "sm" }), "hidden min-[420px]:inline-flex")}
+            className={cn(
+              buttonVariants({ size: "sm" }),
+              "hidden min-[420px]:inline-flex"
+            )}
           >
             Get Started
           </Link>

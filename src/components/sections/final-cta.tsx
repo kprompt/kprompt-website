@@ -27,7 +27,7 @@ export function FinalCta() {
             review every plan; prefer non-production first.
           </p>
 
-          <CopyCommand className="mx-auto mt-8 max-w-xl text-left" size="lg" />
+          <CopyCommand className="mx-auto mt-8 w-full max-w-xl text-left" size="lg" />
 
           <ol className="mx-auto mt-8 flex max-w-lg flex-col gap-2.5 text-left sm:flex-row sm:justify-center sm:gap-8 sm:text-center">
             {INSTALL_STEPS.map((step, i) => (

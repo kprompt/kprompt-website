@@ -58,12 +58,12 @@ export function IntegrationLayer() {
                 <h3 className="mt-1 font-heading text-lg font-semibold tracking-tight">
                   {phase.title}
                 </h3>
-                <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-5 grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {phase.items.map((item) => (
                     <div
                       key={item.name}
                       className={cn(
-                        "rounded-lg border border-border/80 bg-background/70 p-4",
+                        "min-w-0 rounded-lg border border-border/80 bg-background/70 p-4",
                         "transition-colors hover:border-brand/25"
                       )}
                     >
@@ -85,7 +85,7 @@ export function IntegrationLayer() {
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                         {item.description}
                       </p>
-                      <p className="mt-3 font-mono text-[11px] text-brand/90 sm:text-xs">
+                      <p className="mt-3 break-all font-mono text-[11px] text-brand/90 sm:text-xs">
                         {item.example}
                       </p>
                     </div>
@@ -103,11 +103,11 @@ export function IntegrationLayer() {
           <p className="mt-2 text-sm text-muted-foreground">
             The end state: you stop thinking about which tool to open.
           </p>
-          <ul className="mt-4 flex flex-wrap gap-2">
+          <ul className="mt-4 flex max-w-full flex-wrap gap-2">
             {NORTH_STAR_PROMPTS.map((prompt) => (
               <li
                 key={prompt}
-                className="rounded-md border border-border/70 bg-background/60 px-2.5 py-1 font-mono text-[11px] text-muted-foreground sm:text-xs"
+                className="max-w-full break-all rounded-md border border-border/70 bg-background/60 px-2.5 py-1 font-mono text-[11px] text-muted-foreground sm:text-xs"
               >
                 {prompt}
               </li>
