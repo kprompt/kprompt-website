@@ -1,4 +1,4 @@
-import { BlogCard } from "@/components/blog/blog-card";
+import { BlogIndex } from "@/components/blog/blog-index";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getAllPosts } from "@/lib/blog-posts";
 import { blogIndexMetadata } from "@/lib/blog-meta";
@@ -7,8 +7,6 @@ export const metadata = blogIndexMetadata();
 
 export default function BlogIndexPage() {
   const posts = getAllPosts();
-  const featured = posts.find((post) => post.featured);
-  const regular = posts.filter((post) => post.slug !== featured?.slug);
 
   return (
     <div>
@@ -31,34 +29,7 @@ export default function BlogIndexPage() {
         </p>
       </header>
 
-      {featured ? (
-        <section className="mt-12" aria-labelledby="featured-post">
-          <h2 id="featured-post" className="sr-only">
-            Featured post
-          </h2>
-          <BlogCard post={featured} />
-        </section>
-      ) : null}
-
-      {regular.length > 0 ? (
-        <section className="mt-12" aria-labelledby="all-posts">
-          <h2
-            id="all-posts"
-            className="font-mono text-xs uppercase tracking-wider text-muted-foreground"
-          >
-            {featured ? "More posts" : "All posts"}
-          </h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            {regular.map((post) => (
-              <BlogCard key={post.slug} post={post} />
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {posts.length === 0 ? (
-        <p className="mt-12 text-sm text-muted-foreground">No posts yet.</p>
-      ) : null}
+      <BlogIndex posts={posts} />
     </div>
   );
 }
