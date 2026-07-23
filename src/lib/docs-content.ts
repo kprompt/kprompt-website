@@ -370,7 +370,7 @@ kprompt "why is api slow then scale api to 4"`,
       },
       {
         type: "p",
-        text: "Map short names to kubeconfig contexts. Optional require_alias_match refuses mutating apply when kubectl’s current-context does not match the resolved target (wrong-cluster guard). Inventory: kprompt contexts. Read fan-out: --contexts or “across staging and prod”. Multi-context mutate asks per context; plain --approve is refused — use interactive confirms or --approve-each-context. PlanResult includes cluster_context on the document and each action.",
+        text: "Map short names to kubeconfig contexts. Optional require_alias_match refuses mutating apply when kubectl’s current-context does not match the resolved target (wrong-cluster guard). Inventory: kprompt contexts. Read fan-out: --contexts or “across staging and prod” (get/list/explain/logs/describe/optimize). Multi-context mutate asks per context; plain --approve is refused — use interactive confirms or --approve-each-context. PlanResult includes cluster_context on the document and each action; fleet optimize adds fleetSummary.",
       },
       {
         type: "code",
@@ -378,6 +378,7 @@ kprompt "why is api slow then scale api to 4"`,
 kprompt config alias set staging kind-staging
 kprompt contexts
 kprompt --contexts staging,prod "list deployments"
+kprompt --contexts staging,prod "optimize my cluster"
 kprompt "list pods across staging and prod"
 kprompt --contexts staging,prod "scale api to 3"
 kprompt --contexts staging,prod --approve-each-context "scale api to 3"
@@ -822,7 +823,13 @@ kprompt --provider ollama --model llama3.2 "list pods"`,
       },
       {
         type: "p",
-        text: "Pass --output json or -o json to emit a single PlanResult document on stdout. Human confirmations and wait status go to stderr in JSON mode.",
+        text: "Pass --output json or -o json to emit a single PlanResult document on stdout. Human confirmations and wait status go to stderr in JSON mode. Field-by-field walkthrough: PlanResult JSON deep dive.",
+        links: [
+          {
+            label: "PlanResult JSON deep dive",
+            href: "/blog/planresult-json-deep-dive",
+          },
+        ],
       },
       {
         type: "code",
