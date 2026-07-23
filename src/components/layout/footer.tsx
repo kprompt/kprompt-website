@@ -67,6 +67,14 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link
+                  href="/blog/building-ai-sre-in-public"
+                  className="hover:text-foreground"
+                >
+                  AI SRE series
+                </Link>
+              </li>
+              <li>
                 <a
                   href={SITE.app}
                   target="_blank"

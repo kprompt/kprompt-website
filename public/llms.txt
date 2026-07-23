@@ -21,6 +21,8 @@
 - Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.
 
 ## High-signal articles
+- https://kprompt.ai/blog/building-ai-sre-in-public
+- https://kprompt.ai/blog/building-ai-sre-01-why
 - https://kprompt.ai/blog/kprompt-vs-kubectl-ai
 - https://kprompt.ai/blog/intent-compiler-not-chat
 - https://kprompt.ai/blog/ai-sre-not-ai-kubectl

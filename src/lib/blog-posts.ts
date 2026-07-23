@@ -4344,10 +4344,14 @@ kprompt "optimize my cluster"`,
       },
       {
         type: "p",
-        text: "Star the repo, open issues, and read the roadmap when you want the full shipped / building / exploring split. The CLI stays Apache-2.0 and free. The long game is an assistant that understands impact — not another way to type kubectl. For a direct head-to-head with Google’s NL CLI, see kprompt vs kubectl-ai.",
+        text: "Star the repo, open issues, and read the roadmap when you want the full shipped / building / exploring split. The CLI stays Apache-2.0 and free. The long game is an assistant that understands impact — not another way to type kubectl. For the long-form build journal, see Building AI SRE in Public; for a head-to-head with Google’s NL CLI, see kprompt vs kubectl-ai.",
         links: [
           { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
           { label: "Roadmap & vision", href: "/docs/roadmap" },
+          {
+            label: "Building AI SRE in Public",
+            href: "/blog/building-ai-sre-in-public",
+          },
           {
             label: "error prompt playbook",
             href: "/blog/kubernetes-error-prompt-playbook",
@@ -5055,6 +5059,297 @@ echo "$json" > plan.json
             label: "kprompt vs kubectl-ai",
             href: "/blog/kprompt-vs-kubectl-ai",
           },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "building-ai-sre-in-public",
+    title: "Building AI SRE in Public",
+    description:
+      "A long-form series on building an AI SRE under an approval boundary — intent compiler, PlanResult, safety, multi-context, investigation, and why we refuse unsupervised auto-remediation. Episode index and honesty rules.",
+    publishedAt: "2026-07-23",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "ai",
+      "sre",
+      "platform engineering",
+      "devops",
+      "open source",
+    ],
+    keywords: [
+      "building ai sre in public",
+      "ai sre kubernetes series",
+      "intent compiler kubernetes",
+      "plan before apply",
+      "aiops vs ai sre",
+      "kubernetes approval boundary",
+      "open source ai sre",
+      "kprompt roadmap series",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "kprompt started as an AI Kubernetes CLI: natural language becomes a reviewable plan, then you approve before apply. That wedge still ships today. The longer bet is AI SRE — a system that can investigate, explain why, show blast radius, and verify outcomes without silently mutating production. This series is how we build that bet in public.",
+        links: [
+          {
+            label: "Beyond AI kubectl",
+            href: "/blog/ai-sre-not-ai-kubectl",
+          },
+          { label: "Roadmap & vision", href: "/docs/roadmap" },
+        ],
+      },
+      {
+        type: "p",
+        text: "We are not writing weekly changelog fluff. Each episode is a durable essay: a design claim, what already exists in the CLI, what is still building or exploring, and what we explicitly refuse. Share it on Hacker News or in a CNCF channel if the idea is useful even if you never install the binary.",
+      },
+      {
+        type: "h2",
+        text: "Rules of the series",
+      },
+      {
+        type: "ul",
+        items: [
+          "Shipped / building / exploring — never imply a demo is a product",
+          "Approval boundary stays load-bearing — no silent apply across contexts",
+          "Typed outputs over chat vibes — PlanResult, risk, hard denies",
+          "Prefer non-production while you learn; experimental software",
+          "CLI stays Apache-2.0; no “buy Team to make the series real”",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Episodes",
+      },
+      {
+        type: "table",
+        headers: ["#", "Topic", "Status"],
+        rows: [
+          ["1", "Why AI SRE", "Published"],
+          ["2", "Intent Compiler", "Next"],
+          ["3", "PlanResult", "Planned"],
+          ["4", "Safety Engine", "Planned"],
+          ["5", "Multi-context", "Planned"],
+          ["6", "Investigation Graph", "Building / vision"],
+          ["7", "AI Timeline", "Building / vision"],
+          ["8", "Cluster Memory", "Exploring"],
+          ["9", "Knowledge Graph", "Exploring"],
+          ["10", "Autonomous SRE — and why not yet", "Planned"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Start with episode 1: Why AI SRE. Earlier positioning posts (intent compiler, PlanResult JSON, vs kubectl-ai, safety) remain the short-form companions; this series goes deeper and stays chronological.",
+        links: [
+          {
+            label: "Why AI SRE",
+            href: "/blog/building-ai-sre-01-why",
+          },
+          {
+            label: "intent compiler",
+            href: "/blog/intent-compiler-not-chat",
+          },
+          {
+            label: "PlanResult deep dive",
+            href: "/blog/planresult-json-deep-dive",
+          },
+          {
+            label: "kprompt vs kubectl-ai",
+            href: "/blog/kprompt-vs-kubectl-ai",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Who this is for",
+      },
+      {
+        type: "ul",
+        items: [
+          "Platform / SRE engineers evaluating AI tools that touch clusters",
+          "Builders designing agentic ops who need fail-closed patterns",
+          "CNCF practitioners who care about GitOps, Prom, OTel — not only chat CLIs",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Try the wedge while you read",
+      },
+      {
+        type: "code",
+        caption: "Safe read on a non-prod context",
+        code: `brew install kprompt/tap/kprompt
+# or: curl -fsSL https://kprompt.ai/install | bash
+
+export KPROMPT_GEMINI_API_KEY="..."
+kprompt "list deployments"
+kprompt "optimize my cluster"`,
+      },
+      {
+        type: "p",
+        text: "Star the repo, open issues when an episode claims something the CLI cannot do yet, and follow the index as later episodes land.",
+        links: [
+          { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
+          { label: "Docs", href: "/docs" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "building-ai-sre-01-why",
+    title: "Building AI SRE in Public #1: Why AI SRE",
+    description:
+      "AI kubectl is not enough. Production needs investigate, why, blast radius, and verify — still behind an approval boundary. Why the AI SRE category exists, what failed in classic AIOps, and what we ship first.",
+    publishedAt: "2026-07-23",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "ai",
+      "sre",
+      "platform engineering",
+      "devops",
+      "aiops",
+    ],
+    keywords: [
+      "why ai sre",
+      "ai sre vs ai kubectl",
+      "aiops failed kubernetes",
+      "approval boundary sre",
+      "kubernetes incident ai",
+      "building ai sre in public",
+      "intent compiler vs chat",
+      "human in the loop kubernetes",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "This is episode 1 of Building AI SRE in Public. The series hub lists the full arc — from intent compiler to why we still refuse unsupervised auto-remediation.",
+        links: [
+          {
+            label: "Building AI SRE in Public",
+            href: "/blog/building-ai-sre-in-public",
+          },
+        ],
+      },
+      {
+        type: "p",
+        text: "Most “AI for Kubernetes” products today are AI kubectl: natural language that emits or runs kubectl-shaped actions. That is useful. It is not SRE. SRE is the craft of keeping systems reliable under change — detecting symptoms, forming hypotheses, bounding blast radius, changing one thing at a time, and verifying the goal. An AI that only shortens the typing does not change that craft. An AI that participates in that craft — still under your credentials and your approval — is the category we call AI SRE.",
+      },
+      {
+        type: "h2",
+        text: "The sentence that defines the category",
+      },
+      {
+        type: "p",
+        text: "Imagine an assistant that can say: “Error rate on payment rose after yesterday’s rollout; the Service still selects the old pods; here is a rollback plan with affected namespaces.” That sentence requires investigation graph, timeline, and a typed plan — not a chat transcript. Dashboards show charts. Fleet scanners dump findings. Chat CLIs race to the next kubectl. AI SRE is the system that proposes a reviewable next step.",
+        links: [
+          {
+            label: "Beyond AI kubectl (positioning)",
+            href: "/blog/ai-sre-not-ai-kubectl",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Why classic AIOps struggled",
+      },
+      {
+        type: "p",
+        text: "AIOps promised correlation and auto-remediation years before LLMs. Many deployments stalled for boring reasons: brittle rules, noisy alerts, opaque black boxes, and remediation that operators did not trust. The models were weak at intent; the systems were strong at false confidence.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Rules and ML that could not explain themselves in operator language",
+          "Auto-remediation that skipped human judgment on shared clusters",
+          "Tools that lived beside kubectl instead of composing with GitOps and metrics",
+          "No shared artifact — only tickets, runbooks, and tribal memory",
+        ],
+      },
+      {
+        type: "p",
+        text: "LLMs change the input side: they parse messy human intent and narrate evidence. They do not magically make unsupervised mutate safe. What changes is the chance to build an intentional loop — compile intent into a typed plan, attach risk and denies, require approval, then verify — instead of a chatbot that “just ran it.”",
+      },
+      {
+        type: "h2",
+        text: "Approval boundary is the product",
+      },
+      {
+        type: "p",
+        text: "Every production AI agent that can change state needs an approval boundary. Human-in-the-loop is not theater; it is how you keep blast radius conscious. In kprompt the boundary is concrete: PlanResult on stdout (and JSON for CI), safety scoring, hard denies for wipe-class intents, interactive y/N or explicit --approve, and no silent multi-context apply from one flag.",
+        links: [
+          { label: "Safety docs", href: "/docs/safety" },
+          {
+            label: "Plan → approve post",
+            href: "/blog/kubernetes-safety-plan-approve",
+          },
+        ],
+      },
+      {
+        type: "code",
+        caption: "The contract does not disappear for “smart” features",
+        code: `kprompt "scale api to 3" -n staging
+# → Plan + risk → Apply? [y/N]
+
+kprompt "optimize my cluster"
+# → Report first; mutate follow-ups still need approve`,
+      },
+      {
+        type: "h2",
+        text: "What we ship first (wedge, not wish)",
+      },
+      {
+        type: "p",
+        text: "AI SRE is the destination. The wedge is already usable: day-2 ops and investigation-shaped reads under the same plan → safety → approve → apply loop, plus integrations (Helm, Prom, OTel, GitOps, …) that keep one approval surface. Optimize reports and dependency graphs are early “think about the cluster” features — still not auto-remediation.",
+        links: [
+          { label: "Integrations", href: "/docs/integrations" },
+          {
+            label: "optimize my cluster",
+            href: "/blog/optimize-my-cluster",
+          },
+        ],
+      },
+      {
+        type: "ul",
+        items: [
+          "Shipped: intent → PlanResult → approve; explain/logs; multi-tool routes",
+          "Building: deeper investigate / why / timeline / post-apply verify",
+          "Exploring: opt-in watch, cluster memory, knowledge from ADRs — never silent mutate",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What this episode is not",
+      },
+      {
+        type: "ul",
+        items: [
+          "Not a claim that kprompt is a finished AI SRE product",
+          "Not a pitch for unsupervised auto-remediation",
+          "Not “chat replaces kubectl forever” — compilers need escape hatches",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Next",
+      },
+      {
+        type: "p",
+        text: "Episode 2 will dig into the Intent Compiler — why Kubernetes deserves a compiler, not a chatbot, and how PlanResult becomes the IR. Until then, read the hub, try a safe prompt on kind, and argue with us on GitHub if the category framing is wrong.",
+        links: [
+          {
+            label: "Series hub",
+            href: "/blog/building-ai-sre-in-public",
+          },
+          {
+            label: "intent compiler (short form)",
+            href: "/blog/intent-compiler-not-chat",
+          },
+          { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
+          { label: "Roadmap & vision", href: "/docs/roadmap" },
         ],
       },
     ],

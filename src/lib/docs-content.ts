@@ -984,8 +984,12 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
       {
         type: "p",
-        text: "kprompt is an intent compiler today: natural language → reviewable PlanResult → approve → apply. The long-term bet is AI SRE — thinking about the cluster (investigate, why, timeline, blast radius, verify) while keeping the same approval contract. Not a free-form chat REPL, not a silent analyzer daemon, not a hosted fleet scanner. Read Intent compiler, not chat, Kubernetes AI tools compared, and Beyond AI kubectl: why kprompt is aiming at AI SRE for public positioning.",
+        text: "kprompt is an intent compiler today: natural language → reviewable PlanResult → approve → apply. The long-term bet is AI SRE — thinking about the cluster (investigate, why, timeline, blast radius, verify) while keeping the same approval contract. Not a free-form chat REPL, not a silent analyzer daemon, not a hosted fleet scanner. Read Building AI SRE in Public, Intent compiler, not chat, Kubernetes AI tools compared, and Beyond AI kubectl for public positioning.",
         links: [
+          {
+            label: "Building AI SRE in Public",
+            href: "/blog/building-ai-sre-in-public",
+          },
           { label: "Intent compiler, not chat", href: "/blog/intent-compiler-not-chat" },
           {
             label: "Kubernetes AI tools compared",
