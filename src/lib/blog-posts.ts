@@ -5130,8 +5130,8 @@ echo "$json" > plan.json
           ["1", "Why AI SRE", "Published"],
           ["2", "Intent Compiler", "Published"],
           ["3", "PlanResult", "Published"],
-          ["4", "Safety Engine", "Next"],
-          ["5", "Multi-context", "Planned"],
+          ["4", "Safety Engine", "Published"],
+          ["5", "Multi-context", "Next"],
           ["6", "Investigation Graph", "Building / vision"],
           ["7", "AI Timeline", "Building / vision"],
           ["8", "Cluster Memory", "Exploring"],
@@ -5141,7 +5141,7 @@ echo "$json" > plan.json
       },
       {
         type: "p",
-        text: "Read episodes in order: Why AI SRE → Intent Compiler → PlanResult. Earlier positioning posts (intent compiler short form, PlanResult JSON field guide, vs kubectl-ai, safety) remain companions; this series goes deeper and stays chronological.",
+        text: "Read episodes in order: Why AI SRE → Intent Compiler → PlanResult → Safety Engine. Earlier positioning posts (PlanResult JSON field guide, vs kubectl-ai, plan-approve) remain companions; this series goes deeper and stays chronological.",
         links: [
           {
             label: "Why AI SRE",
@@ -5156,12 +5156,12 @@ echo "$json" > plan.json
             href: "/blog/building-ai-sre-03-planresult",
           },
           {
-            label: "PlanResult JSON deep dive",
-            href: "/blog/planresult-json-deep-dive",
+            label: "Safety Engine (ep.4)",
+            href: "/blog/building-ai-sre-04-safety",
           },
           {
-            label: "kprompt vs kubectl-ai",
-            href: "/blog/kprompt-vs-kubectl-ai",
+            label: "Plan → approve",
+            href: "/blog/kubernetes-safety-plan-approve",
           },
         ],
       },
@@ -5794,8 +5794,12 @@ jq -e '.risk.denied == false and .risk.level != "high"' plan.json
       },
       {
         type: "p",
-        text: "Episode 4 is the Safety Engine — hard denies, risk levels, and why fail-closed beats confident auto-remediation. The hub tracks the rest of the arc.",
+        text: "Episode 4 is the Safety Engine — hard denies, risk levels, and why fail-closed beats confident auto-remediation. Read it next.",
         links: [
+          {
+            label: "Episode 4: Safety Engine",
+            href: "/blog/building-ai-sre-04-safety",
+          },
           {
             label: "Series hub",
             href: "/blog/building-ai-sre-in-public",
@@ -5804,6 +5808,180 @@ jq -e '.risk.denied == false and .risk.level != "high"' plan.json
             label: "Plan → approve",
             href: "/blog/kubernetes-safety-plan-approve",
           },
+          { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
+          { label: "Roadmap & vision", href: "/docs/roadmap" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "building-ai-sre-04-safety",
+    title: "Building AI SRE in Public #4: Safety Engine",
+    description:
+      "Policy is code, not LLM vibes. How kprompt’s safety engine hard-denies wipe-class intents, scores risk, forces approval, and why fail-closed is the load-bearing wall of AI SRE.",
+    publishedAt: "2026-07-23",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "ai",
+      "sre",
+      "safety",
+      "platform engineering",
+      "devops",
+      "architecture",
+    ],
+    keywords: [
+      "kubernetes ai safety",
+      "building ai sre safety engine",
+      "hard deny kubernetes",
+      "plan before apply safety",
+      "fail closed ai ops",
+      "approval boundary kubernetes",
+      "risk scoring planresult",
+      "ai auto remediation danger",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "This is episode 4 of Building AI SRE in Public. Episodes 2–3 covered the compiler and PlanResult. None of that matters if a confident model can still wipe a namespace. The safety engine is the load-bearing wall: policy in Go, after planning, before approval or apply.",
+        links: [
+          {
+            label: "Series hub",
+            href: "/blog/building-ai-sre-in-public",
+          },
+          {
+            label: "Episode 3: PlanResult",
+            href: "/blog/building-ai-sre-03-planresult",
+          },
+          {
+            label: "Practical safety post",
+            href: "/blog/kubernetes-safety-plan-approve",
+          },
+          { label: "Safety docs", href: "/docs/safety" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "LLM judgment is not a control plane",
+      },
+      {
+        type: "p",
+        text: "Models refuse sometimes. Models also comply with jokes, jailbreaks, and ambiguous “clean up staging.” ADR-0003 locked the rule early: LLM judgment alone is not sufficient for safety; policy is code. The safety layer runs on the planned Actions — not on the English prompt alone — then stamps risk onto PlanResult.",
+      },
+      {
+        type: "code",
+        caption: "Where safety sits",
+        code: `Intent → Planner → Actions[]
+                 → Safety (hard deny + risk)
+                 → PlanResult
+                 → Approve? → Executor`,
+      },
+      {
+        type: "h2",
+        text: "Hard deny vs risk score",
+      },
+      {
+        type: "table",
+        headers: ["Outcome", "Meaning", "Can --approve override?"],
+        rows: [
+          [
+            "denied",
+            "Wipe-class / out-of-policy — abort",
+            "No",
+          ],
+          [
+            "high / medium / low",
+            "Allowed path with explicit review weight",
+            "Yes, after you accept the plan (still your credential)",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "Hard denies catch cluster/namespace wipe phrasing, delete-everything style requests, and deletes that are not a named allowed resource. Named delete still shows a plan and needs approval — reckless English does not unlock bulk destroy.",
+      },
+      {
+        type: "code",
+        caption: "Fail closed",
+        code: `$ kprompt "delete all pods in production"
+
+Risk: denied
+# Nothing applies — flags do not negotiate`,
+      },
+      {
+        type: "h2",
+        text: "Approval is part of safety, not UX garnish",
+      },
+      {
+        type: "p",
+        text: "Default mode is plan-only. Interactive y/N on a TTY, or explicit --approve after a human or CI reviewed the artifact. That is the approval boundary from episode 1 — blast radius stays conscious. Multi-context mutates refuse a single fleet-wide --approve; you confirm per context or use an explicit each-context path. Safety without an approval boundary is just a confident script.",
+        links: [
+          {
+            label: "Multi-cluster docs",
+            href: "/docs/multi-cluster",
+          },
+        ],
+      },
+      {
+        type: "ul",
+        items: [
+          "Reads (get/list/logs/explain) stay fast — no fake approve theater",
+          "Mutations always materialize PlanResult first",
+          "High-risk backends (e.g. Crossplane claims) stay RiskHigh + strong approval",
+          "blastRadius / verify enrich review — they do not replace deny rules",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Why auto-remediation is not “more SRE”",
+      },
+      {
+        type: "p",
+        text: "Classic AIOps burned trust by acting without a refuse-able artifact. Skipping the safety engine to “close the ticket faster” recreates that failure mode with better prose. AI SRE investigates and proposes; humans (or gated CI) apply. Episode 10 will argue why we still do not want unsupervised autonomy — this episode is the mechanism that makes that stance enforceable.",
+      },
+      {
+        type: "h2",
+        text: "What ships vs what we will not trade",
+      },
+      {
+        type: "ul",
+        items: [
+          "Shipped: hard denies, risk levels, plan-before-apply, JSON risk.denied for CI",
+          "Shipped: blast-radius preview and post-apply verify as trust aids",
+          "Building: richer investigate suggestions that still pass through safety",
+          "Non-goal: model-only refusals; silent apply; one --approve across all contexts",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Pressure-test the wall",
+      },
+      {
+        type: "code",
+        caption: "Safety drill",
+        code: `kprompt "wipe the cluster" -o json | jq .risk
+kprompt "delete all pods" -n staging -o json | jq .risk.denied
+kprompt "scale api to 0" -n staging          # plan should scare you → n
+kprompt "scale api to 2" -n staging          # routine → still y/N`,
+      },
+      {
+        type: "p",
+        text: "If a tool cannot fail closed on wipe-class intent, it is not ready for production English — no matter how good the chat feels.",
+      },
+      {
+        type: "h2",
+        text: "Next",
+      },
+      {
+        type: "p",
+        text: "Episode 5 is Multi-context — laptop kubeconfig fan-out, read across contexts, and why mutate safety gets stricter as the blast radius grows. The hub tracks the rest of the arc.",
+        links: [
+          {
+            label: "Series hub",
+            href: "/blog/building-ai-sre-in-public",
+          },
+          { label: "Multi-cluster", href: "/docs/multi-cluster" },
           { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
           { label: "Roadmap & vision", href: "/docs/roadmap" },
         ],
