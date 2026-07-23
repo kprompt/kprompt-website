@@ -339,7 +339,8 @@ kprompt "why is api slow then scale api to 4"`,
           ["--provider", "LLM provider id"],
           ["--model", "Model id"],
           ["--context", "kubeconfig context"],
-          ["--contexts", "comma-separated contexts for read-only fan-out (aliases ok)"],
+          ["--contexts", "comma-separated contexts for read fan-out / per-context mutate (aliases ok)"],
+          ["--approve-each-context", "Apply a mutating plan to every --contexts entry (explicit; not implied by --approve)"],
           ["-n / --namespace", "Namespace (wins over prompt phrases)"],
           ["--open", "With login: open the browser for device approval"],
         ],
@@ -369,7 +370,7 @@ kprompt "why is api slow then scale api to 4"`,
       },
       {
         type: "p",
-        text: "Map short names to kubeconfig contexts. Optional require_alias_match refuses mutating apply when kubectl’s current-context does not match the resolved target (wrong-cluster guard). Inventory: kprompt contexts. Read-only fan-out: --contexts or “across staging and prod” (get/list/explain/logs/describe). Mutating multi-context plans are denied.",
+        text: "Map short names to kubeconfig contexts. Optional require_alias_match refuses mutating apply when kubectl’s current-context does not match the resolved target (wrong-cluster guard). Inventory: kprompt contexts. Read fan-out: --contexts or “across staging and prod”. Multi-context mutate asks per context; plain --approve is refused — use interactive confirms or --approve-each-context. PlanResult includes cluster_context on the document and each action.",
       },
       {
         type: "code",
@@ -378,6 +379,8 @@ kprompt config alias set staging kind-staging
 kprompt contexts
 kprompt --contexts staging,prod "list deployments"
 kprompt "list pods across staging and prod"
+kprompt --contexts staging,prod "scale api to 3"
+kprompt --contexts staging,prod --approve-each-context "scale api to 3"
 kprompt --context prod "list deployments"
 kprompt config set require_alias_match true`,
       },
