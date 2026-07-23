@@ -66,14 +66,18 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Not a hosted agent that runs inside your cluster",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
           "Not a Lens/Headlamp replacement — optional local read-only inventory is kprompt-dash (localhost only)",
+          "Not a hosted multi-cluster / fleet SaaS — multi-context is laptop kubeconfig fan-out only (no kubeconfig upload)",
           "Not a public Team signup product — CLI enrollment is opt-in for orgs that already have access",
           "Nothing to buy today; Free CLI stays free",
         ],
       },
       {
         type: "p",
-        text: "Where we are headed (AI SRE investigate, trust loops, multi-cluster) is documented honestly on Roadmap & vision — shipped vs building vs exploring.",
-        links: [{ label: "Roadmap & vision", href: "/docs/roadmap" }],
+        text: "Where we are headed (AI SRE investigate, trust loops, multi-cluster) is documented honestly on Roadmap & vision — shipped vs building vs exploring. Multi-context CLI docs: Multi-cluster.",
+        links: [
+          { label: "Roadmap & vision", href: "/docs/roadmap" },
+          { label: "Multi-cluster", href: "/docs/multi-cluster" },
+        ],
       },
       {
         type: "p",
@@ -387,8 +391,11 @@ kprompt config set require_alias_match true`,
       },
       {
         type: "p",
-        text: "For the local dash quickstart and security defaults, see the Local cluster dash docs.",
-        links: [{ label: "Local cluster dash", href: "/docs/dash" }],
+        text: "For the local dash quickstart and security defaults, see the Local cluster dash docs. Full multi-context honesty (what is / is not): Multi-cluster.",
+        links: [
+          { label: "Local cluster dash", href: "/docs/dash" },
+          { label: "Multi-cluster", href: "/docs/multi-cluster" },
+        ],
       },
     ],
   },
@@ -444,6 +451,84 @@ kprompt dash
           "No HTTP authentication — anyone who can reach the port shares your kube privileges",
           "Default listen address is loopback only",
           "Non-loopback binds require an explicit -allow-remote flag",
+        ],
+      },
+    ],
+  },
+  multiCluster: {
+    title: "Multi-cluster",
+    description:
+      "Laptop-local multi-context: aliases, read fan-out, per-context mutate safety, fleet optimize. Not a hosted Lens/fleet SaaS — kubeconfig never leaves your machine.",
+    blocks: [
+      {
+        type: "p",
+        text: "kprompt’s multi-cluster story is laptop-local: aliases and explicit fan-out over your kubeconfig contexts. Credentials stay on the device. The optional Team control plane may later store metadata only (display name, alias, which enrolled CLI can reach a cluster) — never kubeconfig upload.",
+        links: [
+          {
+            label: "ADR-0012",
+            href: "https://github.com/kprompt/kprompt-architecture/blob/main/decisions/ADR-0012-multi-cluster.md",
+          },
+          {
+            label: "CLI docs (repo)",
+            href: "https://github.com/kprompt/kprompt/blob/main/docs/multi-cluster.md",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Inventory & aliases",
+      },
+      {
+        type: "code",
+        code: `kprompt contexts
+kprompt contexts --check
+kprompt config alias set prod gke_myproj_us-central1_prod
+kprompt --context prod "list deployments"
+kprompt config set require_alias_match true`,
+      },
+      {
+        type: "h2",
+        text: "Read fan-out",
+      },
+      {
+        type: "p",
+        text: "Opt-in only — never “all contexts” by default. Supported: get/list, explain, logs, describe, optimize. JSON kind MultiContextResult includes per-context steps and cluster_context; optimize adds fleetSummary.",
+      },
+      {
+        type: "code",
+        code: `kprompt --contexts staging,prod "list deployments"
+kprompt "list pods across staging and prod"
+kprompt --contexts staging,prod "optimize my cluster"`,
+      },
+      {
+        type: "h2",
+        text: "Mutate safety",
+      },
+      {
+        type: "ul",
+        items: [
+          "Interactive: confirm each context separately",
+          "Plain --approve across multiple contexts is refused",
+          "--approve-each-context is the explicit multi-apply escape hatch",
+        ],
+      },
+      {
+        type: "code",
+        code: `kprompt --contexts staging,prod "scale api to 3"
+kprompt --contexts staging,prod --approve-each-context "scale api to 3"`,
+      },
+      {
+        type: "h2",
+        text: "What this is not",
+      },
+      {
+        type: "ul",
+        items: [
+          "Not uploading kubeconfigs to api.kprompt.ai or app.kprompt.ai",
+          "Not a hosted live multi-cluster browser (Lens/Headlamp clone)",
+          "Not silent --approve across every context",
+          "Not an always-on in-cluster multi-cluster agent",
+          "Not a replacement for kprompt-dash’s single-cluster localhost inventory",
         ],
       },
     ],
