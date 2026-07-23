@@ -23,6 +23,7 @@
 ## High-signal articles
 - https://kprompt.ai/blog/building-ai-sre-in-public
 - https://kprompt.ai/blog/building-ai-sre-01-why
+- https://kprompt.ai/blog/building-ai-sre-02-intent-compiler
 - https://kprompt.ai/blog/kprompt-vs-kubectl-ai
 - https://kprompt.ai/blog/intent-compiler-not-chat
 - https://kprompt.ai/blog/ai-sre-not-ai-kubectl
