@@ -1127,6 +1127,30 @@ helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
           },
         ],
       },
+      {
+        type: "h2",
+        text: "Demo cluster",
+      },
+      {
+        type: "p",
+        text: "Need a payments namespace that actually misbehaves? kprompt-examples spins up kind with seven failure scenarios (crashloop, image pull, OOM, stalled rollout, unbound PVC, failing CronJob, missing dependency). Each README states what the agent should conclude — so a demo has a right answer.",
+        links: [
+          {
+            label: "kprompt-examples",
+            href: "https://github.com/kprompt/kprompt-examples",
+          },
+        ],
+      },
+      {
+        type: "code",
+        caption: "kind + crashloop, then Observe agent (heuristic = offline)",
+        code: `git clone https://github.com/kprompt/kprompt-examples.git
+cd kprompt-examples
+make up
+make break SCENARIO=01-crashloop
+make verify
+kprompt agent run -n payments --analyze --health --heuristic`,
+      },
     ],
   },
   roadmap: {

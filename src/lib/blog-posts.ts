@@ -114,6 +114,14 @@ kprompt agent run -n payments --analyze --heuristic --memory --patterns --autopi
       },
       {
         type: "code",
+        caption: "Broken demo cluster (kind)",
+        code: `git clone https://github.com/kprompt/kprompt-examples.git
+cd kprompt-examples
+make up && make break SCENARIO=01-crashloop && make verify
+kprompt agent run -n payments --analyze --health --heuristic`,
+      },
+      {
+        type: "code",
         caption: "Helm Observe agent",
         code: `kubectl -n payments create secret generic kprompt-agent \\
   --from-literal=OPENAI_API_KEY="$OPENAI_API_KEY"
@@ -123,9 +131,13 @@ helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
       },
       {
         type: "p",
-        text: "Full flags, RBAC, LLM cost notes, and CRD status sync live on the Observe agent docs page. The CLI remains experimental — review every mutating plan before apply.",
+        text: "Full flags, RBAC, LLM cost notes, and CRD status sync live on the Observe agent docs page. For a reproducible broken namespace, use kprompt-examples. The CLI remains experimental — review every mutating plan before apply.",
         links: [
           { label: "Observe agent docs", href: "/docs/agent" },
+          {
+            label: "kprompt-examples",
+            href: "https://github.com/kprompt/kprompt-examples",
+          },
           { label: "Install", href: "/docs/install" },
           { label: "Roadmap", href: "/docs/roadmap" },
         ],

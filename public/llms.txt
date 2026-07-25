@@ -15,6 +15,7 @@
 - Integrations: https://kprompt.ai/docs/integrations
 - Multi-cluster: https://kprompt.ai/docs/multi-cluster
 - GitHub: https://github.com/kprompt/kprompt
+- Demo scenarios (kind): https://github.com/kprompt/kprompt-examples
 - Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.5.0
 
 ## Positioning (honest)
