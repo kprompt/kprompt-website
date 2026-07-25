@@ -53,6 +53,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Tekton, KEDA, Istio (read-first), Crossplane, Flux/Argo CD GitOps",
           "Optimize reports, service dependency graphs, multi-tool routes",
           "Local history, CI JSON PlanResult, Homebrew install, optional Team login",
+          "Optional Observe agent (Helm) — namespace watch → Incident → gated Slack/webhook; no mutate",
         ],
       },
       {
@@ -63,7 +64,8 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
         type: "ul",
         items: [
           "Not production-hardened or stability-guaranteed",
-          "Not a hosted agent that runs inside your cluster",
+          "Not Autopilot — the optional in-cluster agent is Observe-only (no apply/patch/delete)",
+          "Not a Kagent-class multi-agent framework or a K8sGPT fleet scanner",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
           "Not a Lens/Headlamp replacement — optional local read-only inventory is kprompt-dash (localhost only)",
           "Not a hosted multi-cluster / fleet SaaS — multi-context is laptop kubeconfig fan-out only (no kubeconfig upload)",
@@ -73,10 +75,11 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "Where we are headed (AI SRE investigate, trust loops, multi-cluster) is documented honestly on Roadmap & vision — shipped vs building vs exploring. Multi-context CLI docs: Multi-cluster.",
+        text: "Where we are headed (AI SRE investigate, trust loops, multi-cluster) is documented honestly on Roadmap & vision — shipped vs building vs exploring. Multi-context CLI docs: Multi-cluster. Observe agent install: Observe agent.",
         links: [
           { label: "Roadmap & vision", href: "/docs/roadmap" },
           { label: "Multi-cluster", href: "/docs/multi-cluster" },
+          { label: "Observe agent", href: "/docs/agent" },
         ],
       },
       {
@@ -974,6 +977,116 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
     ],
   },
+  agent: {
+    title: "Observe agent",
+    description:
+      "Optional namespace-scoped Observe Mode agent: Helm install, Role-only RBAC, LLM cost gates. Not Autopilot. Not K8sGPT. Not Kagent.",
+    blocks: [
+      {
+        type: "p",
+        text: "The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook. Source docs and chart live in the kprompt repo.",
+        links: [
+          {
+            label: "docs/agent.md",
+            href: "https://github.com/kprompt/kprompt/blob/main/docs/agent.md",
+          },
+          {
+            label: "charts/kprompt-agent",
+            href: "https://github.com/kprompt/kprompt/tree/main/charts/kprompt-agent",
+          },
+          {
+            label: "ADR-0013",
+            href: "https://github.com/kprompt/kprompt-architecture/blob/main/decisions/ADR-0013-in-cluster-agent.md",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Observe-only — no Autopilot",
+      },
+      {
+        type: "ul",
+        items: [
+          "Never applies, patches, or deletes workload objects in V1",
+          "Autopilot (policy-gated mutate) is out of scope until a dedicated ADR",
+          "Recommendations may suggest a PlanResult-shaped fix for a human to approve on the CLI",
+        ],
+      },
+      {
+        type: "h2",
+        text: "vs K8sGPT and Kagent",
+      },
+      {
+        type: "table",
+        headers: ["Tool", "Job", "kprompt Observe"],
+        rows: [
+          [
+            "K8sGPT",
+            "On-demand / scheduled analyzer (scan → explain)",
+            "Always-on watch → correlated Incident → confidence-gated alert — not a fleet scanner",
+          ],
+          [
+            "Kagent",
+            "In-cluster multi-agent framework",
+            "One kprompt-native Observe pipeline; not a general agent platform",
+          ],
+          [
+            "kprompt CLI",
+            "Reactive plan → approve → apply",
+            "Agent is optional; CLI needs no daemon",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "RBAC (honest)",
+      },
+      {
+        type: "ul",
+        items: [
+          "Default: Role + RoleBinding in one namespace (get/list/watch) — not ClusterRole",
+          "Secrets watch is off by default; when enabled, metadata only (never values)",
+          "You own the ServiceAccount blast radius you deploy",
+        ],
+      },
+      {
+        type: "h2",
+        text: "LLM cost",
+      },
+      {
+        type: "ul",
+        items: [
+          "No LLM call on every raw API event — batch by open Incident",
+          "Severity + confidence gate before Slack/webhook (defaults: medium / 0.7)",
+          "Use --heuristic for demos; mount provider keys via Secret only",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Helm install",
+      },
+      {
+        type: "code",
+        caption: "Build image, create Secret, install chart",
+        code: `docker build -t ghcr.io/kprompt/kprompt:dev .
+kubectl -n payments create secret generic kprompt-agent \\
+  --from-literal=OPENAI_API_KEY="$OPENAI_API_KEY"
+helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
+  -n payments --create-namespace \\
+  --set image.tag=dev`,
+      },
+      {
+        type: "p",
+        text: "Laptop smoke without Helm: kprompt agent run -n payments --analyze --fetch-logs --health --heuristic. Full flags and CRD status sync are in the repo agent doc.",
+        links: [
+          {
+            label: "Full agent doc",
+            href: "https://github.com/kprompt/kprompt/blob/main/docs/agent.md",
+          },
+        ],
+      },
+    ],
+  },
   roadmap: {
     title: "Roadmap & vision",
     description:
@@ -1016,12 +1129,16 @@ echo "$json" | jq -e '.risk.level != "high"'`,
           "Optimize-cluster report (idle / rightsizing / HPA) and service dependency graph",
           "Context aliases, doctor, Homebrew, optional Team login / policy / audit",
           "Local read-only inventory via kprompt dash (localhost)",
+          "Optional Observe agent (Helm): namespace watch → Incident → gated Slack/webhook — no Autopilot mutate",
         ],
       },
       {
         type: "p",
-        text: "Full integration detail lives on Integrations — not duplicated here.",
-        links: [{ label: "Integrations", href: "/docs/integrations" }],
+        text: "Full integration detail lives on Integrations — not duplicated here. Observe agent install and honesty notes: Observe agent.",
+        links: [
+          { label: "Integrations", href: "/docs/integrations" },
+          { label: "Observe agent", href: "/docs/agent" },
+        ],
       },
       {
         type: "h2",
@@ -1050,11 +1167,12 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       {
         type: "ul",
         items: [
-          "Proactive local watch (opt-in): signal → “latency up; investigate?” — never auto-mutate",
+          "Proactive local watch (opt-in laptop): signal → “latency up; investigate?” — never auto-mutate",
           "Local remember / session digests (facts stay on your machine by default)",
           "Multi-cluster: contexts inventory, read fan-out, explicit per-cluster mutate safety; org registry metadata without uploading kubeconfig",
           "Team web polish on app.kprompt.ai (policy, audit, Insights) — CLI stays free; nothing to buy today",
           "Workflow recipe packs (harden production, Ingress → Gateway API) as curated plan chains",
+          "Operator for KpromptAgent CR → Deployment (AG-014); Autopilot Mode only after a dedicated ADR (AG-017)",
         ],
       },
       {
@@ -1069,6 +1187,8 @@ echo "$json" | jq -e '.risk.level != "high"'`,
           "Replace Lens/Headlamp as a hosted live cluster browser",
           "Compete on free-form agent chat with kubectl-ai",
           "Claim K8sGPT analyzer parity as a fleet scanner",
+          "Ship Autopilot mutate without a new ADR + PlanResult + policy gates",
+          "Pretend Observe agent is Kagent feature parity",
         ],
       },
       {

@@ -8,6 +8,7 @@
 - Docs: https://kprompt.ai/docs
 - Install: https://kprompt.ai/docs/install
 - Quickstart: https://kprompt.ai/docs/quickstart
+- Observe agent (Helm, Observe-only): https://kprompt.ai/docs/agent
 - Roadmap & vision: https://kprompt.ai/docs/roadmap
 - Safety: https://kprompt.ai/docs/safety
 - CI / PlanResult JSON: https://kprompt.ai/docs/ci
@@ -17,7 +18,8 @@
 
 ## Positioning (honest)
 - Same NL-CLI lane as kubectl-ai; different mutate contract (plan → safety → approve).
-- Not a K8sGPT fleet scanner; not an in-cluster agent framework; not a hosted Lens clone.
+- Not a K8sGPT fleet scanner; not a Kagent multi-agent framework; not a hosted Lens clone.
+- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify — no Autopilot mutate in V1.
 - Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.
 
 ## High-signal articles
