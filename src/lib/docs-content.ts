@@ -1063,6 +1063,20 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
       {
         type: "h2",
+        text: "Operator (optional)",
+      },
+      {
+        type: "p",
+        text: "kprompt agent operator reconciles KpromptAgent CRs into Observe agent Deployments (ServiceAccount + Role + RoleBinding + Deployment). Helm chart: charts/kprompt-operator. Autopilot stays out of scope; non-Observe modes are rejected. Prefer the manual kprompt-agent chart when you do not want a ClusterRole for the operator SA.",
+        links: [
+          {
+            label: "charts/kprompt-operator",
+            href: "https://github.com/kprompt/kprompt/tree/main/charts/kprompt-operator",
+          },
+        ],
+      },
+      {
+        type: "h2",
         text: "Helm install",
       },
       {
@@ -1130,6 +1144,7 @@ helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
           "Context aliases, doctor, Homebrew, optional Team login / policy / audit",
           "Local read-only inventory via kprompt dash (localhost)",
           "Optional Observe agent (Helm): namespace watch → Incident → gated Slack/webhook — no Autopilot mutate",
+          "Optional Operator: KpromptAgent CR → Observe agent Deployment (ClusterRole; Autopilot still rejected)",
         ],
       },
       {
@@ -1172,7 +1187,7 @@ helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
           "Multi-cluster: contexts inventory, read fan-out, explicit per-cluster mutate safety; org registry metadata without uploading kubeconfig",
           "Team web polish on app.kprompt.ai (policy, audit, Insights) — CLI stays free; nothing to buy today",
           "Workflow recipe packs (harden production, Ingress → Gateway API) as curated plan chains",
-          "Operator for KpromptAgent CR → Deployment (AG-014); Autopilot Mode only after a dedicated ADR (AG-017)",
+          "Autopilot Mode only after a dedicated ADR (AG-017)",
         ],
       },
       {
