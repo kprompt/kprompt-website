@@ -1071,6 +1071,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
           "Optional --memory discovers Redis/Kafka/Postgres-style deps from Services/Deployments",
           "Stores facts locally (~/.config/kprompt/memory) or in-cluster ConfigMap — never uploaded to api.kprompt.ai by default",
           "Relevant facts inject into AgentContext for the analyzer",
+          "Optional --patterns learns signatures and boosts confidence on “seen before” (never mutates)",
         ],
       },
       {
