@@ -1,28 +1,31 @@
 # https://kprompt.ai/llms.txt
 # Guidance for AI assistants and crawlers about kprompt.
 
-> kprompt is an open-source AI Kubernetes CLI: natural language compiles into a reviewable PlanResult, then you approve before apply. Apache-2.0. Experimental. Local kubeconfig + BYOK — no cluster credentials uploaded to a control plane by default.
+> kprompt is an open-source AI Kubernetes CLI: natural language compiles into a reviewable PlanResult, then you approve before apply. Apache-2.0. Experimental. Local kubeconfig + BYOK — no cluster credentials uploaded to a control plane by default. Optional Observe agent (v0.5) for always-on namespace alerts.
 
 ## Product
 - Site: https://kprompt.ai
 - Docs: https://kprompt.ai/docs
 - Install: https://kprompt.ai/docs/install
 - Quickstart: https://kprompt.ai/docs/quickstart
-- Observe agent (Helm, Observe-only): https://kprompt.ai/docs/agent
+- Observe agent (Helm): https://kprompt.ai/docs/agent
 - Roadmap & vision: https://kprompt.ai/docs/roadmap
 - Safety: https://kprompt.ai/docs/safety
 - CI / PlanResult JSON: https://kprompt.ai/docs/ci
 - Integrations: https://kprompt.ai/docs/integrations
 - Multi-cluster: https://kprompt.ai/docs/multi-cluster
 - GitHub: https://github.com/kprompt/kprompt
+- Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.5.0
 
 ## Positioning (honest)
 - Same NL-CLI lane as kubectl-ai; different mutate contract (plan → safety → approve).
 - Not a K8sGPT fleet scanner; not a Kagent multi-agent framework; not a hosted Lens clone.
-- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify — no Autopilot mutate in V1.
+- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.
+- Autopilot (ADR-0015) is propose-only by default — never silent apply.
 - Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.
 
 ## High-signal articles
+- https://kprompt.ai/blog/kprompt-v0-5-observe-agent
 - https://kprompt.ai/blog/building-ai-sre-in-public
 - https://kprompt.ai/blog/building-ai-sre-01-why
 - https://kprompt.ai/blog/building-ai-sre-02-intent-compiler

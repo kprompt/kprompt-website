@@ -64,7 +64,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
         type: "ul",
         items: [
           "Not production-hardened or stability-guaranteed",
-          "Not Autopilot — the optional in-cluster agent is Observe-only (no apply/patch/delete)",
+          "Not Autopilot-by-default — optional agent is Observe; Autopilot MVP is propose-only (ADR-0015)",
           "Not a Kagent-class multi-agent framework or a K8sGPT fleet scanner",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
           "Not a Lens/Headlamp replacement — optional local read-only inventory is kprompt-dash (localhost only)",
@@ -126,7 +126,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "code",
-        code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.4.0/install/install.sh | bash",
+        code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.5.0/install/install.sh | bash",
       },
       {
         type: "h2",
@@ -980,11 +980,11 @@ echo "$json" | jq -e '.risk.level != "high"'`,
   agent: {
     title: "Observe agent",
     description:
-      "Optional namespace-scoped Observe Mode agent: Helm install, Role-only RBAC, LLM cost gates. Not Autopilot. Not K8sGPT. Not Kagent.",
+      "Optional namespace-scoped Observe Mode agent (v0.5): Helm/Operator, Role RBAC, memory & patterns. Autopilot is propose-only (ADR-0015).",
     blocks: [
       {
         type: "p",
-        text: "The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook. Source docs and chart live in the kprompt repo.",
+        text: "Shipped in kprompt v0.5. The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook.",
         links: [
           {
             label: "docs/agent.md",
@@ -998,18 +998,33 @@ echo "$json" | jq -e '.risk.level != "high"'`,
             label: "ADR-0013",
             href: "https://github.com/kprompt/kprompt-architecture/blob/main/decisions/ADR-0013-in-cluster-agent.md",
           },
+          {
+            label: "v0.5 announcement",
+            href: "/blog/kprompt-v0-5-observe-agent",
+          },
         ],
       },
       {
         type: "h2",
-        text: "Observe-only — no Autopilot",
+        text: "Observe by default — Autopilot propose-only",
       },
       {
         type: "ul",
         items: [
-          "Never applies, patches, or deletes workload objects in V1",
-          "Autopilot (policy-gated mutate) is out of scope until a dedicated ADR",
-          "Recommendations may suggest a PlanResult-shaped fix for a human to approve on the CLI",
+          "Observe Mode never applies, patches, or deletes workload objects",
+          "Autopilot MVP (--autopilot-propose) emits PlanResult-shaped proposals + audit; Applied stays false",
+          "Policy allowlist + ADR-0015 gates required before any future apply executor",
+          "Recommendations may suggest a fix for a human to approve on the CLI",
+        ],
+      },
+      {
+        type: "p",
+        text: "Full Autopilot contract: ADR-0015.",
+        links: [
+          {
+            label: "ADR-0015",
+            href: "https://github.com/kprompt/kprompt-architecture/blob/main/decisions/ADR-0015-autopilot-mode.md",
+          },
         ],
       },
       {
@@ -1081,7 +1096,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
       {
         type: "p",
-        text: "kprompt agent operator reconciles KpromptAgent CRs into Observe agent Deployments (ServiceAccount + Role + RoleBinding + Deployment). Helm chart: charts/kprompt-operator. Autopilot stays out of scope; non-Observe modes are rejected. Prefer the manual kprompt-agent chart when you do not want a ClusterRole for the operator SA.",
+        text: "kprompt agent operator reconciles KpromptAgent CRs into Observe agent Deployments (ServiceAccount + Role + RoleBinding + Deployment). Helm chart: charts/kprompt-operator. Prefer the manual kprompt-agent chart when you do not want a ClusterRole for the operator SA. Autopilot propose is a CLI flag on the agent binary — not silent mutate.",
         links: [
           {
             label: "charts/kprompt-operator",
@@ -1095,17 +1110,16 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
       {
         type: "code",
-        caption: "Build image, create Secret, install chart",
-        code: `docker build -t ghcr.io/kprompt/kprompt:dev .
-kubectl -n payments create secret generic kprompt-agent \\
+        caption: "Secret + chart (image tag = release)",
+        code: `kubectl -n payments create secret generic kprompt-agent \\
   --from-literal=OPENAI_API_KEY="$OPENAI_API_KEY"
 helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
   -n payments --create-namespace \\
-  --set image.tag=dev`,
+  --set image.tag=0.5.0`,
       },
       {
         type: "p",
-        text: "Laptop smoke without Helm: kprompt agent run -n payments --analyze --fetch-logs --health --heuristic. Full flags and CRD status sync are in the repo agent doc.",
+        text: "Laptop smoke: kprompt agent run -n payments --analyze --fetch-logs --health --heuristic. Add --memory, --patterns, or --autopilot-propose as needed. Full flags in the repo agent doc.",
         links: [
           {
             label: "Full agent doc",
@@ -1157,8 +1171,9 @@ helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
           "Optimize-cluster report (idle / rightsizing / HPA) and service dependency graph",
           "Context aliases, doctor, Homebrew, optional Team login / policy / audit",
           "Local read-only inventory via kprompt dash (localhost)",
-          "Optional Observe agent (Helm): namespace watch → Incident → gated Slack/webhook — no Autopilot mutate",
-          "Optional Operator: KpromptAgent CR → Observe agent Deployment (ClusterRole; Autopilot still rejected)",
+          "Optional Observe agent (Helm): namespace watch → Incident → gated Slack/webhook — no silent Autopilot mutate",
+          "Optional Operator: KpromptAgent CR → Observe agent Deployment",
+          "Autopilot propose-only MVP (--autopilot-propose) under ADR-0015",
         ],
       },
       {

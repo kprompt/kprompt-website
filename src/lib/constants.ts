@@ -7,7 +7,7 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "Talk to Your Cluster.",
   description:
-    "Open-source Kubernetes CLI: natural language → reviewable plans → approve before apply. Day-2 ops, integrations, optimize/graph — building toward AI SRE investigation.",
+    "Open-source Kubernetes CLI: natural language → reviewable plans → approve before apply. Optional Observe agent (Helm) for always-on namespace alerts — Autopilot stays propose-only.",
   github: "https://github.com/kprompt/kprompt",
   /** Team web surface (authenticated). */
   app: "https://app.kprompt.ai",
@@ -25,7 +25,7 @@ export const SITE = {
   installCommandBrew: "brew install kprompt/tap/kprompt",
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
-    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.4.0/install/install.sh | bash",
+    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.5.0/install/install.sh | bash",
 } as const;
 
 export const NAV_LINKS = [
@@ -39,18 +39,18 @@ export const NORTH_STAR_PROMPTS = [
   'kprompt "deploy my app"',
   'kprompt "why is production slow"',
   'kprompt "optimize my cluster"',
-  'kprompt "show service dependency graph"',
+  'kprompt agent run -n payments --health --heuristic',
 ] as const;
 
 /** Homepage teaser only — full detail on /docs/roadmap. */
 export const ROADMAP_TEASER = {
-  lead: "Intent compiler today. AI SRE next — still plan → approve → apply, never a silent controller.",
+  lead: "Intent compiler on your laptop. Optional Observe agent in-cluster. Still plan → approve → apply — never a silent healer by default.",
   pillars: [
     {
       label: "Now",
       title: "Shipped",
       blurb:
-        "Plan/approve loop, deep explain, Helm through GitOps, optimize & graphs, aliases, optional Team enrollment.",
+        "Plan/approve CLI, day-2 integrations, and the Observe agent (Helm/Operator): watch → Incident → gated Slack/webhook. Autopilot is propose-only.",
     },
     {
       label: "Next",
@@ -60,9 +60,9 @@ export const ROADMAP_TEASER = {
     },
     {
       label: "Later",
-      title: "Proactive & fleet",
+      title: "PolicyAuto & fleet",
       blurb:
-        "Opt-in local watch, multi-cluster fan-out without uploading kubeconfig, Team app Insights polish.",
+        "Autopilot apply executor behind ADR-0015 gates, multi-cluster fan-out without uploading kubeconfig, Team Insights polish.",
     },
   ],
 } as const;

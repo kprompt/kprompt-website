@@ -29,9 +29,9 @@ const FEATURES = [
   },
   {
     icon: Radar,
-    title: "Grounded investigation",
+    title: "Observe agent",
     description:
-      "Deep Kubernetes explain plus Prometheus-backed CPU, memory, latency, replica, and HPA findings — building toward multi-hop RCA.",
+      "Optional in-cluster watch → Incident → gated Slack/webhook. Namespace Role RBAC. Autopilot stays propose-only.",
   },
   {
     icon: ScrollText,
