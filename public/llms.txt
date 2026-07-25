@@ -16,6 +16,7 @@
 - Multi-cluster: https://kprompt.ai/docs/multi-cluster
 - GitHub: https://github.com/kprompt/kprompt
 - Demo scenarios (kind): https://github.com/kprompt/kprompt-examples
+- Demo walkthrough: git clone …/kprompt-examples && make walkthrough
 - Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.5.0
 
 ## Positioning (honest)
@@ -26,6 +27,7 @@
 - Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.
 
 ## High-signal articles
+- https://kprompt.ai/blog/observe-agent-kind-demo
 - https://kprompt.ai/blog/kprompt-v0-5-observe-agent
 - https://kprompt.ai/blog/building-ai-sre-in-public
 - https://kprompt.ai/blog/building-ai-sre-01-why

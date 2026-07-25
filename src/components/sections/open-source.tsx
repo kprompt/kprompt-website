@@ -16,7 +16,7 @@ export function OpenSource() {
             Open source by design
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Star the repo. Read the docs. Shape the roadmap.
+            Star the repo. Break a kind cluster on purpose. Shape the roadmap.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -30,14 +30,25 @@ export function OpenSource() {
               Star us on GitHub
             </a>
             <a
-              href={SITE.roadmap}
+              href={SITE.examples}
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              Try the Observe demo
+            </a>
+            <a
+              href={SITE.roadmap}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
             >
               Roadmap & vision
             </a>
           </div>
 
-          <p className="mt-6 text-sm text-muted-foreground">
+          <p className="mt-6 font-mono text-xs text-muted-foreground sm:text-sm">
+            git clone …/kprompt-examples && make walkthrough
+          </p>
+          <p className="mt-2 text-sm text-muted-foreground">
             Apache-2.0 · Open source · Contributions welcome
           </p>
         </Reveal>
