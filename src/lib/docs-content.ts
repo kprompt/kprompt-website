@@ -1072,6 +1072,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
           "Stores facts locally (~/.config/kprompt/memory) or in-cluster ConfigMap — never uploaded to api.kprompt.ai by default",
           "Relevant facts inject into AgentContext for the analyzer",
           "Optional --patterns learns signatures and boosts confidence on “seen before” (never mutates)",
+          "Optional --autopilot-propose emits allowlisted AutopilotProposal (propose-only; ADR-0015)",
         ],
       },
       {
@@ -1200,7 +1201,7 @@ helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
           "Multi-cluster: contexts inventory, read fan-out, explicit per-cluster mutate safety; org registry metadata without uploading kubeconfig",
           "Team web polish on app.kprompt.ai (policy, audit, Insights) — CLI stays free; nothing to buy today",
           "Workflow recipe packs (harden production, Ingress → Gateway API) as curated plan chains",
-          "Autopilot Mode only after a dedicated ADR (AG-017)",
+          "Autopilot policyAuto apply executor (ADR-0015) — MVP today is propose-only",
         ],
       },
       {
