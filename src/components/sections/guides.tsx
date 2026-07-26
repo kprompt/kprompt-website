@@ -20,11 +20,11 @@ const GUIDES = [
       "Same natural-language CLI lane, different mutate contract: plan, safety, then approve.",
   },
   {
-    href: "/blog/kubectl-cheat-sheet-natural-language",
-    kicker: "Reference",
-    title: "kubectl cheat sheet in natural language",
+    href: "/blog/kubectl-alternatives",
+    kicker: "Comparison",
+    title: "kubectl vs K9s and other alternatives",
     blurb:
-      "The commands you keep re-Googling, written as prompts you can run today.",
+      "Terminal UI, dashboards, and AI CLIs — which interface fits which job.",
   },
   {
     href: "/blog/kubernetes-oomkilled",
@@ -41,11 +41,11 @@ const GUIDES = [
       "CrashLoopBackOff, ImagePullBackOff, pending pods — prompts that get to the cause.",
   },
   {
-    href: "/docs/ci",
+    href: "/docs/safety",
     kicker: "Docs",
-    title: "Gate pipelines on PlanResult JSON",
+    title: "Safety and hard denies",
     blurb:
-      "Stable JSON output so CI can fail high-risk plans before a human approves apply.",
+      "How plan → approve works, what wipe-class prompts are blocked, and why review still matters.",
   },
 ] as const;
 

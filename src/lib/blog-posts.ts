@@ -1858,10 +1858,11 @@ kprompt "scale api to 2" -n staging    # review plan → y or n`,
   {
     slug: "kubectl-alternatives",
     title:
-      "Kubectl alternatives in 2026: K9s, Kubernetes dashboards, and AI CLIs compared",
+      "kubectl vs K9s: when to use each, plus Headlamp, Lens, and AI CLIs",
     description:
-      "Compare kubectl, K9s, Headlamp, Lens, and natural-language Kubernetes CLIs. Learn which tool fits terminal navigation, visual cluster management, troubleshooting, and plan-before-apply operations.",
+      "kubectl vs K9s is not either/or: kubectl for scripts and exact API work, K9s for live terminal navigation. Also compared: Headlamp, Lens, kubectl alternatives, and plan-before-apply AI CLIs.",
     publishedAt: "2026-07-16",
+    updatedAt: "2026-07-26",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -1872,8 +1873,10 @@ kprompt "scale api to 2" -n staging    # review plan → y or n`,
     ],
     keywords: [
       "kubectl alternatives",
-      "best kubernetes cli",
+      "kubectl vs k9s",
       "k9s vs kubectl",
+      "k9s alternative",
+      "best kubernetes cli",
       "kubernetes dashboard tools",
       "lens kubernetes alternative",
       "headlamp kubernetes",
@@ -1992,6 +1995,69 @@ kubectl rollout undo deployment/api -n staging`,
       },
       {
         type: "h2",
+        text: "kubectl vs K9s: which should you use?",
+      },
+      {
+        type: "p",
+        text: "“kubectl vs K9s” is one of the most common operator searches — and the honest answer is both. They are not rivals for the same job. kubectl is the precise API client and scripting language. K9s is a live terminal UI that sits on top of the same API and credentials.",
+      },
+      {
+        type: "table",
+        headers: ["Job", "Prefer kubectl", "Prefer K9s"],
+        rows: [
+          [
+            "Scripts / CI / runbooks",
+            "Yes — reproducible flags and JSON output",
+            "No — interactive TUI is hard to automate",
+          ],
+          [
+            "Watch a rollout live",
+            "Possible with watch/get loops",
+            "Better — continuous views and hotkeys",
+          ],
+          [
+            "Tail logs across pods",
+            "kubectl logs with selectors",
+            "Faster for hopping between Pods",
+          ],
+          [
+            "Exact API coverage",
+            "Full kubectl surface",
+            "Common day-2 actions, not every verb",
+          ],
+          [
+            "Remote jump host / SSH-only access",
+            "Works anywhere kubectl works",
+            "Works if the TUI can run there too",
+          ],
+          [
+            "Teaching juniors object relationships",
+            "Verbose but explicit",
+            "Better for exploration, still needs kubectl literacy",
+          ],
+        ],
+      },
+      {
+        type: "ul",
+        items: [
+          "Reach for kubectl when the output must be exact, scriptable, or pasted into a ticket",
+          "Reach for K9s when you are already in a terminal incident and need to navigate live state",
+          "Do not treat K9s as a kubectl replacement — you still need kubectl for CI, uncommon resources, and copy-pasteable commands",
+          "Add an AI CLI only when the bottleneck is translating intent into a reviewable plan, not when you need a better resource browser",
+        ],
+      },
+      {
+        type: "p",
+        text: "If your next question is whether an AI Kubernetes CLI belongs next to these two, keep the jobs separate: K9s watches, kubectl executes precisely, and a plan-before-apply CLI drafts a mutate path you still approve. See the Kubernetes AI tools comparison for that peer map.",
+        links: [
+          {
+            label: "Kubernetes AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+        ],
+      },
+      {
+        type: "h2",
         text: "Headlamp: visual and extensible Kubernetes UI",
       },
       {
@@ -2026,7 +2092,11 @@ kubectl rollout undo deployment/api -n staging`,
       },
       {
         type: "p",
-        text: "The dangerous implementation is model output piped directly to a shell. kprompt instead turns the prompt into a structured plan, runs risk checks and hard denies, and asks for approval before mutations. It uses your kubeconfig and your LLM provider keys; it does not replace RBAC or admission policy.",
+        text: "The dangerous implementation is model output piped directly to a shell. kprompt instead turns the prompt into a structured plan, runs risk checks and hard denies, and asks for approval before mutations. It uses your kubeconfig and your LLM provider keys (BYOK); it does not replace RBAC or admission policy.",
+        links: [
+          { label: "safety", href: "/docs/safety" },
+          { label: "BYOK providers", href: "/docs/providers" },
+        ],
       },
       {
         type: "code",
@@ -2057,7 +2127,7 @@ Apply? [y/N]`,
       },
       {
         type: "p",
-        text: "Use K9s for watching rollouts, jumping between Pods, tailing logs, and navigating resources during an interactive terminal session.",
+        text: "Use K9s for watching rollouts, jumping between Pods, tailing logs, and navigating resources during an interactive terminal session. If you arrived here from a “kubectl vs K9s” search, this is usually the answer: K9s for the live session, kubectl for the exact command you need to keep.",
       },
       {
         type: "h3",
@@ -2107,10 +2177,16 @@ kprompt "explain why api is not ready" -n staging`,
       },
       {
         type: "p",
-        text: "Read the quickstart and safety guide before approving mutations. kprompt is one interface in the Kubernetes toolbelt — not a reason to stop understanding the cluster beneath it.",
+        text: "Read the quickstart and safety guide before approving mutations. For AI peers (K8sGPT, kubectl-ai, Kagent), see the Kubernetes AI tools comparison. For optional always-on alerts, see the Observe agent docs. kprompt is one interface in the Kubernetes toolbelt — not a reason to stop understanding the cluster beneath it.",
         links: [
           { label: "quickstart", href: "/docs/quickstart" },
           { label: "safety guide", href: "/docs/safety" },
+          {
+            label: "Kubernetes AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          { label: "Observe agent docs", href: "/docs/agent" },
+          { label: "providers", href: "/docs/providers" },
         ],
       },
     ],
@@ -2118,11 +2194,11 @@ kprompt "explain why api is not ready" -n staging`,
   {
     slug: "kubernetes-ai-tools-comparison",
     title:
-      "Kubernetes AI tools compared: K8sGPT, kubectl-ai, Kagent, and plan-before-apply CLIs",
+      "Kubernetes AI tools: K8sGPT, kubectl-ai, Kagent, and plan-before-apply CLIs",
     description:
-      "Honest map of Kubernetes AI peers: K8sGPT diagnoses, kubectl-ai and kprompt share the NL-CLI lane with different contracts, Kagent runs in-cluster agents, hosted chat and IDE copilots cover the rest.",
+      "Map of Kubernetes AI / k8s AI tools by job: K8sGPT (and Kubegpt-style searches) for diagnosis, kubectl-ai and kprompt for NL CLIs, Kagent for in-cluster agents — honest mutation contracts included.",
     publishedAt: "2026-07-18",
-    updatedAt: "2026-07-18",
+    updatedAt: "2026-07-26",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -2133,14 +2209,22 @@ kprompt "explain why api is not ready" -n staging`,
     ],
     keywords: [
       "k8sgpt",
+      "kubegpt",
+      "k8sgpt alternatives",
       "k8sgpt vs kubectl-ai",
       "kubernetes ai tools",
+      "k8s ai tools",
+      "k8s ai",
+      "kubernetes ai",
+      "best ai tools for kubernetes troubleshooting",
       "kubectl-ai",
+      "kagent vs kubectl-ai",
       "kagent kubernetes",
       "ai kubernetes troubleshooting",
       "chat with kubernetes cluster",
       "natural language kubernetes",
       "kubernetes ai cli",
+      "ai kubernetes cli",
       "kprompt",
     ],
     blocks: [
@@ -2232,7 +2316,7 @@ kprompt "explain why api is not ready" -n staging`,
       },
       {
         type: "p",
-        text: "K8sGPT is the CNCF-adjacent tool most teams mean when they say “AI that understands my cluster.” It runs analyzers over live resources, surfaces problems (CrashLoopBackOff, misconfigured Services, and similar), and can enrich findings with an LLM via --explain. Multiple backends are supported — including local models — and sensitive fields can be anonymized before they leave your environment.",
+        text: "K8sGPT is the CNCF-adjacent tool most teams mean when they say “AI that understands my cluster” (including misspelled searches like Kubegpt). It runs analyzers over live resources, surfaces problems (CrashLoopBackOff, misconfigured Services, and similar), and can enrich findings with an LLM via --explain. Multiple backends are supported — including local models — and sensitive fields can be anonymized before they leave your environment.",
         links: [
           { label: "K8sGPT", href: "https://k8sgpt.ai/" },
           {
@@ -2338,11 +2422,96 @@ k8sgpt analyze --explain
       },
       {
         type: "h2",
+        text: "K8sGPT alternatives — and when they are the wrong category",
+      },
+      {
+        type: "p",
+        text: "Teams searching for “K8sGPT alternatives” often mean one of two things: another analyzer that explains unhealthy objects, or a natural-language CLI that can propose fixes. Those are different jobs. A true K8sGPT peer stays diagnosis-first. An intent CLI like kubectl-ai or kprompt starts from what you want to do, not from a scan catalog.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Stay with K8sGPT (or similar analyzers) when the bottleneck is finding what is broken",
+          "Evaluate kubectl-ai or kprompt when you already know the outcome and need a mutate path",
+          "Evaluate Kagent when you need an in-cluster agent platform, not a laptop scan CLI",
+          "Do not expect a plan-before-apply CLI to replace analyzer coverage — pair them",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Best AI tools for Kubernetes troubleshooting",
+      },
+      {
+        type: "p",
+        text: "“Best AI tools for Kubernetes troubleshooting” depends on the failure mode. For CrashLoopBackOff and misconfigured Services across a fleet, start with K8sGPT analyze --explain. For a single workload you already named (“why is payment-api crashing?”), an intent CLI explain path is often faster. For always-on namespace watching with gated Slack alerts, use an Observe-style agent — not a chat REPL left open on production.",
+        links: [
+          { label: "error prompt playbook", href: "/blog/kubernetes-error-prompt-playbook" },
+          { label: "Observe agent docs", href: "/docs/agent" },
+        ],
+      },
+      {
+        type: "table",
+        headers: ["Troubleshooting need", "First tool", "Why"],
+        rows: [
+          [
+            "Fleet scan / unknown unhealthy objects",
+            "K8sGPT",
+            "Analyzer catalog + explain",
+          ],
+          [
+            "Named workload root-cause",
+            "Intent CLI (kubectl-ai or kprompt)",
+            "Explain from the resource you already care about",
+          ],
+          [
+            "Awkward kubectl / jsonpath under pressure",
+            "kubectl-ai",
+            "Fluency specialist in the NL-CLI lane",
+          ],
+          [
+            "Bounded fix with a reviewable plan",
+            "kprompt",
+            "Plan → safety → approve before apply",
+          ],
+          [
+            "Always-on namespace alerts",
+            "kprompt Observe agent",
+            "Watch → Incident → gated notify; no silent Autopilot",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "What is an AI Kubernetes CLI?",
+      },
+      {
+        type: "p",
+        text: "An AI Kubernetes CLI turns natural language into cluster operations from your laptop using your kubeconfig. The useful split inside that category is the mutate contract: some tools optimize for generating and running kubectl quickly; others compile intent into a typed plan you review first. kprompt is the second shape — BYOK providers, PlanResult JSON for CI, and hard denies for wipe-class prompts.",
+        links: [
+          { label: "BYOK providers", href: "/docs/providers" },
+          { label: "safety model", href: "/docs/safety" },
+          { label: "CI / PlanResult JSON", href: "/docs/ci" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Kagent vs kubectl-ai",
+      },
+      {
+        type: "p",
+        text: "Kagent and kubectl-ai are easy to confuse in a “Kubernetes AI” listicle, but they sit in different jobs. kubectl-ai is a local natural-language CLI for operators. Kagent is an in-cluster framework for building and running agents as Kubernetes resources. Choose kubectl-ai (or kprompt) when a human is at the keyboard. Choose Kagent when a platform team owns agent CRDs, tool runtimes, and ServiceAccount blast radius.",
+      },
+      {
+        type: "h2",
         text: "Where kprompt fits — and what we are not claiming",
       },
       {
         type: "p",
         text: "kprompt is an experimental Apache-2.0 CLI in the intent-CLI lane: natural language in, structured plan out, safety checks, then apply only after approval (unless you explicitly pass --approve). Reads (list, explain, logs, describe) run immediately. Mutations always show the plan — with risk labels and hard denies for wipe-class prompts. Integrations extend the same loop toward Helm, Argo Workflows, and Prometheus-backed performance explains.",
+        links: [
+          { label: "safety checks", href: "/docs/safety" },
+          { label: "Integrations", href: "/docs/integrations" },
+        ],
       },
       {
         type: "code",
@@ -2462,7 +2631,7 @@ kprompt "scale api to 2" -n staging   # review plan → y or n`,
       },
       {
         type: "p",
-        text: "Read the safety guide before approving mutations on shared clusters. For a dedicated head-to-head, see kprompt vs kubectl-ai. For how kprompt sits next to kubectl and K9s (non-AI peers), see our kubectl alternatives post. For model and BYOK choices, see the LLM providers guide.",
+        text: "Read the safety guide before approving mutations on shared clusters. For a dedicated head-to-head, see kprompt vs kubectl-ai. For how kprompt sits next to kubectl and K9s (non-AI peers), see our kubectl alternatives post. For model and BYOK choices, see Providers. For optional always-on alerts, see the Observe agent docs.",
         links: [
           { label: "safety guide", href: "/docs/safety" },
           {
@@ -2473,6 +2642,8 @@ kprompt "scale api to 2" -n staging   # review plan → y or n`,
             label: "kubectl alternatives post",
             href: "/blog/kubectl-alternatives",
           },
+          { label: "Providers", href: "/docs/providers" },
+          { label: "Observe agent docs", href: "/docs/agent" },
           {
             label: "LLM providers guide",
             href: "/blog/kubernetes-llm-providers-byok",
@@ -4572,6 +4743,7 @@ kprompt "optimize my cluster"`,
     description:
       "Both turn English into Kubernetes actions on your laptop. kubectl-ai optimizes for kubectl fluency and agentic chat; kprompt compiles intent into a gated PlanResult — plan, safety, approve — then apply. Decision guide for operators choosing an AI Kubernetes CLI.",
     publishedAt: "2026-07-23",
+    updatedAt: "2026-07-26",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -4617,6 +4789,7 @@ kprompt "optimize my cluster"`,
             label: "broader AI tools map",
             href: "/blog/kubernetes-ai-tools-comparison",
           },
+          { label: "safety model", href: "/docs/safety" },
         ],
       },
       {
@@ -4784,7 +4957,7 @@ kprompt "scale api to 2" -n staging   # review plan, then y/N`,
       },
       {
         type: "p",
-        text: "For the wider peer map (K8sGPT, Kagent, hosted chat), see the AI tools comparison. For where kprompt is headed beyond AI kubectl, see Beyond AI kubectl: why kprompt is aiming at AI SRE and Roadmap & vision. For the shipped optimize report, see optimize my cluster.",
+        text: "For the wider peer map (K8sGPT, Kagent, hosted chat), see the AI tools comparison. For where kprompt is headed beyond AI kubectl, see Beyond AI kubectl: why kprompt is aiming at AI SRE and Roadmap & vision. Configure BYOK models on Providers. Optional always-on alerts: Observe agent. Safety docs before shared-cluster --approve.",
         links: [
           {
             label: "AI tools comparison",
@@ -4795,6 +4968,8 @@ kprompt "scale api to 2" -n staging   # review plan, then y/N`,
             href: "/blog/ai-sre-not-ai-kubectl",
           },
           { label: "Roadmap & vision", href: "/docs/roadmap" },
+          { label: "Providers", href: "/docs/providers" },
+          { label: "Observe agent", href: "/docs/agent" },
           { label: "Safety docs", href: "/docs/safety" },
           {
             label: "kubectl-ai on GitHub",

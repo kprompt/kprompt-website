@@ -24,6 +24,15 @@ export const FAQ: FaqEntry[] = [
     more: { label: "kprompt vs kubectl-ai", href: "/blog/kprompt-vs-kubectl-ai" },
   },
   {
+    question: "Should I replace kubectl or K9s with kprompt?",
+    answer:
+      "No. kubectl remains the precise API client and scripting language; K9s remains the best live terminal UI for watching rollouts and hopping between Pods. kprompt sits beside them when the bottleneck is translating intent into a reviewable plan — not when you need exact flags or a resource browser.",
+    more: {
+      label: "kubectl vs K9s and alternatives",
+      href: "/blog/kubectl-alternatives",
+    },
+  },
+  {
     question: "Where do my kubeconfig and API keys live?",
     answer:
       "On your machine. kprompt reads your existing kubeconfig locally and uses your own LLM API keys from environment variables (BYOK). Cluster credentials are not uploaded to a control plane by default, and ~/.kprompt/config.yaml never stores API keys — only whether a key is set.",
