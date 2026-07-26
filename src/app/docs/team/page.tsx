@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("team", "/docs/team");
 
 export default function DocsTeamPage() {
-  return <DocsArticle page={DOCS_PAGES.team} />;
+  return <DocsArticle page={DOCS_PAGES.team} path="/docs/team" />;
 }

@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("safety", "/docs/safety");
 
 export default function DocsSafetyPage() {
-  return <DocsArticle page={DOCS_PAGES.safety} />;
+  return <DocsArticle page={DOCS_PAGES.safety} path="/docs/safety" />;
 }

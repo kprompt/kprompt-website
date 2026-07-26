@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("providers", "/docs/providers");
 
 export default function DocsProvidersPage() {
-  return <DocsArticle page={DOCS_PAGES.providers} />;
+  return <DocsArticle page={DOCS_PAGES.providers} path="/docs/providers" />;
 }

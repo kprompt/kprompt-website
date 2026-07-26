@@ -109,6 +109,10 @@ make walkthrough`,
       "autopilot propose-only",
     ],
     featured: false,
+    blocks: [
+      {
+        type: "p",
+        text: "kprompt v0.5 is out. The headline is an optional in-cluster Observe agent: continuously watch one namespace, correlate Incidents, optionally analyze with your BYOK LLM, and notify Slack or a webhook — without turning into a silent auto-healer.",
         links: [
           { label: "GitHub release", href: "https://github.com/kprompt/kprompt/releases/tag/v0.5.0" },
           { label: "Observe agent docs", href: "/docs/agent" },

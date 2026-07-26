@@ -1,0 +1,99 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Reveal } from "@/components/ui/reveal";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const GUIDES = [
+  {
+    href: "/blog/kubernetes-ai-tools-comparison",
+    kicker: "Comparison",
+    title: "Kubernetes AI tools, compared",
+    blurb:
+      "kubectl-ai, K8sGPT, Kagent, kprompt — what each one actually does to your cluster.",
+  },
+  {
+    href: "/blog/kprompt-vs-kubectl-ai",
+    kicker: "Comparison",
+    title: "kprompt vs kubectl-ai",
+    blurb:
+      "Same natural-language CLI lane, different mutate contract: plan, safety, then approve.",
+  },
+  {
+    href: "/blog/kubectl-cheat-sheet-natural-language",
+    kicker: "Reference",
+    title: "kubectl cheat sheet in natural language",
+    blurb:
+      "The commands you keep re-Googling, written as prompts you can run today.",
+  },
+  {
+    href: "/blog/kubernetes-oomkilled",
+    kicker: "Playbook",
+    title: "Debugging OOMKilled pods",
+    blurb:
+      "Why the pod died, which limits to change, and how the plan makes the fix reviewable.",
+  },
+  {
+    href: "/blog/kubernetes-error-prompt-playbook",
+    kicker: "Playbook",
+    title: "Kubernetes error prompt playbook",
+    blurb:
+      "CrashLoopBackOff, ImagePullBackOff, pending pods — prompts that get to the cause.",
+  },
+  {
+    href: "/docs/ci",
+    kicker: "Docs",
+    title: "Gate pipelines on PlanResult JSON",
+    blurb:
+      "Stable JSON output so CI can fail high-risk plans before a human approves apply.",
+  },
+] as const;
+
+export function Guides() {
+  return (
+    <section
+      id="guides"
+      className="relative scroll-mt-20 border-y border-border bg-muted/40 py-20 sm:py-28"
+    >
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <Reveal className="max-w-2xl">
+          <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+            Guides and comparisons
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            How kprompt lines up against other Kubernetes AI tooling, plus
+            playbooks for the failures you actually page on.
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {GUIDES.map((guide, i) => (
+            <Reveal key={guide.href} delay={Math.min(i, 4) * 0.05}>
+              <Link href={guide.href} className="group block">
+                <p className="font-mono text-xs uppercase tracking-wider text-brand">
+                  {guide.kicker}
+                </p>
+                <h3 className="mt-2 font-heading text-base font-semibold tracking-tight group-hover:text-brand">
+                  {guide.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  {guide.blurb}
+                </p>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.15} className="mt-12">
+          <Link
+            href="/blog"
+            className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+          >
+            All guides
+            <ArrowRight className="size-4" />
+          </Link>
+        </Reveal>
+      </div>
+    </section>
+  );
+}

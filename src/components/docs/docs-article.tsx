@@ -1,8 +1,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { HowToJsonLd } from "@/components/seo/howto-json-ld";
 import type { DocsBlock, DocsPage } from "@/lib/docs-content";
 import { DOCS_NAV } from "@/lib/docs-nav";
+import { DOCS_HOWTOS } from "@/lib/howto";
 
 function LinkedText({
   text,
@@ -135,9 +137,15 @@ function Block({ block }: { block: DocsBlock }) {
   }
 }
 
-export function DocsArticle({ page }: { page: DocsPage }) {
-  const path =
-    DOCS_NAV.find((item) => item.label === page.title)?.href ?? "/docs";
+export function DocsArticle({
+  page,
+  path,
+}: {
+  page: DocsPage;
+  path: string;
+}) {
+  const navLabel = DOCS_NAV.find((item) => item.href === path)?.label;
+  const howto = DOCS_HOWTOS[path];
 
   return (
     <>
@@ -145,9 +153,12 @@ export function DocsArticle({ page }: { page: DocsPage }) {
         items={[
           { name: "Home", path: "/" },
           { name: "Docs", path: "/docs" },
-          ...(path === "/docs" ? [] : [{ name: page.title, path }]),
+          ...(path === "/docs"
+            ? []
+            : [{ name: navLabel ?? page.title, path }]),
         ]}
       />
+      {howto ? <HowToJsonLd howto={howto} path={path} /> : null}
       <article className="max-w-3xl min-w-0">
         <h1 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
           {page.title}

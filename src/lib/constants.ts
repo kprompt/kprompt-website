@@ -1,8 +1,16 @@
 const LIVE_ORIGIN = "https://kprompt.ai";
 
+/** Single source of truth for the released CLI version referenced across metadata. */
+const CLI_VERSION = "0.5.0";
+
 export const SITE = {
   name: "kprompt",
   domain: "kprompt.ai",
+  /** Latest released CLI version — keep in sync with GitHub Releases. */
+  version: CLI_VERSION,
+  license: "Apache-2.0",
+  licenseUrl: "https://github.com/kprompt/kprompt/blob/main/LICENSE",
+  releases: "https://github.com/kprompt/kprompt/releases",
   /** Canonical site URL used for metadata, OG, and install CTA. */
   url: LIVE_ORIGIN,
   tagline: "Talk to Your Cluster.",
@@ -26,8 +34,7 @@ export const SITE = {
   /** Homebrew tap (official release binaries). */
   installCommandBrew: "brew install kprompt/tap/kprompt",
   /** Tag-pinned CDN fallback if the site is unreachable. */
-  installCommandGitHub:
-    "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.5.0/install/install.sh | bash",
+  installCommandGitHub: `curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v${CLI_VERSION}/install/install.sh | bash`,
   /** Observe agent kind walkthrough GIF (also on GitHub README). */
   observeDemoGif: "/kprompt-observe-demo.gif",
 } as const;

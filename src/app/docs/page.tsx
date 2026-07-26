@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("overview", "/docs");
 
 export default function DocsOverviewPage() {
-  return <DocsArticle page={DOCS_PAGES.overview} />;
+  return <DocsArticle page={DOCS_PAGES.overview} path="/docs" />;
 }

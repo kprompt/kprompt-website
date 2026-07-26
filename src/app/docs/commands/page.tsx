@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("commands", "/docs/commands");
 
 export default function DocsCommandsPage() {
-  return <DocsArticle page={DOCS_PAGES.commands} />;
+  return <DocsArticle page={DOCS_PAGES.commands} path="/docs/commands" />;
 }

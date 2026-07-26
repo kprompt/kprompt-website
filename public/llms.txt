@@ -5,6 +5,7 @@
 
 ## Product
 - Site: https://kprompt.ai
+- FAQ (approval, credentials, limits): https://kprompt.ai/#faq
 - Docs: https://kprompt.ai/docs
 - Install: https://kprompt.ai/docs/install
 - Quickstart: https://kprompt.ai/docs/quickstart
@@ -43,6 +44,11 @@
 - https://kprompt.ai/blog/kubernetes-ci-cd-plan-gates
 - https://kprompt.ai/blog/kubernetes-oomkilled
 - https://kprompt.ai/blog/kubectl-cheat-sheet-natural-language
+- https://kprompt.ai/blog/kubernetes-error-prompt-playbook
+- https://kprompt.ai/blog/kubernetes-troubleshooting-guide
+- https://kprompt.ai/blog/kubectl-alternatives
+- https://kprompt.ai/blog/kubernetes-safety-plan-approve
+- https://kprompt.ai/blog/kubernetes-llm-providers-byok
 
 ## Optional Team app
 - https://app.kprompt.ai — early; CLI stays free; nothing to buy as a public signup product today.

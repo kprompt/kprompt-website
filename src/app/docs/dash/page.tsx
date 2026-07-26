@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("dash", "/docs/dash");
 
 export default function DocsDashPage() {
-  return <DocsArticle page={DOCS_PAGES.dash} />;
+  return <DocsArticle page={DOCS_PAGES.dash} path="/docs/dash" />;
 }

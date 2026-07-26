@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("quickstart", "/docs/quickstart");
 
 export default function DocsQuickstartPage() {
-  return <DocsArticle page={DOCS_PAGES.quickstart} />;
+  return <DocsArticle page={DOCS_PAGES.quickstart} path="/docs/quickstart" />;
 }

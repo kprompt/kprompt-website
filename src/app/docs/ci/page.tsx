@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("ci", "/docs/ci");
 
 export default function DocsCiPage() {
-  return <DocsArticle page={DOCS_PAGES.ci} />;
+  return <DocsArticle page={DOCS_PAGES.ci} path="/docs/ci" />;
 }

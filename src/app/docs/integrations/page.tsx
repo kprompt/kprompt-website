@@ -5,5 +5,5 @@ import { docsMetadata } from "@/lib/docs-meta";
 export const metadata = docsMetadata("integrations", "/docs/integrations");
 
 export default function DocsIntegrationsPage() {
-  return <DocsArticle page={DOCS_PAGES.integrations} />;
+  return <DocsArticle page={DOCS_PAGES.integrations} path="/docs/integrations" />;
 }
