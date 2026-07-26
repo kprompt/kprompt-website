@@ -80,13 +80,13 @@ export const ROADMAP_TEASER = {
       label: "Next",
       title: "Trust & remediate",
       blurb:
-        "Deeper audit harden, ConfigMap/Secret cleanup gates, drift, GitOps PR mode, Autopilot proposal → human apply bridge.",
+        "Deeper audit harden, drift, GitOps PR mode, Autopilot proposal → human apply bridge.",
     },
     {
       label: "Later",
-      title: "PolicyAuto & fleet",
+      title: "Slack, PolicyAuto & fleet",
       blurb:
-        "Autopilot apply executor behind ADR-0015 gates, multi-cluster fan-out without uploading kubeconfig, Team Insights polish.",
+        "Bidirectional Slack ask (status / why) on Observe, Autopilot apply behind ADR-0015 gates, multi-cluster fan-out without uploading kubeconfig, Team Insights polish.",
     },
   ],
 } as const;
