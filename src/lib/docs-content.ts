@@ -90,7 +90,8 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
   },
   install: {
     title: "Install",
-    description: "Install the kprompt CLI from GitHub Releases, Homebrew, or source.",
+    description:
+      "Install the kprompt CLI on macOS or Linux from the release script, Homebrew, or source — then verify with kprompt doctor.",
     blocks: [
       {
         type: "p",
@@ -106,7 +107,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "Installs the latest release binary into ~/.local/bin (no sudo on macOS).",
+        text: "Detects your OS and architecture, downloads the matching binary from the latest GitHub Release, and installs it into ~/.local/bin. No sudo is needed because it avoids root-owned paths like /usr/local/bin.",
       },
       {
         type: "h2",
@@ -129,6 +130,55 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
         code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.5.0/install/install.sh | bash",
       },
       {
+        type: "p",
+        text: "Use this when kprompt.ai is unreachable or when you want the installer itself pinned to a release tag rather than served from the site.",
+      },
+      {
+        type: "h2",
+        text: "Supported platforms",
+      },
+      {
+        type: "table",
+        headers: ["OS", "Architectures", "How to install"],
+        rows: [
+          ["macOS", "arm64 (Apple Silicon), amd64", "Install script or Homebrew"],
+          ["Linux", "amd64, arm64", "Install script or Homebrew"],
+          ["Windows", "amd64, arm64", "Build from source with Go"],
+        ],
+      },
+      {
+        type: "p",
+        text: "The install script covers macOS and Linux and exits with a clear message on any other OS or architecture. Windows users build from source — the CLI itself is plain Go with no platform-specific cluster access.",
+      },
+      {
+        type: "h2",
+        text: "Installer options",
+      },
+      {
+        type: "table",
+        headers: ["Variable", "Default", "Purpose"],
+        rows: [
+          [
+            "KPROMPT_VERSION",
+            "latest release",
+            "Pin a specific tag, for example v0.5.0",
+          ],
+          [
+            "KPROMPT_INSTALL_DIR",
+            "~/.local/bin",
+            "Install elsewhere; system paths usually need sudo bash",
+          ],
+        ],
+      },
+      {
+        type: "code",
+        caption: "Pin a version, or install system-wide",
+        code: `KPROMPT_VERSION=v0.5.0 curl -fsSL https://kprompt.ai/install | bash
+
+# system-wide (root-owned target needs sudo)
+KPROMPT_INSTALL_DIR=/usr/local/bin curl -fsSL https://kprompt.ai/install | sudo bash`,
+      },
+      {
         type: "h2",
         text: "PATH",
       },
@@ -139,6 +189,83 @@ source ~/.zshrc
 kprompt version`,
       },
       {
+        type: "p",
+        text: "The installer warns when the target directory is missing from your PATH. Use ~/.bashrc instead of ~/.zshrc on shells that read it.",
+      },
+      {
+        type: "h2",
+        text: "Verify the install",
+      },
+      {
+        type: "code",
+        code: `kprompt version
+kprompt doctor          # kubeconfig + LLM key + integrations + Team health
+kprompt doctor --json   # same checks, machine-readable`,
+      },
+      {
+        type: "p",
+        text: "kprompt doctor is the fastest way to confirm a working setup: it checks that a kubeconfig context resolves, that an LLM API key is present, which day-2 integrations were detected, and whether optional Team enrollment is healthy. It exits non-zero when a required check fails, so it also works as a CI preflight.",
+        links: [
+          { label: "Set up a provider key", href: "/docs/providers" },
+          { label: "First prompts", href: "/docs/quickstart" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Upgrade",
+      },
+      {
+        type: "code",
+        code: `# script installs: rerun it
+curl -fsSL https://kprompt.ai/install | bash
+
+# Homebrew
+brew upgrade kprompt/tap/kprompt`,
+      },
+      {
+        type: "h2",
+        text: "Uninstall",
+      },
+      {
+        type: "code",
+        code: `rm ~/.local/bin/kprompt        # or: brew uninstall kprompt
+rm -rf ~/.kprompt              # config, history, cached policy/credentials`,
+      },
+      {
+        type: "p",
+        text: "Removing ~/.kprompt clears local config, prompt history, and any cached Team policy or credentials. It never touched your kubeconfig, so cluster access is unaffected.",
+      },
+      {
+        type: "h2",
+        text: "Troubleshooting",
+      },
+      {
+        type: "table",
+        headers: ["Symptom", "Cause", "Fix"],
+        rows: [
+          [
+            "command not found: kprompt",
+            "Install directory is not on PATH",
+            "Add ~/.local/bin to PATH, then reload the shell",
+          ],
+          [
+            "Cannot write to … (permission denied)",
+            "Target directory is root-owned",
+            "Keep the default ~/.local/bin, or rerun with sudo bash",
+          ],
+          [
+            "No GitHub release found yet",
+            "Release lookup failed or was rate-limited",
+            "Set KPROMPT_VERSION, or go install ./cmd/kprompt",
+          ],
+          [
+            "unsupported os / unsupported arch",
+            "Platform outside macOS and Linux on amd64/arm64",
+            "Build from source with the Go toolchain",
+          ],
+        ],
+      },
+      {
         type: "h2",
         text: "From source",
       },
@@ -147,6 +274,24 @@ kprompt version`,
         code: `git clone https://github.com/kprompt/kprompt.git
 cd kprompt
 go install ./cmd/kprompt`,
+      },
+      {
+        type: "p",
+        text: "Or build into a local path without touching your Go bin directory:",
+      },
+      {
+        type: "code",
+        code: `go build -o bin/kprompt ./cmd/kprompt
+./bin/kprompt version`,
+      },
+      {
+        type: "p",
+        text: "Source builds need Go 1.23 or newer. Next: set a provider key, then walk the plan → approve loop on a sandbox cluster.",
+        links: [
+          { label: "Providers", href: "/docs/providers" },
+          { label: "Quickstart", href: "/docs/quickstart" },
+          { label: "Safety", href: "/docs/safety" },
+        ],
       },
     ],
   },
@@ -805,7 +950,8 @@ kprompt policy           # show cached policy`,
   },
   safety: {
     title: "Safety",
-    description: "Approval, risk levels, hard denies — and why you still must review plans.",
+    description:
+      "How kprompt gates cluster mutations: prompt-level hard denies, plan risk levels, explicit approval, and tighten-only org policy.",
     blocks: [
       {
         type: "p",
@@ -813,20 +959,89 @@ kprompt policy           # show cached policy`,
       },
       {
         type: "p",
-        text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, logs, describe, performance, trace, dashboard, optimize, graph, Istio traffic, GitOps status) do not require approval.",
+        text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, investigate, why, timeline, impact, logs, describe, performance, trace, dashboard, optimize, graph, Istio traffic, GitOps status) do not require approval.",
+      },
+      {
+        type: "h2",
+        text: "Where the checks run",
+      },
+      {
+        type: "p",
+        text: "The pipeline is prompt → intent → plan → safety → approval → executor → Kubernetes. Safety runs at two distinct points, which is why some prompts never reach the model at all.",
+      },
+      {
+        type: "table",
+        headers: ["Stage", "What it checks", "Effect"],
+        rows: [
+          [
+            "Prompt check",
+            "Destructive natural-language patterns",
+            "Denied before any LLM call — no token spend",
+          ],
+          [
+            "Plan evaluation",
+            "Actions, resource kinds, names, integration rules",
+            "Assigns risk or denies the plan outright",
+          ],
+          [
+            "Org policy overlay",
+            "Cached Team policy, when enrolled",
+            "May only tighten the local verdict",
+          ],
+          [
+            "Approval",
+            "TTY confirmation or explicit --approve",
+            "Last gate before the executor runs",
+          ],
+        ],
       },
       {
         type: "h2",
         text: "Hard denies",
       },
       {
-        type: "ul",
-        items: [
-          "Cluster or namespace wipe language",
-          "Delete-everything style prompts",
-          "Deleting a whole namespace",
-          "Anything that is not a named Pod, Deployment, or Service delete",
+        type: "p",
+        text: "Some prompts are refused by pattern before the model is called: wiping or destroying the cluster, deleting everything or all namespaces, and deleting a namespace by name. These are cheap, deterministic refusals rather than a judgement call left to the LLM.",
+      },
+      {
+        type: "code",
+        caption: "Refused before any LLM spend",
+        code: `$ kprompt "delete everything in the cluster"
+🚨 Intent: destructive cluster operation
+🛡️ Safe execution: denied
+😅 Your cluster lives another day`,
+      },
+      {
+        type: "p",
+        text: "A second layer denies unsafe plans even when the wording looked harmless. Deletes must name a single resource, and only three kinds are deletable at all.",
+      },
+      {
+        type: "table",
+        headers: ["Plan-level rule", "Why"],
+        rows: [
+          [
+            "Delete must target Pod, Deployment, or Service",
+            "Any other kind is refused rather than guessed at",
+          ],
+          [
+            "Delete must name one resource",
+            "Names like *, all, everything, or --all are refused as unscoped",
+          ],
+          [
+            "Delete without a resource kind is refused",
+            "An ambiguous target is never resolved for you",
+          ],
+          [
+            "Namespace deletion is always refused",
+            "Blast radius is too large for a compiled plan",
+          ],
         ],
+      },
+      {
+        type: "code",
+        caption: "Example plan-level deny",
+        code: `kprompt "delete all pods in production"
+# Risk: denied — name a single resource`,
       },
       {
         type: "h2",
@@ -834,7 +1049,50 @@ kprompt policy           # show cached policy`,
       },
       {
         type: "p",
-        text: "Plans surface low / medium / high / denied. Denied plans never apply. Medium/high mutations still need explicit approval. Crossplane claims are RiskHigh. Multi-tool mutating routes use one aggregate plan and a single approval.",
+        text: "Plans surface one of four verdicts. Denied plans never apply. Medium and high plans still need explicit approval — risk is information for your review, not permission to skip it.",
+      },
+      {
+        type: "table",
+        headers: ["Risk", "Typical intents", "Approval"],
+        rows: [
+          [
+            "low",
+            "Reads, explain, investigate, optimize reports, service graphs, GitOps status",
+            "None required",
+          ],
+          [
+            "medium",
+            "Scale, deploy, install, upgrade, rollback, patch, workflows, Tekton, KEDA, GitOps sync",
+            "TTY y/N or --approve",
+          ],
+          [
+            "high",
+            "Named deletes, Crossplane cloud claims, unrecognised intents",
+            "Explicit approval; Crossplane needs strong approval",
+          ],
+          ["denied", "Hard-deny prompts and unsafe plans", "Never applies"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Integration-specific rules layer on top for Helm, Argo Workflows, Tekton, KEDA, Istio, Crossplane, and GitOps, so a risky chart install or a cloud claim is not treated as a generic mutation. Multi-tool mutating routes produce one aggregate plan and a single approval rather than a chain of prompts.",
+      },
+      {
+        type: "h2",
+        text: "Diffs and blast radius",
+      },
+      {
+        type: "p",
+        text: "When a live object already exists, plans include a before→after diff so you review the actual change rather than only the intent summary. That is the difference between approving \"scale api to 10\" as a sentence and approving it as a concrete replica change on a named Deployment.",
+      },
+      {
+        type: "h2",
+        text: "Multiple clusters",
+      },
+      {
+        type: "p",
+        text: "Fan-out is deliberately asymmetric: reads and optimize rollups can span contexts freely, while mutations cannot be approved for many clusters by accident. --approve never implies cross-context apply; you confirm each context or pass --approve-each-context explicitly. Setting require_alias_match true refuses a mutation unless your kubectl current-context matches the alias you targeted.",
+        links: [{ label: "Multi-cluster", href: "/docs/multi-cluster" }],
       },
       {
         type: "h2",
@@ -842,47 +1100,137 @@ kprompt policy           # show cached policy`,
       },
       {
         type: "p",
-        text: "Pulled Team policy can only tighten local rules. See Team enrollment.",
+        text: "A cached Team policy can only tighten local rules — it never loosens a local hard deny. Pull it with kprompt policy pull and inspect it with kprompt policy.",
+      },
+      {
+        type: "table",
+        headers: ["Policy field", "Effect"],
+        rows: [
+          ["max_risk", "Denies any plan whose risk exceeds low, medium, or high"],
+          ["deny_intents", "Denies named intents outright"],
+          ["allow_namespaces", "Restricts plans to an allowlist of namespaces"],
+          ["deny_namespaces", "Denies plans targeting listed namespaces"],
+          ["require_approve", "Forces approval for medium risk and above"],
+        ],
+      },
+      {
+        type: "p",
+        text: "When enrolled, each plan also best-effort pushes a planned, denied, or applied audit event to the control plane. Disable it with KPROMPT_DISABLE_AUDIT=1.",
         links: [{ label: "Team enrollment", href: "/docs/team" }],
       },
       {
         type: "h2",
-        text: "Diffs",
+        text: "What safety does not do",
+      },
+      {
+        type: "ul",
+        items: [
+          "It does not verify that a plan is correct — only that it is not obviously destructive",
+          "It does not replace kubeconfig RBAC; kprompt can only do what your credentials allow",
+          "It does not redact Secret values from reads you are already authorised to perform",
+          "It does not make --approve in CI equivalent to human review",
+          "It does not cover generic mutation of arbitrary resource kinds, which stays out of scope",
+        ],
       },
       {
         type: "p",
-        text: "When a live object exists, plans include a before→after diff so you can review the change, not only the intent summary.",
-      },
-      {
-        type: "code",
-        caption: "Example deny",
-        code: `kprompt "delete all pods in production"
-# Risk: denied — named resources only`,
+        text: "Treat the safety engine as a floor, not a ceiling. The honest limits, including what Autopilot will and will not do, are documented on the roadmap.",
+        links: [
+          { label: "Roadmap & vision", href: "/docs/roadmap" },
+          { label: "Observe agent", href: "/docs/agent" },
+        ],
       },
     ],
   },
   providers: {
     title: "Providers",
-    description: "BYOK LLM providers and environment variables.",
+    description:
+      "Bring your own LLM key: OpenAI, Anthropic, Gemini, Groq, Mistral, DeepSeek, OpenRouter, Together, local Ollama, or any OpenAI-compatible gateway.",
     blocks: [
       {
         type: "p",
-        text: "Select with --provider or ~/.kprompt/config.yaml (provider, model, optional base_url). API keys are environment variables only — never stored in the config file.",
+        text: "kprompt is BYOK (bring your own key). You pick the provider and model, and the request goes from your machine to that provider — there is no kprompt-hosted inference proxy in the middle. Select with --provider or ~/.kprompt/config.yaml (provider, model, optional base_url). API keys are environment variables only and are never written to the config file.",
+      },
+      {
+        type: "h2",
+        text: "Supported providers",
       },
       {
         type: "table",
-        headers: ["Provider", "--provider", "Env key", "Default model"],
+        headers: ["Provider", "--provider", "Env key(s)", "Default model"],
         rows: [
-          ["OpenAI", "openai", "KPROMPT_OPENAI_API_KEY", "gpt-4o-mini"],
-          ["Anthropic", "anthropic", "KPROMPT_ANTHROPIC_API_KEY", "claude-sonnet-4-20250514"],
-          ["Gemini", "gemini", "KPROMPT_GEMINI_API_KEY", "gemini-2.0-flash"],
-          ["Groq", "groq", "KPROMPT_GROQ_API_KEY", "llama-3.3-70b-versatile"],
-          ["Mistral", "mistral", "KPROMPT_MISTRAL_API_KEY", "mistral-small-latest"],
-          ["DeepSeek", "deepseek", "KPROMPT_DEEPSEEK_API_KEY", "deepseek-chat"],
-          ["OpenRouter", "openrouter", "KPROMPT_OPENROUTER_API_KEY", "openai/gpt-4o-mini"],
-          ["Together", "together", "KPROMPT_TOGETHER_API_KEY", "Llama 3.1 8B Turbo"],
-          ["Ollama", "ollama", "(optional)", "llama3.2"],
-          ["OpenAI-compat", "openai-compatible", "KPROMPT_OPENAI_API_KEY", "(requires base_url)"],
+          [
+            "OpenAI",
+            "openai",
+            "KPROMPT_OPENAI_API_KEY / OPENAI_API_KEY",
+            "gpt-4o-mini",
+          ],
+          [
+            "Anthropic",
+            "anthropic",
+            "KPROMPT_ANTHROPIC_API_KEY / ANTHROPIC_API_KEY",
+            "claude-sonnet-4-20250514",
+          ],
+          [
+            "Google Gemini",
+            "gemini",
+            "KPROMPT_GEMINI_API_KEY / GEMINI_API_KEY / GOOGLE_API_KEY",
+            "gemini-2.0-flash",
+          ],
+          [
+            "Groq",
+            "groq",
+            "KPROMPT_GROQ_API_KEY / GROQ_API_KEY",
+            "llama-3.3-70b-versatile",
+          ],
+          [
+            "Mistral",
+            "mistral",
+            "KPROMPT_MISTRAL_API_KEY / MISTRAL_API_KEY",
+            "mistral-small-latest",
+          ],
+          [
+            "DeepSeek",
+            "deepseek",
+            "KPROMPT_DEEPSEEK_API_KEY / DEEPSEEK_API_KEY",
+            "deepseek-chat",
+          ],
+          [
+            "OpenRouter",
+            "openrouter",
+            "KPROMPT_OPENROUTER_API_KEY / OPENROUTER_API_KEY",
+            "openai/gpt-4o-mini",
+          ],
+          [
+            "Together",
+            "together",
+            "KPROMPT_TOGETHER_API_KEY / TOGETHER_API_KEY",
+            "Llama 3.1 8B Turbo",
+          ],
+          ["Ollama (local)", "ollama", "none required", "llama3.2"],
+          [
+            "OpenAI-compatible",
+            "openai-compatible",
+            "KPROMPT_OPENAI_API_KEY",
+            "requires base_url",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "Groq, Mistral, DeepSeek, OpenRouter, and Together all speak the OpenAI-compatible API. Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key at all, which makes it the zero-spend option for trying kprompt or running it in CI.",
+      },
+      {
+        type: "h2",
+        text: "How keys are resolved",
+      },
+      {
+        type: "ul",
+        items: [
+          "The KPROMPT_-prefixed variable is checked first, then the vendor default such as OPENAI_API_KEY",
+          "Environment variables always win over keys pulled from a Team org with kprompt secrets pull",
+          "~/.kprompt/config.yaml stores provider, model, namespace, and base_url — never a key",
+          "kprompt doctor reports whether a usable key was found without printing its value",
         ],
       },
       {
@@ -897,7 +1245,64 @@ kprompt "list deployments"
 export KPROMPT_ANTHROPIC_API_KEY=sk-ant-...
 kprompt --provider anthropic "explain why api is crashing"
 
+export KPROMPT_GEMINI_API_KEY=...
+kprompt --provider gemini --model gemini-2.0-flash "deploy redis"
+
 kprompt --provider ollama --model llama3.2 "list pods"`,
+      },
+      {
+        type: "h2",
+        text: "Azure OpenAI and custom gateways",
+      },
+      {
+        type: "p",
+        text: "Anything that exposes an OpenAI-compatible endpoint works through the openai-compatible provider plus a base URL. That covers Azure OpenAI, an internal LLM gateway, or a proxy that adds logging and rate limits.",
+      },
+      {
+        type: "code",
+        code: `export KPROMPT_OPENAI_API_KEY=...
+export KPROMPT_OPENAI_BASE_URL=https://YOUR_RESOURCE.openai.azure.com/openai/v1
+kprompt --provider openai-compatible --model gpt-4o "list services"`,
+      },
+      {
+        type: "h2",
+        text: "Config file",
+      },
+      {
+        type: "code",
+        caption: "~/.kprompt/config.yaml",
+        code: `provider: gemini
+model: gemini-2.0-flash
+# base_url: https://api.groq.com/openai/v1   # optional override
+namespace: default`,
+      },
+      {
+        type: "code",
+        caption: "Or set the same values from the CLI",
+        code: `kprompt config set provider gemini
+kprompt config set model gemini-2.0-flash
+kprompt config`,
+      },
+      {
+        type: "h2",
+        text: "Choosing a model",
+      },
+      {
+        type: "ul",
+        items: [
+          "Fast and cheap models handle routine intents like list, scale, and logs well",
+          "Reserve a stronger model for explain, investigate, and why prompts that reason across events and logs",
+          "Local Ollama models avoid all spend but produce weaker plans on ambiguous prompts",
+          "Switch per command with --provider and --model without changing your saved defaults",
+        ],
+      },
+      {
+        type: "p",
+        text: "Model choice affects plan quality, never the approval boundary: a weaker model may produce a worse plan, but it still cannot bypass the safety engine or apply without approval.",
+        links: [
+          { label: "Safety model", href: "/docs/safety" },
+          { label: "Team-managed keys", href: "/docs/team" },
+        ],
       },
     ],
   },
