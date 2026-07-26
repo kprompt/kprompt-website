@@ -125,6 +125,14 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href={`mailto:${SITE.email}`}
+                  className="hover:text-foreground"
+                >
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a
                   href={`${SITE.github}/blob/main/LICENSE`}
                   target="_blank"
                   rel="noopener noreferrer"

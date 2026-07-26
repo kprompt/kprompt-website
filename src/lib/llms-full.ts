@@ -116,6 +116,7 @@ export function buildLlmsFullText(): string {
     `Canonical site: ${SITE.url}`,
     `llms.txt index: ${SITE.url}/llms.txt`,
     `GitHub: ${SITE.github}`,
+    `Contact: ${SITE.email}`,
     `License: ${SITE.license}`,
     `Version: v${SITE.version}`,
     `Docs last updated: ${DOCS_CONTENT_UPDATED_AT}`,

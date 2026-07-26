@@ -11,7 +11,17 @@ export function JsonLd() {
         name: SITE.name,
         url: SITE.url,
         logo: `${SITE.url}/kprompt-logo.png`,
+        email: SITE.email,
         sameAs: [SITE.github],
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            contactType: "customer support",
+            email: SITE.email,
+            url: `${SITE.url}/docs`,
+            availableLanguage: ["en"],
+          },
+        ],
       },
       {
         "@type": "WebSite",
