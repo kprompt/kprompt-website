@@ -74,13 +74,13 @@ export const ROADMAP_TEASER = {
       label: "Now",
       title: "Shipped",
       blurb:
-        "Plan/approve CLI, day-2 integrations, and the Observe agent (Helm/Operator): watch → Incident → gated Slack/webhook. Autopilot is propose-only.",
+        "Plan/approve CLI, investigate/why/timeline, incident suggest packs (approve-gated), and the Observe agent (Helm/Operator). Autopilot is propose-only.",
     },
     {
       label: "Next",
-      title: "Trust & investigate",
+      title: "Trust & remediate",
       blurb:
-        "Blast-radius, post-apply verify, multi-hop investigate / why / timeline, audit and GitOps PR mode.",
+        "Richer incident recipes, audit/cleanup approved remediations, drift, GitOps PR mode, Autopilot proposal → human apply bridge.",
     },
     {
       label: "Later",
