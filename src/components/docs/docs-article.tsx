@@ -92,15 +92,15 @@ function Block({ block }: { block: DocsBlock }) {
               {block.caption}
             </p>
           ) : null}
-          <pre className="overflow-x-auto rounded-lg border border-border bg-navy p-4 font-mono text-[12px] leading-relaxed text-white/90 sm:text-[13px]">
+          <pre className="max-w-full overflow-x-auto rounded-lg border border-border bg-navy p-3 font-mono text-[12px] leading-relaxed text-white/90 sm:p-4 sm:text-[13px]">
             <code>{block.code}</code>
           </pre>
         </div>
       );
     case "table":
       return (
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
+        <div className="-mx-4 mt-4 overflow-x-auto overscroll-x-contain px-4 sm:mx-0 sm:px-0">
+          <table className="w-full min-w-md border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-border">
                 {block.headers.map((h) => (
@@ -148,14 +148,14 @@ export function DocsArticle({ page }: { page: DocsPage }) {
           ...(path === "/docs" ? [] : [{ name: page.title, path }]),
         ]}
       />
-      <article className="max-w-3xl">
-        <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+      <article className="max-w-3xl min-w-0">
+        <h1 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
           {page.title}
         </h1>
-        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
           {page.description}
         </p>
-        <div className="mt-10">
+        <div className="mt-8 sm:mt-10">
           <DocsBlocks blocks={page.blocks} />
         </div>
       </article>

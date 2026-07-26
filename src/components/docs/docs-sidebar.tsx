@@ -11,10 +11,12 @@ export function DocsSidebar() {
 
   return (
     <>
-      <label className="mb-6 block md:hidden">
-        <span className="sr-only">Docs section</span>
+      <label className="mb-2 block lg:hidden">
+        <span className="mb-1.5 block font-mono text-xs uppercase tracking-wider text-muted-foreground">
+          Docs
+        </span>
         <select
-          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm"
           value={pathname}
           onChange={(e) => router.push(e.target.value)}
         >
@@ -26,7 +28,7 @@ export function DocsSidebar() {
         </select>
       </label>
 
-      <nav aria-label="Docs" className="hidden md:block">
+      <nav aria-label="Docs" className="hidden lg:block">
         <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
           Docs
         </p>

@@ -122,7 +122,7 @@ function MobileNavLink({
     "flex items-center gap-4 rounded-2xl border px-4 py-4 transition-colors",
     active
       ? "border-brand/25 bg-brand/5 text-foreground"
-      : "border-border/70 bg-muted/20 text-muted-foreground hover:border-border hover:bg-muted/40 hover:text-foreground"
+      : "border-border/70 bg-muted/40 text-muted-foreground hover:border-border hover:bg-muted/60 hover:text-foreground"
   );
   const body = (
     <>
@@ -187,9 +187,37 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+
+    const scrollY = window.scrollY;
+    const { documentElement, body } = document;
+    const previous = {
+      htmlOverflow: documentElement.style.overflow,
+      bodyOverflow: body.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyWidth: body.style.width,
+      bodyPaddingRight: body.style.paddingRight,
+    };
+    const scrollbarGap = window.innerWidth - documentElement.clientWidth;
+
+    documentElement.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    if (scrollbarGap > 0) {
+      body.style.paddingRight = `${scrollbarGap}px`;
+    }
+
     return () => {
-      document.body.style.overflow = "";
+      documentElement.style.overflow = previous.htmlOverflow;
+      body.style.overflow = previous.bodyOverflow;
+      body.style.position = previous.bodyPosition;
+      body.style.top = previous.bodyTop;
+      body.style.width = previous.bodyWidth;
+      body.style.paddingRight = previous.bodyPaddingRight;
+      window.scrollTo(0, scrollY);
     };
   }, [open]);
 
@@ -197,13 +225,26 @@ export function Navbar() {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   const closeMenu = () => setOpen(false);
 
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 overflow-x-clip transition-[background-color,box-shadow,border-color] duration-300",
-        scrolled || open ? "glass shadow-sm" : "border-b border-transparent"
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300",
+        open
+          ? "border-b border-border bg-background"
+          : scrolled
+            ? "glass shadow-sm"
+            : "border-b border-transparent"
       )}
     >
       <nav
@@ -214,6 +255,7 @@ export function Navbar() {
           href="/"
           aria-label="kprompt.ai home"
           className="min-w-0 shrink overflow-hidden"
+          onClick={closeMenu}
         >
           <Logo size={28} priority />
         </Link>
@@ -282,79 +324,89 @@ export function Navbar() {
         </div>
       </nav>
 
-      <button
-        type="button"
-        aria-label="Close menu"
-        tabIndex={-1}
-        className={cn(
-          "fixed inset-0 top-16 z-40 bg-background/70 backdrop-blur-sm transition-[opacity,visibility] duration-200 md:hidden",
-          open
-            ? "visible pointer-events-auto opacity-100"
-            : "invisible pointer-events-none opacity-0"
-        )}
-        onClick={closeMenu}
-      />
-
       <div
-        id="mobile-menu"
-        aria-hidden={!open}
-        inert={!open}
         className={cn(
-          "absolute inset-x-0 top-16 z-50 border-b border-border glass transition-[opacity,transform,visibility] duration-200 ease-out md:hidden",
+          "fixed inset-0 top-16 z-40 md:hidden",
           open
-            ? "visible translate-y-0 opacity-100"
-            : "invisible -translate-y-3 opacity-0"
+            ? "visible pointer-events-auto"
+            : "invisible pointer-events-none"
         )}
+        aria-hidden={!open}
       >
-        <div className="mx-auto max-w-6xl space-y-3 px-4 py-5 sm:px-6">
-          {NAV_LINKS.map((link) => (
-            <MobileNavLink
-              key={link.href}
-              href={link.href}
-              label={link.label}
-              active={isNavActive(pathname, link.href)}
-              external={isExternal(link)}
-              onNavigate={closeMenu}
-            />
-          ))}
+        <button
+          type="button"
+          aria-label="Close menu"
+          tabIndex={open ? 0 : -1}
+          className={cn(
+            "absolute inset-0 bg-background/95 transition-opacity duration-200",
+            open ? "opacity-100" : "opacity-0"
+          )}
+          onClick={closeMenu}
+        />
 
-          <div className="grid grid-cols-1 gap-2 border-t border-border/70 pt-4 min-[420px]:grid-cols-2">
-            <a
-              href={SITE.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "h-11 w-full justify-center"
-              )}
-              onClick={closeMenu}
-            >
-              <GithubIcon className="size-4" />
-              GitHub
-            </a>
-            <a
-              href={SITE.app}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "h-11 w-full justify-center"
-              )}
-              onClick={closeMenu}
-            >
-              App
-            </a>
-            <Link
-              href={SITE.getStarted}
-              className={cn(
-                buttonVariants(),
-                "h-11 w-full justify-center gap-1.5 min-[420px]:col-span-2"
-              )}
-              onClick={closeMenu}
-            >
-              Get Started
-              <ArrowRight className="size-4" />
-            </Link>
+        <div
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          inert={!open}
+          className={cn(
+            "absolute inset-x-0 top-0 z-10 max-h-[min(100%,calc(100dvh-4rem))] overflow-y-auto overscroll-contain border-b border-border bg-background shadow-lg transition-[opacity,transform] duration-200 ease-out",
+            open
+              ? "translate-y-0 opacity-100"
+              : "pointer-events-none -translate-y-3 opacity-0"
+          )}
+        >
+          <div className="mx-auto max-w-6xl space-y-3 px-4 py-5 sm:px-6">
+            {NAV_LINKS.map((link) => (
+              <MobileNavLink
+                key={link.href}
+                href={link.href}
+                label={link.label}
+                active={isNavActive(pathname, link.href)}
+                external={isExternal(link)}
+                onNavigate={closeMenu}
+              />
+            ))}
+
+            <div className="grid grid-cols-1 gap-2 border-t border-border/70 pt-4 min-[420px]:grid-cols-2">
+              <a
+                href={SITE.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "h-11 w-full justify-center"
+                )}
+                onClick={closeMenu}
+              >
+                <GithubIcon className="size-4" />
+                GitHub
+              </a>
+              <a
+                href={SITE.app}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "h-11 w-full justify-center"
+                )}
+                onClick={closeMenu}
+              >
+                App
+              </a>
+              <Link
+                href={SITE.getStarted}
+                className={cn(
+                  buttonVariants(),
+                  "h-11 w-full justify-center gap-1.5 min-[420px]:col-span-2"
+                )}
+                onClick={closeMenu}
+              >
+                Get Started
+                <ArrowRight className="size-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
