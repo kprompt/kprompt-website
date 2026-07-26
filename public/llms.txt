@@ -18,6 +18,7 @@
 - Integrations: https://kprompt.ai/docs/integrations
 - Multi-cluster: https://kprompt.ai/docs/multi-cluster
 - GitHub: https://github.com/kprompt/kprompt
+- X: https://x.com/kpromptai
 - Contact: hello@kprompt.ai
 - Demo scenarios (kind): https://github.com/kprompt/kprompt-examples
 - Demo walkthrough: git clone …/kprompt-examples && make walkthrough

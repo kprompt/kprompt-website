@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1500 500" role="img">
+  <defs>
+    <style>
+      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: Menlo, "DejaVu Sans Mono", Consolas, ui-monospace, monospace; font-variant-ligatures: none; }
+    </style>
+    <radialGradient id="glowPurple" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowBlue" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1500" height="500" fill="#0f172a"/>
+  <circle cx="1280" cy="-20" r="340" fill="url(#glowPurple)"/>
+  <circle cx="180" cy="520" r="300" fill="url(#glowBlue)"/>
+
+  <!-- Leave bottom-left clear for avatar overlap -->
+  <text class="sans" x="420" y="150" fill="#f8fafc" style="font-size:56px;font-weight:750;letter-spacing:-0.03em">Talk to Your Cluster.</text>
+  <text class="sans" x="420" y="198" fill="#94a3b8" style="font-size:24px">AI Kubernetes CLI — plan → approve → apply</text>
+
+  <rect x="420" y="240" width="980" height="150" rx="12" fill="#111c33" stroke="#334155" stroke-opacity="0.55"/>
+  <circle cx="448" cy="268" r="5" fill="#ff5555"/>
+  <circle cx="466" cy="268" r="5" fill="#f1fa8c"/>
+  <circle cx="484" cy="268" r="5" fill="#50fa7b"/>
+
+  <text class="mono" x="448" y="312" style="font-size:22px" xml:space="preserve"><tspan fill="#50fa7b">$</tspan><tspan fill="#f8fafc"> kprompt </tspan><tspan fill="#f1fa8c">"scale api to 10"</tspan><tspan fill="#94a3b8"> -n payments</tspan></text>
+  <text class="mono" x="448" y="350" style="font-size:22px" xml:space="preserve"><tspan fill="#bd93f9" style="font-weight:700">Risk:</tspan><tspan fill="#f1fa8c"> medium</tspan><tspan fill="#94a3b8">  ·  Apply this plan? [y/N]: </tspan><tspan fill="#50fa7b">█</tspan></text>
+
+  <text class="sans" x="1410" y="460" text-anchor="end" fill="#bfdbfe" style="font-size:22px">kprompt.ai</text>
+  <text class="sans" x="420" y="460" fill="#64748b" style="font-size:18px">Apache-2.0 · Experimental</text>
+</svg>

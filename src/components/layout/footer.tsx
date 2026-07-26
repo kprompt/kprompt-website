@@ -125,6 +125,16 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href={SITE.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground"
+                >
+                  X {SITE.twitterHandle}
+                </a>
+              </li>
+              <li>
+                <a
                   href={`mailto:${SITE.email}`}
                   className="hover:text-foreground"
                 >

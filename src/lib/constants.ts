@@ -17,6 +17,9 @@ export const SITE = {
   description:
     "Open-source Kubernetes CLI: natural language → reviewable plans → approve before apply. Optional Observe agent (Helm) for always-on namespace alerts — Autopilot stays propose-only.",
   github: "https://github.com/kprompt/kprompt",
+  /** Product account on X. */
+  twitter: "https://x.com/kpromptai",
+  twitterHandle: "@kpromptai",
   /** Public contact inbox — forwarded, so it is safe to publish. */
   email: "hello@kprompt.ai",
   /** Runnable kind demos for the Observe agent. */
