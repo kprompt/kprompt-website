@@ -20,11 +20,18 @@ const GUIDES = [
       "Same natural-language CLI lane, different mutate contract: plan, safety, then approve.",
   },
   {
-    href: "/blog/kubectl-alternatives",
+    href: "/blog/kubectl-vs-k9s",
     kicker: "Comparison",
-    title: "kubectl vs K9s and other alternatives",
+    title: "kubectl vs K9s",
     blurb:
-      "Terminal UI, dashboards, and AI CLIs — which interface fits which job.",
+      "Not rivals: one is the scriptable API client, the other is a live terminal UI over it.",
+  },
+  {
+    href: "/blog/kubernetes-crashloopbackoff",
+    kicker: "Playbook",
+    title: "Fixing CrashLoopBackOff",
+    blurb:
+      "Read the exit code, get the logs of the container that actually died, then fix the real cause.",
   },
   {
     href: "/blog/kubernetes-oomkilled",
@@ -32,13 +39,6 @@ const GUIDES = [
     title: "Debugging OOMKilled pods",
     blurb:
       "Why the pod died, which limits to change, and how the plan makes the fix reviewable.",
-  },
-  {
-    href: "/blog/kubernetes-error-prompt-playbook",
-    kicker: "Playbook",
-    title: "Kubernetes error prompt playbook",
-    blurb:
-      "CrashLoopBackOff, ImagePullBackOff, pending pods — prompts that get to the cause.",
   },
   {
     href: "/docs/safety",

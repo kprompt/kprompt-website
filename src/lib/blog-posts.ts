@@ -21,6 +21,566 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "kubectl-vs-k9s",
+    title:
+      "kubectl vs K9s: when to use each (and why you keep both)",
+    description:
+      "A head-to-head for operators: kubectl is the precise API client and scripting language, K9s is a live terminal UI over the same API. Which one to reach for during an incident, in CI, and while learning Kubernetes.",
+    publishedAt: "2026-07-26",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "kubectl",
+      "kubernetes cli",
+      "devops",
+      "sre",
+    ],
+    keywords: [
+      "kubectl vs k9s",
+      "k9s vs kubectl",
+      "k9s alternative",
+      "is k9s better than kubectl",
+      "k9s tutorial",
+      "kubernetes terminal ui",
+      "kubectl alternatives",
+      "k9s read only mode",
+      "kubernetes cli comparison",
+    ],
+    blocks: [
+      {
+        type: "p",
+        text: "“kubectl vs K9s” is one of the most searched Kubernetes tooling questions, and the framing is slightly wrong. These are not two implementations of the same tool competing for a slot in your shell profile. kubectl is the official API client — a precise, scriptable vocabulary for the Kubernetes API. K9s is a terminal UI that continuously watches that same API using the same kubeconfig and the same RBAC.",
+        links: [
+          {
+            label: "official API client",
+            href: "https://kubernetes.io/docs/reference/kubectl/",
+          },
+          { label: "K9s", href: "https://github.com/derailed/k9s" },
+        ],
+      },
+      {
+        type: "p",
+        text: "So the honest answer is: keep both, and know which one the current task belongs to. This post is the decision rule, not a winner announcement.",
+      },
+      {
+        type: "h2",
+        text: "The one-line answer",
+      },
+      {
+        type: "ul",
+        items: [
+          "Reach for kubectl when the output must be exact, reproducible, scriptable, or pasted into a ticket",
+          "Reach for K9s when you are watching live state and need to navigate fast without retyping commands",
+          "Neither removes the need to understand Kubernetes objects — they are both thin layers over the same API",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Job-by-job comparison",
+      },
+      {
+        type: "table",
+        headers: ["Job", "kubectl", "K9s"],
+        rows: [
+          [
+            "Scripts, CI, runbooks",
+            "Built for it — stable flags, JSON/YAML output",
+            "Interactive TUI is not automatable",
+          ],
+          [
+            "Watch a rollout live",
+            "Works with --watch or repeated get",
+            "Better — continuous views, no retyping",
+          ],
+          [
+            "Hop between Pods and tail logs",
+            "kubectl logs with selectors and --previous",
+            "Faster — keyboard navigation between resources",
+          ],
+          [
+            "Full API surface and uncommon resources",
+            "Complete — every verb and CRD",
+            "Common day-2 actions, not every verb",
+          ],
+          [
+            "Precise output shaping",
+            "jsonpath, custom-columns, -o yaml",
+            "Views are for reading, not for piping",
+          ],
+          [
+            "Sharing what you did",
+            "Copy-pasteable command",
+            "Hard to reproduce a keystroke sequence",
+          ],
+          [
+            "Exploring an unfamiliar cluster",
+            "Verbose but explicit",
+            "Better — you see relationships as you browse",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "What kubectl is actually good at",
+      },
+      {
+        type: "p",
+        text: "kubectl is the common language of Kubernetes operations. Every runbook, incident note, Stack Overflow answer, and CI job speaks it. That matters more than ergonomics: a kubectl command is an artifact you can review, diff, and hand to someone else.",
+      },
+      {
+        type: "code",
+        caption: "Output shaping you cannot get from a TUI",
+        code: `# Which containers were last terminated, and why?
+kubectl get pods -n payments -o jsonpath='{range .items[*]}{.metadata.name}{"\\t"}{range .status.containerStatuses[*]}{.lastState.terminated.reason}{" "}{end}{"\\n"}{end}'
+
+# Custom columns for a quick capacity read
+kubectl get pods -n payments \\
+  -o custom-columns='POD:.metadata.name,CPU_REQ:.spec.containers[*].resources.requests.cpu'`,
+      },
+      {
+        type: "ul",
+        items: [
+          "Deterministic — the same command produces the same result in CI and on your laptop",
+          "Composable — pipe into jq, grep, or a policy check",
+          "Extensible — krew plugins add subcommands without leaving the CLI",
+          "Teachable — kubectl explain documents the API from the terminal",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What K9s is actually good at",
+      },
+      {
+        type: "p",
+        text: "K9s removes the retype-and-rerun loop. Instead of running kubectl get pods, reading, then running kubectl describe on one of them, you stay in a live view and move around with the keyboard. During an incident that difference is real: you are navigating evidence, not composing commands.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Continuously refreshed resource views instead of point-in-time snapshots",
+          "Keyboard-driven navigation between Deployments, Pods, logs, and describe output",
+          "Fast context and namespace switching when the incident spans more than one",
+          "Read-only mode when you want to browse a sensitive cluster without fat-fingering an edit",
+          "Skins, aliases, hotkeys, and plugins for teams that live in the terminal",
+        ],
+      },
+      {
+        type: "p",
+        text: "Flags, config paths, and available views shift between K9s releases — check the upstream repository for the version you installed rather than trusting a blog snapshot.",
+        links: [
+          {
+            label: "upstream repository",
+            href: "https://github.com/derailed/k9s",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Is K9s a kubectl replacement?",
+      },
+      {
+        type: "p",
+        text: "No, and treating it as one causes two specific problems. First, you cannot put a K9s session in a pipeline, so anything you want automated still has to be expressed as kubectl. Second, a keystroke sequence is not an audit trail — when someone asks what you changed at 03:00, a command history answers and a TUI session does not.",
+      },
+      {
+        type: "ul",
+        items: [
+          "K9s is a better reader; kubectl is the better writer of record",
+          "Mutations made from a TUI are easy to make and hard to review afterwards",
+          "If your team needs every change to be reviewable, the interface matters less than the approval step around it",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Where an AI Kubernetes CLI fits",
+      },
+      {
+        type: "p",
+        text: "There is a third bottleneck that neither tool addresses: translating intent into the right change. K9s helps you look, kubectl helps you execute precisely, but if you already know the outcome — scale api to three, roll back the bad release, explain why redis is not ready — you still have to reconstruct the command chain under pressure.",
+      },
+      {
+        type: "p",
+        text: "That is the gap kprompt targets, and deliberately not by piping model output into a shell. A mutating prompt compiles into a plan with actions, a diff, and a risk verdict, which you approve before anything runs. It uses your kubeconfig and your own LLM key, and it does not replace RBAC or admission policy.",
+        links: [
+          { label: "safety model", href: "/docs/safety" },
+          { label: "BYOK providers", href: "/docs/providers" },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Intent, then a reviewable plan",
+        code: `$ kprompt "scale api to 3" -n payments
+
+Plan
+  1. scale Deployment/api replicas → 3
+
+Risk: medium
+Apply? [y/N]`,
+      },
+      {
+        type: "h2",
+        text: "A realistic three-tool workflow",
+      },
+      {
+        type: "p",
+        text: "Most strong platform teams do not standardize on one interface. They match the interface to the phase of the work.",
+      },
+      {
+        type: "table",
+        headers: ["Incident phase", "Tool", "Why"],
+        rows: [
+          [
+            "Notice something is wrong",
+            "K9s (or an alert)",
+            "Live view surfaces restarts and Pending Pods",
+          ],
+          [
+            "Understand the cause",
+            "kubectl describe / logs, or an explain prompt",
+            "Evidence you can quote in the incident channel",
+          ],
+          [
+            "Make a bounded change",
+            "Reviewed plan or a hand-typed kubectl",
+            "Both leave a reviewable artifact",
+          ],
+          [
+            "Steady state",
+            "GitOps (Argo CD / Flux)",
+            "Desired state belongs in Git, not in a TUI",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Try all three on a deliberately broken cluster",
+      },
+      {
+        type: "p",
+        text: "The fastest way to form your own opinion is to break something on purpose and navigate it three ways. kprompt-examples spins up kind, breaks seven workloads, and runs offline in heuristic mode with no API key and no spend.",
+        links: [
+          {
+            label: "kprompt-examples",
+            href: "https://github.com/kprompt/kprompt-examples",
+          },
+        ],
+      },
+      {
+        type: "code",
+        caption: "kind cluster, one broken namespace",
+        code: `git clone https://github.com/kprompt/kprompt-examples.git
+cd kprompt-examples
+make up && make break SCENARIO=01-crashloop && make verify
+
+# now look at the same failure three ways
+kubectl describe pod -l app=api -n payments
+k9s -n payments
+kprompt "explain why api is crashing" -n payments`,
+      },
+      {
+        type: "p",
+        text: "For the wider interface survey (Headlamp, Lens, dashboards), see our kubectl alternatives post. For the AI peer map (K8sGPT, kubectl-ai, Kagent), see the Kubernetes AI tools comparison. For the specific failure above, see the CrashLoopBackOff guide.",
+        links: [
+          {
+            label: "kubectl alternatives post",
+            href: "/blog/kubectl-alternatives",
+          },
+          {
+            label: "Kubernetes AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          {
+            label: "CrashLoopBackOff guide",
+            href: "/blog/kubernetes-crashloopbackoff",
+          },
+          { label: "Install kprompt", href: "/docs/install" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "kubernetes-crashloopbackoff",
+    title:
+      "Kubernetes CrashLoopBackOff: how to read it, find the cause, and fix it",
+    description:
+      "CrashLoopBackOff is a symptom, not a cause. How the restart backoff works, what exit codes tell you, the kubectl ladder for finding the real failure, and how to apply a bounded fix you actually reviewed.",
+    publishedAt: "2026-07-26",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "troubleshooting",
+      "devops",
+      "sre",
+      "kubectl",
+    ],
+    keywords: [
+      "kubernetes crashloopbackoff",
+      "crashloopbackoff fix",
+      "pod crashloopbackoff",
+      "what is crashloopbackoff",
+      "kubectl logs previous",
+      "container exit code 1",
+      "crashloopbackoff exit code 137",
+      "kubernetes pod restarting",
+      "back-off restarting failed container",
+      "kprompt",
+    ],
+    blocks: [
+      {
+        type: "p",
+        text: "CrashLoopBackOff is the most recognisable failure state in Kubernetes and one of the most misread. It is not an error code from your application. It is Kubernetes telling you that a container keeps exiting and that the kubelet is now waiting longer between restart attempts. The cause is somewhere else entirely — usually in the logs of the instance that already died.",
+      },
+      {
+        type: "p",
+        text: "This guide is the operator ladder: what the state actually means, how to read the exit code, how to get the logs of the crashed container rather than the starting one, and how to make a bounded change you reviewed first.",
+        links: [
+          {
+            label: "Pod lifecycle",
+            href: "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "What CrashLoopBackOff actually means",
+      },
+      {
+        type: "p",
+        text: "With the default restartPolicy of Always, the kubelet restarts a container that exits — for any reason, including a clean exit 0. If it keeps exiting, the kubelet applies an exponential backoff between attempts instead of hammering the node. The Pod reports CrashLoopBackOff while it waits.",
+      },
+      {
+        type: "ul",
+        items: [
+          "The container started — this is not a scheduling or image problem (that would be Pending or ImagePullBackOff)",
+          "The restart count climbs and the gap between restarts grows",
+          "Kubernetes is behaving correctly; your container is the thing that is unhappy",
+          "A container that exits 0 immediately still loops, because Always means always",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Read the exit code first",
+      },
+      {
+        type: "p",
+        text: "The exit code narrows the search dramatically before you read a single log line. It lives under the container's Last State in describe output.",
+      },
+      {
+        type: "table",
+        headers: ["Exit code", "Usually means", "Where to look next"],
+        rows: [
+          [
+            "1",
+            "Application error — unhandled exception, failed startup check",
+            "Logs of the previous container",
+          ],
+          [
+            "137",
+            "SIGKILL — most often OOMKilled at the memory limit",
+            "Last State reason and memory limits",
+          ],
+          [
+            "143",
+            "SIGTERM — terminated, often during shutdown handling",
+            "Probe config and graceful shutdown code",
+          ],
+          [
+            "126 / 127",
+            "Command not executable or not found",
+            "Image entrypoint, command, and PATH",
+          ],
+          [
+            "0",
+            "Clean exit, but restartPolicy keeps restarting it",
+            "Whether this should be a Job instead of a Deployment",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "If you see 137, you are probably not debugging a crash loop at all — you are debugging a memory kill that presents as one. That has its own ladder.",
+        links: [
+          {
+            label: "own ladder",
+            href: "/blog/kubernetes-oomkilled",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "The kubectl ladder",
+      },
+      {
+        type: "p",
+        text: "The single most common mistake is running kubectl logs and seeing nothing useful, because that returns the currently starting container — not the one that crashed. You almost always want --previous.",
+      },
+      {
+        type: "code",
+        caption: "Confirm the state, then read the right logs",
+        code: `kubectl get pods -n payments
+
+kubectl describe pod -l app=api -n payments
+# Containers → Last State:
+#   Reason: Error
+#   Exit Code: 1
+
+# logs of the instance that actually died
+kubectl logs -l app=api -n payments --previous --tail=100`,
+      },
+      {
+        type: "ul",
+        items: [
+          "Scope — which Deployment, namespace, and kubeconfig context",
+          "Status — restart count, Ready, Last State reason and exit code",
+          "Logs — always with --previous for a looping container",
+          "Events — Back-off restarting failed container, probe failures, image errors",
+          "Config — env vars, mounted Secrets and ConfigMaps, entrypoint",
+          "Dependencies — is it dying because something it connects to is unreachable?",
+        ],
+      },
+      {
+        type: "code",
+        caption: "Events tell you what the kubelet is doing",
+        code: `kubectl get events -n payments --sort-by='.lastTimestamp' | tail -20
+# Warning  BackOff  Back-off restarting failed container api`,
+      },
+      {
+        type: "h2",
+        text: "The five causes that cover most crash loops",
+      },
+      {
+        type: "h3",
+        text: "1. A dependency is not reachable",
+      },
+      {
+        type: "p",
+        text: "The container starts, tries to connect to a database or cache, fails, and exits. The log line is usually explicit — connection refused, no such host, timeout. Check that the Service name resolves and that the dependency is actually Ready before you touch the crashing workload.",
+      },
+      {
+        type: "h3",
+        text: "2. Missing or wrong configuration",
+      },
+      {
+        type: "p",
+        text: "A required environment variable is unset, a Secret key was renamed, or a mounted ConfigMap does not have the file the app expects. These fail fast on startup, which is why the logs are short and the restart count is high.",
+      },
+      {
+        type: "h3",
+        text: "3. Memory limit too low",
+      },
+      {
+        type: "p",
+        text: "Exit code 137 with reason OOMKilled. Raising the limit may be correct, or it may be hiding a leak. Compare observed usage to the limit before doubling anything.",
+      },
+      {
+        type: "h3",
+        text: "4. A bad probe configuration",
+      },
+      {
+        type: "p",
+        text: "A liveness probe that starts checking before the app can answer will kill a healthy-but-slow container forever. If the app works when you exec into it but the kubelet keeps restarting it, suspect initialDelaySeconds, the probe path, or the port.",
+      },
+      {
+        type: "h3",
+        text: "5. A bad release",
+      },
+      {
+        type: "p",
+        text: "It worked an hour ago. Nothing about the cluster changed. In that case the fastest safe action is usually to roll back, then debug the image on your own time rather than during the incident.",
+      },
+      {
+        type: "h2",
+        text: "Reproduce it on purpose before you need to",
+      },
+      {
+        type: "p",
+        text: "The best time to practise this ladder is when nothing is actually on fire. kprompt-examples ships a CrashLoopBackOff fixture: the api container logs a connection attempt, reports connection refused to its database, then exits 1 — exactly the shape you meet in production.",
+        links: [
+          {
+            label: "kprompt-examples",
+            href: "https://github.com/kprompt/kprompt-examples",
+          },
+        ],
+      },
+      {
+        type: "code",
+        caption: "A real crash loop in a kind cluster",
+        code: `git clone https://github.com/kprompt/kprompt-examples.git
+cd kprompt-examples
+make up && make break SCENARIO=01-crashloop && make verify
+
+kubectl describe pod -l app=api -n payments
+kubectl logs -l app=api -n payments --previous
+make fix SCENARIO=01-crashloop`,
+      },
+      {
+        type: "h2",
+        text: "Asking in natural language instead",
+      },
+      {
+        type: "p",
+        text: "The ladder above is mechanical, which is exactly why it is worth compiling. kprompt's explain path walks Deployment → ReplicaSet → Pods → Events → Logs and reports what it found, including the previous container's output. Reads run immediately — there is nothing to approve when nothing changes.",
+        links: [
+          { label: "commands", href: "/docs/commands" },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Explain is read-only",
+        code: `kprompt "explain why api is crashing" -n payments
+kprompt "logs api" -n payments
+kprompt "why is api not ready" -n payments`,
+      },
+      {
+        type: "p",
+        text: "When the right fix is a mutation — roll back, raise a limit, correct replicas — it becomes a plan with a diff and a risk verdict that you approve. That boundary is the point: the model can be wrong about the cause, and you still see exactly what would change before it changes.",
+        links: [{ label: "safety model", href: "/docs/safety" }],
+      },
+      {
+        type: "code",
+        caption: "A rollback you review first",
+        code: `$ kprompt "rollback api" -n payments
+
+Plan
+  1. rollout undo Deployment/api
+
+Risk: medium
+Apply? [y/N]`,
+      },
+      {
+        type: "h2",
+        text: "What not to do",
+      },
+      {
+        type: "ul",
+        items: [
+          "Do not delete the Pod and hope — the Deployment recreates it and the loop returns",
+          "Do not remove the liveness probe to stop the restarts; you are deleting the alarm, not the fire",
+          "Do not raise memory limits reflexively unless the exit code and reason actually say OOMKilled",
+          "Do not read kubectl logs without --previous and conclude there are no logs",
+          "Do not approve an AI-suggested plan you have not sanity-checked against the evidence",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Related reading",
+      },
+      {
+        type: "p",
+        text: "For memory kills specifically, see the OOMKilled guide. For a wider prompt catalogue across failure modes, see the error prompt playbook. For always-on namespace watching that groups restarts into one Incident instead of paging per restart, see the Observe agent docs.",
+        links: [
+          { label: "OOMKilled guide", href: "/blog/kubernetes-oomkilled" },
+          {
+            label: "error prompt playbook",
+            href: "/blog/kubernetes-error-prompt-playbook",
+          },
+          { label: "Observe agent docs", href: "/docs/agent" },
+          { label: "Install kprompt", href: "/docs/install" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "observe-agent-kind-demo",
     title: "Break a kind cluster on purpose, then watch the Observe agent",
     description:
@@ -954,8 +1514,12 @@ kprompt "show replica sets for api" -n staging`,
       },
       {
         type: "p",
-        text: "CrashLoopBackOff means the container starts, exits non-zero, and kubelet backs off retries. It's a symptom — not a root cause. The exit might be a missing env var, bad command, OOMKill, or dependency unreachable on startup. When Last State shows OOMKilled, follow the dedicated OOMKilled guide before you treat it as a generic crash loop.",
+        text: "CrashLoopBackOff means the container starts, exits non-zero, and kubelet backs off retries. It's a symptom — not a root cause. The exit might be a missing env var, bad command, OOMKill, or dependency unreachable on startup. For the full exit-code table and ladder, see the dedicated CrashLoopBackOff guide; when Last State shows OOMKilled, follow the OOMKilled guide instead.",
         links: [
+          {
+            label: "CrashLoopBackOff guide",
+            href: "/blog/kubernetes-crashloopbackoff",
+          },
           {
             label: "OOMKilled guide",
             href: "/blog/kubernetes-oomkilled",
@@ -1858,9 +2422,9 @@ kprompt "scale api to 2" -n staging    # review plan → y or n`,
   {
     slug: "kubectl-alternatives",
     title:
-      "kubectl vs K9s: when to use each, plus Headlamp, Lens, and AI CLIs",
+      "Kubectl alternatives in 2026: K9s, Kubernetes dashboards, and AI CLIs compared",
     description:
-      "kubectl vs K9s is not either/or: kubectl for scripts and exact API work, K9s for live terminal navigation. Also compared: Headlamp, Lens, kubectl alternatives, and plan-before-apply AI CLIs.",
+      "Compare kubectl alternatives: K9s terminal UI, Headlamp and Lens dashboards, and natural-language Kubernetes CLIs. Which interface fits navigation, visual management, troubleshooting, and plan-before-apply operations.",
     publishedAt: "2026-07-16",
     updatedAt: "2026-07-26",
     author: MUHTALIP_DEDE,
@@ -1994,66 +2558,10 @@ kubectl rollout undo deployment/api -n staging`,
         ],
       },
       {
-        type: "h2",
-        text: "kubectl vs K9s: which should you use?",
-      },
-      {
         type: "p",
-        text: "“kubectl vs K9s” is one of the most common operator searches — and the honest answer is both. They are not rivals for the same job. kubectl is the precise API client and scripting language. K9s is a live terminal UI that sits on top of the same API and credentials.",
-      },
-      {
-        type: "table",
-        headers: ["Job", "Prefer kubectl", "Prefer K9s"],
-        rows: [
-          [
-            "Scripts / CI / runbooks",
-            "Yes — reproducible flags and JSON output",
-            "No — interactive TUI is hard to automate",
-          ],
-          [
-            "Watch a rollout live",
-            "Possible with watch/get loops",
-            "Better — continuous views and hotkeys",
-          ],
-          [
-            "Tail logs across pods",
-            "kubectl logs with selectors",
-            "Faster for hopping between Pods",
-          ],
-          [
-            "Exact API coverage",
-            "Full kubectl surface",
-            "Common day-2 actions, not every verb",
-          ],
-          [
-            "Remote jump host / SSH-only access",
-            "Works anywhere kubectl works",
-            "Works if the TUI can run there too",
-          ],
-          [
-            "Teaching juniors object relationships",
-            "Verbose but explicit",
-            "Better for exploration, still needs kubectl literacy",
-          ],
-        ],
-      },
-      {
-        type: "ul",
-        items: [
-          "Reach for kubectl when the output must be exact, scriptable, or pasted into a ticket",
-          "Reach for K9s when you are already in a terminal incident and need to navigate live state",
-          "Do not treat K9s as a kubectl replacement — you still need kubectl for CI, uncommon resources, and copy-pasteable commands",
-          "Add an AI CLI only when the bottleneck is translating intent into a reviewable plan, not when you need a better resource browser",
-        ],
-      },
-      {
-        type: "p",
-        text: "If your next question is whether an AI Kubernetes CLI belongs next to these two, keep the jobs separate: K9s watches, kubectl executes precisely, and a plan-before-apply CLI drafts a mutate path you still approve. See the Kubernetes AI tools comparison for that peer map.",
+        text: "If K9s is the only alternative you are weighing, we wrote a dedicated head-to-head: kubectl vs K9s. The short version is that they are not rivals — kubectl is the precise API client and scripting language, K9s is a live terminal UI over the same API and credentials.",
         links: [
-          {
-            label: "Kubernetes AI tools comparison",
-            href: "/blog/kubernetes-ai-tools-comparison",
-          },
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
         ],
       },
       {
@@ -2876,11 +3384,15 @@ kubectl edit deploy api -n staging`,
       },
       {
         type: "p",
-        text: "Spin a tiny limit on kind or staging, force an OOM, then run explain and decide whether to approve the suggested patch. Pair with the broader troubleshooting guide for CrashLoop and ImagePull cases that often sit next to memory kills.",
+        text: "Spin a tiny limit on kind or staging, force an OOM, then run explain and decide whether to approve the suggested patch. Pair with the broader troubleshooting guide for ImagePull cases that often sit next to memory kills, and with the CrashLoopBackOff guide when the memory kill is what keeps the container looping.",
         links: [
           {
             label: "broader troubleshooting guide",
             href: "/blog/kubernetes-troubleshooting-guide",
+          },
+          {
+            label: "CrashLoopBackOff guide",
+            href: "/blog/kubernetes-crashloopbackoff",
           },
           { label: "safety guide", href: "/docs/safety" },
         ],
@@ -2969,7 +3481,13 @@ kprompt "describe api" -n staging`,
       },
       {
         type: "p",
-        text: "What you should get: explain findings such as CrashLoopBackOff, last exit reason, and a suggestion to inspect logs. If the underlying kill was OOMKilled, you may also see a suggested memory patch that still requires approval.",
+        text: "What you should get: explain findings such as CrashLoopBackOff, last exit reason, and a suggestion to inspect logs. If the underlying kill was OOMKilled, you may also see a suggested memory patch that still requires approval. For the exit-code table and the full manual ladder behind these prompts, see the CrashLoopBackOff guide.",
+        links: [
+          {
+            label: "CrashLoopBackOff guide",
+            href: "/blog/kubernetes-crashloopbackoff",
+          },
+        ],
       },
       {
         type: "ul",

@@ -45,10 +45,12 @@
 - https://kprompt.ai/blog/planresult-json-deep-dive
 - https://kprompt.ai/blog/kubernetes-ci-cd-plan-gates
 - https://kprompt.ai/blog/kubernetes-oomkilled
+- https://kprompt.ai/blog/kubernetes-crashloopbackoff
 - https://kprompt.ai/blog/kubectl-cheat-sheet-natural-language
 - https://kprompt.ai/blog/kubernetes-error-prompt-playbook
 - https://kprompt.ai/blog/kubernetes-troubleshooting-guide
 - https://kprompt.ai/blog/kubectl-alternatives
+- https://kprompt.ai/blog/kubectl-vs-k9s
 - https://kprompt.ai/blog/kubernetes-safety-plan-approve
 - https://kprompt.ai/blog/kubernetes-llm-providers-byok
 

@@ -43,10 +43,12 @@ const HIGH_SIGNAL_SLUGS = [
   "planresult-json-deep-dive",
   "kubernetes-ci-cd-plan-gates",
   "kubernetes-oomkilled",
+  "kubernetes-crashloopbackoff",
   "kubectl-cheat-sheet-natural-language",
   "kubernetes-error-prompt-playbook",
   "kubernetes-troubleshooting-guide",
   "kubectl-alternatives",
+  "kubectl-vs-k9s",
   "kubernetes-safety-plan-approve",
   "kubernetes-llm-providers-byok",
 ] as const;
