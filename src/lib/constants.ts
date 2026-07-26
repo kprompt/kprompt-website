@@ -20,6 +20,8 @@ export const SITE = {
   /** Product account on X. */
   twitter: "https://x.com/kpromptai",
   twitterHandle: "@kpromptai",
+  /** Official LinkedIn company page. */
+  linkedin: "https://www.linkedin.com/company/kprompt",
   /** Public contact inbox — forwarded, so it is safe to publish. */
   email: "hello@kprompt.ai",
   /** Runnable kind demos for the Observe agent. */

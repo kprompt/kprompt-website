@@ -133,7 +133,6 @@ export default async function OpenGraphImage({ params }: ImageProps) {
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             {avatar ? (
               // ImageResponse requires a native img element.
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={avatar}
                 alt=""
