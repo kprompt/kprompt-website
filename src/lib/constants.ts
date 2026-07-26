@@ -28,6 +28,8 @@ export const SITE = {
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub:
     "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.5.0/install/install.sh | bash",
+  /** Observe agent kind walkthrough GIF (also on GitHub README). */
+  observeDemoGif: "/kprompt-observe-demo.gif",
 } as const;
 
 export const NAV_LINKS = [

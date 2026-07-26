@@ -19,6 +19,22 @@ export function OpenSource() {
             Star the repo. Break a kind cluster on purpose. Shape the roadmap.
           </p>
 
+          <div className="mt-8 overflow-hidden rounded-xl border border-border/80 bg-[#0b1220] shadow-sm">
+            {/* eslint-disable-next-line @next/next/no-img-element -- animated GIF demo asset */}
+            <img
+              src={SITE.observeDemoGif}
+              alt="Observe agent on a deliberately broken kind cluster: incidents fire, health score drops, Autopilot proposes only"
+              width={1100}
+              height={640}
+              loading="lazy"
+              decoding="async"
+              className="mx-auto h-auto w-full"
+            />
+          </div>
+          <p className="mt-3 font-mono text-xs text-muted-foreground sm:text-sm">
+            Heuristic Observe run — no API key, propose-only Autopilot
+          </p>
+
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
               href={SITE.github}
