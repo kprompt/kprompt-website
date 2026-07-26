@@ -66,11 +66,18 @@ public/                # Static assets (logo, favicon, OG)
 | Dark Navy | `#0F172A` |
 | Background | `#FFFFFF` |
 
+## Contact
+
+- Product: [hello@kprompt.ai](mailto:hello@kprompt.ai)
+- X: [x.com/kpromptai](https://x.com/kpromptai)
+- LinkedIn: [linkedin.com/company/kprompt](https://www.linkedin.com/company/kprompt)
+- GitHub: [github.com/kprompt/kprompt](https://github.com/kprompt/kprompt)
+
 ## Author
 
 **Muhtalip Dede**  
-- Email: [muhtalipdede@gmail.com](mailto:muhtalipdede@gmail.com)  
 - GitHub: [github.com/muhtalipdede](https://github.com/muhtalipdede)
+- LinkedIn: [linkedin.com/in/muhtalipdede](https://www.linkedin.com/in/muhtalipdede)
 
 ## License
 
