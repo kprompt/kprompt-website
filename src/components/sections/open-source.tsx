@@ -20,16 +20,21 @@ export function OpenSource() {
           </p>
 
           <div className="mt-8 overflow-hidden rounded-xl border border-border/80 bg-[#0b1220] shadow-sm">
-            {/* eslint-disable-next-line @next/next/no-img-element -- animated GIF demo asset */}
-            <img
-              src={SITE.observeDemoGif}
-              alt="Observe agent on a deliberately broken kind cluster: incidents fire, health score drops, Autopilot proposes only"
-              width={1100}
-              height={640}
-              loading="lazy"
-              decoding="async"
+            <video
               className="mx-auto h-auto w-full"
-            />
+              width={960}
+              height={658}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster={SITE.observeDemoPoster}
+              aria-label="Observe agent on a deliberately broken kind cluster: incidents fire, health score drops, Autopilot proposes only"
+            >
+              <source src={SITE.observeDemoWebm} type="video/webm" />
+              <source src={SITE.observeDemoMp4} type="video/mp4" />
+            </video>
           </div>
           <p className="mt-3 font-mono text-xs text-muted-foreground sm:text-sm">
             Heuristic Observe run — no API key, propose-only Autopilot

@@ -35,8 +35,11 @@ export const SITE = {
   installCommandBrew: "brew install kprompt/tap/kprompt",
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub: `curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v${CLI_VERSION}/install/install.sh | bash`,
-  /** Observe agent kind walkthrough GIF (also on GitHub README). */
+  /** Observe agent kind walkthrough — video preferred; GIF kept as legacy fallback. */
   observeDemoGif: "/kprompt-observe-demo.gif",
+  observeDemoWebm: "/kprompt-observe-demo.webm",
+  observeDemoMp4: "/kprompt-observe-demo.mp4",
+  observeDemoPoster: "/kprompt-observe-demo-poster.jpg",
 } as const;
 
 export const NAV_LINKS = [

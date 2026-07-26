@@ -8,6 +8,7 @@ import {
   getBlogTagBySlug,
   getPostsByTag,
 } from "@/lib/blog-posts";
+import { blogTagDescription } from "@/lib/blog-tag-meta";
 import { SITE } from "@/lib/constants";
 
 type PageProps = {
@@ -26,7 +27,7 @@ export async function generateMetadata({
   if (!tag) return {};
 
   const url = `${SITE.url}/blog/tag/${slug}`;
-  const description = `Articles about ${tag}, Kubernetes operations, and kprompt.`;
+  const description = blogTagDescription(tag);
 
   return {
     title: `${tag} articles`,
@@ -47,6 +48,7 @@ export default async function BlogTagPage({ params }: PageProps) {
 
   const posts = getPostsByTag(tag);
   const path = `/blog/tag/${slug}`;
+  const description = blogTagDescription(tag);
 
   return (
     <div>
@@ -66,8 +68,10 @@ export default async function BlogTagPage({ params }: PageProps) {
           {tag}
         </h1>
         <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-          {posts.length} {posts.length === 1 ? "article" : "articles"} about {tag},
-          Kubernetes operations, and kprompt.
+          {description}{" "}
+          <span className="text-foreground/80">
+            {posts.length} {posts.length === 1 ? "article" : "articles"}.
+          </span>
         </p>
       </header>
 
