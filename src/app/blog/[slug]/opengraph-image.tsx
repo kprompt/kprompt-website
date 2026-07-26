@@ -1,6 +1,10 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { getPostBySlug } from "@/lib/blog-posts";
-import { SITE } from "@/lib/constants";
+import {
+  getAllPostSlugs,
+  getPostBySlug,
+} from "@/lib/blog-posts";
 
 export const alt = "kprompt blog article";
 export const size = {
@@ -9,9 +13,23 @@ export const size = {
 };
 export const contentType = "image/png";
 
+export function generateStaticParams() {
+  return getAllPostSlugs().map((slug) => ({ slug }));
+}
+
 type ImageProps = {
   params: Promise<{ slug: string }>;
 };
+
+async function loadAvatarDataUrl(avatarPath?: string) {
+  if (!avatarPath?.startsWith("/")) return undefined;
+  try {
+    const file = await readFile(join(process.cwd(), "public", avatarPath.slice(1)));
+    return `data:image/png;base64,${file.toString("base64")}`;
+  } catch {
+    return undefined;
+  }
+}
 
 export default async function OpenGraphImage({ params }: ImageProps) {
   const { slug } = await params;
@@ -23,9 +41,7 @@ export default async function OpenGraphImage({ params }: ImageProps) {
     "Kubernetes, AI, and practical operator notes from kprompt.";
   const tags = post?.tags.slice(0, 4) ?? ["kubernetes", "ai"];
   const author = post?.author;
-  const avatar = author?.avatar
-    ? new URL(author.avatar, SITE.url).toString()
-    : undefined;
+  const avatar = await loadAvatarDataUrl(author?.avatar);
 
   return new ImageResponse(
     (
@@ -38,8 +54,9 @@ export default async function OpenGraphImage({ params }: ImageProps) {
           justifyContent: "space-between",
           padding: "64px 72px",
           color: "#f8fafc",
-          background:
-            "radial-gradient(circle at 85% 10%, rgba(124,58,237,.35), transparent 34%), radial-gradient(circle at 10% 90%, rgba(37,99,235,.28), transparent 40%), #0f172a",
+          backgroundColor: "#0f172a",
+          backgroundImage:
+            "radial-gradient(circle at 85% 10%, rgba(124,58,237,0.35), transparent 34%), radial-gradient(circle at 10% 90%, rgba(37,99,235,0.28), transparent 40%)",
         }}
       >
         <div
@@ -67,7 +84,7 @@ export default async function OpenGraphImage({ params }: ImageProps) {
                 justifyContent: "center",
                 borderRadius: 12,
                 color: "#fff",
-                background: "#2563eb",
+                backgroundColor: "#2563eb",
                 fontSize: 25,
               }}
             >
@@ -88,7 +105,7 @@ export default async function OpenGraphImage({ params }: ImageProps) {
               fontSize: title.length > 72 ? 48 : 58,
               lineHeight: 1.08,
               letterSpacing: "-0.035em",
-              fontWeight: 750,
+              fontWeight: 700,
             }}
           >
             {title}
@@ -116,6 +133,7 @@ export default async function OpenGraphImage({ params }: ImageProps) {
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             {avatar ? (
               // ImageResponse requires a native img element.
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={avatar}
                 alt=""
@@ -124,7 +142,7 @@ export default async function OpenGraphImage({ params }: ImageProps) {
                 style={{
                   borderRadius: 999,
                   objectFit: "cover",
-                  border: "1px solid rgba(148,163,184,.35)",
+                  border: "1px solid rgba(148,163,184,0.35)",
                 }}
               />
             ) : null}
@@ -135,7 +153,7 @@ export default async function OpenGraphImage({ params }: ImageProps) {
                 gap: 3,
               }}
             >
-              <div style={{ display: "flex", fontSize: 19, fontWeight: 650 }}>
+              <div style={{ display: "flex", fontSize: 19, fontWeight: 600 }}>
                 {author?.name ?? "kprompt team"}
               </div>
               <div style={{ display: "flex", fontSize: 15, color: "#94a3b8" }}>
@@ -152,8 +170,8 @@ export default async function OpenGraphImage({ params }: ImageProps) {
                   display: "flex",
                   padding: "8px 13px",
                   borderRadius: 999,
-                  border: "1px solid rgba(148,163,184,.22)",
-                  background: "rgba(15,23,42,.5)",
+                  border: "1px solid rgba(148,163,184,0.22)",
+                  backgroundColor: "rgba(15,23,42,0.5)",
                   color: "#bfdbfe",
                   fontSize: 15,
                 }}

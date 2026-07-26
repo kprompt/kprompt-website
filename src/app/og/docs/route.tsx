@@ -41,8 +41,9 @@ export async function GET(request: Request) {
           justifyContent: "space-between",
           padding: "64px 72px",
           color: "#f8fafc",
-          background:
-            "radial-gradient(circle at 85% 10%, rgba(124,58,237,.35), transparent 34%), radial-gradient(circle at 10% 90%, rgba(37,99,235,.28), transparent 40%), #0f172a",
+          backgroundColor: "#0f172a",
+          backgroundImage:
+            "radial-gradient(circle at 85% 10%, rgba(124,58,237,0.35), transparent 34%), radial-gradient(circle at 10% 90%, rgba(37,99,235,0.28), transparent 40%)",
         }}
       >
         <div
@@ -70,7 +71,7 @@ export async function GET(request: Request) {
                 justifyContent: "center",
                 borderRadius: 12,
                 color: "#fff",
-                background: "#2563eb",
+                backgroundColor: "#2563eb",
                 fontSize: 25,
               }}
             >
@@ -91,7 +92,7 @@ export async function GET(request: Request) {
               letterSpacing: "0.14em",
               textTransform: "uppercase",
               color: "#60a5fa",
-              fontWeight: 650,
+              fontWeight: 600,
             }}
           >
             Docs
@@ -103,7 +104,7 @@ export async function GET(request: Request) {
               fontSize: title.length > 48 ? 52 : 60,
               lineHeight: 1.08,
               letterSpacing: "-0.035em",
-              fontWeight: 750,
+              fontWeight: 700,
             }}
           >
             {title}
