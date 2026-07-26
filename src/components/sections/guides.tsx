@@ -6,6 +6,13 @@ import { cn } from "@/lib/utils";
 
 const GUIDES = [
   {
+    href: "/blog/what-is-kubernetes-ai",
+    kicker: "Guide",
+    title: "What is Kubernetes AI?",
+    blurb:
+      "Analyzers, intent CLIs, agents, copilots — which job you are actually buying.",
+  },
+  {
     href: "/blog/kubernetes-ai-tools-comparison",
     kicker: "Comparison",
     title: "Kubernetes AI tools, compared",
@@ -39,13 +46,6 @@ const GUIDES = [
     title: "Fixing ImagePullBackOff",
     blurb:
       "The container never started — read Events, not logs, then fix the image reference.",
-  },
-  {
-    href: "/docs/safety",
-    kicker: "Docs",
-    title: "Safety and hard denies",
-    blurb:
-      "How plan → approve works, what wipe-class prompts are blocked, and why review still matters.",
   },
 ] as const;
 

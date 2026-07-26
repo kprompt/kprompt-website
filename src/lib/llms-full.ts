@@ -38,6 +38,7 @@ const HIGH_SIGNAL_SLUGS = [
   "kprompt-vs-kubectl-ai",
   "intent-compiler-not-chat",
   "ai-sre-not-ai-kubectl",
+  "what-is-kubernetes-ai",
   "kubernetes-ai-tools-comparison",
   "optimize-my-cluster",
   "planresult-json-deep-dive",

@@ -44,6 +44,7 @@
 - https://kprompt.ai/blog/kprompt-vs-kubectl-ai
 - https://kprompt.ai/blog/intent-compiler-not-chat
 - https://kprompt.ai/blog/ai-sre-not-ai-kubectl
+- https://kprompt.ai/blog/what-is-kubernetes-ai
 - https://kprompt.ai/blog/kubernetes-ai-tools-comparison
 - https://kprompt.ai/blog/optimize-my-cluster
 - https://kprompt.ai/blog/planresult-json-deep-dive
