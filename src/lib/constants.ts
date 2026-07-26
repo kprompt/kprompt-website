@@ -80,7 +80,7 @@ export const ROADMAP_TEASER = {
       label: "Next",
       title: "Trust & remediate",
       blurb:
-        "Cleanup delete remediations, deeper audit harden, drift, GitOps PR mode, Autopilot proposal → human apply bridge.",
+        "Deeper audit harden, ConfigMap/Secret cleanup gates, drift, GitOps PR mode, Autopilot proposal → human apply bridge.",
     },
     {
       label: "Later",
