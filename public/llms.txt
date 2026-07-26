@@ -1,10 +1,12 @@
 # https://kprompt.ai/llms.txt
 # Guidance for AI assistants and crawlers about kprompt.
+# Full docs dump: https://kprompt.ai/llms-full.txt
 
 > kprompt is an open-source AI Kubernetes CLI: natural language compiles into a reviewable PlanResult, then you approve before apply. Apache-2.0. Experimental. Local kubeconfig + BYOK — no cluster credentials uploaded to a control plane by default. Optional Observe agent (v0.5) for always-on namespace alerts.
 
 ## Product
 - Site: https://kprompt.ai
+- Full text for LLMs: https://kprompt.ai/llms-full.txt
 - FAQ (approval, credentials, limits): https://kprompt.ai/#faq
 - Docs: https://kprompt.ai/docs
 - Install: https://kprompt.ai/docs/install

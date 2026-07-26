@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { HowToJsonLd } from "@/components/seo/howto-json-ld";
+import { TechArticleJsonLd } from "@/components/seo/tech-article-json-ld";
 import type { DocsBlock, DocsPage } from "@/lib/docs-content";
 import { DOCS_NAV } from "@/lib/docs-nav";
 import { DOCS_HOWTOS } from "@/lib/howto";
@@ -159,6 +160,11 @@ export function DocsArticle({
         ]}
       />
       {howto ? <HowToJsonLd howto={howto} path={path} /> : null}
+      <TechArticleJsonLd
+        title={page.title}
+        description={page.description}
+        path={path}
+      />
       <article className="max-w-3xl min-w-0">
         <h1 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">
           {page.title}

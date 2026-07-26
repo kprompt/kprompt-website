@@ -7,8 +7,11 @@ import {
   getAllPosts,
   getPostsByTag,
 } from "@/lib/blog-posts";
+import { DOCS_CONTENT_UPDATED_AT } from "@/lib/llms-full";
 
-const STATIC_CONTENT_UPDATED_AT = new Date("2026-07-23T00:00:00.000Z");
+const STATIC_CONTENT_UPDATED_AT = new Date(
+  `${DOCS_CONTENT_UPDATED_AT}T00:00:00.000Z`
+);
 
 function contentDate(value: string): Date {
   return new Date(value.includes("T") ? value : `${value}T00:00:00.000Z`);
@@ -30,6 +33,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: STATIC_CONTENT_UPDATED_AT,
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${SITE.url}/llms.txt`,
+      lastModified: STATIC_CONTENT_UPDATED_AT,
+      changeFrequency: "weekly",
+      priority: 0.4,
+    },
+    {
+      url: `${SITE.url}/llms-full.txt`,
+      lastModified: STATIC_CONTENT_UPDATED_AT,
+      changeFrequency: "weekly",
+      priority: 0.4,
     },
     ...DOCS_NAV.map((item) => ({
       url: `${SITE.url}${item.href}`,
