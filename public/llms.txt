@@ -20,6 +20,7 @@
 - GitHub: https://github.com/kprompt/kprompt
 - X: https://x.com/kpromptai
 - LinkedIn: https://www.linkedin.com/company/kprompt
+- Bluesky: https://bsky.app/profile/kprompt.bsky.social
 - Contact: hello@kprompt.ai
 - Demo scenarios (kind): https://github.com/kprompt/kprompt-examples
 - Demo walkthrough: git clone …/kprompt-examples && make walkthrough
@@ -49,6 +50,7 @@
 - https://kprompt.ai/blog/kubernetes-ci-cd-plan-gates
 - https://kprompt.ai/blog/kubernetes-oomkilled
 - https://kprompt.ai/blog/kubernetes-crashloopbackoff
+- https://kprompt.ai/blog/kubernetes-imagepullbackoff
 - https://kprompt.ai/blog/kubectl-cheat-sheet-natural-language
 - https://kprompt.ai/blog/kubernetes-error-prompt-playbook
 - https://kprompt.ai/blog/kubernetes-troubleshooting-guide

@@ -34,11 +34,11 @@ const GUIDES = [
       "Read the exit code, get the logs of the container that actually died, then fix the real cause.",
   },
   {
-    href: "/blog/kubernetes-oomkilled",
+    href: "/blog/kubernetes-imagepullbackoff",
     kicker: "Playbook",
-    title: "Debugging OOMKilled pods",
+    title: "Fixing ImagePullBackOff",
     blurb:
-      "Why the pod died, which limits to change, and how the plan makes the fix reviewable.",
+      "The container never started — read Events, not logs, then fix the image reference.",
   },
   {
     href: "/docs/safety",

@@ -22,6 +22,9 @@ export const SITE = {
   twitterHandle: "@kpromptai",
   /** Official LinkedIn company page. */
   linkedin: "https://www.linkedin.com/company/kprompt",
+  /** Product account on Bluesky. */
+  bluesky: "https://bsky.app/profile/kprompt.bsky.social",
+  blueskyHandle: "@kprompt.bsky.social",
   /** Public contact inbox — forwarded, so it is safe to publish. */
   email: "hello@kprompt.ai",
   /** Runnable kind demos for the Observe agent. */
