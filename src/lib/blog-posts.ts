@@ -3,6 +3,7 @@ import { MUHTALIP_DEDE, type BlogAuthor } from "@/lib/team";
 
 export type { BlogAuthor };
 export { MUHTALIP_DEDE };
+export { EMIRE_BARIS } from "@/lib/team";
 
 export type BlogPost = {
   slug: string;

@@ -21,7 +21,16 @@ export const MUHTALIP_DEDE: TeamMember = {
   avatar: "/muhtalip-dede.png",
 };
 
-export const TEAM_MEMBERS: TeamMember[] = [MUHTALIP_DEDE];
+export const EMIRE_BARIS: TeamMember = {
+  name: "Emire Barış",
+  role: "Member",
+  bio: "Mathematical Engineering student learning and writing Kubernetes fundamentals for the kprompt community.",
+  github: "https://github.com/emirebariiss",
+  linkedin: "https://www.linkedin.com/in/emire-barış-948252250/",
+  avatar: "/emire-baris.png",
+};
+
+export const TEAM_MEMBERS: TeamMember[] = [MUHTALIP_DEDE, EMIRE_BARIS];
 
 export const TEAM_PAGE = {
   title: "Team",
