@@ -5,6 +5,7 @@ import { Features } from "@/components/sections/features";
 import { FinalCta } from "@/components/sections/final-cta";
 import { Guides } from "@/components/sections/guides";
 import { Hero } from "@/components/sections/hero";
+import { ArchitectureStory } from "@/components/sections/architecture-story";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { IntegrationLayer } from "@/components/sections/integration-layer";
 import { LookingAhead } from "@/components/sections/looking-ahead";
@@ -32,6 +33,7 @@ export default function HomePage() {
       <Hero />
       <Features />
       <HowItWorks />
+      <ArchitectureStory />
       <CliExamples />
       <IntegrationLayer />
       <UsageGuide />

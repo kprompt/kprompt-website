@@ -11,6 +11,7 @@
 - Docs: https://kprompt.ai/docs
 - Install: https://kprompt.ai/docs/install
 - Quickstart: https://kprompt.ai/docs/quickstart
+- Architecture (diagrams): https://kprompt.ai/docs/architecture
 - Observe agent (Helm): https://kprompt.ai/docs/agent
 - Roadmap & vision: https://kprompt.ai/docs/roadmap
 - Safety: https://kprompt.ai/docs/safety

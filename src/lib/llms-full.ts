@@ -4,7 +4,7 @@ import { FAQ } from "@/lib/faq";
 import { getPostBySlug } from "@/lib/blog-posts";
 
 /** Bump when docs copy changes so sitemap / TechArticle stay fresh. */
-export const DOCS_CONTENT_UPDATED_AT = "2026-07-26";
+export const DOCS_CONTENT_UPDATED_AT = "2026-07-27";
 
 /** Docs pages in canonical nav order, keyed for DOCS_PAGES lookup. */
 export const DOCS_FULL_INDEX = [
@@ -16,6 +16,7 @@ export const DOCS_FULL_INDEX = [
   { href: "/docs/multi-cluster", key: "multiCluster" },
   { href: "/docs/themes", key: "themes" },
   { href: "/docs/integrations", key: "integrations" },
+  { href: "/docs/architecture", key: "architecture" },
   { href: "/docs/agent", key: "agent" },
   { href: "/docs/roadmap", key: "roadmap" },
   { href: "/docs/team", key: "team" },
@@ -132,6 +133,7 @@ export function buildLlmsFullText(): string {
     "- Not a K8sGPT fleet scanner; not a Kagent multi-agent framework; not a hosted Lens clone.",
     "- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.",
     "- Autopilot (ADR-0015) is propose-only by default — never silent apply.",
+    "- Architecture diagrams: intent compiler + AI SRE dual path + Observe pipeline — /docs/architecture.",
     "- Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.",
     "",
     "## FAQ",

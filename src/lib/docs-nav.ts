@@ -12,6 +12,7 @@ export const DOCS_NAV: DocsNavItem[] = [
   { href: "/docs/multi-cluster", label: "Multi-cluster" },
   { href: "/docs/themes", label: "Themes" },
   { href: "/docs/integrations", label: "Integrations" },
+  { href: "/docs/architecture", label: "Architecture" },
   { href: "/docs/agent", label: "Observe agent" },
   { href: "/docs/roadmap", label: "Roadmap & vision" },
   { href: "/docs/team", label: "Team" },

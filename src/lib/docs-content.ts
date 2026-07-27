@@ -39,6 +39,11 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
         text: "Talk to your cluster from the terminal you already use. kprompt uses your kubeconfig and your LLM API keys (BYOK). Mutations always produce a plan; risk checks and hard denies run before apply.",
       },
       {
+        type: "p",
+        text: "Visual map of the intent compiler, AI SRE CLI packs, and Observe agent: Architecture.",
+        links: [{ label: "Architecture", href: "/docs/architecture" }],
+      },
+      {
         type: "h2",
         text: "What it is",
       },
@@ -1382,6 +1387,66 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
     ],
   },
+  architecture: {
+    title: "Architecture",
+    description:
+      "How kprompt works: intent compiler pipeline, AI SRE CLI vs Observe agent, modes, and honesty boundaries — in diagrams.",
+    blocks: [
+      {
+        type: "h2",
+        text: "Intent compiler",
+      },
+      {
+        type: "p",
+        text: "Prompt → Intent → Plan → Safety → Approve → Apply. Natural language becomes a typed PlanResult with actions, risk, and blast radius. Wipe-class intents are hard-denied. Mutations need TTY y/N or --approve.",
+      },
+      {
+        type: "h2",
+        text: "AI SRE dual path",
+      },
+      {
+        type: "p",
+        text: "On-demand CLI packs (investigate, why, timeline, impact, audit, drift) and the optional in-cluster Observe / Namespace Agent share internal/incident contracts. CLI is reactive; agent is always-on. Neither silently mutates.",
+      },
+      {
+        type: "h2",
+        text: "Observe agent pipeline",
+      },
+      {
+        type: "p",
+        text: "Watch → Normalize → Deduplicate → Incident → Context → Analyze → Confidence/severity gate → Notify (Slack/webhook). Namespace Role RBAC. LLM batched by open Incident. Full install: Observe agent.",
+        links: [{ label: "Observe agent", href: "/docs/agent" }],
+      },
+      {
+        type: "h2",
+        text: "Modes",
+      },
+      {
+        type: "ul",
+        items: [
+          "CLI — PlanResult after approve",
+          "Observe — Incident/AgentAlert; never mutates",
+          "Namespace Agent — InvestigationReport v2; propose-first",
+          "Coordinator — cross-ns handoff; mutate off by default",
+          "Autopilot — allowlisted propose; apply only with policyAuto",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Honesty boundaries",
+      },
+      {
+        type: "ul",
+        items: [
+          "No silent LLM-said-so remediations",
+          "No cluster-wide god-mode SA on every namespace agent",
+          "Missing Prom/OTel/GitOps backends degrade — not invented",
+          "Memory/patterns are not sole proof of root cause",
+          "Not K8sGPT fleet scanner or Kagent multi-agent parity",
+        ],
+      },
+    ],
+  },
   agent: {
     title: "Observe agent",
     description:
@@ -1408,6 +1473,11 @@ echo "$json" | jq -e '.risk.level != "high"'`,
             href: "/blog/kprompt-v0-5-observe-agent",
           },
         ],
+      },
+      {
+        type: "p",
+        text: "Pipeline and AI SRE dual-path diagrams: Architecture.",
+        links: [{ label: "Architecture", href: "/docs/architecture" }],
       },
       {
         type: "h2",
