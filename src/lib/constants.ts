@@ -1,7 +1,7 @@
 const LIVE_ORIGIN = "https://kprompt.ai";
 
 /** Single source of truth for the released CLI version referenced across metadata. */
-const CLI_VERSION = "0.5.0";
+const CLI_VERSION = "0.6.0";
 
 export const SITE = {
   name: "kprompt",
