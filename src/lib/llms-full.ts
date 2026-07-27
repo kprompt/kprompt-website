@@ -36,6 +36,7 @@ const HIGH_SIGNAL_SLUGS = [
   "building-ai-sre-02-intent-compiler",
   "building-ai-sre-03-planresult",
   "building-ai-sre-04-safety",
+  "building-ai-sre-05-multi-context",
   "kprompt-vs-kubectl-ai",
   "intent-compiler-not-chat",
   "ai-sre-not-ai-kubectl",
