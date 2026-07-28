@@ -1201,6 +1201,12 @@ kprompt policy           # show cached policy`,
             "deepseek-chat",
           ],
           [
+            "Moonshot (Kimi K3)",
+            "moonshot",
+            "KPROMPT_MOONSHOT_API_KEY / MOONSHOT_API_KEY",
+            "kimi-k3",
+          ],
+          [
             "OpenRouter",
             "openrouter",
             "KPROMPT_OPENROUTER_API_KEY / OPENROUTER_API_KEY",
@@ -1223,7 +1229,7 @@ kprompt policy           # show cached policy`,
       },
       {
         type: "p",
-        text: "Groq, Mistral, DeepSeek, OpenRouter, and Together all speak the OpenAI-compatible API. Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key at all, which makes it the zero-spend option for trying kprompt or running it in CI.",
+        text: "Groq, Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, and Together all speak the OpenAI-compatible API. Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key at all, which makes it the zero-spend option for trying kprompt or running it in CI.",
       },
       {
         type: "h2",
@@ -1252,6 +1258,9 @@ kprompt --provider anthropic "explain why api is crashing"
 
 export KPROMPT_GEMINI_API_KEY=...
 kprompt --provider gemini --model gemini-2.0-flash "deploy redis"
+
+export KPROMPT_MOONSHOT_API_KEY=...
+kprompt --provider moonshot "explain why api is crashlooping"
 
 kprompt --provider ollama --model llama3.2 "list pods"`,
       },

@@ -43,7 +43,7 @@ const FEATURES = [
     icon: KeyRound,
     title: "BYOK models",
     description:
-      "OpenAI, Anthropic, Gemini, Groq, Ollama, and more. Keys stay in env vars — never in config.yaml.",
+      "OpenAI, Anthropic, Gemini, Groq, Ollama, Moonshot (Kimi K3), and more. Keys stay in env vars — never in config.yaml.",
   },
 ] as const;
 

@@ -2449,6 +2449,7 @@ kprompt "scale api to 2" -n staging --approve --wait`,
           ["Groq", "groq", "KPROMPT_GROQ_API_KEY", "llama-3.3-70b-versatile"],
           ["Mistral", "mistral", "KPROMPT_MISTRAL_API_KEY", "mistral-small-latest"],
           ["DeepSeek", "deepseek", "KPROMPT_DEEPSEEK_API_KEY", "deepseek-chat"],
+          ["Moonshot (Kimi K3)", "moonshot", "KPROMPT_MOONSHOT_API_KEY", "kimi-k3"],
           ["OpenRouter", "openrouter", "KPROMPT_OPENROUTER_API_KEY", "openai/gpt-4o-mini"],
           ["Together", "together", "KPROMPT_TOGETHER_API_KEY", "Llama 3.1 8B Turbo"],
           ["Ollama", "ollama", "(none required)", "llama3.2"],
@@ -2499,6 +2500,20 @@ kprompt --provider openai --model gpt-4o "explain HPA behavior" -n prod`,
       {
         type: "p",
         text: "Groq excels when you're iterating on prompts in a tight loop — tuning safety gates, testing intent phrasing, running history reruns. Pair with staging clusters while you learn how plans look before touching production.",
+      },
+      {
+        type: "h3",
+        text: "Moonshot / Kimi K3 — long-context reasoning",
+      },
+      {
+        type: "p",
+        text: "Kimi K3 is Moonshot's flagship model with a 1M-token context window — useful for dense incident explains that pull many events, logs, and manifests into one prompt. Use --provider moonshot (default model kimi-k3) when you need more reasoning headroom than Flash/Mini tiers.",
+      },
+      {
+        type: "code",
+        caption: "Moonshot / Kimi K3 setup",
+        code: `export KPROMPT_MOONSHOT_API_KEY="..."
+kprompt --provider moonshot "explain why api is crashlooping" -n prod`,
       },
       {
         type: "h3",

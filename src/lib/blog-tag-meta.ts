@@ -26,7 +26,7 @@ export const BLOG_TAG_DESCRIPTIONS: Record<string, string> = {
     "Kubernetes CLI tooling that compiles intent into plans instead of free-form chat execution.",
   kubernetes:
     "Kubernetes operations with natural language: plan → safety → approve → apply.",
-  llm: "BYOK LLM providers for cluster work: OpenAI, Anthropic, Gemini, Groq, Ollama, and gateways.",
+  llm: "BYOK LLM providers for cluster work: OpenAI, Anthropic, Gemini, Groq, Moonshot/Kimi, Ollama, and gateways.",
   observe:
     "Always-on Observe agent: correlation, health scores, memory/patterns, and gated notifications.",
   "open source":
