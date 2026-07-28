@@ -25,7 +25,7 @@
 - Contact: hello@kprompt.ai
 - Demo scenarios (kind): https://github.com/kprompt/kprompt-examples
 - Demo walkthrough: git clone …/kprompt-examples && make walkthrough
-- Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.6.0
+- Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.7.0
 
 ## Positioning (honest)
 - Same NL-CLI lane as kubectl-ai; different mutate contract (plan → safety → approve).
