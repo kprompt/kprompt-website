@@ -2,6 +2,20 @@
 
 Copy these into posts so GA4 can attribute traffic by channel.
 
+## Product Hunt
+
+Replace `ph-draft` with the scheduled launch date (e.g. `2026-08-05`) when you go live.
+
+- Home: https://kprompt.ai?utm_source=producthunt&utm_medium=launch&utm_campaign=ph-draft
+- Quickstart: https://kprompt.ai/docs/quickstart?utm_source=producthunt&utm_medium=launch&utm_campaign=ph-draft
+- GitHub: https://github.com/kprompt/kprompt?utm_source=producthunt&utm_medium=launch&utm_campaign=ph-draft
+- Examples: https://github.com/kprompt/kprompt-examples?utm_source=producthunt&utm_medium=launch&utm_campaign=ph-draft
+- AI SRE post: https://kprompt.ai/blog/ai-sre-not-ai-kubectl?utm_source=producthunt&utm_medium=launch&utm_campaign=ph-draft
+
+Full form copy: architecture `PRODUCT-HUNT-DRAFT.md`.
+Gallery video: `kprompt-promo-16x9.mp4` (animated promo) · stills: `plan-demo.png`, `kprompt-observe-demo.gif`.
+Re-render: `python render_promo_v2.py` (see script in this folder).
+
 ## X (@kpromptai)
 
 - Quickstart: https://kprompt.ai/docs/quickstart?utm_source=x&utm_medium=social&utm_campaign=launch&utm_content=quickstart

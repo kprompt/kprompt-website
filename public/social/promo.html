@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>kprompt promo</title>
+<style>
+  :root {
+    --navy: #07111f;
+    --ink: #0b1628;
+    --panel: #101c31;
+    --line: rgba(148, 183, 255, 0.18);
+    --fg: #f4f7fb;
+    --muted: #8fa3bf;
+    --blue: #3b82f6;
+    --cyan: #38bdf8;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #fb7185;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: var(--navy);
+    color: var(--fg);
+    font-family: "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .brand .tag, .statement .eyebrow, .node .label, .plan-row, .approve,
+  .card .mono, .pill, .shard, #promptText {
+    font-family: "SF Mono", Menlo, Monaco, "Courier New", monospace;
+  }
+
+  #stage {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 80% 60% at 12% 18%, rgba(59,130,246,0.28), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 88% 82%, rgba(56,189,248,0.16), transparent 50%),
+      radial-gradient(ellipse 50% 40% at 70% 20%, rgba(37,99,235,0.12), transparent 45%),
+      linear-gradient(160deg, #050b14 0%, #0a1526 45%, #07111f 100%);
+  }
+
+  #stage.square { width: 1080px; height: 1080px; }
+
+  .grid {
+    position: absolute; inset: 0; opacity: 0.22;
+    background-image:
+      linear-gradient(rgba(148,183,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148,183,255,0.08) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 75%);
+    transform: perspective(900px) rotateX(58deg) translateY(-8%);
+    transform-origin: center top;
+  }
+
+  .beam {
+    position: absolute; left: -20%; top: 30%;
+    width: 140%; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(56,189,248,0.55), transparent);
+    filter: blur(0.5px);
+    opacity: 0;
+  }
+
+  .scene {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+  }
+
+  .brand {
+    text-align: center;
+    transform: translateY(24px);
+  }
+  .brand h1 {
+    font-size: 118px; font-weight: 700; letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+  .brand .tag {
+    margin-top: 18px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 34px; color: var(--cyan); font-weight: 500;
+  }
+  .brand .sub {
+    margin-top: 22px; font-size: 24px; color: var(--muted); font-weight: 500;
+  }
+  .brand .rule {
+    width: 72px; height: 3px; margin: 28px auto 0;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    border-radius: 2px; opacity: 0; transform: scaleX(0.3);
+  }
+
+  /* Chaos shards */
+  .chaos {
+    position: absolute; inset: 0;
+  }
+  .shard {
+    position: absolute;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 18px; color: rgba(143,163,191,0.55);
+    white-space: nowrap;
+    opacity: 0;
+  }
+
+  .statement {
+    max-width: 1100px; text-align: center; padding: 0 48px;
+  }
+  .statement .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 22px; opacity: 0;
+  }
+  .statement h2 {
+    font-size: 56px; font-weight: 650; letter-spacing: -0.03em;
+    line-height: 1.15; opacity: 0; transform: translateY(18px);
+  }
+  .statement h2 em {
+    font-style: normal; color: var(--cyan);
+  }
+  .statement p {
+    margin-top: 28px; font-size: 28px; color: var(--muted);
+    opacity: 0; transform: translateY(12px);
+  }
+
+  /* Compiler pipeline */
+  .pipeline {
+    width: 1680px; height: 720px; position: relative;
+  }
+  .node {
+    position: absolute;
+    border: 1px solid var(--line);
+    background: rgba(16, 28, 49, 0.88);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+    opacity: 0; transform: translateY(20px) scale(0.96);
+  }
+  .node .label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); padding: 14px 18px 0;
+  }
+  .node .body { padding: 10px 18px 18px; font-size: 22px; font-weight: 550; }
+  .node.prompt { left: 40px; top: 260px; width: 380px; }
+  .node.compiler {
+    left: 520px; top: 200px; width: 280px; height: 280px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .node.plan { right: 40px; top: 80px; width: 720px; height: 560px; }
+  .compiler-ring {
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 2px solid rgba(59,130,246,0.35);
+    box-shadow: 0 0 40px rgba(59,130,246,0.25), inset 0 0 30px rgba(56,189,248,0.12);
+    position: relative;
+  }
+  .compiler-ring::after {
+    content: ""; position: absolute; inset: 12px; border-radius: 50%;
+    border: 2px dashed rgba(56,189,248,0.45);
+  }
+  .compiler-core {
+    position: absolute; inset: 34px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #60a5fa, #1d4ed8 70%);
+  }
+  .wire {
+    position: absolute; height: 2px;
+    background: linear-gradient(90deg, rgba(59,130,246,0), rgba(56,189,248,0.9), rgba(59,130,246,0));
+    opacity: 0; filter: drop-shadow(0 0 6px rgba(56,189,248,0.6));
+  }
+  .wire.w1 { left: 420px; top: 330px; width: 100px; }
+  .wire.w2 { left: 800px; top: 330px; width: 100px; }
+  .pulse {
+    position: absolute; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--cyan); box-shadow: 0 0 16px var(--cyan);
+    opacity: 0;
+  }
+
+  .plan-row {
+    display: flex; gap: 12px; align-items: baseline;
+    font-family: "IBM Plex Mono", monospace; font-size: 18px;
+    padding: 6px 0; opacity: 0; transform: translateX(12px);
+  }
+  .plan-row .k { color: var(--cyan); min-width: 120px; }
+  .plan-row .v { color: var(--fg); }
+  .plan-row .warn { color: var(--amber); }
+  .plan-row .ok { color: var(--green); }
+  .approve {
+    margin-top: 18px; padding: 14px 16px;
+    border-radius: 12px; border: 1px solid rgba(52,211,153,0.35);
+    background: rgba(16, 185, 129, 0.08);
+    font-family: "IBM Plex Mono", monospace; font-size: 20px;
+    opacity: 0;
+  }
+  .cursor { display: inline-block; width: 12px; height: 22px; background: var(--green);
+    vertical-align: -3px; margin-left: 4px; }
+
+  /* Gate / deny */
+  .gate-wrap {
+    width: 1400px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+  }
+  .card {
+    border-radius: 22px; border: 1px solid var(--line);
+    background: rgba(16,28,49,0.9); padding: 36px 40px;
+    opacity: 0; transform: translateY(28px);
+    min-height: 280px;
+  }
+  .card .icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: grid; place-items: center; font-size: 22px; margin-bottom: 22px;
+  }
+  .card.deny .icon { background: rgba(251,113,133,0.15); color: var(--red); }
+  .card.allow .icon { background: rgba(52,211,153,0.15); color: var(--green); }
+  .card h3 { font-size: 34px; margin-bottom: 14px; letter-spacing: -0.02em; }
+  .card p { font-size: 22px; color: var(--muted); line-height: 1.45; }
+  .card .mono {
+    margin-top: 22px; font-family: "IBM Plex Mono", monospace; font-size: 16px;
+    color: var(--muted); padding: 12px 14px; border-radius: 10px;
+    background: rgba(0,0,0,0.25); border: 1px solid var(--line);
+  }
+  .card.deny .mono { color: var(--red); border-color: rgba(251,113,133,0.25); }
+  .card.allow .mono { color: var(--green); border-color: rgba(52,211,153,0.25); }
+
+  .shield {
+    position: absolute; width: 220px; height: 220px; border-radius: 50%;
+    border: 2px solid rgba(251,113,133,0.5);
+    box-shadow: 0 0 50px rgba(251,113,133,0.25);
+    opacity: 0; left: 18%; top: 38%;
+  }
+
+  /* CTA */
+  .cta { text-align: center; }
+  .cta h1 { font-size: 96px; letter-spacing: -0.04em; font-weight: 700; }
+  .cta .line { font-size: 36px; color: var(--cyan); margin-top: 12px; font-weight: 500; }
+  .pill {
+    margin: 40px auto 0; display: inline-flex; align-items: center; gap: 12px;
+    padding: 18px 28px; border-radius: 16px;
+    background: rgba(16,28,49,0.95); border: 1px solid rgba(52,211,153,0.35);
+    font-family: "IBM Plex Mono", monospace; font-size: 26px; color: var(--green);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+    opacity: 0; transform: translateY(16px);
+  }
+  .cta .links {
+    margin-top: 34px; font-size: 22px; color: var(--muted); opacity: 0;
+  }
+  .cta .caveat {
+    margin-top: 18px; font-size: 18px; color: var(--amber); opacity: 0;
+  }
+
+  #stage.square .brand h1 { font-size: 88px; }
+  #stage.square .pipeline { width: 980px; height: 820px; transform: scale(0.92); }
+  #stage.square .node.prompt { left: 20px; top: 40px; width: 940px; }
+  #stage.square .node.compiler { left: 350px; top: 180px; }
+  #stage.square .node.plan { left: 20px; right: 20px; top: 480px; width: 940px; height: 320px; }
+  #stage.square .gate-wrap { width: 960px; grid-template-columns: 1fr; gap: 20px; }
+  #stage.square .card { min-height: auto; padding: 28px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="grid" id="grid"></div>
+  <div class="beam" id="beam"></div>
+
+  <!-- S0 brand -->
+  <section class="scene" id="s0">
+    <div class="brand">
+      <h1 id="logo">kprompt</h1>
+      <div class="tag" id="tagline">Talk to Your Cluster.</div>
+      <div class="rule" id="rule"></div>
+      <div class="sub" id="sub">Natural language → reviewable plan → approve</div>
+    </div>
+  </section>
+
+  <!-- S1 chaos → focus -->
+  <section class="scene" id="s1">
+    <div class="chaos" id="chaos"></div>
+    <div class="statement" id="stmt">
+      <div class="eyebrow">The problem</div>
+      <h2>AI that skips the plan<br>is just <em>faster risk</em>.</h2>
+      <p>kprompt treats prompts as an intent compiler — not a chat REPL.</p>
+    </div>
+  </section>
+
+  <!-- S2 pipeline -->
+  <section class="scene" id="s2">
+    <div class="pipeline" id="pipe">
+      <div class="wire w1" id="w1"></div>
+      <div class="wire w2" id="w2"></div>
+      <div class="pulse" id="pulse"></div>
+      <div class="node prompt" id="nPrompt">
+        <div class="label">Prompt</div>
+        <div class="body" id="promptText"></div>
+      </div>
+      <div class="node compiler" id="nComp">
+        <div class="compiler-ring"><div class="compiler-core"></div></div>
+        <div class="label" style="margin-top:18px">Intent compiler</div>
+        <div class="body" style="font-size:16px;color:var(--muted);font-weight:500">PlanResult</div>
+      </div>
+      <div class="node plan" id="nPlan">
+        <div class="label">Reviewable plan</div>
+        <div class="body" id="planBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S3 gate -->
+  <section class="scene" id="s3">
+    <div class="shield" id="shield"></div>
+    <div class="gate-wrap">
+      <div class="card deny" id="denyCard">
+        <div class="icon">✕</div>
+        <h3>Hard deny</h3>
+        <p>Wipe-class intents never become a plan. Policy is code — not model vibes.</p>
+        <div class="mono">“wipe the cluster” → blocked</div>
+      </div>
+      <div class="card allow" id="allowCard">
+        <div class="icon">✓</div>
+        <h3>Approve gate</h3>
+        <p>Mutations wait for an explicit yes. Observe can alert; Autopilot stays propose-only.</p>
+        <div class="mono">Apply this plan? [y/N]: y</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4 CTA -->
+  <section class="scene" id="s4">
+    <div class="cta">
+      <h1>Plan before apply.</h1>
+      <div class="line">Open source · Apache-2.0 · BYOK</div>
+      <div class="pill" id="pill"><span style="opacity:.55">$</span> brew install kprompt/tap/kprompt</div>
+      <div class="links" id="links">kprompt.ai · github.com/kprompt/kprompt</div>
+      <div class="caveat" id="caveat">Experimental — start on kind / non-prod</div>
+    </div>
+  </section>
+</div>
+
+<script>
+const SHARDS = [
+  "kubectl apply -f …", "replicas: ?", "--force", "helm uninstall --all",
+  "CrashLoopBackOff", "ImagePullBackOff", "yaml: line 47", "scale --replicas=0",
+  "delete namespace", "TODO: review PR", "chat: just do it", "no plan shown",
+];
+
+const chaos = document.getElementById("chaos");
+SHARDS.forEach((t, i) => {
+  const el = document.createElement("div");
+  el.className = "shard";
+  el.textContent = t;
+  el.style.left = (8 + (i * 17) % 80) + "%";
+  el.style.top = (12 + (i * 23) % 70) + "%";
+  el.dataset.i = i;
+  chaos.appendChild(el);
+});
+
+const planRows = [
+  ["Intent", "scale", ""],
+  ["Plan", "Scale Deployment/api in payments → 10", ""],
+  ["Risk", "medium", "warn"],
+  ["Actions", "1. scale Deployment/api -n payments", ""],
+  ["Blast", "ns payments · HPA/api-hpa", ""],
+];
+
+const planBody = document.getElementById("planBody");
+planRows.forEach(([k, v, cls]) => {
+  const row = document.createElement("div");
+  row.className = "plan-row";
+  row.innerHTML = `<span class="k">${k}</span><span class="v ${cls}">${v}</span>`;
+  planBody.appendChild(row);
+});
+const approve = document.createElement("div");
+approve.className = "approve";
+approve.id = "approve";
+approve.innerHTML = `Apply this plan? [y/N]: <span id="ans"></span><span class="cursor" id="cur"></span>`;
+planBody.appendChild(approve);
+
+function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+function ease(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
+function seg(t, a, b) { return ease(clamp((t - a) / (b - a), 0, 1)); }
+function show(el, a) {
+  el.style.opacity = a;
+  el.style.pointerEvents = a > 0.02 ? "auto" : "none";
+}
+
+window.__seek = function(t, square) {
+  const stage = document.getElementById("stage");
+  stage.classList.toggle("square", !!square);
+
+  // ambient
+  document.getElementById("grid").style.transform =
+    `perspective(900px) rotateX(58deg) translateY(${-8 + Math.sin(t*0.4)*1.5}%)`;
+  const beam = document.getElementById("beam");
+  beam.style.opacity = 0.35 + 0.2 * Math.sin(t);
+  beam.style.transform = `rotate(${-8 + Math.sin(t*0.3)*2}deg) translateY(${Math.sin(t*0.7)*40}px)`;
+
+  // Scene windows (total ~26s)
+  // 0-3.2 brand | 3.2-7.2 chaos | 7.2-17 pipeline | 17-21.5 gate | 21.5-26 cta
+  const scenes = [
+    [0, 3.4, "s0"],
+    [3.2, 7.4, "s1"],
+    [7.0, 17.2, "s2"],
+    [16.8, 21.8, "s3"],
+    [21.4, 26.2, "s4"],
+  ];
+  scenes.forEach(([a, b, id]) => {
+    const el = document.getElementById(id);
+    let op = 0;
+    if (t >= a && t <= b) {
+      const fi = seg(t, a, a + 0.45);
+      const fo = 1 - seg(t, b - 0.4, b);
+      op = Math.min(fi, fo);
+    }
+    show(el, op);
+  });
+
+  // S0
+  const logo = document.getElementById("logo");
+  const tagline = document.getElementById("tagline");
+  const rule = document.getElementById("rule");
+  const sub = document.getElementById("sub");
+  const a0 = seg(t, 0.15, 1.0);
+  logo.style.opacity = a0;
+  logo.style.transform = `translateY(${(1-a0)*28}px) scale(${0.96 + 0.04*a0})`;
+  const a1 = seg(t, 0.7, 1.5);
+  tagline.style.opacity = a1;
+  tagline.style.transform = `translateY(${(1-a1)*16}px)`;
+  const a2 = seg(t, 1.2, 1.9);
+  rule.style.opacity = a2;
+  rule.style.transform = `scaleX(${0.3 + 0.7*a2})`;
+  const a3 = seg(t, 1.6, 2.4);
+  sub.style.opacity = a3;
+
+  // S1 chaos
+  document.querySelectorAll(".shard").forEach((el, i) => {
+    const local = t - 3.2;
+    const appear = seg(local, 0.1 + i * 0.05, 0.4 + i * 0.05);
+    const collapse = seg(local, 2.4, 3.6);
+    const x = parseFloat(el.style.left);
+    const y = parseFloat(el.style.top);
+    const cx = 50, cy = 48;
+    const nx = x + (cx - x) * collapse;
+    const ny = y + (cy - y) * collapse;
+    el.style.left = nx + "%";
+    el.style.top = ny + "%";
+    el.style.opacity = appear * (1 - collapse) * 0.85;
+    el.style.transform = `scale(${1 - 0.7 * collapse}) rotate(${(i%2?1:-1)*(1-collapse)*8}deg)`;
+  });
+  const st = document.getElementById("stmt");
+  const ls = t - 3.2;
+  st.querySelector(".eyebrow").style.opacity = seg(ls, 2.6, 3.1);
+  const h2 = st.querySelector("h2");
+  const p = st.querySelector("p");
+  const h2a = seg(ls, 2.8, 3.5);
+  h2.style.opacity = h2a;
+  h2.style.transform = `translateY(${(1-h2a)*18}px)`;
+  const pa = seg(ls, 3.3, 3.9);
+  p.style.opacity = pa;
+  p.style.transform = `translateY(${(1-pa)*12}px)`;
+
+  // S2 pipeline
+  const lp = t - 7.0;
+  function nodeIn(id, start) {
+    const el = document.getElementById(id);
+    const a = seg(lp, start, start + 0.55);
+    el.style.opacity = a;
+    el.style.transform = `translateY(${(1-a)*20}px) scale(${0.96+0.04*a})`;
+  }
+  nodeIn("nPrompt", 0.2);
+  nodeIn("nComp", 1.0);
+  nodeIn("nPlan", 2.2);
+  document.getElementById("w1").style.opacity = seg(lp, 0.8, 1.2);
+  document.getElementById("w2").style.opacity = seg(lp, 2.0, 2.5);
+
+  // typewriter prompt
+  const full = 'kprompt "scale api to 10" -n payments';
+  const typeP = seg(lp, 0.4, 2.0);
+  const n = Math.floor(full.length * typeP);
+  const blink = Math.floor(t * 4) % 2 === 0;
+  document.getElementById("promptText").textContent =
+    full.slice(0, n) + (typeP < 1 && blink ? "▌" : "");
+
+  // pulse along wires
+  const pulse = document.getElementById("pulse");
+  if (lp > 1.1 && lp < 2.3) {
+    const u = (lp - 1.1) / 1.2;
+    pulse.style.opacity = 1;
+    pulse.style.left = (420 + u * 100) + "px";
+    pulse.style.top = "325px";
+  } else if (lp > 2.3 && lp < 3.4) {
+    const u = (lp - 2.3) / 1.1;
+    pulse.style.opacity = 1;
+    pulse.style.left = (800 + u * 100) + "px";
+    pulse.style.top = "325px";
+  } else {
+    pulse.style.opacity = 0;
+  }
+
+  // spin compiler
+  const ring = document.querySelector(".compiler-ring");
+  ring.style.transform = `rotate(${lp * 80}deg)`;
+
+  // plan rows
+  document.querySelectorAll(".plan-row").forEach((row, i) => {
+    const a = seg(lp, 3.0 + i * 0.35, 3.4 + i * 0.35);
+    row.style.opacity = a;
+    row.style.transform = `translateX(${(1-a)*12}px)`;
+  });
+  const ap = document.getElementById("approve");
+  const apa = seg(lp, 5.2, 5.8);
+  ap.style.opacity = apa;
+  const ans = document.getElementById("ans");
+  const cur = document.getElementById("cur");
+  if (lp > 6.4) {
+    ans.textContent = "y";
+    ans.style.color = "var(--green)";
+    cur.style.opacity = 0;
+  } else {
+    ans.textContent = "";
+    cur.style.opacity = blink ? 1 : 0.2;
+  }
+
+  // S3
+  const lg = t - 16.8;
+  const deny = document.getElementById("denyCard");
+  const allow = document.getElementById("allowCard");
+  const da = seg(lg, 0.2, 0.9);
+  const aa = seg(lg, 0.7, 1.4);
+  deny.style.opacity = da;
+  deny.style.transform = `translateY(${(1-da)*28}px)`;
+  allow.style.opacity = aa;
+  allow.style.transform = `translateY(${(1-aa)*28}px)`;
+  const sh = document.getElementById("shield");
+  const sha = seg(lg, 0.3, 0.8) * (1 - seg(lg, 1.5, 2.2));
+  sh.style.opacity = sha * 0.7;
+  sh.style.transform = `scale(${0.8 + 0.3 * sha})`;
+
+  // S4
+  const lc = t - 21.4;
+  const pill = document.getElementById("pill");
+  const links = document.getElementById("links");
+  const caveat = document.getElementById("caveat");
+  const pa2 = seg(lc, 0.6, 1.3);
+  pill.style.opacity = pa2;
+  pill.style.transform = `translateY(${(1-pa2)*16}px)`;
+  links.style.opacity = seg(lc, 1.2, 1.8);
+  caveat.style.opacity = seg(lc, 1.6, 2.2);
+};
+
+window.__seek(0, false);
+</script>
+</body>
+</html>
