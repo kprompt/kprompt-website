@@ -35,6 +35,7 @@
 - Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.
 
 ## High-signal articles
+- https://kprompt.ai/blog/context-engineering-not-prompt-engineering
 - https://kprompt.ai/blog/observe-agent-kind-demo
 - https://kprompt.ai/blog/kprompt-v0-5-observe-agent
 - https://kprompt.ai/blog/building-ai-sre-in-public

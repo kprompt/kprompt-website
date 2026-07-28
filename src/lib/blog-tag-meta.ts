@@ -6,6 +6,8 @@ export const BLOG_TAG_DESCRIPTIONS: Record<string, string> = {
   agent:
     "Observe agent notes: namespace watch, Incidents, gated Slack alerts, and propose-only Autopilot.",
   ai: "Practical AI-for-Kubernetes writing: intent compilers, plan gates, and honest product limits.",
+  architecture:
+    "Architecture essays: intent compilers, PlanResult, context engineering, and fail-closed design for cluster AI.",
   aiops:
     "AIOps for cluster operators — what to automate, what still needs a human approve step.",
   announcement: "Product announcements and release notes from the kprompt team.",

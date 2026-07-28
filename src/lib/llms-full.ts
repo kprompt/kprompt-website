@@ -29,6 +29,7 @@ export const DOCS_FULL_INDEX = [
 }>;
 
 const HIGH_SIGNAL_SLUGS = [
+  "context-engineering-not-prompt-engineering",
   "observe-agent-kind-demo",
   "kprompt-v0-5-observe-agent",
   "building-ai-sre-in-public",
