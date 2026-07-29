@@ -21,6 +21,208 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "ai-runtime-for-kubernetes",
+    title: "The AI Runtime for Kubernetes — not another AI wrapper",
+    description:
+      "Why kprompt’s category is an AI Runtime for Kubernetes: observe, reason, plan, approve, execute, learn — not a ChatGPT wrapper, chatbot, or silent auto-healer. Honest shipped vs building.",
+    publishedAt: "2026-07-29",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "ai",
+      "sre",
+      "architecture",
+      "platform engineering",
+      "devops",
+      "agent",
+    ],
+    keywords: [
+      "ai runtime for kubernetes",
+      "kubernetes ai runtime",
+      "not another ai wrapper",
+      "kubernetes reasoning layer",
+      "observe plan approve kubernetes",
+      "kprompt ai runtime",
+      "ai sre runtime",
+      "namespace agent kubernetes",
+      "plan before apply",
+      "kubernetes ai category",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "Kubernetes already has Pods, Deployments, Controllers, Operators, and Schedulers. Those pieces place containers, reconcile desired state, and encode domain logic. What the control plane still lacks is reasoning: continuous understanding of what is happening across events, logs, metrics, and topology — then a safe plan before anything mutates.",
+      },
+      {
+        type: "p",
+        text: "That is the category we are building toward: The AI Runtime for Kubernetes. Not a prompt toy. Not an LLM wrapper with kubectl glue. Not another workflow engine. Not a chatbot bolted onto the cluster. A reasoning layer that observes, plans, executes with approval, and learns from previous incidents.",
+        links: [
+          { label: "Roadmap & vision", href: "/docs/roadmap" },
+          { label: "Architecture", href: "/docs/architecture" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "What we are not",
+      },
+      {
+        type: "ul",
+        items: [
+          "Not a ChatGPT wrapper — we never compete on chat fluency against generic AI products",
+          "Not a free-form Kubernetes chatbot that mutates from scrollback",
+          "Not a silent auto-healer that “just fixes production”",
+          "Not a fleet scanner that only explains what a report already found",
+          "Not a hosted Lens clone or a multi-tenant control plane that uploads your kubeconfig by default",
+        ],
+      },
+      {
+        type: "p",
+        text: "Those products can be useful. They are a different job. Our job is infrastructure that reasons under the same discipline platform engineers already trust: diffs, risk, and an explicit approve step.",
+      },
+      {
+        type: "h2",
+        text: "Category, in one sentence each",
+      },
+      {
+        type: "ul",
+        items: [
+          "Kubernetes schedules containers.",
+          "Argo schedules workflows.",
+          "Operators reconcile state.",
+          "KPrompt reasons about infrastructure.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Reasoning here is not vibes. It is evidence → structured plan → policy → human gate → apply → observe again. The laptop path compiles natural language into a reviewable PlanResult. The in-cluster path starts with Observe: watch a namespace, correlate an Incident, notify Slack or a webhook — without silent mutate.",
+        links: [
+          {
+            label: "Intent compiler, not chat",
+            href: "/blog/intent-compiler-not-chat",
+          },
+          {
+            label: "Beyond AI kubectl → AI SRE",
+            href: "/blog/ai-sre-not-ai-kubectl",
+          },
+          { label: "Observe agent", href: "/docs/agent" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Runtime, not dashboard",
+      },
+      {
+        type: "p",
+        text: "Call it a runtime because the loop is the product:",
+      },
+      {
+        type: "code",
+        caption: "Trust loop",
+        code: `Observe → Reason → Plan → Validate → Approve → Execute → Learn`,
+      },
+      {
+        type: "p",
+        text: "You describe intent — you do not author a new workflow language. Sensitive operations still need TTY y/N or --approve. Wipe-class prompts hard-deny. Autopilot stays propose-only until gated policy says otherwise. Safety is a feature. Trust is the product.",
+        links: [
+          { label: "Safety model", href: "/docs/safety" },
+          { label: "PlanResult / CI", href: "/docs/ci" },
+        ],
+      },
+      {
+        type: "code",
+        caption: "What a mutate looks like today",
+        code: `$ kprompt "scale api to 10" -n payments
+
+Intent: scale
+Action: patch deployment/api replicas …
+Risk: medium — requires approval
+Apply? [y/N]`,
+      },
+      {
+        type: "h2",
+        text: "Distributed agents — honest shipping",
+      },
+      {
+        type: "p",
+        text: "A runtime that only lives on a laptop sleeps when your laptop sleeps. The Observe agent is the first in-cluster surface: namespace-scoped Role RBAC, watch → Incident → gated notify. Richer Namespace Agents (continuous intelligence, propose-first remediations) and a Coordinator (cross-namespace correlation, blast radius, shared knowledge) are the multi-agent shape of the runtime — clearly labeled building where they are not fully shipped.",
+        links: [
+          {
+            label: "Observe agent kind demo",
+            href: "/blog/observe-agent-kind-demo",
+          },
+          { label: "v0.5 Observe announcement", href: "/blog/kprompt-v0-5-observe-agent" },
+        ],
+      },
+      {
+        type: "table",
+        headers: ["Surface", "Status"],
+        rows: [
+          ["Plan → approve → apply CLI", "Shipped"],
+          ["investigate / why / timeline packs", "Shipped"],
+          ["Observe agent (notify-only)", "Shipped"],
+          ["Autopilot propose-only", "Shipped"],
+          ["Richer Namespace Agent intelligence", "Building"],
+          ["Coordinator cross-ns correlation", "Building"],
+          ["Knowledge Graph / Simulation", "Building"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Marketing a category without claiming vaporware is deliberate. Platform engineers smell hype. We would rather say “building” than pretend Autopilot already heals the fleet.",
+      },
+      {
+        type: "h2",
+        text: "Why this is how Kubernetes should evolve",
+      },
+      {
+        type: "p",
+        text: "Controllers reconcile. That is necessary and not enough. Recovery without understanding repeats the same outage. Execution without a reviewable plan is just faster risk. The next infrastructure layer should reason before it acts — and improve from the last incident — while humans keep the keys for sensitive changes.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Instead of dozens of YAML files for routine day-2 — describe intent",
+          "Instead of manually correlating logs and events — ask one question (or let Observe surface it)",
+          "Instead of waiting for the next page — reason continuously under approval",
+        ],
+      },
+      {
+        type: "p",
+        text: "If you leave this page thinking “another AI wrapper,” we failed. If you leave thinking “a new infrastructure layer with a refuse-able plan,” we are pointed the right way.",
+      },
+      {
+        type: "h2",
+        text: "Try it",
+      },
+      {
+        type: "code",
+        caption: "Install + plan before apply",
+        code: `curl -fsSL https://kprompt.ai/install | bash
+# or: brew install kprompt/tap/kprompt
+
+kprompt "scale api to 3" -n staging
+# review the plan, then y or --approve
+
+# optional: Observe on kind, zero LLM spend
+git clone https://github.com/kprompt/kprompt-examples.git
+cd kprompt-examples && make walkthrough`,
+      },
+      {
+        type: "p",
+        text: "Experimental on purpose. Prefer non-production first. Read every plan. Star the repo if the contract matches how you want Kubernetes AI to behave.",
+        links: [
+          { label: "Quickstart", href: "/docs/quickstart" },
+          { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
+          {
+            label: "Context engineering",
+            href: "/blog/context-engineering-not-prompt-engineering",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "context-engineering-not-prompt-engineering",
     title:
       "Prompt engineering is dead. Context engineering begins",

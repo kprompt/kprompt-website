@@ -6,6 +6,13 @@ import { cn } from "@/lib/utils";
 
 const GUIDES = [
   {
+    href: "/blog/ai-runtime-for-kubernetes",
+    kicker: "Positioning",
+    title: "The AI Runtime for Kubernetes",
+    blurb:
+      "Not another AI wrapper — observe, reason, plan, approve. Honest shipped vs building.",
+  },
+  {
     href: "/blog/what-is-kubernetes-ai",
     kicker: "Guide",
     title: "What is Kubernetes AI?",
@@ -39,13 +46,6 @@ const GUIDES = [
     title: "Fixing CrashLoopBackOff",
     blurb:
       "Read the exit code, get the logs of the container that actually died, then fix the real cause.",
-  },
-  {
-    href: "/blog/kubernetes-imagepullbackoff",
-    kicker: "Playbook",
-    title: "Fixing ImagePullBackOff",
-    blurb:
-      "The container never started — read Events, not logs, then fix the image reference.",
   },
 ] as const;
 

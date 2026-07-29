@@ -37,6 +37,7 @@
 - Long-term direction: continuous reasoning under the same approval DNA — see roadmap.
 
 ## High-signal articles
+- https://kprompt.ai/blog/ai-runtime-for-kubernetes
 - https://kprompt.ai/blog/context-engineering-not-prompt-engineering
 - https://kprompt.ai/blog/observe-agent-kind-demo
 - https://kprompt.ai/blog/kprompt-v0-5-observe-agent

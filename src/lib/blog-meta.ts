@@ -5,7 +5,7 @@ import type { BlogPost } from "@/lib/blog-posts";
 export function blogIndexMetadata(): Metadata {
   const url = `${SITE.url}/blog`;
   const description =
-    "Updates, design notes, and release news from the kprompt team — the open-source CLI for Kubernetes.";
+    "Updates, design notes, and release news from the kprompt team — The AI Runtime for Kubernetes.";
   return {
     title: "Blog",
     description,
