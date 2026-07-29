@@ -1150,7 +1150,7 @@ kprompt policy           # show cached policy`,
   providers: {
     title: "Providers",
     description:
-      "Bring your own LLM key: OpenAI, Anthropic, Gemini, Groq, Mistral, DeepSeek, OpenRouter, Together, local Ollama, or any OpenAI-compatible gateway.",
+      "Bring your own LLM key: OpenAI, Anthropic, Gemini, xAI (Grok), Groq, Mistral, DeepSeek, OpenRouter, Together, local Ollama, or any OpenAI-compatible gateway.",
     blocks: [
       {
         type: "p",
@@ -1187,6 +1187,12 @@ kprompt policy           # show cached policy`,
             "groq",
             "KPROMPT_GROQ_API_KEY / GROQ_API_KEY",
             "llama-3.3-70b-versatile",
+          ],
+          [
+            "xAI (Grok)",
+            "xai",
+            "KPROMPT_XAI_API_KEY / XAI_API_KEY",
+            "grok-4.5",
           ],
           [
             "Mistral",
@@ -1229,7 +1235,7 @@ kprompt policy           # show cached policy`,
       },
       {
         type: "p",
-        text: "Groq, Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, and Together all speak the OpenAI-compatible API. Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key at all, which makes it the zero-spend option for trying kprompt or running it in CI.",
+        text: "Groq, xAI (Grok), Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, and Together all speak the OpenAI-compatible API. Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key at all, which makes it the zero-spend option for trying kprompt or running it in CI.",
       },
       {
         type: "h2",
@@ -1258,6 +1264,9 @@ kprompt --provider anthropic "explain why api is crashing"
 
 export KPROMPT_GEMINI_API_KEY=...
 kprompt --provider gemini --model gemini-2.0-flash "deploy redis"
+
+export KPROMPT_XAI_API_KEY=...
+kprompt --provider xai "explain why api is crashlooping"
 
 export KPROMPT_MOONSHOT_API_KEY=...
 kprompt --provider moonshot "explain why api is crashlooping"
