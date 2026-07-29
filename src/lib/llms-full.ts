@@ -29,6 +29,7 @@ export const DOCS_FULL_INDEX = [
 }>;
 
 const HIGH_SIGNAL_SLUGS = [
+  "kprompt-vs-kagent",
   "kprompt-vs-ark",
   "ai-runtime-for-kubernetes",
   "context-engineering-not-prompt-engineering",
@@ -134,9 +135,10 @@ export function buildLlmsFullText(): string {
     "## Positioning (honest)",
     "",
     "- Category: AI Runtime for Kubernetes — observe, reason, plan, validate, approve, execute, learn.",
-    "- Not a ChatGPT wrapper, generic workflow engine, or Kubernetes chatbot.",
+    "- Not McKinsey ARK (Agentic Runtime): hosts agent apps as CRDs — https://kprompt.ai/blog/kprompt-vs-ark",
+    "- Not kagent (CNCF agent platform): Agents/MCP/A2A on K8s vs PlanResult ops — https://kprompt.ai/blog/kprompt-vs-kagent",
     "- Same NL-CLI lane as kubectl-ai for day-2 mutate; different mutate contract (plan → safety → approve) plus in-cluster Observe path.",
-    "- Not a K8sGPT fleet scanner; not a Kagent multi-agent framework; not a hosted Lens clone.",
+    "- Not a K8sGPT fleet scanner; not a hosted Lens clone.",
     "- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.",
     "- Autopilot (ADR-0015) is propose-only by default — never silent apply.",
     "- Building / next: richer Namespace Agents, Coordinator, Knowledge Graph, Simulation.",

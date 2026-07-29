@@ -6,6 +6,13 @@ import { cn } from "@/lib/utils";
 
 const GUIDES = [
   {
+    href: "/blog/kprompt-vs-kagent",
+    kicker: "Comparison",
+    title: "kprompt vs kagent",
+    blurb:
+      "CNCF agent platform on K8s vs PlanResult ops CLI + Observe. Overlapping SRE demos, different contracts.",
+  },
+  {
     href: "/blog/kprompt-vs-ark",
     kicker: "Comparison",
     title: "kprompt vs ARK",
@@ -18,13 +25,6 @@ const GUIDES = [
     title: "The AI Runtime for Kubernetes",
     blurb:
       "Not another AI wrapper — observe, reason, plan, approve. Honest shipped vs building.",
-  },
-  {
-    href: "/blog/what-is-kubernetes-ai",
-    kicker: "Guide",
-    title: "What is Kubernetes AI?",
-    blurb:
-      "Analyzers, intent CLIs, agents, copilots — which job you are actually buying.",
   },
   {
     href: "/blog/kubernetes-ai-tools-comparison",

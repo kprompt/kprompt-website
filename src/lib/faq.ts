@@ -24,6 +24,12 @@ export const FAQ: FaqEntry[] = [
     more: { label: "kprompt vs ARK", href: "/blog/kprompt-vs-ark" },
   },
   {
+    question: "How is kprompt different from kagent?",
+    answer:
+      "kagent (CNCF Sandbox) is a Kubernetes-native agent platform: Agents as CRDs, MCP tools, A2A, mesh, and BYO frameworks so you run agents on the cluster. kprompt is a plan-before-apply ops CLI plus an optional Observe notify pipeline — PlanResult is the product artifact, not a general Agent CRD control plane. Marketing can overlap on incident demos; the contracts do not.",
+    more: { label: "kprompt vs kagent", href: "/blog/kprompt-vs-kagent" },
+  },
+  {
     question: "Does kprompt apply changes to my cluster automatically?",
     answer:
       "No. Every mutating intent compiles into a PlanResult that lists the resources, diffs, and risk level before anything runs. On a TTY you confirm with y/N; in scripts you pass --approve explicitly. Wipe-class prompts are hard-denied instead of planned, and Autopilot is propose-only by default (ADR-0015) — it never applies silently. Trust loop: Reason → Plan → Validate → Approve → Execute → Observe → Learn.",
