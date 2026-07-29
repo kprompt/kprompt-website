@@ -14,7 +14,9 @@ Replace `ph-draft` with the scheduled launch date (e.g. `2026-08-05`) when you g
 
 Full form copy: architecture `PRODUCT-HUNT-DRAFT.md`.
 Gallery video: `kprompt-promo-16x9.mp4` (animated promo) · stills: `plan-demo.png`, `kprompt-observe-demo.gif`.
-Re-render: `python render_promo_v2.py` (see script in this folder).
+Re-render video: `.venv/bin/python render_promo_v2.py` (after `playwright install chromium`).
+Re-render OG PNGs: `.venv/bin/python rasterize_og.py`.
+Banners (SVG + PNG): `x-banner`, `linkedin-cover`, `linkedin-cover-wide`.
 
 ## X (@kpromptai)
 
