@@ -61,7 +61,7 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
       },
       {
         name: "Export an LLM API key",
-        text: "Export a provider key such as KPROMPT_GEMINI_API_KEY, or the OpenAI, Anthropic, Groq, Moonshot, or Ollama equivalent. Keys stay in environment variables on your machine (BYOK).",
+        text: "Export a provider key such as KPROMPT_GEMINI_API_KEY, or the OpenAI, Anthropic, Groq, xAI, Moonshot, or Ollama equivalent. Keys stay in environment variables on your machine (BYOK).",
       },
       {
         name: "Run your first prompts",

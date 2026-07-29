@@ -41,7 +41,7 @@ export const FAQ: FaqEntry[] = [
   {
     question: "Which LLM providers does kprompt support?",
     answer:
-      "OpenAI, Anthropic, Gemini, Groq, Moonshot (Kimi K3), and local models through Ollama, among others. You bring your own key, pick a provider and model with kprompt config set, and switch per command when you want a cheaper or stronger model for a given prompt.",
+      "OpenAI, Anthropic, Gemini, Groq, xAI (Grok), Moonshot (Kimi K3), and local models through Ollama, among others. You bring your own key, pick a provider and model with kprompt config set, and switch per command when you want a cheaper or stronger model for a given prompt.",
     more: { label: "Provider matrix", href: "/docs/providers" },
   },
   {

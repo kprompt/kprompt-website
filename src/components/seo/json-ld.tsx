@@ -60,7 +60,7 @@ export function JsonLd() {
         featureList: [
           "Natural language to reviewable Kubernetes plan",
           "Plan → safety checks → approve → apply",
-          "BYOK LLM providers (OpenAI, Anthropic, Gemini, Groq, Moonshot/Kimi, Ollama)",
+          "BYOK LLM providers (OpenAI, Anthropic, Gemini, Groq, xAI/Grok, Moonshot/Kimi, Ollama)",
           "CI-stable PlanResult JSON for pipeline gates",
           "Optional in-cluster Observe agent with gated notifications",
         ],
