@@ -1,51 +1,27 @@
-import {
-  MessageSquare,
-  ListChecks,
-  ShieldCheck,
-  ScrollText,
-  KeyRound,
-  Radar,
-} from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 
-const FEATURES = [
-  {
-    icon: MessageSquare,
-    title: "Natural language",
-    description:
-      "Ask for workload changes, troubleshooting, charts, workflows, and performance in plain English.",
-  },
-  {
-    icon: ListChecks,
-    title: "Plan before apply",
-    description:
-      "Intent becomes a concrete execution plan with live before/after diffs when the resource already exists.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Safety + approval",
-    description:
-      "Risk evaluation and hard denies for wipe-class prompts. Mutating plans need TTY y/N or --approve.",
-  },
-  {
-    icon: Radar,
-    title: "Observe agent",
-    description:
-      "Optional in-cluster watch → Incident → gated Slack/webhook. Namespace Role RBAC. Autopilot stays propose-only.",
-  },
-  {
-    icon: ScrollText,
-    title: "Operator-friendly output",
-    description:
-      "Local history, CI-stable JSON, tool discovery, and auto, Dracula, Nord, Gruvbox, mono, or plain themes.",
-  },
-  {
-    icon: KeyRound,
-    title: "BYOK models",
-    description:
-      "OpenAI, Anthropic, Gemini, Groq, xAI (Grok), Ollama, Moonshot (Kimi K3), and more. Keys stay in env vars — never in config.yaml.",
-  },
-] as const;
+type Capability = {
+  title: string;
+  status: "shipped" | "building";
+};
+
+const CAPABILITIES: Capability[] = [
+  { title: "Continuous Cluster Observation", status: "shipped" },
+  { title: "AI Planning Engine", status: "shipped" },
+  { title: "Execution Graph", status: "shipped" },
+  { title: "Namespace Agents", status: "shipped" },
+  { title: "Coordinator Agent", status: "building" },
+  { title: "Policy Engine", status: "shipped" },
+  { title: "Knowledge Graph", status: "building" },
+  { title: "Incident Memory", status: "building" },
+  { title: "Automatic RCA", status: "shipped" },
+  { title: "Slack Integration", status: "shipped" },
+  { title: "GitHub Integration", status: "building" },
+  { title: "Approval Workflow", status: "shipped" },
+  { title: "Cost Intelligence", status: "building" },
+  { title: "Simulation", status: "building" },
+  { title: "Cluster Explainability", status: "shipped" },
+];
 
 export function Features() {
   return (
@@ -53,27 +29,29 @@ export function Features() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            Built for real cluster work.
+            Capabilities
           </h2>
           <p className="mt-3 text-muted-foreground">
-            What ships today in the Apache-2.0 CLI — not a wishlist.
+            Runtime surfaces — shipped today, or clearly marked as building.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((feature, i) => (
-            <Reveal key={feature.title} delay={i * 0.05}>
-              <div className="group">
-                <feature.icon
-                  className="mb-4 size-5 text-brand transition-colors group-hover:text-bright"
-                  strokeWidth={1.75}
-                />
-                <h3 className="font-heading text-base font-semibold tracking-tight">
-                  {feature.title}
+        <div className="mt-12 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+          {CAPABILITIES.map((cap, i) => (
+            <Reveal key={cap.title} delay={i * 0.03}>
+              <div className="flex items-baseline justify-between gap-3 border-t border-border/70 pt-4">
+                <h3 className="font-heading text-sm font-semibold tracking-tight">
+                  {cap.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                  {feature.description}
-                </p>
+                <span
+                  className={
+                    cap.status === "shipped"
+                      ? "shrink-0 font-mono text-[10px] uppercase tracking-wider text-brand"
+                      : "shrink-0 font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
+                  }
+                >
+                  {cap.status === "shipped" ? "Shipped" : "Building"}
+                </span>
               </div>
             </Reveal>
           ))}

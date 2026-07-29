@@ -24,7 +24,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
   overview: {
     title: "Overview",
     description:
-      "kprompt is an experimental open-source CLI that turns natural language into a reviewable Kubernetes plan, then applies with approval.",
+      "kprompt is The AI Runtime for Kubernetes — observe, reason, plan safe actions, and apply only after approval. Experimental open-source CLI + optional Observe agent.",
     blocks: [
       {
         type: "h2",
@@ -36,11 +36,11 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "Talk to your cluster from the terminal you already use. kprompt uses your kubeconfig and your LLM API keys (BYOK). Mutations always produce a plan; risk checks and hard denies run before apply.",
+        text: "The AI Runtime for Kubernetes. kprompt uses your kubeconfig and your LLM API keys (BYOK). Mutations always produce a plan; risk checks and hard denies run before apply. Optional in-cluster Observe agent watches a namespace and notifies — it does not silently mutate.",
       },
       {
         type: "p",
-        text: "Visual map of the intent compiler, AI SRE CLI packs, and Observe agent: Architecture.",
+        text: "Visual map of the AI Runtime pipeline, PlanResult contract, AI SRE CLI packs, and Observe agent: Architecture.",
         links: [{ label: "Architecture", href: "/docs/architecture" }],
       },
       {
@@ -50,10 +50,11 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       {
         type: "ul",
         items: [
-          "Apache-2.0 CLI for day-2 Kubernetes ops",
-          "Plan → safety → approve → apply loop",
+          "AI Runtime for Kubernetes — reasoning layer over live cluster state",
+          "Apache-2.0 CLI: Plan → safety → approve → apply loop",
           "Deploy, scale, rollback, named delete",
           "Deep read path: get/list, explain, logs, describe",
+          "AI SRE packs: investigate / why / timeline / impact",
           "Helm, Argo Workflows, Prometheus, OpenTelemetry, Grafana",
           "Tekton, KEDA, Istio (read-first), Crossplane, Flux/Argo CD GitOps",
           "Optimize reports, service dependency graphs, multi-tool routes",
@@ -68,8 +69,10 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       {
         type: "ul",
         items: [
+          "Not a ChatGPT wrapper, generic workflow engine, or Kubernetes chatbot",
           "Not production-hardened or stability-guaranteed",
           "Not Autopilot-by-default — optional agent is Observe; Autopilot MVP is propose-only (ADR-0015)",
+          "Not a fully shipped Knowledge Graph / Simulation product — those are building",
           "Not a Kagent-class multi-agent framework or a K8sGPT fleet scanner",
           "Not a replacement for Helm, Argo, Prometheus, kubectl, or operator review",
           "Not a Lens/Headlamp replacement — optional local read-only inventory is kprompt-dash (localhost only)",
@@ -80,7 +83,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "Where we are headed (AI SRE investigate, trust loops, multi-cluster) is documented honestly on Roadmap & vision — shipped vs building vs exploring. Multi-context CLI docs: Multi-cluster. Observe agent install: Observe agent.",
+        text: "Where we are headed (Namespace Agents, Coordinator, knowledge graph, trust loops, multi-cluster) is documented honestly on Roadmap & vision — shipped vs building vs exploring. Multi-context CLI docs: Multi-cluster. Observe agent install: Observe agent.",
         links: [
           { label: "Roadmap & vision", href: "/docs/roadmap" },
           { label: "Multi-cluster", href: "/docs/multi-cluster" },
@@ -1408,11 +1411,19 @@ echo "$json" | jq -e '.risk.level != "high"'`,
   architecture: {
     title: "Architecture",
     description:
-      "How kprompt works: intent compiler pipeline, AI SRE CLI vs Observe agent, modes, and honesty boundaries — in diagrams.",
+      "How kprompt works as an AI Runtime: planning pipeline, PlanResult contract, AI SRE CLI vs Observe agent, modes, and honesty boundaries — in diagrams.",
     blocks: [
       {
         type: "h2",
-        text: "Intent compiler",
+        text: "AI Runtime",
+      },
+      {
+        type: "p",
+        text: "Developer → Natural Language → Planning Engine → Execution Graph → Policy Validation → Kubernetes → Continuous Observation → Learning. kprompt is a runtime over live cluster state — not a dashboard, not a workflow product, and not a free-form chat REPL.",
+      },
+      {
+        type: "h2",
+        text: "PlanResult contract",
       },
       {
         type: "p",
@@ -1445,7 +1456,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
           "CLI — PlanResult after approve",
           "Observe — Incident/AgentAlert; never mutates",
           "Namespace Agent — InvestigationReport v2; propose-first",
-          "Coordinator — cross-ns handoff; mutate off by default",
+          "Coordinator — cross-ns handoff; mutate off by default (building)",
           "Autopilot — allowlisted propose; apply only with policyAuto",
         ],
       },
@@ -1457,9 +1468,11 @@ echo "$json" | jq -e '.risk.level != "high"'`,
         type: "ul",
         items: [
           "No silent LLM-said-so remediations",
+          "No “AI automatically fixes everything” claims",
           "No cluster-wide god-mode SA on every namespace agent",
           "Missing Prom/OTel/GitOps backends degrade — not invented",
           "Memory/patterns are not sole proof of root cause",
+          "Knowledge Graph / Simulation labeled building until shipped",
           "Not K8sGPT fleet scanner or Kagent multi-agent parity",
         ],
       },
@@ -1468,11 +1481,11 @@ echo "$json" | jq -e '.risk.level != "high"'`,
   agent: {
     title: "Observe agent",
     description:
-      "Optional namespace-scoped Observe Mode agent (v0.5): Helm/Operator, Role RBAC, memory & patterns. Autopilot is propose-only (ADR-0015).",
+      "Optional namespace-scoped runtime agent (v0.5): Helm/Operator, Role RBAC, memory & patterns. First in-cluster surface of the AI Runtime. Autopilot is propose-only (ADR-0015).",
     blocks: [
       {
         type: "p",
-        text: "Shipped in kprompt v0.5. The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook.",
+        text: "Shipped in kprompt v0.5. The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent — the first AI Runtime surface inside Kubernetes — that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook. Richer Namespace Agent intelligence and Coordinator cross-namespace correlation are building.",
         links: [
           {
             label: "docs/agent.md",
@@ -1494,7 +1507,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
       {
         type: "p",
-        text: "Pipeline and AI SRE dual-path diagrams: Architecture.",
+        text: "Pipeline and AI Runtime dual-path diagrams: Architecture.",
         links: [{ label: "Architecture", href: "/docs/architecture" }],
       },
       {
@@ -1649,7 +1662,7 @@ kprompt agent run -n payments --analyze --health --heuristic`,
   roadmap: {
     title: "Roadmap & vision",
     description:
-      "Where kprompt is headed: AI SRE investigation, trust loops, multi-cluster, and what stays out of scope. Honest shipped vs exploring.",
+      "Where kprompt is headed as an AI Runtime for Kubernetes: agents, trust loops, multi-cluster, and what stays out of scope. Honest shipped vs exploring.",
     blocks: [
       {
         type: "h2",
@@ -1657,7 +1670,7 @@ kprompt agent run -n payments --analyze --health --heuristic`,
       },
       {
         type: "p",
-        text: "kprompt is an intent compiler today: natural language → reviewable PlanResult → approve → apply. The long-term bet is AI SRE — thinking about the cluster (investigate, why, timeline, blast radius, verify) while keeping the same approval contract. Not a free-form chat REPL, not a silent analyzer daemon, not a hosted fleet scanner. Read Building AI SRE in Public, Intent compiler, not chat, Context engineering, Kubernetes AI tools compared, and Beyond AI kubectl for public positioning.",
+        text: "kprompt is The AI Runtime for Kubernetes. Today the laptop path is an intent compiler: natural language → reviewable PlanResult → approve → apply. The in-cluster path starts with Observe (watch → Incident → notify). The long-term bet is continuous reasoning — Namespace Agents, Coordinator correlation, knowledge graph / incident memory — while keeping the same approval contract. Not a free-form chat REPL, not a silent analyzer daemon, not a hosted fleet scanner. Read Building AI SRE in Public, Intent compiler, not chat, Context engineering, Kubernetes AI tools compared, and Beyond AI kubectl for public positioning.",
         links: [
           {
             label: "Building AI SRE in Public",

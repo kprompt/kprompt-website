@@ -13,9 +13,9 @@ export const SITE = {
   releases: "https://github.com/kprompt/kprompt/releases",
   /** Canonical site URL used for metadata, OG, and install CTA. */
   url: LIVE_ORIGIN,
-  tagline: "Talk to Your Cluster.",
+  tagline: "The AI Runtime for Kubernetes",
   description:
-    "Open-source Kubernetes CLI: natural language → reviewable plans → approve before apply. Optional Observe agent (Helm) for always-on namespace alerts — Autopilot stays propose-only.",
+    "The AI Runtime for Kubernetes — observe your cluster, reason about what's happening, plan safe actions, execute with approval, and continuously improve. Open-source CLI + optional Observe agent. Experimental.",
   github: "https://github.com/kprompt/kprompt",
   /** Product account on X. */
   twitter: "https://x.com/kpromptai",
@@ -60,15 +60,15 @@ export const NAV_LINKS = [
 ] as const;
 
 export const NORTH_STAR_PROMPTS = [
-  'kprompt "deploy my app"',
+  "kprompt run",
   'kprompt "why is production slow"',
   'kprompt "optimize my cluster"',
-  'kprompt agent run -n payments --health --heuristic',
+  "kprompt agent run -n payments --health --heuristic",
 ] as const;
 
 /** Homepage teaser only — full detail on /docs/roadmap. */
 export const ROADMAP_TEASER = {
-  lead: "Intent compiler on your laptop. Optional Observe agent in-cluster. Still plan → approve → apply — never a silent healer by default.",
+  lead: "AI Runtime for Kubernetes: plan-gated CLI today, optional Observe agent in-cluster, Namespace Agents and Coordinator next — still Reason → Plan → Validate → Approve → Execute. Never a silent healer by default.",
   pillars: [
     {
       label: "Now",
@@ -78,15 +78,15 @@ export const ROADMAP_TEASER = {
     },
     {
       label: "Next",
-      title: "Trust & remediate",
+      title: "Trust & agents",
       blurb:
-        "Deeper audit harden, drift, GitOps PR mode, Autopilot proposal → human apply bridge.",
+        "Richer Namespace Agents, Coordinator correlation, knowledge graph / incident memory, Autopilot proposal → human apply bridge.",
     },
     {
       label: "Later",
       title: "Slack, PolicyAuto & fleet",
       blurb:
-        "Bidirectional Slack ask (status / why) on Observe, Autopilot apply behind ADR-0015 gates, multi-cluster fan-out without uploading kubeconfig, Team Insights polish.",
+        "Bidirectional Slack ask on Observe, Autopilot apply behind ADR-0015 gates, multi-cluster fan-out without uploading kubeconfig, Team Insights polish.",
     },
   ],
 } as const;
@@ -95,5 +95,5 @@ export const INSTALL_STEPS = [
   "Install the CLI",
   "Configure defaults",
   "Set an LLM API key",
-  "Prompt your cluster",
+  "Describe intent — review the plan",
 ] as const;

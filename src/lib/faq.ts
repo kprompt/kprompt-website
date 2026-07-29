@@ -12,21 +12,27 @@ export type FaqEntry = {
 
 export const FAQ: FaqEntry[] = [
   {
+    question: "What is kprompt?",
+    answer:
+      "kprompt is the AI Runtime for Kubernetes: a reasoning layer that observes your cluster, plans safe actions, and executes only after approval. The open-source CLI compiles natural language into a reviewable PlanResult; the optional Observe agent watches a namespace and notifies without mutating. It is not a ChatGPT wrapper, a workflow engine, or a silent auto-healer.",
+    more: { label: "Architecture", href: "/docs/architecture" },
+  },
+  {
     question: "Does kprompt apply changes to my cluster automatically?",
     answer:
-      "No. Every mutating intent compiles into a PlanResult that lists the resources, diffs, and risk level before anything runs. On a TTY you confirm with y/N; in scripts you pass --approve explicitly. Wipe-class prompts are hard-denied instead of planned, and Autopilot is propose-only by default (ADR-0015) — it never applies silently.",
+      "No. Every mutating intent compiles into a PlanResult that lists the resources, diffs, and risk level before anything runs. On a TTY you confirm with y/N; in scripts you pass --approve explicitly. Wipe-class prompts are hard-denied instead of planned, and Autopilot is propose-only by default (ADR-0015) — it never applies silently. Trust loop: Reason → Plan → Validate → Approve → Execute → Observe → Learn.",
     more: { label: "Safety model", href: "/docs/safety" },
   },
   {
     question: "How is kprompt different from kubectl-ai?",
     answer:
-      "Both turn natural language into Kubernetes actions from the terminal. The difference is the mutate contract: kprompt always compiles intent into a reviewable plan with diffs and a risk verdict, runs a safety engine with hard denies, and emits CI-stable PlanResult JSON you can gate a pipeline on. It is an intent compiler with an approval boundary rather than a chat loop that executes.",
+      "Both turn natural language into Kubernetes actions from the terminal. The difference is the contract: kprompt is an AI Runtime with a reviewable plan, safety engine, hard denies, and CI-stable PlanResult JSON — plus an optional in-cluster Observe path. It is not competing as a chat REPL for kubectl fluency.",
     more: { label: "kprompt vs kubectl-ai", href: "/blog/kprompt-vs-kubectl-ai" },
   },
   {
     question: "Should I replace kubectl or K9s with kprompt?",
     answer:
-      "No. kubectl remains the precise API client and scripting language; K9s remains the best live terminal UI for watching rollouts and hopping between Pods. kprompt sits beside them when the bottleneck is translating intent into a reviewable plan — not when you need exact flags or a resource browser.",
+      "No. kubectl remains the precise API client and scripting language; K9s remains the best live terminal UI for watching rollouts and hopping between Pods. kprompt sits beside them when the bottleneck is reasoning about intent and evidence — not when you need exact flags or a resource browser.",
     more: {
       label: "kubectl vs K9s and alternatives",
       href: "/blog/kubectl-alternatives",
@@ -53,7 +59,7 @@ export const FAQ: FaqEntry[] = [
   {
     question: "What does the Observe agent actually do?",
     answer:
-      "The optional Observe agent (installed with Helm) watches a namespace, turns anomalies into an Incident, and sends gated Slack or webhook notifications. It runs with namespace-scoped Role RBAC and does not mutate your cluster — it is an observer, not a self-healer.",
+      "The optional Observe agent (installed with Helm) is the first in-cluster runtime surface: it watches a namespace, turns anomalies into an Incident, and sends gated Slack or webhook notifications. It runs with namespace-scoped Role RBAC and does not mutate your cluster — it is an observer, not a self-healer. Richer Namespace Agents and a Coordinator for cross-namespace correlation are on the roadmap.",
     more: { label: "Observe agent docs", href: "/docs/agent" },
   },
   {

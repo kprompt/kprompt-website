@@ -10,6 +10,14 @@ import { Logo } from "@/components/ui/logo";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
+const SUBHEAD_LINES = [
+  "Observe your cluster.",
+  "Reason about what's happening.",
+  "Plan safe actions.",
+  "Execute with confidence.",
+  "Continuously improve.",
+] as const;
+
 export function Hero() {
   const reduced = useReducedMotion();
 
@@ -33,15 +41,21 @@ export function Hero() {
           <p className="mt-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">
             <span className="text-brand">{SITE.maturityLabel}</span>
             <span className="mx-2 text-border">·</span>
-            Review every plan before apply
+            Reason · Plan · Validate · Approve · Execute
           </p>
           <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl md:leading-[1.05]">
-            Talk to Your Cluster.
+            The AI Runtime for Kubernetes
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Natural language becomes a reviewable plan — then you approve before
-            anything touches Kubernetes. Early software: prefer non-production
-            clusters until you trust the workflow.
+            {SUBHEAD_LINES.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </p>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
+            Describe intent — not workflows. KPrompt creates the plan. Sensitive
+            operations still need your approval.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -49,24 +63,24 @@ export function Hero() {
               href={SITE.getStarted}
               className={cn(buttonVariants({ size: "lg" }))}
             >
-              Get Started
+              Start Free
               <ArrowRight className="size-4" />
-            </a>
-            <a
-              href={SITE.docs}
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
-            >
-              <BookOpen className="size-4" />
-              Docs
             </a>
             <a
               href={SITE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
               <GithubIcon className="size-4" />
               GitHub
+            </a>
+            <a
+              href={SITE.docs}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+            >
+              <BookOpen className="size-4" />
+              Documentation
             </a>
           </div>
 

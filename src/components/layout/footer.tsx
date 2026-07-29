@@ -11,8 +11,8 @@ export function Footer() {
         <div className="max-w-sm">
           <Logo size={28} />
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Natural language interface for Kubernetes. Open source. Built for
-            operators and platform teams.
+            The AI Runtime for Kubernetes. Open source. Built for operators and
+            platform teams.
           </p>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground/90">
             <span className="font-medium text-foreground/80">{SITE.maturityLabel}.</span>{" "}
@@ -45,7 +45,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href={SITE.getStarted} className="hover:text-foreground">
-                  Get Started
+                  Start Free
                 </Link>
               </li>
               <li>

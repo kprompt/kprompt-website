@@ -6,23 +6,33 @@ import { Reveal } from "@/components/ui/reveal";
 const STEPS = [
   {
     step: "01",
-    title: "Prompt",
-    description: "Describe the cluster change or query in plain English.",
+    title: "Intent",
+    description:
+      "Describe the goal in plain English — or let an agent observe continuously. You are not writing workflows.",
   },
   {
     step: "02",
     title: "Plan",
-    description: "LLM maps intent to concrete actions; live diffs when possible.",
+    description:
+      "Planning engine maps intent to a concrete execution graph with diffs and risk.",
   },
   {
     step: "03",
-    title: "Safety",
-    description: "Risk level and hard denies (wipes, namespace deletes) run first.",
+    title: "Validate",
+    description:
+      "Policy and safety hard-denies run before anything touches the cluster.",
   },
   {
     step: "04",
-    title: "Apply",
-    description: "You approve on a TTY (or --approve). Optional --wait for rollouts.",
+    title: "Approve",
+    description:
+      "Sensitive operations need TTY y/N or --approve. Trust is the product.",
+  },
+  {
+    step: "05",
+    title: "Execute",
+    description:
+      "Apply against live Kubernetes. Then observe outcomes and learn.",
   },
 ] as const;
 
@@ -30,9 +40,9 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="relative scroll-mt-20 border-y border-border bg-muted/60 py-20 sm:py-28"
+      className="relative scroll-mt-20 py-20 sm:py-28"
     >
-      <div className="pointer-events-none absolute inset-0 bg-glow opacity-40" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 bg-glow opacity-30" aria-hidden />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
@@ -40,15 +50,19 @@ export function HowItWorks() {
             How it works
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Prompt in. Plan out. Apply with control — on your laptop, against your kubeconfig.
+            Reason before act. Plan before apply. Never silent mutate by
+            default.
           </p>
         </Reveal>
 
-        <div className="mt-12 flex flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-3">
+        <div className="mt-12 flex flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-2">
           {STEPS.map((item, i) => (
-            <div key={item.title} className="flex flex-1 flex-col lg:flex-row lg:items-stretch">
-              <Reveal delay={i * 0.08} className="flex-1">
-                <div className="h-full border-t border-border/80 pt-5 lg:border-t-0 lg:border-l lg:pl-5 lg:pt-0">
+            <div
+              key={item.title}
+              className="flex flex-1 flex-col lg:flex-row lg:items-stretch"
+            >
+              <Reveal delay={i * 0.06} className="flex-1">
+                <div className="h-full border-t border-border/80 pt-5 lg:border-t-0 lg:border-l lg:pl-4 lg:pt-0">
                   <p className="font-mono text-xs text-brand">{item.step}</p>
                   <h3 className="mt-3 font-heading text-lg font-semibold tracking-tight">
                     {item.title}
@@ -61,7 +75,7 @@ export function HowItWorks() {
 
               {i < STEPS.length - 1 && (
                 <div
-                  className="flex items-center justify-center py-2 text-muted-foreground/60 lg:px-1 lg:py-0"
+                  className="flex items-center justify-center py-2 text-muted-foreground/60 lg:px-0.5 lg:py-0"
                   aria-hidden
                 >
                   <ArrowDown className="size-4 lg:rotate-[-90deg]" />

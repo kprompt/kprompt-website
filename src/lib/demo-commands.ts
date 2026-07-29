@@ -7,6 +7,18 @@ export type DemoCommand = {
 /** First entry is what visitors see when the page opens. */
 export const HERO_DEMOS: DemoCommand[] = [
   {
+    id: "runtime-run",
+    command: "kprompt run",
+    lines: [
+      "Investigate why checkout namespace has elevated latency.",
+      "Identify the root cause.",
+      "Rollback only if required.",
+      "Notify Slack.",
+      "Generate RCA.",
+      "Done.",
+    ],
+  },
+  {
     id: "scale-plan",
     command: 'kprompt "scale api to 3"',
     lines: [
@@ -212,7 +224,7 @@ export const CLI_DEMO_OUTPUT: Record<string, string[]> = {
   ],
   'kprompt "scale api to 10" -o json': [
     "PlanResult schemaVersion=1",
-    'intent=scale  risk.level=medium',
+    "intent=scale  risk.level=medium",
     "applied=false  (stdout is JSON only)",
   ],
 };

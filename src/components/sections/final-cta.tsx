@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
+import { GithubIcon } from "@/components/ui/github-icon";
 import { INSTALL_STEPS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -18,13 +19,12 @@ export function FinalCta() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
-            Ready to talk to your cluster?
+            Bring reasoning to your cluster
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Install, run{" "}
-            <span className="font-mono text-sm text-foreground">kprompt config</span>
-            , set an API key, then prompt your cluster. Experimental —
-            review every plan; prefer non-production first.
+            Install the open-source runtime CLI. Describe intent. Review every
+            plan. Prefer non-production first — {SITE.maturityLabel.toLowerCase()}{" "}
+            software.
           </p>
 
           <CopyCommand className="mx-auto mt-8 w-full max-w-xl text-left" size="lg" />
@@ -44,27 +44,28 @@ export function FinalCta() {
           </ol>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href={SITE.getStarted}
+              className={cn(buttonVariants({ size: "lg" }))}
+            >
+              Start Free
+              <ArrowRight className="size-4" />
+            </Link>
             <a
               href={SITE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ size: "lg" }))}
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
-              View on GitHub
-              <ArrowRight className="size-4" />
+              <GithubIcon className="size-4" />
+              GitHub
             </a>
             <Link
               href={SITE.docs}
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
-            >
-              <BookOpen className="size-4" />
-              Read the docs
-            </Link>
-            <Link
-              href="/#usage"
               className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
             >
-              Usage guide
+              <BookOpen className="size-4" />
+              Documentation
             </Link>
           </div>
         </Reveal>

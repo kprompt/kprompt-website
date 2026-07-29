@@ -1,19 +1,33 @@
-import { Check, X } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 
-const TRADITIONAL = [
-  "Hand-write YAML for routine changes",
-  "Memorize kubectl flags under pressure",
-  "Guess risk from a long diff alone",
-  "No shared trail of who applied what locally",
+const WHY = [
+  {
+    instead: "Instead of dozens of YAML files,",
+    then: "describe your intent.",
+  },
+  {
+    instead: "Instead of manually correlating logs,",
+    then: "ask one question.",
+  },
+  {
+    instead: "Instead of reacting,",
+    then: "reason continuously.",
+  },
 ] as const;
 
-const KPROMPT = [
-  "Describe the change; get a concrete plan",
-  "Review diffs and risk before apply",
-  "Hard denies for wipe-class prompts",
-  "History + JSON PlanResult for CI gates",
-  "Same loop for optimize, graphs, and day-2 tools",
+const PHILOSOPHY = [
+  {
+    notOnly: "Infrastructure should not only reconcile.",
+    should: "It should reason.",
+  },
+  {
+    notOnly: "Infrastructure should not only execute.",
+    should: "It should understand.",
+  },
+  {
+    notOnly: "Infrastructure should not only recover.",
+    should: "It should improve.",
+  },
 ] as const;
 
 export function WhyKprompt() {
@@ -22,58 +36,41 @@ export function WhyKprompt() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            Why kprompt
+            Why KPrompt
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Less ceremony. More reviewable cluster control.
+            A new infrastructure layer — not another AI wrapper.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-2 md:gap-12">
-          <Reveal>
-            <div>
-              <h3 className="font-heading text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                Traditional Kubernetes
-              </h3>
-              <ul className="mt-6 space-y-3">
-                {TRADITIONAL.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-3 text-sm text-muted-foreground"
-                  >
-                    <X
-                      className="mt-0.5 size-4 shrink-0 text-muted-foreground/55"
-                      strokeWidth={1.75}
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <div>
-              <h3 className="font-heading text-sm font-medium uppercase tracking-wider text-brand">
-                kprompt
-              </h3>
-              <ul className="mt-6 space-y-3">
-                {KPROMPT.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-3 text-sm text-foreground"
-                  >
-                    <Check
-                      className="mt-0.5 size-4 shrink-0 text-brand"
-                      strokeWidth={1.75}
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
+        <div className="mt-12 space-y-6">
+          {WHY.map((item, i) => (
+            <Reveal key={item.then} delay={i * 0.05}>
+              <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+                {item.instead}{" "}
+                <span className="font-heading font-semibold text-foreground">
+                  {item.then}
+                </span>
+              </p>
+            </Reveal>
+          ))}
         </div>
+
+        <Reveal delay={0.2} className="mt-20 max-w-2xl">
+          <p className="font-mono text-xs uppercase tracking-wider text-brand">
+            Philosophy
+          </p>
+          <div className="mt-6 space-y-8">
+            {PHILOSOPHY.map((item) => (
+              <div key={item.should}>
+                <p className="text-muted-foreground">{item.notOnly}</p>
+                <p className="mt-1 font-heading text-xl font-semibold tracking-tight sm:text-2xl">
+                  {item.should}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

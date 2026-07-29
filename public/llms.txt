@@ -2,7 +2,7 @@
 # Guidance for AI assistants and crawlers about kprompt.
 # Full docs dump: https://kprompt.ai/llms-full.txt
 
-> kprompt is an open-source AI Kubernetes CLI: natural language compiles into a reviewable PlanResult, then you approve before apply. Apache-2.0. Experimental. Local kubeconfig + BYOK — no cluster credentials uploaded to a control plane by default. Optional Observe agent (v0.5) for always-on namespace alerts.
+> kprompt is The AI Runtime for Kubernetes: observe → reason → plan → validate → approve → execute → learn. Open-source CLI compiles natural language into a reviewable PlanResult; optional Observe agent for always-on namespace alerts. Apache-2.0. Experimental. Local kubeconfig + BYOK — no cluster credentials uploaded by default. Never silent auto-heal.
 
 ## Product
 - Site: https://kprompt.ai
@@ -28,11 +28,13 @@
 - Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.7.0
 
 ## Positioning (honest)
-- Same NL-CLI lane as kubectl-ai; different mutate contract (plan → safety → approve).
+- Category: AI Runtime for Kubernetes — not a ChatGPT wrapper, not a generic workflow engine, not a Kubernetes chatbot.
+- Same NL-CLI lane as kubectl-ai for day-2 mutate; different contract (plan → safety → approve) plus in-cluster Observe path.
 - Not a K8sGPT fleet scanner; not a Kagent multi-agent framework; not a hosted Lens clone.
 - Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.
 - Autopilot (ADR-0015) is propose-only by default — never silent apply.
-- Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.
+- Building / next: richer Namespace Agents, Coordinator, Knowledge Graph, Simulation — do not claim as fully shipped.
+- Long-term direction: continuous reasoning under the same approval DNA — see roadmap.
 
 ## High-signal articles
 - https://kprompt.ai/blog/context-engineering-not-prompt-engineering

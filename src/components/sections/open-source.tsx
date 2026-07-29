@@ -13,10 +13,11 @@ export function OpenSource() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            Open source by design
+            Open source runtime
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Star the repo. Break a kind cluster on purpose. Shape the roadmap.
+            Apache-2.0 CLI and Observe agent. Star the repo. Break a kind
+            cluster on purpose. Shape how Kubernetes should evolve.
           </p>
 
           <div className="mt-8 overflow-hidden rounded-xl border border-border/80 bg-[#0b1220] shadow-sm">

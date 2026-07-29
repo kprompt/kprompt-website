@@ -19,12 +19,12 @@ function readPreference(): ThemePreference {
   } catch {
     /* ignore */
   }
-  return "system";
+  return "dark";
 }
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const [preference, setPreference] = useState<ThemePreference>("system");
-  const [resolved, setResolved] = useState<"light" | "dark">("light");
+  const [preference, setPreference] = useState<ThemePreference>("dark");
+  const [resolved, setResolved] = useState<"light" | "dark">("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

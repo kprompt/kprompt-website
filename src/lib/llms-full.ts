@@ -4,7 +4,7 @@ import { FAQ } from "@/lib/faq";
 import { getPostBySlug } from "@/lib/blog-posts";
 
 /** Bump when docs copy changes so sitemap / TechArticle stay fresh. */
-export const DOCS_CONTENT_UPDATED_AT = "2026-07-27";
+export const DOCS_CONTENT_UPDATED_AT = "2026-07-29";
 
 /** Docs pages in canonical nav order, keyed for DOCS_PAGES lookup. */
 export const DOCS_FULL_INDEX = [
@@ -131,12 +131,15 @@ export function buildLlmsFullText(): string {
     "",
     "## Positioning (honest)",
     "",
-    "- Same NL-CLI lane as kubectl-ai; different mutate contract (plan → safety → approve).",
+    "- Category: AI Runtime for Kubernetes — observe, reason, plan, validate, approve, execute, learn.",
+    "- Not a ChatGPT wrapper, generic workflow engine, or Kubernetes chatbot.",
+    "- Same NL-CLI lane as kubectl-ai for day-2 mutate; different mutate contract (plan → safety → approve) plus in-cluster Observe path.",
     "- Not a K8sGPT fleet scanner; not a Kagent multi-agent framework; not a hosted Lens clone.",
     "- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.",
     "- Autopilot (ADR-0015) is propose-only by default — never silent apply.",
-    "- Architecture diagrams: intent compiler + AI SRE dual path + Observe pipeline — /docs/architecture.",
-    "- Long-term direction: AI SRE (investigate / why / timeline) still under approval — see roadmap.",
+    "- Building / next: richer Namespace Agents, Coordinator, Knowledge Graph, Simulation.",
+    "- Architecture diagrams: AI Runtime pipeline + PlanResult contract + dual path — /docs/architecture.",
+    "- Long-term direction: continuous reasoning under the same approval DNA — see roadmap.",
     "",
     "## FAQ",
     "",

@@ -200,16 +200,14 @@
 
   .bg-glow {
     background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgb(37 99 235 / 16%), transparent 55%),
-      radial-gradient(ellipse 40% 30% at 85% 10%, rgb(124 58 237 / 10%), transparent 50%),
-      radial-gradient(ellipse 35% 25% at 15% 20%, rgb(79 70 229 / 8%), transparent 45%);
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgb(37 99 235 / 14%), transparent 55%),
+      radial-gradient(ellipse 45% 28% at 90% 8%, rgb(37 99 235 / 6%), transparent 50%);
   }
 
   .dark .bg-glow {
     background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgb(59 130 246 / 18%), transparent 55%),
-      radial-gradient(ellipse 40% 30% at 85% 10%, rgb(124 58 237 / 14%), transparent 50%),
-      radial-gradient(ellipse 35% 25% at 15% 20%, rgb(99 102 241 / 12%), transparent 45%);
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgb(59 130 246 / 16%), transparent 55%),
+      radial-gradient(ellipse 45% 28% at 90% 8%, rgb(96 165 250 / 8%), transparent 50%);
   }
 
   .glass {
