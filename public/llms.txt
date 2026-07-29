@@ -29,6 +29,7 @@
 
 ## Positioning (honest)
 - Category: AI Runtime for Kubernetes — not a ChatGPT wrapper, not a generic workflow engine, not a Kubernetes chatbot.
+- Not McKinsey ARK (Agentic Runtime): ARK hosts agent apps as CRDs on K8s; kprompt reasons about cluster ops under plan → approve. See https://kprompt.ai/blog/kprompt-vs-ark
 - Same NL-CLI lane as kubectl-ai for day-2 mutate; different contract (plan → safety → approve) plus in-cluster Observe path.
 - Not a K8sGPT fleet scanner; not a Kagent multi-agent framework; not a hosted Lens clone.
 - Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.
@@ -37,6 +38,7 @@
 - Long-term direction: continuous reasoning under the same approval DNA — see roadmap.
 
 ## High-signal articles
+- https://kprompt.ai/blog/kprompt-vs-ark
 - https://kprompt.ai/blog/ai-runtime-for-kubernetes
 - https://kprompt.ai/blog/context-engineering-not-prompt-engineering
 - https://kprompt.ai/blog/observe-agent-kind-demo

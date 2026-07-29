@@ -18,6 +18,12 @@ export const FAQ: FaqEntry[] = [
     more: { label: "Architecture", href: "/docs/architecture" },
   },
   {
+    question: "How is kprompt different from ARK (Agentic Runtime for Kubernetes)?",
+    answer:
+      "ARK (McKinsey’s agents-at-scale-ark) is an agent platform on Kubernetes: Agents, Teams, Models, and Tools as CRDs so you can host agentic applications — similar to how Argo hosts workflows. kprompt is an AI Runtime for operating the cluster: natural language becomes a reviewable PlanResult, then you approve before apply, plus an optional Observe agent for namespace alerts. Same word “runtime,” different job — hosting agents vs reasoning about cluster ops under an approval gate.",
+    more: { label: "kprompt vs ARK", href: "/blog/kprompt-vs-ark" },
+  },
+  {
     question: "Does kprompt apply changes to my cluster automatically?",
     answer:
       "No. Every mutating intent compiles into a PlanResult that lists the resources, diffs, and risk level before anything runs. On a TTY you confirm with y/N; in scripts you pass --approve explicitly. Wipe-class prompts are hard-denied instead of planned, and Autopilot is propose-only by default (ADR-0015) — it never applies silently. Trust loop: Reason → Plan → Validate → Approve → Execute → Observe → Learn.",

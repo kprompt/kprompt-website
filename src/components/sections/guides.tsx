@@ -6,6 +6,13 @@ import { cn } from "@/lib/utils";
 
 const GUIDES = [
   {
+    href: "/blog/kprompt-vs-ark",
+    kicker: "Comparison",
+    title: "kprompt vs ARK",
+    blurb:
+      "Agentic Runtime hosts agents on K8s. AI Runtime reasons about the cluster under plan → approve.",
+  },
+  {
     href: "/blog/ai-runtime-for-kubernetes",
     kicker: "Positioning",
     title: "The AI Runtime for Kubernetes",
@@ -39,13 +46,6 @@ const GUIDES = [
     title: "kubectl vs K9s",
     blurb:
       "Not rivals: one is the scriptable API client, the other is a live terminal UI over it.",
-  },
-  {
-    href: "/blog/kubernetes-crashloopbackoff",
-    kicker: "Playbook",
-    title: "Fixing CrashLoopBackOff",
-    blurb:
-      "Read the exit code, get the logs of the container that actually died, then fix the real cause.",
   },
 ] as const;
 

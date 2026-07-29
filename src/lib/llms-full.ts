@@ -29,6 +29,7 @@ export const DOCS_FULL_INDEX = [
 }>;
 
 const HIGH_SIGNAL_SLUGS = [
+  "kprompt-vs-ark",
   "ai-runtime-for-kubernetes",
   "context-engineering-not-prompt-engineering",
   "observe-agent-kind-demo",
