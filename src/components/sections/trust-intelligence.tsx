@@ -11,16 +11,12 @@ const TRUST = [
 ] as const;
 
 const GRAPH = [
-  "Pods",
   "Services",
-  "Ingress",
-  "Secrets",
-  "PVCs",
-  "Kafka",
-  "Redis",
-  "Databases",
-  "External APIs",
-  "Dependencies",
+  "EndpointSlices",
+  "NetworkPolicies",
+  "Static consumers",
+  "OTel calls (opt)",
+  "Memory deps",
 ] as const;
 
 const INTEL = [
@@ -92,13 +88,14 @@ export function TrustIntelligence() {
               <h3 className="font-heading text-lg font-semibold tracking-tight">
                 Knowledge Graph
               </h3>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                Building
+              <span className="font-mono text-[10px] uppercase tracking-wider text-brand">
+                Shipped
               </span>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Continuously builds relationships across the system — not isolated
-              resources.
+              Read-only service dependency graph, reverse impact, and remembered
+              deps — not a continuous full-cluster topology. OTel call edges when
+              available; otherwise degraded honestly.
             </p>
             <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1.5">
               {GRAPH.map((item) => (

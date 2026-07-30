@@ -12,7 +12,7 @@ const CAPABILITIES: Capability[] = [
   { title: "Namespace Agents", status: "shipped" },
   { title: "Coordinator Agent", status: "shipped" },
   { title: "Policy Engine", status: "shipped" },
-  { title: "Knowledge Graph", status: "building" },
+  { title: "Knowledge Graph", status: "shipped" },
   { title: "Incident Memory", status: "shipped" },
   { title: "Automatic RCA", status: "shipped" },
   { title: "Slack Integration", status: "shipped" },
