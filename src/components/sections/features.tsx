@@ -13,7 +13,7 @@ const CAPABILITIES: Capability[] = [
   { title: "Coordinator Agent", status: "shipped" },
   { title: "Policy Engine", status: "shipped" },
   { title: "Knowledge Graph", status: "building" },
-  { title: "Incident Memory", status: "building" },
+  { title: "Incident Memory", status: "shipped" },
   { title: "Automatic RCA", status: "shipped" },
   { title: "Slack Integration", status: "shipped" },
   { title: "GitHub Integration", status: "building" },

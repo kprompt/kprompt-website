@@ -142,6 +142,7 @@ export function buildLlmsFullText(): string {
     "- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.",
     "- Autopilot (ADR-0015) is propose-only by default — never silent apply.",
     "- Building / next: richer Namespace Agent fleet UX, Coordinator blast-radius / shared knowledge, Knowledge Graph, Simulation.",
+    "- Shipped Incident Memory: namespace facts + patterns + durable incidents (local/ConfigMap; never auto-mutate).",
     "- Shipped thin Coordinator: cross-ns handoff + optional kube probe + InvestigationReport merge (mutate off).",
     "- Architecture diagrams: AI Runtime pipeline + PlanResult contract + dual path — /docs/architecture.",
     "- Long-term direction: continuous reasoning under the same approval DNA — see roadmap.",

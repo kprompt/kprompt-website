@@ -71,13 +71,19 @@ export function TrustIntelligence() {
 
         <div className="mt-16 grid gap-12 lg:grid-cols-3">
           <Reveal delay={0.08}>
-            <h3 className="font-heading text-lg font-semibold tracking-tight">
-              Incident Memory
-            </h3>
+            <div className="flex items-baseline justify-between gap-2">
+              <h3 className="font-heading text-lg font-semibold tracking-tight">
+                Incident Memory
+              </h3>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-brand">
+                Shipped
+              </span>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Remembers previous incidents, recurring failures, and deployment
-              patterns. Recommendations improve over time — infrastructure gets
-              progressively smarter.
+              Remembers namespace deps, recurring failure signatures, and open
+              incidents across restarts — local or in-cluster ConfigMaps only.
+              Recommendations improve with “seen before” and outcome learning;
+              memory never proves root cause alone and never auto-mutates.
             </p>
           </Reveal>
 
