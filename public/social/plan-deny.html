@@ -61,16 +61,28 @@
     letter-spacing: 0.02em;
   }
   .body {
-    padding: 28px 32px;
-    font-size: 22px;
-    line-height: 1.55;
-    white-space: pre-wrap;
+    padding: 22px 28px;
+    font-size: 20px;
+    line-height: 1.28;
+    white-space: normal;
   }
-  .prompt-line { color: var(--fg); }
+  .prompt-line { color: var(--fg); line-height: 1.28; }
   .prompt-line .dollar { color: var(--green); }
   .prompt-line .cmd { color: var(--amber); }
-  .out { margin-top: 18px; }
-  .line { opacity: 0; transform: translateY(6px); margin: 0 0 4px; }
+  .out {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .line {
+    opacity: 0;
+    transform: translateY(4px);
+    margin: 0;
+    padding: 0;
+    line-height: 1.28;
+  }
+  .line.spacer { margin-top: 6px; }
   .heading { color: var(--purple); font-weight: 700; }
   .danger { color: var(--red); }
   .success { color: var(--green); }
@@ -81,9 +93,9 @@
   .bold { font-weight: 700; color: var(--fg); }
   .cursor {
     display: inline-block;
-    width: 12px; height: 22px;
+    width: 10px; height: 18px;
     background: var(--green);
-    vertical-align: -3px;
+    vertical-align: -2px;
     margin-left: 2px;
     opacity: 0;
   }
@@ -128,7 +140,7 @@
         <div class="line" data-i="0"><span class="danger">🚨 Intent:</span> destructive cluster operation</div>
         <div class="line" data-i="1"><span class="danger">🛡️ Safe execution:</span> denied</div>
         <div class="line" data-i="2"><span class="success">😅 Your cluster lives another day</span></div>
-        <div class="line muted" data-i="3" style="margin-top:14px">Nothing touched the cluster.</div>
+        <div class="line muted spacer" data-i="3">Nothing touched the cluster.</div>
       </div>
     </div>
   </div>
@@ -149,7 +161,7 @@
         <div class="line muted" data-i="5">     Diff: scale Deployment/api to 10 replicas</div>
         <div class="line" data-i="6"><span class="heading">Blast radius:</span></div>
         <div class="line" data-i="7">  namespaces: payments · scales: HorizontalPodAutoscaler/api-hpa</div>
-        <div class="line" data-i="8" style="margin-top:12px"><span class="bold">Apply this plan?</span> [y/N]: <span class="cursor" id="planAnsCur" style="opacity:1"></span></div>
+        <div class="line spacer" data-i="8"><span class="bold">Apply this plan?</span> [y/N]: <span class="cursor" id="planAnsCur" style="opacity:1"></span></div>
       </div>
     </div>
   </div>
@@ -182,7 +194,7 @@ function showLines(root, startT, t, step) {
     const i = Number(el.dataset.i || 0);
     const a = ease(seg(t, startT + i * step, startT + i * step + 0.28));
     el.style.opacity = a;
-    el.style.transform = `translateY(${(1 - a) * 8}px)`;
+    el.style.transform = `translateY(${(1 - a) * 4}px)`;
   });
 }
 
