@@ -1507,7 +1507,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
           "CLI — PlanResult after approve",
           "Observe — Incident/AgentAlert; never mutates",
           "Namespace Agent — InvestigationReport v2; propose-first",
-          "Coordinator — cross-ns handoff; mutate off by default (building)",
+          "Coordinator — cross-ns handoff + optional kube probe; mutate off by default (shipped thin)",
           "Autopilot — allowlisted propose; apply only with policyAuto",
         ],
       },
@@ -1536,7 +1536,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
     blocks: [
       {
         type: "p",
-        text: "Shipped in kprompt v0.5. The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent — the first AI Runtime surface inside Kubernetes — that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook. Richer Namespace Agent intelligence and Coordinator cross-namespace correlation are building.",
+        text: "Shipped in kprompt v0.5+. The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent — the first AI Runtime surface inside Kubernetes — that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook. The thin Coordinator fan-in (handoff + optional read-only probe + merge) also ships; blast-radius graph and shared knowledge stay building.",
         links: [
           {
             label: "docs/agent.md",

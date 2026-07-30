@@ -145,7 +145,7 @@ Apply? [y/N]`,
       },
       {
         type: "p",
-        text: "A runtime that only lives on a laptop sleeps when your laptop sleeps. The Observe agent is the first in-cluster surface: namespace-scoped Role RBAC, watch → Incident → gated notify. Richer Namespace Agents (continuous intelligence, propose-first remediations) and a Coordinator (cross-namespace correlation, blast radius, shared knowledge) are the multi-agent shape of the runtime — clearly labeled building where they are not fully shipped.",
+        text: "A runtime that only lives on a laptop sleeps when your laptop sleeps. The Observe agent is the first in-cluster surface: namespace-scoped Role RBAC, watch → Incident → gated notify. Namespace Agents add continuous intelligence and propose-first remediations. The Coordinator ships as a thin fan-in: cross-namespace handoff, optional read-only kube probe, InvestigationReport merge — mutate still off. Blast-radius graph and shared knowledge remain building.",
         links: [
           {
             label: "Observe agent kind demo",
@@ -163,7 +163,8 @@ Apply? [y/N]`,
           ["Observe agent (notify-only)", "Shipped"],
           ["Autopilot propose-only", "Shipped"],
           ["Richer Namespace Agent intelligence", "Building"],
-          ["Coordinator cross-ns correlation", "Building"],
+          ["Coordinator handoff + kube probe", "Shipped"],
+          ["Coordinator blast-radius / shared knowledge", "Building"],
           ["Knowledge Graph / Simulation", "Building"],
         ],
       },
@@ -383,7 +384,7 @@ cd kprompt-examples && make walkthrough`,
           [
             "Multi-agent",
             "Teams with sequential / graph / selector / round-robin",
-            "Namespace Observe today; richer Namespace + Coordinator building",
+            "Namespace Observe + thin Coordinator handoff/probe; blast-radius / shared knowledge building",
           ],
           [
             "Memory",

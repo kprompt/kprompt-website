@@ -19,12 +19,12 @@ const NAMESPACE = [
 ] as const;
 
 const COORDINATOR = [
-  "Correlate incidents across namespaces",
-  "Understand dependencies",
-  "Detect blast radius",
-  "Optimize cluster-wide operations",
-  "Coordinate namespace agents",
-  "Share knowledge",
+  "Receive cross-namespace handoffs",
+  "Probe suspect namespaces read-only",
+  "Merge InvestigationReports",
+  "Keep mutate off by default",
+  "Blast-radius graph (building)",
+  "Shared knowledge store (building)",
 ] as const;
 
 export function MultiAgentRuntime() {
@@ -43,8 +43,9 @@ export function MultiAgentRuntime() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             Each namespace can run its own autonomous agent. A Coordinator
-            correlates across the fleet. Observe Mode ships today; richer
-            Namespace Agent and Coordinator surfaces are building.
+            receives cross-namespace handoffs and optionally probes the
+            suspect namespace. Observe and thin Coordinator fan-in ship today;
+            blast-radius graph and shared knowledge stay building.
           </p>
         </Reveal>
 
@@ -71,20 +72,29 @@ export function MultiAgentRuntime() {
               <h3 className="font-heading text-lg font-semibold tracking-tight">
                 Coordinator Agent
               </h3>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                Building
+              <span className="font-mono text-[10px] uppercase tracking-wider text-brand">
+                Shipped
               </span>
             </div>
             <ul className="mt-4 space-y-2.5">
-              {COORDINATOR.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-3 text-sm text-muted-foreground"
-                >
-                  <span className="mt-2 size-1 shrink-0 rounded-full bg-border" />
-                  {item}
-                </li>
-              ))}
+              {COORDINATOR.map((item) => {
+                const building = item.includes("(building)");
+                return (
+                  <li
+                    key={item}
+                    className="flex gap-3 text-sm text-muted-foreground"
+                  >
+                    <span
+                      className={
+                        building
+                          ? "mt-2 size-1 shrink-0 rounded-full bg-border"
+                          : "mt-2 size-1 shrink-0 rounded-full bg-brand"
+                      }
+                    />
+                    {item}
+                  </li>
+                );
+              })}
             </ul>
           </Reveal>
         </div>

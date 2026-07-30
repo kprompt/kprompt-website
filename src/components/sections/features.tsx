@@ -10,7 +10,7 @@ const CAPABILITIES: Capability[] = [
   { title: "AI Planning Engine", status: "shipped" },
   { title: "Execution Graph", status: "shipped" },
   { title: "Namespace Agents", status: "shipped" },
-  { title: "Coordinator Agent", status: "building" },
+  { title: "Coordinator Agent", status: "shipped" },
   { title: "Policy Engine", status: "shipped" },
   { title: "Knowledge Graph", status: "building" },
   { title: "Incident Memory", status: "building" },

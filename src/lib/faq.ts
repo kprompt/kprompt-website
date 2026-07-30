@@ -71,7 +71,7 @@ export const FAQ: FaqEntry[] = [
   {
     question: "What does the Observe agent actually do?",
     answer:
-      "The optional Observe agent (installed with Helm) is the first in-cluster runtime surface: it watches a namespace, turns anomalies into an Incident, and sends gated Slack or webhook notifications. It runs with namespace-scoped Role RBAC and does not mutate your cluster — it is an observer, not a self-healer. Richer Namespace Agents and a Coordinator for cross-namespace correlation are on the roadmap.",
+      "The optional Observe agent (installed with Helm) is the first in-cluster runtime surface: it watches a namespace, turns anomalies into an Incident, and sends gated Slack or webhook notifications. It runs with namespace-scoped Role RBAC and does not mutate your cluster — it is an observer, not a self-healer. A thin Coordinator also ships: cross-namespace handoff, optional read-only kube probe, InvestigationReport merge — still mutate-off. Blast-radius graph and shared knowledge stay on the roadmap.",
     more: { label: "Observe agent docs", href: "/docs/agent" },
   },
   {
