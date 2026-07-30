@@ -32,12 +32,21 @@ export const SITE = {
   /** Team web surface (authenticated). */
   app: "https://app.kprompt.ai",
   docs: "/docs",
+  /**
+   * Primary get-started CTA — zero-LLM kind walkthrough first.
+   * LLM BYOK path is a “level up” section on the same page.
+   */
   getStarted: "/docs/quickstart",
+  /** Secondary CTA — configure a provider key and run NL prompts. */
+  levelUp: "/docs/quickstart#with-llm",
   roadmap: "/docs/roadmap",
   /** Short maturity line for hero / banners. */
   maturityLabel: "Experimental",
   maturityNotice:
     "Early software. Always review the plan before apply, prefer non-production clusters first, and treat --approve with care.",
+  /** Primary CTA label — avoid “Start Free” (implies Team signup). */
+  ctaPrimary: "Try walkthrough",
+  ctaSecondary: "Add your LLM",
   /** GA4 — public client id; override with NEXT_PUBLIC_GA_MEASUREMENT_ID if needed. */
   gaMeasurementId: "G-E4624KGSE9",
   installCommand: `curl -fsSL ${LIVE_ORIGIN}/install | bash`,
@@ -45,6 +54,8 @@ export const SITE = {
   installCommandBrew: "brew install kprompt/tap/kprompt",
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub: `curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v${CLI_VERSION}/install/install.sh | bash`,
+  /** One-liner shown under hero CTAs. */
+  walkthroughHint: "No API key · kind cluster · ~60 seconds",
   /** Observe agent kind walkthrough — video preferred; GIF kept as legacy fallback. */
   observeDemoGif: "/kprompt-observe-demo.gif",
   observeDemoWebm: "/kprompt-observe-demo.webm",
@@ -93,7 +104,7 @@ export const ROADMAP_TEASER = {
 
 export const INSTALL_STEPS = [
   "Install the CLI",
-  "Configure defaults",
-  "Set an LLM API key",
-  "Describe intent — review the plan",
+  "Clone kprompt-examples",
+  "make walkthrough (no API key)",
+  "Level up — add your LLM (optional)",
 ] as const;

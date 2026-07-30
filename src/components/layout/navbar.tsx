@@ -292,7 +292,7 @@ export function Navbar() {
             App
           </a>
           <Link href={SITE.getStarted} className={buttonVariants()}>
-            Get Started
+            {SITE.ctaPrimary}
             <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -305,7 +305,7 @@ export function Navbar() {
               "hidden min-[420px]:inline-flex"
             )}
           >
-            Get Started
+            {SITE.ctaPrimary}
           </Link>
           <ThemeToggle />
           <button
@@ -403,7 +403,7 @@ export function Navbar() {
                 )}
                 onClick={closeMenu}
               >
-                Get Started
+                {SITE.ctaPrimary}
                 <ArrowRight className="size-4" />
               </Link>
             </div>

@@ -56,7 +56,7 @@ export default function NotFound() {
               href={SITE.getStarted}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
-              Quickstart
+              {SITE.ctaPrimary}
             </Link>
           </div>
         </div>
