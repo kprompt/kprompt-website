@@ -16,7 +16,7 @@ const CAPABILITIES: Capability[] = [
   { title: "Incident Memory", status: "shipped" },
   { title: "Automatic RCA", status: "shipped" },
   { title: "Slack Integration", status: "shipped" },
-  { title: "GitHub Integration", status: "building" },
+  { title: "GitHub Integration", status: "shipped" },
   { title: "Approval Workflow", status: "shipped" },
   { title: "Cost Intelligence", status: "building" },
   { title: "Simulation", status: "building" },
