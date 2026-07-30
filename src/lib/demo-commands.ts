@@ -4,8 +4,30 @@ export type DemoCommand = {
   lines: string[];
 };
 
-/** First entry is what visitors see when the page opens. */
+/** First entry is what visitors see when the page opens — deny then plan. */
 export const HERO_DEMOS: DemoCommand[] = [
+  {
+    id: "wipe-denied",
+    command: 'kprompt "delete everything in the cluster"',
+    lines: [
+      "🚨 Intent: destructive cluster operation",
+      "🛡️ Safe execution: denied",
+      "😅 Your cluster lives another day",
+      "Nothing touched the cluster.",
+    ],
+  },
+  {
+    id: "scale-plan",
+    command: 'kprompt "scale api to 10" -n payments',
+    lines: [
+      "Intent: scale",
+      "Plan: Scale Deployment/api in payments to 10 replicas",
+      "Risk: medium",
+      "Actions: scale Deployment/api → 10",
+      "Blast radius: payments · api-hpa",
+      "Apply this plan? [y/N]:",
+    ],
+  },
   {
     id: "runtime-run",
     command: "kprompt run",
@@ -16,27 +38,6 @@ export const HERO_DEMOS: DemoCommand[] = [
       "Notify Slack.",
       "Generate RCA.",
       "Done.",
-    ],
-  },
-  {
-    id: "scale-plan",
-    command: 'kprompt "scale api to 3"',
-    lines: [
-      "Intent: scale",
-      "Action: patch deployment/api replicas 1 → 3",
-      "Diff: spec.replicas: 1 → 3",
-      "Risk: medium — requires approval",
-      "Apply? [y/N]",
-    ],
-  },
-  {
-    id: "wipe-denied",
-    command: 'kprompt "delete all pods in production"',
-    lines: [
-      "Intent: wipe-class delete",
-      "Risk: denied",
-      "Only named Pod / Deployment / Service deletes are allowed",
-      "Cluster unchanged",
     ],
   },
   {

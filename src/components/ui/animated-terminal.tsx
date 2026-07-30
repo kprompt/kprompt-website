@@ -80,13 +80,14 @@ export function AnimatedTerminal({
   useEffect(() => {
     if (phase !== "hold" || fixed || reduced) return;
 
-    const holdMs = 2800;
+    // Hold the deny punchline and plan gate longer — that's the product aha.
+    const holdMs = isOpener || current.id === "scale-plan" ? 4200 : 2800;
     const hold = window.setTimeout(() => {
       setIndex((v) => (v + 1) % demos.length);
     }, holdMs);
 
     return () => window.clearTimeout(hold);
-  }, [phase, fixed, demos.length, reduced, index]);
+  }, [phase, fixed, demos.length, reduced, index, isOpener, current.id]);
 
   return (
     <div

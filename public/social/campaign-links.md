@@ -13,11 +13,11 @@ Replace `ph-draft` with the scheduled launch date (e.g. `2026-08-05`) when you g
 - AI SRE post: https://kprompt.ai/blog/ai-sre-not-ai-kubectl?utm_source=producthunt&utm_medium=launch&utm_campaign=ph-draft
 
 Full form copy: architecture `PRODUCT-HUNT-DRAFT.md`.
-Gallery video: `kprompt-promo-16x9.mp4` (animated promo) · stills: `plan-demo.png`, `kprompt-observe-demo.gif`.
-Re-render video: `.venv/bin/python render_promo_v2.py` (after `playwright install chromium`).
+Gallery video: `kprompt-promo-16x9.mp4` (animated promo) · plan-deny aha: `../kprompt-plan-deny.mp4` · stills: `plan-demo.png`, `kprompt-observe-demo.gif`.
+Re-render plan-deny clip: `.venv/bin/python render_plan_deny.py`
+Re-render promo video: `.venv/bin/python render_promo_v2.py` (after `playwright install chromium`).
 Re-render OG PNGs: `.venv/bin/python rasterize_og.py`.
 Banners (SVG + PNG): `x-banner`, `linkedin-cover`, `linkedin-cover-wide`.
-
 ## X (@kpromptai)
 
 - Quickstart: https://kprompt.ai/docs/quickstart?utm_source=x&utm_medium=social&utm_campaign=launch&utm_content=quickstart
