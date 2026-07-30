@@ -61,6 +61,11 @@ export const SITE = {
   observeDemoWebm: "/kprompt-observe-demo.webm",
   observeDemoMp4: "/kprompt-observe-demo.mp4",
   observeDemoPoster: "/kprompt-observe-demo-poster.jpg",
+  /** Hero plan-deny aha clip — wipe hard-deny → scale PlanResult → y/N. */
+  planDenyGif: "/kprompt-plan-deny.gif",
+  planDenyWebm: "/kprompt-plan-deny.webm",
+  planDenyMp4: "/kprompt-plan-deny.mp4",
+  planDenyPoster: "/kprompt-plan-deny-poster.jpg",
 } as const;
 
 export const NAV_LINKS = [

@@ -2,7 +2,6 @@
 
 import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { AnimatedTerminal } from "@/components/ui/animated-terminal";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
 import { GithubIcon } from "@/components/ui/github-icon";
@@ -54,8 +53,8 @@ export function Hero() {
             ))}
           </p>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Start with a zero-LLM Observe walkthrough on kind — then level up to
-            natural-language plans you review before apply.
+            Wipe jokes hard-deny. Real mutates become a reviewable plan — then
+            wait for your yes. Start with a zero-LLM walkthrough on kind.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -108,7 +107,26 @@ export function Hero() {
           }}
           className="mt-14 sm:mt-16"
         >
-          <AnimatedTerminal className="mx-auto max-w-3xl" />
+          <div className="mx-auto max-w-3xl overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm terminal-glow">
+            <video
+              className="mx-auto h-auto w-full"
+              width={1280}
+              height={720}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster={SITE.planDenyPoster}
+              aria-label="kprompt hard-denies wipe prompts, then shows a scale plan waiting for Apply this plan? y/N"
+            >
+              <source src={SITE.planDenyWebm} type="video/webm" />
+              <source src={SITE.planDenyMp4} type="video/mp4" />
+            </video>
+          </div>
+          <p className="mx-auto mt-3 max-w-3xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
+            Deny the wipe · review the plan · nothing applies without you
+          </p>
         </motion.div>
       </div>
     </section>

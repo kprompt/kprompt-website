@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>kprompt plan-deny clip</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --chrome: #121a2b;
+    --fg: #f4f7fb;
+    --muted: #8fa3bf;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #fb7185;
+    --purple: #c4b5fd;
+    --pink: #f472b6;
+    --cyan: #38bdf8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #050b14;
+    color: var(--fg);
+    font-family: "SF Mono", Menlo, Monaco, "Courier New", monospace;
+  }
+  #stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 10%, rgba(59,130,246,0.18), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 90% 90%, rgba(56,189,248,0.10), transparent 50%),
+      linear-gradient(160deg, #050b14 0%, #0a1526 50%, #07111f 100%);
+  }
+  .term {
+    position: absolute;
+    left: 80px; top: 70px;
+    width: 1120px; height: 580px;
+    border-radius: 16px;
+    border: 1px solid rgba(148,183,255,0.18);
+    background: var(--bg);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    overflow: hidden;
+    opacity: 0;
+  }
+  .chrome {
+    display: flex; align-items: center; gap: 8px;
+    height: 48px; padding: 0 18px;
+    background: var(--chrome);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; }
+  .dot.y { background: #febc2e; }
+  .dot.g { background: #28c840; }
+  .title {
+    margin-left: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .body {
+    padding: 28px 32px;
+    font-size: 22px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+  .prompt-line { color: var(--fg); }
+  .prompt-line .dollar { color: var(--green); }
+  .prompt-line .cmd { color: var(--amber); }
+  .out { margin-top: 18px; }
+  .line { opacity: 0; transform: translateY(6px); margin: 0 0 4px; }
+  .heading { color: var(--purple); font-weight: 700; }
+  .danger { color: var(--red); }
+  .success { color: var(--green); }
+  .warn { color: var(--amber); }
+  .accent { color: var(--pink); }
+  .muted { color: var(--muted); }
+  .info { color: var(--cyan); }
+  .bold { font-weight: 700; color: var(--fg); }
+  .cursor {
+    display: inline-block;
+    width: 12px; height: 22px;
+    background: var(--green);
+    vertical-align: -3px;
+    margin-left: 2px;
+    opacity: 0;
+  }
+  .badge {
+    position: absolute;
+    right: 100px; top: 40px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid rgba(148,183,255,0.25);
+    background: rgba(11,18,32,0.85);
+    color: var(--muted);
+    opacity: 0;
+  }
+  .badge.deny { color: var(--red); border-color: rgba(251,113,133,0.45); }
+  .badge.plan { color: var(--green); border-color: rgba(52,211,153,0.45); }
+  .caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 28px;
+    text-align: center;
+    font-size: 16px;
+    color: var(--muted);
+    opacity: 0;
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="badge deny" id="badgeDeny">Hard deny</div>
+  <div class="badge plan" id="badgePlan">Plan before apply</div>
+
+  <div class="term" id="sceneDeny">
+    <div class="chrome">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="title">kprompt — safety gate</span>
+    </div>
+    <div class="body">
+      <div class="prompt-line" id="denyPrompt"><span class="dollar">$</span> <span id="denyTyped"></span><span class="cursor" id="denyCur"></span></div>
+      <div class="out" id="denyOut">
+        <div class="line" data-i="0"><span class="danger">🚨 Intent:</span> destructive cluster operation</div>
+        <div class="line" data-i="1"><span class="danger">🛡️ Safe execution:</span> denied</div>
+        <div class="line" data-i="2"><span class="success">😅 Your cluster lives another day</span></div>
+        <div class="line muted" data-i="3" style="margin-top:14px">Nothing touched the cluster.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term" id="scenePlan">
+    <div class="chrome">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="title">kprompt — plan before apply</span>
+    </div>
+    <div class="body">
+      <div class="prompt-line" id="planPrompt"><span class="dollar">$</span> <span id="planTyped"></span><span class="cursor" id="planCur"></span></div>
+      <div class="out" id="planOut">
+        <div class="line" data-i="0"><span class="heading">Intent:</span> scale</div>
+        <div class="line" data-i="1"><span class="heading">Plan:</span>  Scale Deployment/api in payments to 10 replicas</div>
+        <div class="line" data-i="2"><span class="heading">Risk:</span>  <span class="warn">medium</span></div>
+        <div class="line" data-i="3"><span class="heading">Actions:</span></div>
+        <div class="line" data-i="4">  1. scale <span class="accent">Deployment/api</span> -n payments → 10 replicas</div>
+        <div class="line muted" data-i="5">     Diff: scale Deployment/api to 10 replicas</div>
+        <div class="line" data-i="6"><span class="heading">Blast radius:</span></div>
+        <div class="line" data-i="7">  namespaces: payments · scales: HorizontalPodAutoscaler/api-hpa</div>
+        <div class="line" data-i="8" style="margin-top:12px"><span class="bold">Apply this plan?</span> [y/N]: <span class="cursor" id="planAnsCur" style="opacity:1"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption" id="caption">Wipe jokes hard-deny. Real mutates wait for your yes.</div>
+</div>
+<script>
+const DENY_CMD = 'kprompt "delete everything in the cluster"';
+const PLAN_CMD = 'kprompt "scale api to 10" -n payments';
+const DURATION = 18.0;
+
+function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+function seg(t, a, b) {
+  if (b <= a) return t >= b ? 1 : 0;
+  return clamp((t - a) / (b - a), 0, 1);
+}
+function ease(u) { return u * u * (3 - 2 * u); }
+
+function typeText(el, full, u, cursorEl) {
+  const n = Math.floor(full.length * clamp(u, 0, 1));
+  el.textContent = full.slice(0, n);
+  if (cursorEl) {
+    const blink = Math.floor(performance.now() / 250) % 2 === 0;
+    cursorEl.style.opacity = u < 1 ? (blink ? 1 : 0.25) : 0;
+  }
+}
+
+function showLines(root, startT, t, step) {
+  root.querySelectorAll(".line").forEach((el) => {
+    const i = Number(el.dataset.i || 0);
+    const a = ease(seg(t, startT + i * step, startT + i * step + 0.28));
+    el.style.opacity = a;
+    el.style.transform = `translateY(${(1 - a) * 8}px)`;
+  });
+}
+
+window.__seek = function (t) {
+  t = clamp(t, 0, DURATION);
+  const deny = document.getElementById("sceneDeny");
+  const plan = document.getElementById("scenePlan");
+  const badgeDeny = document.getElementById("badgeDeny");
+  const badgePlan = document.getElementById("badgePlan");
+  const caption = document.getElementById("caption");
+
+  // Scene windows
+  const denyIn = ease(seg(t, 0.15, 0.55));
+  const denyOut = 1 - ease(seg(t, 7.6, 8.1));
+  const planIn = ease(seg(t, 8.0, 8.5));
+  const planOut = 1 - ease(seg(t, 17.2, 18.0));
+
+  deny.style.opacity = denyIn * denyOut;
+  deny.style.transform = `translateY(${(1 - denyIn) * 18}px)`;
+  plan.style.opacity = planIn * planOut;
+  plan.style.transform = `translateY(${(1 - planIn) * 18}px)`;
+
+  badgeDeny.style.opacity = ease(seg(t, 3.2, 3.7)) * (1 - ease(seg(t, 7.4, 7.9)));
+  badgePlan.style.opacity = ease(seg(t, 12.8, 13.3)) * (1 - ease(seg(t, 17.0, 17.6)));
+  caption.style.opacity = ease(seg(t, 16.2, 16.8)) * (1 - ease(seg(t, 17.6, 18.0)));
+
+  // Deny typing + lines
+  typeText(
+    document.getElementById("denyTyped"),
+    DENY_CMD,
+    seg(t, 0.6, 2.4),
+    document.getElementById("denyCur")
+  );
+  showLines(document.getElementById("denyOut"), 2.7, t, 0.45);
+
+  // Plan typing + lines
+  typeText(
+    document.getElementById("planTyped"),
+    PLAN_CMD,
+    seg(t, 8.5, 10.4),
+    document.getElementById("planCur")
+  );
+  showLines(document.getElementById("planOut"), 10.7, t, 0.38);
+
+  const ansCur = document.getElementById("planAnsCur");
+  if (t >= 14.6) {
+    const blink = Math.floor(t * 3.5) % 2 === 0;
+    ansCur.style.opacity = blink ? 1 : 0.2;
+  } else {
+    ansCur.style.opacity = 0;
+  }
+};
+
+window.__DURATION = DURATION;
+window.__seek(0);
+</script>
+</body>
+</html>
