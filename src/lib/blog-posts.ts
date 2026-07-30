@@ -145,7 +145,7 @@ Apply? [y/N]`,
       },
       {
         type: "p",
-        text: "A runtime that only lives on a laptop sleeps when your laptop sleeps. The Observe agent is the first in-cluster surface: namespace-scoped Role RBAC, watch → Incident → gated notify. Namespace Agents add continuous intelligence and propose-first remediations. The Coordinator ships as a thin fan-in: cross-namespace handoff, optional read-only kube probe, InvestigationReport merge — mutate still off. Blast-radius graph and shared knowledge remain building.",
+        text: "A runtime that only lives on a laptop sleeps when your laptop sleeps. The Observe agent is the first in-cluster surface: namespace-scoped Role RBAC, watch → Incident → gated notify. Namespace Agents add continuous intelligence and propose-first remediations. The Coordinator ships as a thin fan-in: cross-namespace handoff, optional read-only kube probe, InvestigationReport merge, and Shared Knowledge MVP (in-memory handoff edges via /v1/knowledge) — mutate still off. Durable blast-radius graph remains building.",
         links: [
           {
             label: "Observe agent kind demo",
@@ -169,7 +169,8 @@ Apply? [y/N]`,
           ["Cost Intelligence MVP (optimize idle/rightsizing + cost notes)", "Shipped"],
           ["Simulation MVP (plan preview + blastRadius + impact + Helm dry-run)", "Shipped"],
           ["Coordinator handoff + kube probe", "Shipped"],
-          ["Coordinator blast-radius / shared knowledge", "Building"],
+          ["Coordinator Shared Knowledge MVP (in-memory handoff edges)", "Shipped"],
+          ["Durable Coordinator blast-radius graph", "Building"],
           ["Team org GitHub connect-repo / CI Checks", "Building"],
           ["Sandbox / chaos / capacity what-if Simulation", "Building"],
           ["Full topology Knowledge Graph", "Building"],
@@ -391,7 +392,7 @@ cd kprompt-examples && make walkthrough`,
           [
             "Multi-agent",
             "Teams with sequential / graph / selector / round-robin",
-            "Namespace Observe + thin Coordinator handoff/probe; blast-radius / shared knowledge building",
+            "Namespace Observe + thin Coordinator handoff/probe + Shared Knowledge MVP; durable blast-radius graph building",
           ],
           [
             "Memory",
