@@ -47,29 +47,32 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
   "/docs/quickstart": {
     name: "Get started with kprompt on Kubernetes",
     description:
-      "Point kprompt at a sandbox cluster, set an LLM provider and API key, then run your first natural-language prompts through the plan and approve loop.",
-    totalTime: "PT10M",
-    tools: ["kprompt CLI", "kubectl", "A kind, minikube, or sandbox cluster", "An LLM API key"],
+      "Run the zero-LLM Observe walkthrough on kind in about a minute, then optionally add a BYOK LLM provider and practice the plan → approve loop on a sandbox cluster.",
+    totalTime: "PT8M",
+    tools: [
+      "kprompt CLI",
+      "Docker or Colima",
+      "kind",
+      "kubectl",
+      "make",
+      "Optional: an LLM API key",
+    ],
     steps: [
       {
-        name: "Check cluster access",
-        text: "Run kubectl config current-context and kubectl get ns to confirm which cluster kprompt will talk to. Start on a disposable cluster such as kind or minikube rather than production.",
+        name: "Try without an API key",
+        text: "Install kind, kubectl, and kprompt, clone kprompt-examples, then run make walkthrough. That brings up kind, breaks workloads on purpose, and runs the Observe agent in heuristic mode with no LLM spend.",
       },
       {
-        name: "Save defaults",
-        text: "Use kprompt config set provider, model, and namespace to store defaults in ~/.kprompt/config.yaml. The config file never stores API keys — only whether a key is present in the environment.",
+        name: "Level up with your LLM",
+        text: "On a disposable cluster, set provider/model defaults with kprompt config set, export a BYOK API key such as KPROMPT_GEMINI_API_KEY, then run read-only prompts before any mutating plan.",
       },
       {
-        name: "Export an LLM API key",
-        text: "Export a provider key such as KPROMPT_GEMINI_API_KEY, or the OpenAI, Anthropic, Groq, xAI, Moonshot, or Ollama equivalent. Keys stay in environment variables on your machine (BYOK).",
-      },
-      {
-        name: "Run your first prompts",
-        text: 'Start read-only with kprompt "list deployments", then try a mutating prompt like kprompt "scale api to 3" to see the plan, diff, and risk verdict before confirming with y/N.',
+        name: "Run your first NL prompts",
+        text: 'Start with kprompt "list deployments", then try kprompt "scale api to 3" to see the plan, diff, and risk verdict before confirming with y/N.',
       },
       {
         name: "Pick a terminal theme",
-        text: "Optionally set a theme with kprompt config set theme nord or the --theme flag. Themes only color terminal output, respect NO_COLOR, and stay off when stdout is not a TTY.",
+        text: "Optionally run kprompt theme preview, then set a theme with kprompt config set theme nord or the --theme flag. Themes respect NO_COLOR and stay off when stdout is not a TTY.",
       },
       {
         name: "Try an installed integration",

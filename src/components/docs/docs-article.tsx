@@ -25,12 +25,23 @@ function LinkedText({
     const className =
       "font-medium text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-brand hover:decoration-brand";
 
-    nodes.push(
-      link.href.startsWith("/") ? (
+    const isHash = link.href.startsWith("#");
+    const isInternal = link.href.startsWith("/");
+
+    if (isHash) {
+      nodes.push(
+        <a key={`${link.href}-${index}`} href={link.href} className={className}>
+          {link.label}
+        </a>
+      );
+    } else if (isInternal) {
+      nodes.push(
         <Link key={`${link.href}-${index}`} href={link.href} className={className}>
           {link.label}
         </Link>
-      ) : (
+      );
+    } else {
+      nodes.push(
         <a
           key={`${link.href}-${index}`}
           href={link.href}
@@ -40,8 +51,8 @@ function LinkedText({
         >
           {link.label}
         </a>
-      )
-    );
+      );
+    }
     cursor = index + link.label.length;
   }
 
@@ -69,13 +80,19 @@ function Block({ block }: { block: DocsBlock }) {
       );
     case "h2":
       return (
-        <h2 className="mt-10 font-heading text-xl font-semibold tracking-tight first:mt-0">
+        <h2
+          id={block.id}
+          className="mt-10 scroll-mt-24 font-heading text-xl font-semibold tracking-tight first:mt-0"
+        >
           {block.text}
         </h2>
       );
     case "h3":
       return (
-        <h3 className="mt-6 font-heading text-base font-semibold tracking-tight">
+        <h3
+          id={block.id}
+          className="mt-6 scroll-mt-24 font-heading text-base font-semibold tracking-tight"
+        >
           {block.text}
         </h3>
       );

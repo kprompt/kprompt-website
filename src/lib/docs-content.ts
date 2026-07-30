@@ -4,8 +4,8 @@ export type DocsBlock =
       text: string;
       links?: { label: string; href: string }[];
     }
-  | { type: "h2"; text: string }
-  | { type: "h3"; text: string }
+  | { type: "h2"; text: string; id?: string }
+  | { type: "h3"; text: string; id?: string }
   | { type: "ul"; items: string[] }
   | { type: "code"; code: string; caption?: string }
   | {
@@ -36,7 +36,8 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "The AI Runtime for Kubernetes. kprompt uses your kubeconfig and your LLM API keys (BYOK). Mutations always produce a plan; risk checks and hard denies run before apply. Optional in-cluster Observe agent watches a namespace and notifies — it does not silently mutate.",
+        text: "The AI Runtime for Kubernetes. Optional Observe agent watches a namespace and notifies — it does not silently mutate. Natural-language plans use your kubeconfig and your LLM API keys (BYOK); mutations always produce a plan with risk checks and hard denies before apply. Fastest first run: zero-LLM kind walkthrough — no API key required.",
+        links: [{ label: "zero-LLM kind walkthrough", href: "/docs/quickstart" }],
       },
       {
         type: "p",
@@ -103,7 +104,8 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
     blocks: [
       {
         type: "p",
-        text: "Installing is easy; applying is not automatically safe. After install, start on a sandbox cluster and leave --approve off until you know how plans look.",
+        text: "Installing is easy; applying is not automatically safe. After install, the fastest demo is the zero-LLM kind walkthrough (no API key). For natural-language plans, start on a sandbox cluster and leave --approve off until you know how plans look.",
+        links: [{ label: "zero-LLM kind walkthrough", href: "/docs/quickstart" }],
       },
       {
         type: "h2",
@@ -212,10 +214,10 @@ kprompt doctor --json   # same checks, machine-readable`,
       },
       {
         type: "p",
-        text: "kprompt doctor is the fastest way to confirm a working setup: it checks that a kubeconfig context resolves, that an LLM API key is present, which day-2 integrations were detected, and whether optional Team enrollment is healthy. It exits non-zero when a required check fails, so it also works as a CI preflight.",
+        text: "kprompt doctor is the fastest way to confirm a working setup: it checks that a kubeconfig context resolves, that an LLM API key is present (needed for NL prompts, not for the zero-LLM walkthrough), which day-2 integrations were detected, and whether optional Team enrollment is healthy. It exits non-zero when a required check fails, so it also works as a CI preflight.",
         links: [
           { label: "Set up a provider key", href: "/docs/providers" },
-          { label: "First prompts", href: "/docs/quickstart" },
+          { label: "Try the walkthrough", href: "/docs/quickstart" },
         ],
       },
       {
@@ -305,15 +307,58 @@ go install ./cmd/kprompt`,
   },
   quickstart: {
     title: "Quickstart",
-    description: "Kubeconfig, config file, API key, and your first prompts — carefully.",
+    description:
+      "Try kprompt in ~60 seconds with no API key (kind + Observe walkthrough), then level up with your own LLM on a sandbox cluster.",
     blocks: [
       {
         type: "p",
-        text: "Start on a disposable cluster (kind, minikube, or a dedicated sandbox). Do not point an unreviewed --approve flow at production until you have practiced the plan → approve loop.",
+        text: "The fastest path needs no LLM and no cloud account: install the CLI, clone kprompt-examples, and run make walkthrough. That spins up kind, breaks workloads on purpose, and runs the Observe agent in heuristic mode. When you are ready for natural-language plans on your own cluster, jump to Level up with your LLM.",
+        links: [
+          { label: "kprompt-examples", href: "https://github.com/kprompt/kprompt-examples" },
+          { label: "Level up with your LLM", href: "#with-llm" },
+        ],
       },
       {
         type: "h2",
-        text: "1. Cluster access",
+        id: "zero-llm",
+        text: "1. Try without an API key (~60s)",
+      },
+      {
+        type: "p",
+        text: "Requires Docker (or Colima/Podman), kind, kubectl, and make. The walkthrough is deterministic and offline — zero LLM spend.",
+      },
+      {
+        type: "code",
+        caption: "Install CLI + run the Observe walkthrough",
+        code: `brew install kind kubectl
+curl -fsSL https://kprompt.ai/install | bash
+
+git clone https://github.com/kprompt/kprompt-examples.git
+cd kprompt-examples
+make walkthrough`,
+      },
+      {
+        type: "p",
+        text: "Prefer one failure at a time? Use make up && make break SCENARIO=01-crashloop && make agent. Full caveats and scenario list: kprompt-examples README.",
+        links: [
+          {
+            label: "kprompt-examples README",
+            href: "https://github.com/kprompt/kprompt-examples#readme",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        id: "with-llm",
+        text: "2. Level up with your LLM",
+      },
+      {
+        type: "p",
+        text: "Natural-language plans (scale, investigate, Helm install, …) need a provider key on your machine (BYOK). Start on a disposable cluster (kind, minikube, or a dedicated sandbox). Do not point an unreviewed --approve flow at production until you have practiced the plan → approve loop.",
+      },
+      {
+        type: "h3",
+        text: "Cluster access",
       },
       {
         type: "code",
@@ -321,8 +366,8 @@ go install ./cmd/kprompt`,
 kubectl get ns`,
       },
       {
-        type: "h2",
-        text: "2. Save defaults (no secrets)",
+        type: "h3",
+        text: "Save defaults (no secrets)",
       },
       {
         type: "code",
@@ -336,8 +381,8 @@ kprompt config`,
         text: "Config lives at ~/.kprompt/config.yaml. It never stores API keys — only whether a key is set or unset in the environment.",
       },
       {
-        type: "h2",
-        text: "3. Export an API key",
+        type: "h3",
+        text: "Export an API key",
       },
       {
         type: "code",
@@ -345,8 +390,13 @@ kprompt config`,
 # or OPENAI / ANTHROPIC / GROQ / … — see Providers`,
       },
       {
-        type: "h2",
-        text: "4. Prompt",
+        type: "p",
+        text: "Provider matrix and env var names: Providers.",
+        links: [{ label: "Providers", href: "/docs/providers" }],
+      },
+      {
+        type: "h3",
+        text: "First prompts",
       },
       {
         type: "code",
@@ -358,11 +408,12 @@ kprompt tools`,
       },
       {
         type: "h2",
-        text: "5. Pick a terminal theme",
+        text: "3. Pick a terminal theme",
       },
       {
         type: "code",
-        code: `kprompt --theme dracula "list deployments"
+        code: `kprompt theme preview              # sample every palette
+kprompt --theme dracula "list deployments"
 kprompt config set theme nord
 # auto | dracula | nord | gruvbox | mono | none`,
       },
@@ -373,7 +424,7 @@ kprompt config set theme nord
       },
       {
         type: "h2",
-        text: "6. Try an installed integration",
+        text: "4. Try an installed integration",
       },
       {
         type: "code",
@@ -392,7 +443,7 @@ kprompt "show gitops sync status"`,
       },
       {
         type: "h2",
-        text: "7. Optional Team enrollment",
+        text: "5. Optional Team enrollment",
       },
       {
         type: "code",

@@ -45,7 +45,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href={SITE.getStarted} className="hover:text-foreground">
-                  Start Free
+                  {SITE.ctaPrimary}
                 </Link>
               </li>
               <li>

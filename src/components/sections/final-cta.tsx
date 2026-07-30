@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
@@ -19,17 +19,21 @@ export function FinalCta() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
-            Bring reasoning to your cluster
+            See it on a broken kind cluster first
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Install the open-source runtime CLI. Describe intent. Review every
-            plan. Prefer non-production first — {SITE.maturityLabel.toLowerCase()}{" "}
-            software.
+            Install the CLI, run{" "}
+            <span className="font-mono text-sm text-foreground">
+              make walkthrough
+            </span>
+            , watch Observe correlate real failures — no API key. Add your LLM
+            when you want natural-language plans. Prefer non-production —{" "}
+            {SITE.maturityLabel.toLowerCase()} software.
           </p>
 
           <CopyCommand className="mx-auto mt-8 w-full max-w-xl text-left" size="lg" />
 
-          <ol className="mx-auto mt-8 flex max-w-lg flex-col gap-2.5 text-left sm:flex-row sm:justify-center sm:gap-8 sm:text-center">
+          <ol className="mx-auto mt-8 flex max-w-lg flex-col gap-2.5 text-left sm:flex-row sm:justify-center sm:gap-6 sm:text-center">
             {INSTALL_STEPS.map((step, i) => (
               <li
                 key={step}
@@ -48,14 +52,21 @@ export function FinalCta() {
               href={SITE.getStarted}
               className={cn(buttonVariants({ size: "lg" }))}
             >
-              Start Free
+              {SITE.ctaPrimary}
               <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              href={SITE.levelUp}
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              <Sparkles className="size-4" />
+              {SITE.ctaSecondary}
             </Link>
             <a
               href={SITE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
             >
               <GithubIcon className="size-4" />
               GitHub
@@ -65,7 +76,7 @@ export function FinalCta() {
               className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
             >
               <BookOpen className="size-4" />
-              Documentation
+              Docs
             </Link>
           </div>
         </Reveal>

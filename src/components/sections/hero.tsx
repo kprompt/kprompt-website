@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { AnimatedTerminal } from "@/components/ui/animated-terminal";
 import { buttonVariants } from "@/components/ui/button";
@@ -54,8 +54,8 @@ export function Hero() {
             ))}
           </p>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Describe intent — not workflows. KPrompt creates the plan. Sensitive
-            operations still need your approval.
+            Start with a zero-LLM Observe walkthrough on kind — then level up to
+            natural-language plans you review before apply.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -63,14 +63,21 @@ export function Hero() {
               href={SITE.getStarted}
               className={cn(buttonVariants({ size: "lg" }))}
             >
-              Start Free
+              {SITE.ctaPrimary}
               <ArrowRight className="size-4" />
+            </a>
+            <a
+              href={SITE.levelUp}
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              <Sparkles className="size-4" />
+              {SITE.ctaSecondary}
             </a>
             <a
               href={SITE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
             >
               <GithubIcon className="size-4" />
               GitHub
@@ -80,9 +87,13 @@ export function Hero() {
               className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
             >
               <BookOpen className="size-4" />
-              Documentation
+              Docs
             </a>
           </div>
+
+          <p className="mt-3 font-mono text-xs text-muted-foreground">
+            {SITE.walkthroughHint}
+          </p>
 
           <CopyCommand className="mt-5 w-full max-w-xl" size="sm" />
         </motion.div>
