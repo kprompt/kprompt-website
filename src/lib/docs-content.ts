@@ -1537,7 +1537,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
     blocks: [
       {
         type: "p",
-        text: "Shipped in kprompt v0.5+. The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent — the first AI Runtime surface inside Kubernetes — that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook. The thin Coordinator fan-in (handoff + optional read-only probe + merge + Shared Knowledge via /v1/knowledge, ConfigMap-durable by default in Helm) also ships; a full continuous blast-radius product graph stays building.",
+        text: "Shipped in kprompt v0.5+. The laptop CLI stays a single binary with no required daemon. Separately, you can opt into an in-cluster Observe agent — the first AI Runtime surface inside Kubernetes — that watches one namespace, correlates Incidents, optionally calls an LLM, and notifies Slack or a webhook. Fleet inventory: `kprompt agent list -A` (KpromptAgent CRs + labeled Deployments). The thin Coordinator fan-in (handoff + optional read-only probe + merge + Shared Knowledge via /v1/knowledge, ConfigMap-durable by default in Helm) also ships; a full continuous blast-radius product graph stays building.",
         links: [
           {
             label: "docs/agent.md",
@@ -1765,6 +1765,7 @@ kprompt agent run -n payments --analyze --health --heuristic`,
           "Context aliases, doctor, Homebrew, optional Team login / policy / audit",
           "Local read-only inventory via kprompt dash (localhost)",
           "Optional Observe agent (Helm): namespace watch → Incident → gated Slack/webhook — no silent Autopilot mutate",
+          "Namespace Agent fleet inventory: kprompt agent list -A (docs/agent-fleet)",
           "Optional Operator: KpromptAgent CR → Observe agent Deployment",
           "Autopilot propose-only MVP (--autopilot-propose) under ADR-0015",
           "GitHub Integration MVP: --gitops opens a GitHub PR instead of cluster apply (docs/gitops-pr); Team org connect-repo still building (ADR-0019 · A-061+)",
