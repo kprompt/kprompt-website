@@ -21,6 +21,403 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "k9s-vs-kubernetes",
+    title: "K9s vs Kubernetes (k8s): what people mix up — and the real comparison",
+    description:
+      "k9s vs k8s is usually a category mistake: Kubernetes is the platform, K9s is a terminal UI for it. Clear the confusion, then see kubectl vs K9s and K9s alternatives.",
+    publishedAt: "2026-08-02",
+    author: MUHTALIP_DEDE,
+    tags: ["kubernetes", "kubectl", "kubernetes cli", "devops", "beginner"],
+    keywords: [
+      "k9s vs k8s",
+      "k8s vs k9s",
+      "k9s vs kubernetes",
+      "what is k9s",
+      "what is k8s",
+      "k9s kubernetes",
+      "is k9s kubernetes",
+      "k9s meaning",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "If you searched k9s vs k8s or k8s vs k9s, you are comparing a product to a platform. Kubernetes (often abbreviated k8s) is the cluster system: API server, controllers, Pods, Deployments, Services. K9s is a terminal user interface that talks to that API using your kubeconfig — the same credentials kubectl uses.",
+        links: [
+          {
+            label: "Kubernetes",
+            href: "https://kubernetes.io/docs/concepts/overview/",
+          },
+          { label: "K9s", href: "https://github.com/derailed/k9s" },
+        ],
+      },
+      {
+        type: "p",
+        text: "So “K9s vs Kubernetes” is like asking “VS Code vs Linux.” One runs on the other. The useful comparison is almost always kubectl vs K9s — two interfaces to the same cluster.",
+        links: [
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "The one-line answer",
+      },
+      {
+        type: "ul",
+        items: [
+          "k8s / Kubernetes = the platform and its API",
+          "K9s = a live terminal UI for navigating that API",
+          "kubectl = the official CLI client for the same API",
+          "You do not pick K9s instead of Kubernetes; you pick K9s (and/or kubectl) to operate Kubernetes",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Why the search shows up",
+      },
+      {
+        type: "p",
+        text: "Three naming accidents collide. “k8s” is shorthand for Kubernetes. “K9s” looks like a sibling abbreviation. Screenshots of K9s look like “the Kubernetes UI,” so newcomers treat them as rivals. They are not.",
+      },
+      {
+        type: "table",
+        headers: ["Term", "What it is", "What it is not"],
+        rows: [
+          [
+            "Kubernetes (k8s)",
+            "Container orchestration platform",
+            "A terminal app or dashboard product",
+          ],
+          [
+            "K9s",
+            "Interactive TUI over the Kubernetes API",
+            "A Kubernetes distribution or control plane",
+          ],
+          [
+            "kubectl",
+            "Official CLI for the Kubernetes API",
+            "A replacement for understanding objects",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "What to read next",
+      },
+      {
+        type: "ul",
+        items: [
+          "Need a decision rule for day-2 ops? → kubectl vs K9s",
+          "Want other TUIs and dashboards? → K9s alternatives",
+          "Comparing AI tooling (K8sGPT, kubectl-ai)? → Kubernetes AI tools comparison",
+        ],
+      },
+      {
+        type: "p",
+        text: "For the head-to-head operators actually mean, start with kubectl vs K9s. For swapping the TUI, see K9s alternatives. For AI-assisted ops on the same cluster, see the AI tools map.",
+        links: [
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+          { label: "K9s alternatives", href: "/blog/k9s-alternatives" },
+          {
+            label: "AI tools map",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          { label: "Install kprompt", href: "/docs/install" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "k9s-alternatives",
+    title:
+      "K9s alternatives in 2026: kubectl, Lens, Headlamp, and AI CLIs",
+    description:
+      "Best K9s alternatives by job: stick with kubectl for scripts, Lens or Headlamp for visual multi-cluster, or a plan-before-apply AI CLI when intent is the bottleneck — not the TUI.",
+    publishedAt: "2026-08-02",
+    author: MUHTALIP_DEDE,
+    tags: [
+      "kubernetes",
+      "kubectl",
+      "kubernetes cli",
+      "devops",
+      "platform engineering",
+    ],
+    keywords: [
+      "k9s alternatives",
+      "k9s alternative",
+      "alternatives to k9s",
+      "k9s vs lens",
+      "k9s vs headlamp",
+      "k9s vs kubectl",
+      "best kubernetes terminal ui",
+      "kubernetes tui alternatives",
+      "kubernetes dashboard alternative to k9s",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "Searching for k9s alternatives usually means one of three jobs failed: the TUI feels heavy, you need something scriptable, or you want a visual multi-cluster IDE instead of a terminal. K9s remains excellent at live keyboard navigation — alternatives should be chosen by the job you are hiring for, not by a generic “best tool” list.",
+        links: [{ label: "K9s", href: "https://github.com/derailed/k9s" }],
+      },
+      {
+        type: "p",
+        text: "This guide is the K9s-centered sibling of our broader kubectl alternatives survey. If your question is really kubectl vs K9s, read that first.",
+        links: [
+          {
+            label: "kubectl alternatives survey",
+            href: "/blog/kubectl-alternatives",
+          },
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Quick map",
+      },
+      {
+        type: "table",
+        headers: ["Alternative", "Best when", "Trade-off"],
+        rows: [
+          [
+            "kubectl",
+            "Scripts, CI, copy-pasteable evidence",
+            "More typing for live navigation",
+          ],
+          [
+            "Lens",
+            "Desktop multi-cluster visual workflows",
+            "Not shell-native; another app to manage",
+          ],
+          [
+            "Headlamp",
+            "Web/desktop extensible cluster UI",
+            "Needs deploy or local app setup",
+          ],
+          [
+            "Other TUIs (e.g. lazydocker-style tools)",
+            "You want a different keyboard UX",
+            "Smaller community than K9s for K8s day-2",
+          ],
+          [
+            "AI CLI (kubectl-ai / kprompt)",
+            "Intent → change is the bottleneck",
+            "Not a live TUI; review plans before apply",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Stay on kubectl",
+      },
+      {
+        type: "p",
+        text: "If you outgrew K9s because you need reproducible commands, tickets, or pipelines, the alternative is not another TUI — it is kubectl (which you already have). Keep K9s for watching; use kubectl for anything that must be automated or audited.",
+      },
+      {
+        type: "code",
+        caption: "Same evidence, shareable as a command",
+        code: `kubectl get pods -n payments -o wide
+kubectl describe pod -l app=api -n payments
+kubectl logs -l app=api -n payments --tail=200`,
+      },
+      {
+        type: "h2",
+        text: "Lens and Headlamp",
+      },
+      {
+        type: "p",
+        text: "Pick a dashboard when the bottleneck is seeing multiple clusters, RBAC-scoped views, or explaining the cluster to people who do not live in a terminal. Lens leans desktop IDE; Headlamp leans extensible web UI. Neither replaces kubectl for CI.",
+      },
+      {
+        type: "h2",
+        text: "When an AI CLI is the better “alternative”",
+      },
+      {
+        type: "p",
+        text: "K9s does not translate “scale api to three and roll back if Ready drops” into a reviewable change. That is a different job: intent CLI. kubectl-ai and kprompt sit there. kprompt’s bet is plan → safety → approve before apply, using your kubeconfig and your own LLM key.",
+        links: [
+          {
+            label: "Kubernetes AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          {
+            label: "kprompt vs kubectl-ai",
+            href: "/blog/kprompt-vs-kubectl-ai",
+          },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Intent with an approval gate",
+        code: `$ kprompt "scale api to 3" -n payments
+
+Plan
+  1. scale Deployment/api replicas → 3
+
+Risk: medium
+Apply? [y/N]`,
+      },
+      {
+        type: "h2",
+        text: "Decision rule",
+      },
+      {
+        type: "ul",
+        items: [
+          "Need live keyboard navigation → keep K9s (or try another TUI)",
+          "Need scripts / CI / tickets → kubectl",
+          "Need visual multi-cluster → Lens or Headlamp",
+          "Need English → reviewable mutate plan → AI CLI with an approval gate",
+          "Confused k9s vs k8s? → read the myth-bust post first",
+        ],
+      },
+      {
+        type: "p",
+        text: "Clear the platform vs TUI confusion in K9s vs Kubernetes. For the kubectl head-to-head, see kubectl vs K9s. For the wider interface survey, see kubectl alternatives. For AI peers, see the tools comparison.",
+        links: [
+          {
+            label: "K9s vs Kubernetes",
+            href: "/blog/k9s-vs-kubernetes",
+          },
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+          {
+            label: "kubectl alternatives",
+            href: "/blog/kubectl-alternatives",
+          },
+          {
+            label: "tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          { label: "Install kprompt", href: "/docs/install" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "kubegpt-vs-k8sgpt",
+    title: "Kubegpt vs K8sGPT: same search, different tools (and what to use)",
+    description:
+      "People searching Kubegpt usually mean K8sGPT — the analyzer-first Kubernetes AI tool. How it differs from kubectl-ai and plan-before-apply CLIs, and when each job fits.",
+    publishedAt: "2026-08-02",
+    author: MUHTALIP_DEDE,
+    tags: ["kubernetes", "ai", "devops", "sre", "kubernetes cli"],
+    keywords: [
+      "kubegpt",
+      "k8sgpt",
+      "kubegpt vs k8sgpt",
+      "what is kubegpt",
+      "k8sgpt alternatives",
+      "k8sgpt vs kubectl-ai",
+      "kubernetes ai tools",
+      "ai kubernetes troubleshooting",
+    ],
+    featured: true,
+    blocks: [
+      {
+        type: "p",
+        text: "If you typed Kubegpt into Google, you almost certainly meant K8sGPT — the open-source analyzer that scans a cluster and can explain findings with an LLM. “Kubegpt” is a common misspelling and a search collision, not a separate mainstream CNCF-adjacent product in the same lane.",
+        links: [
+          { label: "K8sGPT", href: "https://k8sgpt.ai/" },
+          {
+            label: "GitHub repository",
+            href: "https://github.com/k8sgpt-ai/k8sgpt",
+          },
+        ],
+      },
+      {
+        type: "p",
+        text: "This page clears the name, then places K8sGPT next to intent CLIs so you do not buy a chatbot when you needed a scanner — or enable silent apply when you needed a plan gate.",
+      },
+      {
+        type: "h2",
+        text: "What is Kubegpt? (people mean K8sGPT)",
+      },
+      {
+        type: "ul",
+        items: [
+          "K8sGPT runs analyzers over live Kubernetes resources and surfaces problems in plain language",
+          "Optional --explain enriches findings with an LLM; local models are supported",
+          "Core value is diagnose-first — optional remediation is not the default story",
+          "It is not kubectl, not K9s, and not a full in-cluster agent platform like Kagent",
+        ],
+      },
+      {
+        type: "h2",
+        text: "K8sGPT vs intent CLIs",
+      },
+      {
+        type: "table",
+        headers: ["Job", "Reach for", "Why"],
+        rows: [
+          [
+            "What is broken right now?",
+            "K8sGPT",
+            "Analyzer catalog + explain",
+          ],
+          [
+            "Turn a sentence into kubectl-shaped actions",
+            "kubectl-ai or kprompt",
+            "Intent CLI lane — check mutation contract",
+          ],
+          [
+            "Long-running agents on the cluster",
+            "Kagent-class platforms",
+            "Different ops burden; not a laptop scan",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "kprompt sits in the same natural-language CLI lane as kubectl-ai, with a stricter default: structured plan → safety → human approve before apply. Use K8sGPT when the bottleneck is finding issues; use an intent CLI when you already know the outcome and need a reviewable change.",
+        links: [
+          {
+            label: "Kubernetes AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          {
+            label: "kprompt vs kubectl-ai",
+            href: "/blog/kprompt-vs-kubectl-ai",
+          },
+          {
+            label: "What is Kubernetes AI?",
+            href: "/blog/what-is-kubernetes-ai",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Try diagnose and intent on the same broken namespace",
+      },
+      {
+        type: "code",
+        caption: "Scan, then ask for a gated plan",
+        code: `# Analyzer-first (K8sGPT — install from upstream)
+k8sgpt analyze --explain
+
+# Intent CLI with approval (kprompt)
+kprompt "explain why api is crashing" -n payments
+kprompt "rollback api" -n payments   # review plan → y or n`,
+      },
+      {
+        type: "p",
+        text: "For the full peer map (K8sGPT, kubectl-ai, Kagent, hosted chat), see the Kubernetes AI tools comparison. For the category definition behind searches like kubernetes ai and k8s ai tools, see What is Kubernetes AI?",
+        links: [
+          {
+            label: "Kubernetes AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          {
+            label: "What is Kubernetes AI?",
+            href: "/blog/what-is-kubernetes-ai",
+          },
+          { label: "Safety model", href: "/docs/safety" },
+          { label: "Install kprompt", href: "/docs/install" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "ai-runtime-for-kubernetes",
     title: "The AI Runtime for Kubernetes — not another AI wrapper",
     description:
@@ -1149,6 +1546,7 @@ kprompt "explain why api is crashing" -n staging`,
     description:
       "A plain-language map of Kubernetes AI: analyzers like K8sGPT, intent CLIs like kubectl-ai and kprompt, in-cluster agents, and what belongs in CI vs on your laptop — for searches like kubernetes ai, k8s ai, and k8s ai tools.",
     publishedAt: "2026-07-26",
+    updatedAt: "2026-08-02",
     author: MUHTALIP_DEDE,
     tags: ["kubernetes", "ai", "devops", "sre", "kubernetes cli"],
     keywords: [
@@ -1163,6 +1561,7 @@ kprompt "explain why api is crashing" -n staging`,
       "kubectl ai",
       "k8sgpt",
     ],
+    featured: true,
     blocks: [
       {
         type: "p",
@@ -1588,10 +1987,11 @@ Apply? [y/N]`,
   {
     slug: "kubectl-vs-k9s",
     title:
-      "kubectl vs K9s: when to use each (and why you keep both)",
+      "kubectl vs K9s: differences, when to use each, and why you need both",
     description:
-      "A head-to-head for operators: kubectl is the precise API client and scripting language, K9s is a live terminal UI over the same API. Which one to reach for during an incident, in CI, and while learning Kubernetes.",
+      "kubectl vs K9s (and k9s vs kubectl): kubectl is the scriptable API client; K9s is a live terminal UI over the same API. When to use each in incidents, CI, and day-2 ops — plus where AI CLIs fit.",
     publishedAt: "2026-07-26",
+    updatedAt: "2026-08-02",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -1603,6 +2003,8 @@ Apply? [y/N]`,
     keywords: [
       "kubectl vs k9s",
       "k9s vs kubectl",
+      "k9s vs k8s",
+      "k8s vs k9s",
       "k9s alternative",
       "is k9s better than kubectl",
       "k9s tutorial",
@@ -1611,6 +2013,7 @@ Apply? [y/N]`,
       "k9s read only mode",
       "kubernetes cli comparison",
     ],
+    featured: true,
     blocks: [
       {
         type: "p",
@@ -1741,6 +2144,20 @@ kubectl get pods -n payments \\
       },
       {
         type: "h2",
+        text: "k9s vs k8s: not the same comparison",
+      },
+      {
+        type: "p",
+        text: "Search often mixes “k9s vs k8s” with “kubectl vs K9s.” They are different questions. Kubernetes (k8s) is the platform. K9s is one terminal UI for operating that platform. If you landed here from k9s vs k8s, start with the short myth-bust post, then come back for the kubectl decision rule.",
+        links: [
+          {
+            label: "short myth-bust post",
+            href: "/blog/k9s-vs-kubernetes",
+          },
+        ],
+      },
+      {
+        type: "h2",
         text: "Is K9s a kubectl replacement?",
       },
       {
@@ -1844,11 +2261,15 @@ kprompt "explain why api is crashing" -n payments`,
       },
       {
         type: "p",
-        text: "For the wider interface survey (Headlamp, Lens, dashboards), see our kubectl alternatives post. For the AI peer map (K8sGPT, kubectl-ai, Kagent), see the Kubernetes AI tools comparison. For the specific failure above, see the CrashLoopBackOff guide.",
+        text: "For the wider interface survey (Headlamp, Lens, dashboards), see our kubectl alternatives post. Searching specifically for K9s alternatives? Use the dedicated K9s alternatives guide. For the AI peer map (K8sGPT, kubectl-ai, Kagent), see the Kubernetes AI tools comparison. For the specific failure above, see the CrashLoopBackOff guide.",
         links: [
           {
             label: "kubectl alternatives post",
             href: "/blog/kubectl-alternatives",
+          },
+          {
+            label: "K9s alternatives guide",
+            href: "/blog/k9s-alternatives",
           },
           {
             label: "Kubernetes AI tools comparison",
@@ -4013,7 +4434,7 @@ kprompt "scale api to 2" -n staging    # review plan → y or n`,
     description:
       "Compare kubectl alternatives: K9s terminal UI, Headlamp and Lens dashboards, and natural-language Kubernetes CLIs. Which interface fits navigation, visual management, troubleshooting, and plan-before-apply operations.",
     publishedAt: "2026-07-16",
-    updatedAt: "2026-07-26",
+    updatedAt: "2026-08-02",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -4036,6 +4457,7 @@ kprompt "scale api to 2" -n staging    # review plan → y or n`,
       "kubernetes management tools",
       "kprompt",
     ],
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -4146,9 +4568,13 @@ kubectl rollout undo deployment/api -n staging`,
       },
       {
         type: "p",
-        text: "If K9s is the only alternative you are weighing, we wrote a dedicated head-to-head: kubectl vs K9s. The short version is that they are not rivals — kubectl is the precise API client and scripting language, K9s is a live terminal UI over the same API and credentials.",
+        text: "If K9s is the only alternative you are weighing, we wrote a dedicated head-to-head: kubectl vs K9s. Searching specifically for K9s alternatives (Lens, Headlamp, AI CLIs)? Use the K9s-centered guide. The short version is that they are not rivals — kubectl is the precise API client and scripting language, K9s is a live terminal UI over the same API and credentials.",
         links: [
           { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+          {
+            label: "K9s-centered guide",
+            href: "/blog/k9s-alternatives",
+          },
         ],
       },
       {
@@ -4293,7 +4719,7 @@ kprompt "explain why api is not ready" -n staging`,
     description:
       "Map of Kubernetes AI / k8s AI tools by job: K8sGPT (and Kubegpt-style searches) for diagnosis, kubectl-ai and kprompt for NL CLIs, Kagent for in-cluster agents — honest mutation contracts included.",
     publishedAt: "2026-07-18",
-    updatedAt: "2026-07-26",
+    updatedAt: "2026-08-02",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -4322,6 +4748,7 @@ kprompt "explain why api is not ready" -n staging`,
       "ai kubernetes cli",
       "kprompt",
     ],
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -4411,14 +4838,26 @@ kprompt "explain why api is not ready" -n staging`,
       },
       {
         type: "p",
-        text: "K8sGPT is the CNCF-adjacent tool most teams mean when they say “AI that understands my cluster” (including misspelled searches like Kubegpt). It runs analyzers over live resources, surfaces problems (CrashLoopBackOff, misconfigured Services, and similar), and can enrich findings with an LLM via --explain. Multiple backends are supported — including local models — and sensitive fields can be anonymized before they leave your environment.",
+        text: "K8sGPT is the CNCF-adjacent tool most teams mean when they say “AI that understands my cluster” (including misspelled searches like Kubegpt). It runs analyzers over live resources, surfaces problems (CrashLoopBackOff, misconfigured Services, and similar), and can enrich findings with an LLM via --explain. Multiple backends are supported — including local models — and sensitive fields can be anonymized before they leave your environment. For a short landing page on the Kubegpt vs K8sGPT name collision, see Kubegpt vs K8sGPT.",
         links: [
           { label: "K8sGPT", href: "https://k8sgpt.ai/" },
           {
             label: "GitHub repository",
             href: "https://github.com/k8sgpt-ai/k8sgpt",
           },
+          {
+            label: "Kubegpt vs K8sGPT",
+            href: "/blog/kubegpt-vs-k8sgpt",
+          },
         ],
+      },
+      {
+        type: "h2",
+        text: "What is Kubegpt? (people mean K8sGPT)",
+      },
+      {
+        type: "p",
+        text: "There is no separate mainstream “Kubegpt” product that replaces K8sGPT in this lane. Treat Kubegpt searches as K8sGPT intent, then decide whether you need analyzer-first diagnosis or an intent CLI with a mutation gate.",
       },
       {
         type: "ul",
@@ -7582,7 +8021,7 @@ echo "$json" > plan.json
       "open source ai sre",
       "kprompt roadmap series",
     ],
-    featured: true,
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -7724,7 +8163,7 @@ kprompt "optimize my cluster"`,
       "intent compiler vs chat",
       "human in the loop kubernetes",
     ],
-    featured: true,
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -7885,7 +8324,7 @@ kprompt "optimize my cluster"
       "fail closed kubernetes ai",
       "llm structured output kubernetes",
     ],
-    featured: true,
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -8132,7 +8571,7 @@ kprompt "scale api to 2" -n staging           # read plan → n or y`,
       "typed outputs llm ops",
       "kprompt -o json",
     ],
-    featured: true,
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -8338,7 +8777,7 @@ jq -e '.risk.denied == false and .risk.level != "high"' plan.json
       "risk scoring planresult",
       "ai auto remediation danger",
     ],
-    featured: true,
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -8516,7 +8955,7 @@ kprompt "scale api to 2" -n staging          # routine → still y/N`,
       "multi-context planresult",
       "ai sre blast radius",
     ],
-    featured: true,
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -8700,19 +9139,23 @@ kprompt --contexts kind-a,kind-b "scale demo to 2"   # expect two prompts
     description:
       "A plain guide to Pods and Deployments — what each one is, how they relate, kubectl commands that stick, common beginner mistakes, and optional natural-language checks with kprompt.",
     publishedAt: "2026-07-28",
+    updatedAt: "2026-08-02",
     author: EMIRE_BARIS,
     tags: ["kubernetes", "beginner", "kubectl", "devops"],
     keywords: [
       "kubernetes pods vs deployments",
       "pod vs deployment kubernetes",
+      "deployment vs pod kubernetes",
       "what is a kubernetes pod",
       "what is a kubernetes deployment",
+      "what is a deployment in kubernetes",
       "kubectl get pods",
       "kubectl get deployments",
       "kubernetes beginner guide",
       "deployment replicas kubernetes",
       "pod ephemeral kubernetes",
     ],
+    featured: false,
     blocks: [
       {
         type: "p",
@@ -9353,13 +9796,15 @@ kprompt "describe service api in default"`,
   }, 
 ];
 
+function postSortTime(post: BlogPost): number {
+  return new Date(post.updatedAt ?? post.publishedAt).getTime();
+}
+
 export function getAllPosts(): BlogPost[] {
   return BLOG_POSTS.map((post, index) => ({ post, index }))
     .sort(
       (a, b) =>
-        new Date(b.post.publishedAt).getTime() -
-          new Date(a.post.publishedAt).getTime() ||
-        b.index - a.index
+        postSortTime(b.post) - postSortTime(a.post) || b.index - a.index
     )
     .map(({ post }) => post);
 }

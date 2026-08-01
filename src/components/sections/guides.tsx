@@ -4,27 +4,28 @@ import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+/** Ordered for Search Console demand: comparisons people already query. */
 const GUIDES = [
   {
-    href: "/blog/kprompt-vs-kagent",
+    href: "/blog/kubectl-vs-k9s",
     kicker: "Comparison",
-    title: "kprompt vs kagent",
+    title: "kubectl vs K9s",
     blurb:
-      "CNCF agent platform on K8s vs PlanResult ops CLI + Observe. Overlapping SRE demos, different contracts.",
+      "Not rivals: kubectl is the scriptable API client; K9s is a live terminal UI over it.",
   },
   {
-    href: "/blog/kprompt-vs-ark",
+    href: "/blog/kubectl-alternatives",
     kicker: "Comparison",
-    title: "kprompt vs ARK",
+    title: "Kubectl alternatives",
     blurb:
-      "Agentic Runtime hosts agents on K8s. AI Runtime reasons about the cluster under plan → approve.",
+      "K9s, Headlamp, Lens, and AI CLIs — which interface fits navigation, dashboards, and plan-before-apply.",
   },
   {
-    href: "/blog/ai-runtime-for-kubernetes",
-    kicker: "Positioning",
-    title: "The AI Runtime for Kubernetes",
+    href: "/blog/k9s-alternatives",
+    kicker: "Comparison",
+    title: "K9s alternatives",
     blurb:
-      "Not another AI wrapper — observe, reason, plan, approve. Honest shipped vs building.",
+      "Looking past K9s: kubectl, Lens, Headlamp, and when a natural-language CLI is the better next step.",
   },
   {
     href: "/blog/kubernetes-ai-tools-comparison",
@@ -34,18 +35,18 @@ const GUIDES = [
       "kubectl-ai, K8sGPT, Kagent, kprompt — what each one actually does to your cluster.",
   },
   {
+    href: "/blog/kubernetes-pods-vs-deployments",
+    kicker: "Beginner",
+    title: "Pods vs Deployments",
+    blurb:
+      "What each object is, how they relate, and the kubectl commands that stick for beginners.",
+  },
+  {
     href: "/blog/kprompt-vs-kubectl-ai",
     kicker: "Comparison",
     title: "kprompt vs kubectl-ai",
     blurb:
       "Same natural-language CLI lane, different mutate contract: plan, safety, then approve.",
-  },
-  {
-    href: "/blog/kubectl-vs-k9s",
-    kicker: "Comparison",
-    title: "kubectl vs K9s",
-    blurb:
-      "Not rivals: one is the scriptable API client, the other is a live terminal UI over it.",
   },
 ] as const;
 
@@ -61,8 +62,8 @@ export function Guides() {
             Guides and comparisons
           </h2>
           <p className="mt-3 text-muted-foreground">
-            How kprompt lines up against other Kubernetes AI tooling, plus
-            playbooks for the failures you actually page on.
+            kubectl vs K9s, alternatives, and Kubernetes AI tooling — plus the
+            beginner guides operators actually search for.
           </p>
         </Reveal>
 

@@ -29,6 +29,15 @@ export const DOCS_FULL_INDEX = [
 }>;
 
 const HIGH_SIGNAL_SLUGS = [
+  "kubectl-vs-k9s",
+  "k9s-vs-kubernetes",
+  "k9s-alternatives",
+  "kubectl-alternatives",
+  "kubegpt-vs-k8sgpt",
+  "kubernetes-ai-tools-comparison",
+  "what-is-kubernetes-ai",
+  "kubernetes-pods-vs-deployments",
+  "kprompt-vs-kubectl-ai",
   "kprompt-vs-kagent",
   "kprompt-vs-ark",
   "ai-runtime-for-kubernetes",
@@ -41,11 +50,8 @@ const HIGH_SIGNAL_SLUGS = [
   "building-ai-sre-03-planresult",
   "building-ai-sre-04-safety",
   "building-ai-sre-05-multi-context",
-  "kprompt-vs-kubectl-ai",
   "intent-compiler-not-chat",
   "ai-sre-not-ai-kubectl",
-  "what-is-kubernetes-ai",
-  "kubernetes-ai-tools-comparison",
   "optimize-my-cluster",
   "planresult-json-deep-dive",
   "kubernetes-ci-cd-plan-gates",
@@ -55,8 +61,6 @@ const HIGH_SIGNAL_SLUGS = [
   "kubectl-cheat-sheet-natural-language",
   "kubernetes-error-prompt-playbook",
   "kubernetes-troubleshooting-guide",
-  "kubectl-alternatives",
-  "kubectl-vs-k9s",
   "kubernetes-safety-plan-approve",
   "kubernetes-llm-providers-byok",
 ] as const;
