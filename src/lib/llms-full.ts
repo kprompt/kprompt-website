@@ -154,7 +154,7 @@ export function buildLlmsFullText(): string {
     "- Shipped Coordinator Shared Knowledge: GET /v1/knowledge + optional file/ConfigMap durable handoff ring (Helm knowledge.enabled; see /docs/coordinator-knowledge).",
     "- Shipped Simulation MVP: change preview = PlanResult dry-run + blastRadius + impact + Helm dry-run (not a sandbox; see /docs/simulation).",
     "- Shipped Cost Intelligence MVP: optimize idle/rightsizing/HPA + labeled $/carbon notes (not a cloud bill; see /docs/optimize).",
-    "- Shipped GitHub Integration MVP: CLI --gitops PR mode + Flux/Argo status + agent gitops evidence (Team SCM A-061…A-068 shipped including Setup URL, App JWT tokens, /ci viewer; Checks annotate A-069 still Building).",
+    "- Shipped GitHub Integration MVP: CLI --gitops PR mode + Flux/Argo status + agent gitops evidence (Team SCM A-061…A-069 shipped including Setup URL, App JWT tokens, /ci viewer, Checks annotate upsert).",
     "- Shipped Incident Memory: namespace facts + patterns + durable incidents (local/ConfigMap; never auto-mutate).",
     "- Shipped thin Coordinator: cross-ns handoff + optional kube probe + InvestigationReport merge (mutate off).",
     "- Architecture diagrams: AI Runtime pipeline + PlanResult contract + dual path — /docs/architecture.",
