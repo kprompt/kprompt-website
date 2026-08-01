@@ -141,7 +141,7 @@ export function buildLlmsFullText(): string {
     "- Not a K8sGPT fleet scanner; not a hosted Lens clone.",
     "- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.",
     "- Autopilot (ADR-0015) is propose-only by default — never silent apply.",
-    "- Building / next: deeper continuous multi-agent reasoning, continuous mesh/OTel Coordinator blast-radius, Secret-value/external-API Knowledge Graph + topology UI, sandbox/chaos Simulation, GitHub Checks annotate write-back (A-069; App JWT A-068 shipped).",
+    "- Building / next: deeper continuous multi-agent reasoning, continuous mesh/OTel Coordinator blast-radius, Secret-value/external-API Knowledge Graph + topology UI, sandbox/chaos Simulation.",
     "- Shipped Team GitHub App install MVP: GET/PUT/DELETE /v1/org/github + Setup URL auto-bind (A-067) + App JWT installation tokens (A-068) + app /integrations.",
     "- Shipped Team connected repos: GET/POST/DELETE /v1/org/repos + bind/unbind UI (metadata only).",
     "- Shipped Team pipeline bindings: GET/POST/DELETE /v1/org/repos/{id}/pipelines (github_actions/tekton/argo metadata + deep links; never in-cluster mutate).",
