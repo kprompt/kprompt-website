@@ -36,7 +36,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "The AI Runtime for Kubernetes. Optional Observe agent watches a namespace and notifies — it does not silently mutate. Natural-language plans use your kubeconfig and your LLM API keys (BYOK); mutations always produce a plan with risk checks and hard denies before apply. Fastest first run: zero-LLM kind walkthrough — no API key required.",
+        text: "The AI Runtime for Kubernetes. Optional Observe agent watches a namespace and notifies — it does not silently mutate. Natural-language plans use your kubeconfig and your LLM (local Ollama = $0, or your own cloud provider key — BYOK). Mutations always produce a plan with risk checks and hard denies before apply. Fastest first run: zero-LLM kind walkthrough — $0, no provider key.",
         links: [{ label: "zero-LLM kind walkthrough", href: "/docs/quickstart" }],
       },
       {
@@ -105,7 +105,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
     blocks: [
       {
         type: "p",
-        text: "Installing is easy; applying is not automatically safe. After install, the fastest demo is the zero-LLM kind walkthrough (no API key). For natural-language plans, start on a sandbox cluster and leave --approve off until you know how plans look.",
+        text: "Installing is easy; applying is not automatically safe. After install, the fastest demo is the zero-LLM kind walkthrough ($0, no provider key). For natural-language plans, prefer local Ollama or a sandbox cluster, and leave --approve off until you know how plans look.",
         links: [{ label: "zero-LLM kind walkthrough", href: "/docs/quickstart" }],
       },
       {
@@ -215,9 +215,9 @@ kprompt doctor --json   # same checks, machine-readable`,
       },
       {
         type: "p",
-        text: "kprompt doctor is the fastest way to confirm a working setup: it checks that a kubeconfig context resolves, that an LLM API key is present (needed for NL prompts, not for the zero-LLM walkthrough), which day-2 integrations were detected, and whether optional Team enrollment is healthy. It exits non-zero when a required check fails, so it also works as a CI preflight.",
+        text: "kprompt doctor is the fastest way to confirm a working setup: it checks that a kubeconfig context resolves, that an LLM provider is usable (Ollama needs no key; cloud BYOK needs your provider env var — not a kprompt purchase), which day-2 integrations were detected, and whether optional Team enrollment (kp_… token) is healthy. It exits non-zero when a required check fails, so it also works as a CI preflight.",
         links: [
-          { label: "Set up a provider key", href: "/docs/providers" },
+          { label: "Providers (Ollama + BYOK)", href: "/docs/providers" },
           { label: "Try the walkthrough", href: "/docs/quickstart" },
         ],
       },
@@ -297,10 +297,10 @@ go install ./cmd/kprompt`,
       },
       {
         type: "p",
-        text: "Source builds need Go 1.23 or newer. Next: set a provider key, then walk the plan → approve loop on a sandbox cluster.",
+        text: "Source builds need Go 1.23 or newer. Next: try the $0 walkthrough or Ollama, then walk the plan → approve loop on a sandbox cluster.",
         links: [
-          { label: "Providers", href: "/docs/providers" },
           { label: "Quickstart", href: "/docs/quickstart" },
+          { label: "Providers", href: "/docs/providers" },
           { label: "Safety", href: "/docs/safety" },
         ],
       },
@@ -309,20 +309,20 @@ go install ./cmd/kprompt`,
   quickstart: {
     title: "Quickstart",
     description:
-      "Try kprompt in ~60 seconds with no API key (kind + Observe walkthrough), then level up with your own LLM on a sandbox cluster.",
+      "Try kprompt in ~60 seconds at $0 (kind + Observe walkthrough), then NL plans via local Ollama or your own cloud provider key — nothing to buy from kprompt.",
     blocks: [
       {
         type: "p",
-        text: "The fastest path needs no LLM and no cloud account: install the CLI, clone kprompt-examples, and run make walkthrough. That spins up kind, breaks workloads on purpose, and runs the Observe agent in heuristic mode. When you are ready for natural-language plans on your own cluster, jump to Level up with your LLM.",
+        text: "Funnel: install → walkthrough ($0, no LLM) → Ollama for NL ($0) → optional cloud BYOK. kprompt does not sell API keys. Team kp_… tokens are org policy/audit only. When you are ready for natural-language plans on your own cluster, jump to Level up with NL.",
         links: [
           { label: "kprompt-examples", href: "https://github.com/kprompt/kprompt-examples" },
-          { label: "Level up with your LLM", href: "#with-llm" },
+          { label: "Level up with NL", href: "#with-llm" },
         ],
       },
       {
         type: "h2",
         id: "zero-llm",
-        text: "1. Try without an API key (~60s)",
+        text: "1. Try at $0 — no provider key (~60s)",
       },
       {
         type: "p",
@@ -351,11 +351,11 @@ make walkthrough`,
       {
         type: "h2",
         id: "with-llm",
-        text: "2. Level up with your LLM",
+        text: "2. Level up with NL plans",
       },
       {
         type: "p",
-        text: "Natural-language plans (scale, investigate, Helm install, …) need a provider key on your machine (BYOK). Start on a disposable cluster (kind, minikube, or a dedicated sandbox). Do not point an unreviewed --approve flow at production until you have practiced the plan → approve loop.",
+        text: "Natural-language plans (scale, investigate, Helm install, …) need an LLM on your machine. Prefer local Ollama ($0) first. Cloud provider keys are optional BYOK — yours, not a kprompt product. Start on a disposable cluster (kind, minikube, or a dedicated sandbox). Do not point an unreviewed --approve flow at production until you have practiced the plan → approve loop.",
       },
       {
         type: "h3",
@@ -368,32 +368,44 @@ kubectl get ns`,
       },
       {
         type: "h3",
-        text: "Save defaults (no secrets)",
+        text: "A) Local Ollama ($0 — recommended first)",
       },
       {
         type: "code",
-        code: `kprompt config set provider gemini
-kprompt config set model gemini-2.0-flash
-kprompt config set namespace default
-kprompt config`,
+        code: `# ollama serve && ollama pull llama3.2
+kprompt config set provider ollama
+kprompt config set model llama3.2
+kprompt --provider ollama "list pods"`,
       },
       {
         type: "p",
-        text: "Config lives at ~/.kprompt/config.yaml. It never stores API keys — only whether a key is set or unset in the environment.",
+        text: "No cloud account and no provider key. Details and other local gateways: Providers.",
+        links: [{ label: "Providers", href: "/docs/providers" }],
       },
       {
         type: "h3",
-        text: "Export an API key",
+        text: "B) Optional: your cloud provider key (BYOK)",
       },
       {
         type: "code",
         code: `export KPROMPT_GEMINI_API_KEY="..."
-# or OPENAI / ANTHROPIC / GROQ / … — see Providers`,
+# or OPENAI / ANTHROPIC / GROQ / … — see Providers
+kprompt config set provider gemini
+kprompt config set model gemini-2.0-flash`,
       },
       {
         type: "p",
-        text: "Provider matrix and env var names: Providers.",
+        text: "Config lives at ~/.kprompt/config.yaml. It never stores provider keys — only whether a key is set or unset in the environment. Provider matrix: Providers.",
         links: [{ label: "Providers", href: "/docs/providers" }],
+      },
+      {
+        type: "h3",
+        text: "Save defaults (no secrets)",
+      },
+      {
+        type: "code",
+        code: `kprompt config set namespace default
+kprompt config`,
       },
       {
         type: "h3",
@@ -455,7 +467,7 @@ kprompt policy`,
       },
       {
         type: "p",
-        text: "Free CLI behavior is unchanged until you enroll. Login is for orgs that already have Team access — not a public signup funnel.",
+        text: "Free CLI behavior is unchanged until you enroll. Login issues a Team kp_… token for orgs that already have access — not a public signup or LLM-key purchase.",
         links: [{ label: "Team enrollment", href: "/docs/team" }],
       },
       {
@@ -1205,11 +1217,11 @@ kprompt policy           # show cached policy`,
   providers: {
     title: "Providers",
     description:
-      "Bring your own LLM key: OpenAI, Anthropic, Gemini, Groq, xAI (Grok), Mistral, DeepSeek, OpenRouter, Together, local Ollama, or any OpenAI-compatible gateway.",
+      "Local Ollama ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, or any OpenAI-compatible gateway. kprompt does not sell API keys.",
     blocks: [
       {
         type: "p",
-        text: "kprompt is BYOK (bring your own key). You pick the provider and model, and the request goes from your machine to that provider — there is no kprompt-hosted inference proxy in the middle. Select with --provider or ~/.kprompt/config.yaml (provider, model, optional base_url). API keys are environment variables only and are never written to the config file.",
+        text: "kprompt does not sell API keys. For NL plans use local Ollama ($0, no key) or BYOK — your own cloud provider key. Requests go from your machine to that provider; there is no kprompt-hosted inference proxy. Select with --provider or ~/.kprompt/config.yaml (provider, model, optional base_url). Provider keys are environment variables only and are never written to the config file. Optional Team kp_… tokens are for org policy/audit, not LLM inference.",
       },
       {
         type: "h2",
@@ -1219,6 +1231,7 @@ kprompt policy           # show cached policy`,
         type: "table",
         headers: ["Provider", "--provider", "Env key(s)", "Default model"],
         rows: [
+          ["Ollama (local)", "ollama", "none required — $0 first path", "llama3.2"],
           [
             "OpenAI",
             "openai",
@@ -1279,7 +1292,6 @@ kprompt policy           # show cached policy`,
             "KPROMPT_TOGETHER_API_KEY / TOGETHER_API_KEY",
             "Llama 3.1 8B Turbo",
           ],
-          ["Ollama (local)", "ollama", "none required", "llama3.2"],
           [
             "OpenAI-compatible",
             "openai-compatible",
@@ -1290,7 +1302,7 @@ kprompt policy           # show cached policy`,
       },
       {
         type: "p",
-        text: "Groq, xAI (Grok), Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, and Together all speak the OpenAI-compatible API. Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key at all, which makes it the zero-spend option for trying kprompt or running it in CI.",
+        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. Groq, xAI (Grok), Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, and Together all speak the OpenAI-compatible API.",
       },
       {
         type: "h2",
@@ -1299,10 +1311,12 @@ kprompt policy           # show cached policy`,
       {
         type: "ul",
         items: [
+          "Ollama needs no provider key",
           "The KPROMPT_-prefixed variable is checked first, then the vendor default such as OPENAI_API_KEY",
           "Environment variables always win over keys pulled from a Team org with kprompt secrets pull",
           "~/.kprompt/config.yaml stores provider, model, namespace, and base_url — never a key",
           "kprompt doctor reports whether a usable key was found without printing its value",
+          "Team kp_… tokens from kprompt login are unrelated to LLM provider keys",
         ],
       },
       {
@@ -1311,7 +1325,10 @@ kprompt policy           # show cached policy`,
       },
       {
         type: "code",
-        code: `export KPROMPT_OPENAI_API_KEY=sk-...
+        code: `# Local Ollama ($0)
+kprompt --provider ollama --model llama3.2 "list pods"
+
+export KPROMPT_OPENAI_API_KEY=sk-...
 kprompt "list deployments"
 
 export KPROMPT_ANTHROPIC_API_KEY=sk-ant-...
@@ -1324,9 +1341,7 @@ export KPROMPT_XAI_API_KEY=...
 kprompt --provider xai "explain why api is crashlooping"
 
 export KPROMPT_MOONSHOT_API_KEY=...
-kprompt --provider moonshot "explain why api is crashlooping"
-
-kprompt --provider ollama --model llama3.2 "list pods"`,
+kprompt --provider moonshot "explain why api is crashlooping"`,
       },
       {
         type: "h2",
@@ -1349,16 +1364,18 @@ kprompt --provider openai-compatible --model gpt-4o "list services"`,
       {
         type: "code",
         caption: "~/.kprompt/config.yaml",
-        code: `provider: gemini
-model: gemini-2.0-flash
+        code: `provider: ollama
+model: llama3.2
+# provider: gemini
+# model: gemini-2.0-flash
 # base_url: https://api.groq.com/openai/v1   # optional override
 namespace: default`,
       },
       {
         type: "code",
         caption: "Or set the same values from the CLI",
-        code: `kprompt config set provider gemini
-kprompt config set model gemini-2.0-flash
+        code: `kprompt config set provider ollama
+kprompt config set model llama3.2
 kprompt config`,
       },
       {
@@ -1368,7 +1385,8 @@ kprompt config`,
       {
         type: "ul",
         items: [
-          "Fast and cheap models handle routine intents like list, scale, and logs well",
+          "Start with local Ollama ($0) for first NL plans — no cloud key to buy",
+          "Fast and cheap cloud models handle routine intents like list, scale, and logs well",
           "Reserve a stronger model for explain, investigate, and why prompts that reason across events and logs",
           "Local Ollama models avoid all spend but produce weaker plans on ambiguous prompts",
           "Switch per command with --provider and --model without changing your saved defaults",
@@ -1769,7 +1787,7 @@ kprompt agent run -n payments --analyze --health --heuristic`,
           "Namespace Agent intelligence brief: kprompt agent status -n <ns> (docs/agent-status)",
           "Optional Operator: KpromptAgent CR → Observe agent Deployment",
           "Autopilot propose-only MVP (--autopilot-propose) under ADR-0015",
-          "GitHub Integration MVP: --gitops opens a GitHub PR instead of cluster apply (docs/gitops-pr); Team SCM A-061…A-068 shipped (Setup URL + App JWT tokens + /ci viewer) — Checks annotate write-back is A-069 Building",
+          "GitHub Integration MVP: --gitops opens a GitHub PR instead of cluster apply (docs/gitops-pr); Team SCM A-061…A-069 shipped (Setup URL + App JWT + /ci viewer + Checks annotate upsert)",
         ],
       },
       {

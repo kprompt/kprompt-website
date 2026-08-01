@@ -51,15 +51,15 @@ export const FAQ: FaqEntry[] = [
     },
   },
   {
-    question: "Where do my kubeconfig and API keys live?",
+    question: "Where do my kubeconfig and LLM keys live?",
     answer:
-      "On your machine. kprompt reads your existing kubeconfig locally and uses your own LLM API keys from environment variables (BYOK). Cluster credentials are not uploaded to a control plane by default, and ~/.kprompt/config.yaml never stores API keys — only whether a key is set.",
+      "On your machine. kprompt reads your existing kubeconfig locally. For NL plans use local Ollama ($0, no key) or your own cloud provider key from environment variables (BYOK) — kprompt does not sell keys. Optional Team kp_… tokens from kprompt login are org policy/audit only. Cluster credentials are not uploaded to a control plane by default, and ~/.kprompt/config.yaml never stores secrets.",
     more: { label: "Providers and keys", href: "/docs/providers" },
   },
   {
     question: "Which LLM providers does kprompt support?",
     answer:
-      "OpenAI, Anthropic, Gemini, Groq, xAI (Grok), Moonshot (Kimi K3), and local models through Ollama, among others. You bring your own key, pick a provider and model with kprompt config set, and switch per command when you want a cheaper or stronger model for a given prompt.",
+      "Start with local Ollama ($0, no cloud key). Cloud options include OpenAI, Anthropic, Gemini, Groq, xAI (Grok), Moonshot (Kimi K3), and others — bring your own key, pick a provider and model with kprompt config set, and switch per command when you want a cheaper or stronger model.",
     more: { label: "Provider matrix", href: "/docs/providers" },
   },
   {

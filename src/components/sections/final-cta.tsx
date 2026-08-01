@@ -26,8 +26,9 @@ export function FinalCta() {
             <span className="font-mono text-sm text-foreground">
               make walkthrough
             </span>
-            , watch Observe correlate real failures — no API key. Add your LLM
-            when you want natural-language plans. Prefer non-production —{" "}
+            , watch Observe correlate real failures — $0, no provider key. Prefer
+            local Ollama for natural-language plans, or your own cloud key (BYOK)
+            when you want it. Prefer non-production —{" "}
             {SITE.maturityLabel.toLowerCase()} software.
           </p>
 

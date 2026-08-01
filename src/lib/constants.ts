@@ -110,6 +110,6 @@ export const ROADMAP_TEASER = {
 export const INSTALL_STEPS = [
   "Install the CLI",
   "Clone kprompt-examples",
-  "make walkthrough (no API key)",
-  "Level up — add your LLM (optional)",
+  "make walkthrough ($0)",
+  "Ollama or BYOK for NL (optional)",
 ] as const;

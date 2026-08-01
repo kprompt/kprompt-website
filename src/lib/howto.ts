@@ -55,16 +55,16 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
       "kind",
       "kubectl",
       "make",
-      "Optional: an LLM API key",
+      "Optional: Ollama ($0) or a cloud provider key",
     ],
     steps: [
       {
-        name: "Try without an API key",
-        text: "Install kind, kubectl, and kprompt, clone kprompt-examples, then run make walkthrough. That brings up kind, breaks workloads on purpose, and runs the Observe agent in heuristic mode with no LLM spend.",
+        name: "Try at $0 — no provider key",
+        text: "Install kind, kubectl, and kprompt, clone kprompt-examples, then run make walkthrough. That brings up kind, breaks workloads on purpose, and runs the Observe agent in heuristic mode with zero LLM spend.",
       },
       {
-        name: "Level up with your LLM",
-        text: "On a disposable cluster, set provider/model defaults with kprompt config set, export a BYOK API key such as KPROMPT_GEMINI_API_KEY, then run read-only prompts before any mutating plan.",
+        name: "Level up with NL (Ollama first)",
+        text: "On a disposable cluster, prefer local Ollama ($0): kprompt config set provider ollama, then run read-only prompts. Cloud BYOK keys (e.g. KPROMPT_GEMINI_API_KEY) are optional — kprompt does not sell them.",
       },
       {
         name: "Run your first NL prompts",

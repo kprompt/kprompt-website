@@ -38,7 +38,7 @@ export function OpenSource() {
             </video>
           </div>
           <p className="mt-3 font-mono text-xs text-muted-foreground sm:text-sm">
-            Heuristic Observe run — no API key, propose-only Autopilot
+            Heuristic Observe run — $0, no provider key, propose-only Autopilot
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
