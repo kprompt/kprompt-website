@@ -41,6 +41,8 @@ const HIGH_SIGNAL_SLUGS = [
   "kubernetes-ai-tools-comparison",
   "what-is-kubernetes-ai",
   "kubernetes-pods-vs-deployments",
+  "what-is-a-kubernetes-deployment",
+  "kubectl-get-pods-explained",
   "kubernetes-service-vs-deployment",
   "kprompt-vs-kubectl-ai",
   "kprompt-vs-kagent",

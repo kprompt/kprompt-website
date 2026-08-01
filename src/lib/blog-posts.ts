@@ -9811,6 +9811,338 @@ kprompt --contexts kind-a,kind-b "scale demo to 2"   # expect two prompts
     ],
   },
   {
+    slug: "what-is-a-kubernetes-deployment",
+    title:
+      "What is a Deployment in Kubernetes? (with kubectl examples)",
+    description:
+      "What a Kubernetes Deployment is, how it manages Pods and ReplicaSets, kubectl get/describe/rollout commands, common beginner mistakes, and optional natural-language checks with kprompt.",
+    publishedAt: "2026-08-02",
+    author: EMIRE_BARIS,
+    tags: ["kubernetes", "beginner", "kubectl", "devops"],
+    keywords: [
+      "what is a deployment in kubernetes",
+      "what is a kubernetes deployment",
+      "kubernetes deployment explained",
+      "kubectl get deployments",
+      "kubectl rollout status",
+      "deployment replicas kubernetes",
+      "deployment vs pod",
+      "kubernetes beginner deployment",
+    ],
+    featured: false,
+    blocks: [
+      {
+        type: "p",
+        text: "If you searched what is a deployment in kubernetes, here is the short version: a Deployment is the controller you usually create for a stateless app. It declares how many Pod copies you want, which container image to run, and how updates should roll out. Kubernetes then creates and replaces Pods so reality matches that declaration.",
+        links: [
+          {
+            label: "Kubernetes Deployment documentation",
+            href: "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          },
+        ],
+      },
+      {
+        type: "p",
+        text: "This page is Deployment-first. For the Pod vs Deployment comparison, see Pods vs Deployments. For how traffic reaches those Pods, see Service vs Deployment.",
+        links: [
+          {
+            label: "Pods vs Deployments",
+            href: "/blog/kubernetes-pods-vs-deployments",
+          },
+          {
+            label: "Service vs Deployment",
+            href: "/blog/kubernetes-service-vs-deployment",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "The one-sentence version",
+      },
+      {
+        type: "ul",
+        items: [
+          "A Deployment is desired state for a set of identical Pods (replicas + template).",
+          "It owns ReplicaSets, which create the actual Pods.",
+          "You rarely create lone Pods in production — you create a Deployment.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What a Deployment actually does",
+      },
+      {
+        type: "p",
+        text: "You give Kubernetes a Pod template (containers, ports, labels, probes) and a replica count. The Deployment controller creates a ReplicaSet. The ReplicaSet creates Pods. If a Pod dies or a node fails, a replacement Pod appears. If you change the image, the Deployment performs a rolling update (by default) and keeps history so you can roll back.",
+      },
+      {
+        type: "code",
+        caption: "Mental model",
+        code: `Deployment "api"
+  └── ReplicaSet (current revision)
+        ├── Pod api-aaa
+        ├── Pod api-bbb
+        └── Pod api-ccc`,
+      },
+      {
+        type: "h2",
+        text: "kubectl commands that stick",
+      },
+      {
+        type: "code",
+        caption: "Inspect and manage a Deployment",
+        code: `kubectl get deployments -n staging
+kubectl describe deployment api -n staging
+kubectl get pods -l app=api -n staging
+
+kubectl scale deployment api --replicas=3 -n staging
+kubectl rollout status deployment/api -n staging
+kubectl rollout undo deployment/api -n staging
+kubectl rollout history deployment/api -n staging`,
+      },
+      {
+        type: "p",
+        text: "READY columns on kubectl get deploy show desired vs available replicas. If READY is 0/3, dig into Pods next — status reasons live on the Pod objects. See kubectl get pods explained.",
+        links: [
+          {
+            label: "kubectl get pods explained",
+            href: "/blog/kubectl-get-pods-explained",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Common beginner mistakes",
+      },
+      {
+        type: "ul",
+        items: [
+          "Creating a bare Pod YAML for an app that should restart and scale → use a Deployment",
+          "Editing a live Pod and expecting the change to survive → the Deployment recreates Pods from the template",
+          "Treating the Pod name as stable → names change on recreate; the Deployment name stays",
+          "Forgetting labels → Services cannot select Pods if labels/selectors do not match",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Optional natural-language checks",
+      },
+      {
+        type: "p",
+        text: "kprompt can list and explain Deployments as reads. Scaling or restarting still produces a plan you approve.",
+        links: [
+          { label: "Quickstart", href: "/docs/quickstart" },
+          {
+            label: "kubectl cheat sheet",
+            href: "/blog/kubectl-cheat-sheet-natural-language",
+          },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Soft kprompt examples",
+        code: `kprompt "list deployments in staging"
+kprompt "describe deployment api in staging"
+kprompt "scale api to 3 in staging"   # review plan → y or n`,
+      },
+      {
+        type: "h2",
+        text: "What to learn next",
+      },
+      {
+        type: "p",
+        text: "Compare objects with Pods vs Deployments, then networking with Services / Service vs Deployment, then Namespaces. Day-2 tooling: kubectl vs K9s.",
+        links: [
+          {
+            label: "Pods vs Deployments",
+            href: "/blog/kubernetes-pods-vs-deployments",
+          },
+          {
+            label: "kubectl get pods explained",
+            href: "/blog/kubectl-get-pods-explained",
+          },
+          {
+            label: "Services",
+            href: "/blog/what-is-a-kubernetes-service",
+          },
+          {
+            label: "Service vs Deployment",
+            href: "/blog/kubernetes-service-vs-deployment",
+          },
+          {
+            label: "Namespaces",
+            href: "/blog/kubernetes-namespaces-explained",
+          },
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "kubectl-get-pods-explained",
+    title:
+      "kubectl get pods explained: STATUS, restarts, and next commands",
+    description:
+      "How to read kubectl get pods output — READY, STATUS, RESTARTS, AGE — what CrashLoopBackOff and Pending mean, and which kubectl command to run next.",
+    publishedAt: "2026-08-02",
+    author: EMIRE_BARIS,
+    tags: ["kubernetes", "beginner", "kubectl", "devops", "troubleshooting"],
+    keywords: [
+      "kubectl get pods",
+      "kubectl get pods explained",
+      "kubectl get pods status",
+      "pod status kubernetes",
+      "crashloopbackoff kubectl",
+      "pending pod kubernetes",
+      "kubectl describe pod",
+      "kubernetes beginner kubectl",
+    ],
+    featured: false,
+    blocks: [
+      {
+        type: "p",
+        text: "kubectl get pods is usually the first command people learn — and the first place they get stuck. The table looks simple until STATUS says CrashLoopBackOff or Pending and RESTARTS climbs. This guide is how to read that table and what to run next.",
+      },
+      {
+        type: "p",
+        text: "Pods are the running instances; Deployments keep them alive. If those words are fuzzy, skim What is a Deployment and Pods vs Deployments first.",
+        links: [
+          {
+            label: "What is a Deployment",
+            href: "/blog/what-is-a-kubernetes-deployment",
+          },
+          {
+            label: "Pods vs Deployments",
+            href: "/blog/kubernetes-pods-vs-deployments",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "The columns",
+      },
+      {
+        type: "table",
+        headers: ["Column", "Meaning", "What to check next"],
+        rows: [
+          [
+            "NAME",
+            "Pod object name (often Deployment hash + random suffix)",
+            "Do not treat as a stable app ID",
+          ],
+          [
+            "READY",
+            "Ready containers / total containers in the Pod",
+            "0/1 → probes, crashes, or not started",
+          ],
+          [
+            "STATUS",
+            "Phase / reason (Running, Pending, CrashLoopBackOff, …)",
+            "describe + logs + events",
+          ],
+          [
+            "RESTARTS",
+            "How often containers restarted",
+            "Climbing + CrashLoop → logs --previous",
+          ],
+          [
+            "AGE",
+            "How long this Pod object has existed",
+            "Very new after a rollout is normal",
+          ],
+        ],
+      },
+      {
+        type: "code",
+        caption: "List Pods (namespace matters)",
+        code: `kubectl get pods
+kubectl get pods -n staging
+kubectl get pods -A
+kubectl get pods -o wide -n staging`,
+      },
+      {
+        type: "h2",
+        text: "STATUS values you will see first",
+      },
+      {
+        type: "ul",
+        items: [
+          "Running — containers started; still check READY if traffic fails",
+          "Pending — not scheduled yet (resources, PVC, taints) → describe for Events",
+          "CrashLoopBackOff — container keeps exiting → logs and --previous",
+          "ImagePullBackOff / ErrImagePull — image name, tag, or registry auth",
+          "Completed — Job/Pod finished successfully (normal for Jobs)",
+          "OOMKilled (in describe/lastState) — memory limit hit",
+        ],
+      },
+      {
+        type: "p",
+        text: "Deep dives when you are past the table: CrashLoopBackOff, ImagePullBackOff, OOMKilled.",
+        links: [
+          {
+            label: "CrashLoopBackOff",
+            href: "/blog/kubernetes-crashloopbackoff",
+          },
+          {
+            label: "ImagePullBackOff",
+            href: "/blog/kubernetes-imagepullbackoff",
+          },
+          {
+            label: "OOMKilled",
+            href: "/blog/kubernetes-oomkilled",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Next commands (always)",
+      },
+      {
+        type: "code",
+        caption: "From get pods → evidence",
+        code: `kubectl describe pod POD_NAME -n staging
+kubectl logs POD_NAME -n staging --tail=200
+kubectl logs POD_NAME -n staging --previous
+kubectl get events -n staging --sort-by=.lastTimestamp | tail -40`,
+      },
+      {
+        type: "p",
+        text: "Prefer label selectors when a Deployment owns many Pods: kubectl get pods -l app=api -n staging. For live watching without retyping, K9s helps — then come back to kubectl for ticket-ready commands. See kubectl vs K9s.",
+        links: [{ label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" }],
+      },
+      {
+        type: "h2",
+        text: "Optional natural-language triage",
+      },
+      {
+        type: "code",
+        caption: "Soft kprompt examples",
+        code: `kprompt "list pods in staging"
+kprompt "explain why api pods are crashing" -n staging
+kprompt "show events for api" -n staging`,
+      },
+      {
+        type: "p",
+        text: "For a full AI-assisted Pod loop without silent apply, see AI for Kubernetes Pods. For more kubectl patterns, see the natural-language cheat sheet.",
+        links: [
+          {
+            label: "AI for Kubernetes Pods",
+            href: "/blog/ai-kubernetes-pod-diagnose",
+          },
+          {
+            label: "natural-language cheat sheet",
+            href: "/blog/kubectl-cheat-sheet-natural-language",
+          },
+          {
+            label: "What is a Deployment",
+            href: "/blog/what-is-a-kubernetes-deployment",
+          },
+          { label: "Quickstart", href: "/docs/quickstart" },
+        ],
+      },
+    ],
+  },
+  {
     slug: "kubernetes-pods-vs-deployments",
     title:
       "Kubernetes Pods vs Deployments: what beginners actually need to know",
@@ -9837,7 +10169,17 @@ kprompt --contexts kind-a,kind-b "scale demo to 2"   # expect two prompts
     blocks: [
       {
         type: "p",
-        text: "If you are new to Kubernetes, you will see Pods in almost every kubectl output — and Deployments in almost every tutorial YAML. They sound related, and they are — but they are not the same thing. Confusing them is one of the most common beginner mistakes.",
+        text: "If you are new to Kubernetes, you will see Pods in almost every kubectl output — and Deployments in almost every tutorial YAML. They sound related, and they are — but they are not the same thing. Confusing them is one of the most common beginner mistakes. Want Deployment-only depth first? Start with What is a Deployment. Want to decode kubectl get pods? See that guide.",
+        links: [
+          {
+            label: "What is a Deployment",
+            href: "/blog/what-is-a-kubernetes-deployment",
+          },
+          {
+            label: "that guide",
+            href: "/blog/kubectl-get-pods-explained",
+          },
+        ],
       },
       {
         type: "p",
@@ -10056,8 +10398,16 @@ kprompt "rollout restart deployment api in staging"`,
       },
       {
         type: "p",
-        text: "Pods run containers. Deployments keep the right number of Pods alive and roll out changes safely. Next: how traffic reaches those Pods (Services), then the Service vs Deployment decision, then Namespaces.",
+        text: "Pods run containers. Deployments keep the right number of Pods alive and roll out changes safely. Deployment-only primer: What is a Deployment. Reading the get pods table: kubectl get pods explained. Next: Services, Service vs Deployment, then Namespaces.",
         links: [
+          {
+            label: "What is a Deployment",
+            href: "/blog/what-is-a-kubernetes-deployment",
+          },
+          {
+            label: "kubectl get pods explained",
+            href: "/blog/kubectl-get-pods-explained",
+          },
           {
             label: "Services",
             href: "/blog/what-is-a-kubernetes-service",
@@ -10069,10 +10419,6 @@ kprompt "rollout restart deployment api in staging"`,
           {
             label: "Namespaces",
             href: "/blog/kubernetes-namespaces-explained",
-          },
-          {
-            label: "Kubernetes OOMKilled guide",
-            href: "/blog/kubernetes-oomkilled",
           },
           {
             label: "kubectl vs K9s",

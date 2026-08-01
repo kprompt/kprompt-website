@@ -14,11 +14,18 @@ const GUIDES = [
       "Not rivals: kubectl is the scriptable API client; K9s is a live terminal UI over it.",
   },
   {
-    href: "/blog/kubectl-alternatives",
-    kicker: "Comparison",
-    title: "Kubectl alternatives",
+    href: "/blog/what-is-a-kubernetes-deployment",
+    kicker: "Beginner",
+    title: "What is a Deployment?",
     blurb:
-      "K9s, Headlamp, Lens, and AI CLIs — which interface fits navigation, dashboards, and plan-before-apply.",
+      "Desired Pod count, rollouts, and the kubectl commands that stick for beginners.",
+  },
+  {
+    href: "/blog/kubectl-get-pods-explained",
+    kicker: "Beginner",
+    title: "kubectl get pods explained",
+    blurb:
+      "READY, STATUS, RESTARTS — what the table means and which command to run next.",
   },
   {
     href: "/blog/best-ai-tools-kubernetes-troubleshooting",
@@ -26,13 +33,6 @@ const GUIDES = [
     title: "Best AI tools for troubleshooting",
     blurb:
       "Phase-based shortlist: K8sGPT for scans, intent CLIs for explain/plan, kubectl for evidence.",
-  },
-  {
-    href: "/blog/chat-with-kubernetes-cluster",
-    kicker: "Guide",
-    title: "Chat with your cluster",
-    blurb:
-      "What “chat with Kubernetes” actually means — and how to keep apply behind a human gate.",
   },
   {
     href: "/blog/kubernetes-ai-tools-comparison",
@@ -62,8 +62,8 @@ export function Guides() {
             Guides and comparisons
           </h2>
           <p className="mt-3 text-muted-foreground">
-            kubectl vs K9s, AI troubleshooting shortlists, and safe “chat with
-            your cluster” — what operators already search for.
+            kubectl vs K9s, beginner Deployments and get pods, plus AI
+            troubleshooting — what operators already search for.
           </p>
         </Reveal>
 
