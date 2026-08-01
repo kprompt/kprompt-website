@@ -30,7 +30,20 @@ export const EMIRE_BARIS: TeamMember = {
   avatar: "/emire-baris.png",
 };
 
-export const TEAM_MEMBERS: TeamMember[] = [MUHTALIP_DEDE, EMIRE_BARIS];
+export const YUSUF_TALHA_ATAS: TeamMember = {
+  name: "Yusuf Talha Ataş",
+  role: "Member",
+  bio: "Junior software engineer at Yıldız Tech. Computer Engineering graduate from Yıldız Technical University; previously interned at Yapı Kredi Teknoloji, Baykar, and Datapad.",
+  github: "https://github.com/yusuftalhaatas",
+  linkedin: "https://www.linkedin.com/in/yusuftalhaatas/",
+  avatar: "/yusuf-talha-atas.png",
+};
+
+export const TEAM_MEMBERS: TeamMember[] = [
+  MUHTALIP_DEDE,
+  EMIRE_BARIS,
+  YUSUF_TALHA_ATAS,
+];
 
 export const TEAM_PAGE = {
   title: "Team",
