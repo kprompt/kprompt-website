@@ -80,6 +80,18 @@ export function FinalCta() {
               Docs
             </Link>
           </div>
+
+          <p className="mt-8 font-mono text-xs text-muted-foreground">
+            Apache-2.0 · open source ·{" "}
+            <a
+              href={SITE.examples}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-2 hover:text-foreground hover:underline"
+            >
+              kind Observe demo
+            </a>
+          </p>
         </Reveal>
       </div>
     </section>

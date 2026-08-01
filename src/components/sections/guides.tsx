@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-/** Ordered for Search Console demand: comparisons people already query. */
+/** Homepage guides — GA beginner winners + GSC kubectl vs K9s. */
 const GUIDES = [
   {
     href: "/blog/kubectl-vs-k9s",
@@ -14,11 +14,18 @@ const GUIDES = [
       "Not rivals: kubectl is the scriptable API client; K9s is a live terminal UI over it.",
   },
   {
+    href: "/blog/kubernetes-pods-vs-deployments",
+    kicker: "Beginner",
+    title: "Pods vs Deployments",
+    blurb:
+      "What each object is, how they relate, and the kubectl commands that stick.",
+  },
+  {
     href: "/blog/what-is-a-kubernetes-deployment",
     kicker: "Beginner",
     title: "What is a Deployment?",
     blurb:
-      "Desired Pod count, rollouts, and the kubectl commands that stick for beginners.",
+      "Desired Pod count, rollouts, and the kubectl commands beginners need.",
   },
   {
     href: "/blog/kubectl-get-pods-explained",
@@ -26,27 +33,6 @@ const GUIDES = [
     title: "kubectl get pods explained",
     blurb:
       "READY, STATUS, RESTARTS — what the table means and which command to run next.",
-  },
-  {
-    href: "/blog/best-ai-tools-kubernetes-troubleshooting",
-    kicker: "Playbook",
-    title: "Best AI tools for troubleshooting",
-    blurb:
-      "Phase-based shortlist: K8sGPT for scans, intent CLIs for explain/plan, kubectl for evidence.",
-  },
-  {
-    href: "/blog/kubernetes-ai-tools-comparison",
-    kicker: "Comparison",
-    title: "Kubernetes AI tools, compared",
-    blurb:
-      "kubectl-ai, K8sGPT, Kagent, kprompt — what each one actually does to your cluster.",
-  },
-  {
-    href: "/blog/ai-kubernetes-pod-diagnose",
-    kicker: "Playbook",
-    title: "AI for Kubernetes Pods",
-    blurb:
-      "Diagnose CrashLoop and friends with kubectl, K8sGPT, or an intent CLI — without silent apply.",
   },
 ] as const;
 
@@ -59,17 +45,16 @@ export function Guides() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            Guides and comparisons
+            Guides
           </h2>
           <p className="mt-3 text-muted-foreground">
-            kubectl vs K9s, beginner Deployments and get pods, plus AI
-            troubleshooting — what operators already search for.
+            kubectl vs K9s and the beginner reads operators actually open.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2">
           {GUIDES.map((guide, i) => (
-            <Reveal key={guide.href} delay={Math.min(i, 4) * 0.05}>
+            <Reveal key={guide.href} delay={Math.min(i, 3) * 0.05}>
               <Link href={guide.href} className="group block">
                 <p className="font-mono text-xs uppercase tracking-wider text-brand">
                   {guide.kicker}

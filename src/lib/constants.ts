@@ -75,38 +75,6 @@ export const NAV_LINKS = [
   { href: SITE.app, label: "App", external: true },
 ] as const;
 
-export const NORTH_STAR_PROMPTS = [
-  "kprompt run",
-  'kprompt "why is production slow"',
-  'kprompt "optimize my cluster"',
-  "kprompt agent run -n payments --health --heuristic",
-] as const;
-
-/** Homepage teaser only — full detail on /docs/roadmap. */
-export const ROADMAP_TEASER = {
-  lead: "AI Runtime for Kubernetes: plan-gated CLI today, optional Observe agent in-cluster, Namespace Agents and Coordinator next — still Reason → Plan → Validate → Approve → Execute. Never a silent healer by default.",
-  pillars: [
-    {
-      label: "Now",
-      title: "Shipped",
-      blurb:
-        "Plan/approve CLI, investigate/why/timeline, incident suggest packs (approve-gated), and the Observe agent (Helm/Operator). Autopilot is propose-only.",
-    },
-    {
-      label: "Next",
-      title: "Trust & agents",
-      blurb:
-        "Richer Namespace Agents, Coordinator correlation, knowledge graph / incident memory, Autopilot proposal → human apply bridge.",
-    },
-    {
-      label: "Later",
-      title: "Slack, PolicyAuto & fleet",
-      blurb:
-        "Bidirectional Slack ask on Observe, Autopilot apply behind ADR-0015 gates, multi-cluster fan-out without uploading kubeconfig, Team Insights polish.",
-    },
-  ],
-} as const;
-
 export const INSTALL_STEPS = [
   "Install the CLI",
   "Clone kprompt-examples",
