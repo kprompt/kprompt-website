@@ -409,11 +409,19 @@ kprompt "rollback api" -n payments   # review plan → y or n`,
       },
       {
         type: "p",
-        text: "For the full peer map (K8sGPT, kubectl-ai, Kagent, hosted chat), see the Kubernetes AI tools comparison. For the category definition behind searches like kubernetes ai and k8s ai tools, see What is Kubernetes AI?",
+        text: "For the full peer map (K8sGPT, kubectl-ai, Kagent, hosted chat), see the Kubernetes AI tools comparison. For a phase-based troubleshooting shortlist, see Best AI tools for Kubernetes troubleshooting. For product shapes behind “chat with your cluster,” see that landing. For the category definition behind searches like kubernetes ai and k8s ai tools, see What is Kubernetes AI?",
         links: [
           {
             label: "Kubernetes AI tools comparison",
             href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          {
+            label: "Best AI tools for Kubernetes troubleshooting",
+            href: "/blog/best-ai-tools-kubernetes-troubleshooting",
+          },
+          {
+            label: "chat with your cluster",
+            href: "/blog/chat-with-kubernetes-cluster",
           },
           {
             label: "What is Kubernetes AI?",
@@ -575,11 +583,19 @@ Apply? [y/N]`,
       },
       {
         type: "p",
-        text: "For diagnosing Pods with AI without silent apply, see AI for Kubernetes Pods. For the full peer map, see the AI tools comparison. For non-AI interfaces, see kubectl alternatives.",
+        text: "For diagnosing Pods with AI without silent apply, see AI for Kubernetes Pods. For a phase-based shortlist, see Best AI tools for Kubernetes troubleshooting. For “chat with your cluster” product shapes, see that landing. For the full peer map, see the AI tools comparison. For non-AI interfaces, see kubectl alternatives.",
         links: [
           {
             label: "AI for Kubernetes Pods",
             href: "/blog/ai-kubernetes-pod-diagnose",
+          },
+          {
+            label: "Best AI tools for Kubernetes troubleshooting",
+            href: "/blog/best-ai-tools-kubernetes-troubleshooting",
+          },
+          {
+            label: "chat with your cluster",
+            href: "/blog/chat-with-kubernetes-cluster",
           },
           {
             label: "AI tools comparison",
@@ -749,6 +765,318 @@ kprompt "rollback api" -n payments   # Apply? [y/N]`,
           {
             label: "Pods vs Deployments",
             href: "/blog/kubernetes-pods-vs-deployments",
+          },
+          { label: "Install kprompt", href: "/docs/install" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "chat-with-kubernetes-cluster",
+    title:
+      "Chat with your Kubernetes cluster: what actually works safely",
+    description:
+      "What “chat with your Kubernetes cluster” means in practice: local NL CLIs, hosted consoles, and analyzers — and how to keep credentials and apply behind a human gate.",
+    publishedAt: "2026-08-02",
+    author: MUHTALIP_DEDE,
+    tags: ["kubernetes", "ai", "devops", "sre", "kubernetes cli"],
+    keywords: [
+      "chat with kubernetes cluster",
+      "chat with your kubernetes cluster",
+      "talk to kubernetes cluster",
+      "kubernetes chatbot",
+      "ai chat kubernetes",
+      "natural language kubernetes",
+      "ask kubernetes questions",
+      "kubernetes ai chat",
+    ],
+    featured: false,
+    blocks: [
+      {
+        type: "p",
+        text: "“Chat with your Kubernetes cluster” is a marketing phrase for a real job: ask questions in English and get answers grounded in live cluster state. The products that show up look similar in a screenshot. Underneath, some only read, some generate kubectl, some run agents in-cluster, and some send credentials to a hosted console. Safety is the product difference.",
+      },
+      {
+        type: "p",
+        text: "This page is the buyer’s filter for that phrase — not a feature checklist. For the wider tool map, see Kubernetes AI tools. For Pod-level triage, see AI for Kubernetes Pods.",
+        links: [
+          {
+            label: "Kubernetes AI tools",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          {
+            label: "AI for Kubernetes Pods",
+            href: "/blog/ai-kubernetes-pod-diagnose",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Three shapes of “chat”",
+      },
+      {
+        type: "table",
+        headers: ["Shape", "What you get", "Watch for"],
+        rows: [
+          [
+            "Local intent CLI",
+            "NL on your laptop over kubeconfig (kubectl-ai, kprompt, …)",
+            "Does mutate print a plan you can refuse?",
+          ],
+          [
+            "Analyzer / scan",
+            "Findings + optional LLM explain (K8sGPT)",
+            "Diagnosis ≠ permission to auto-heal",
+          ],
+          [
+            "Hosted console / agent platform",
+            "Managed UI or in-cluster agents",
+            "Where credentials live; who owns agent lifecycle",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "What “works” should mean",
+      },
+      {
+        type: "ul",
+        items: [
+          "Answers cite real objects (namespace, Deployment, events) — not generic blog advice",
+          "Reads are cheap; writes are explicit and reviewable",
+          "Your RBAC still bounds what the tool can see or change",
+          "You can paste the same investigation into a ticket without replaying a chat UI",
+        ],
+      },
+      {
+        type: "h2",
+        text: "A safe chat session (local CLI)",
+      },
+      {
+        type: "code",
+        caption: "Ask first; mutate only with a plan gate",
+        code: `kprompt "list deployments that are not ready" -n staging
+kprompt "explain why api is not ready" -n staging
+
+# Mutate only after you would sign the plan:
+kprompt "scale api to 3" -n staging   # Apply? [y/N]`,
+      },
+      {
+        type: "p",
+        text: "kprompt’s bet in this lane is plan → safety → approve before apply, using your kubeconfig and your own LLM key. kubectl-ai optimizes for REPL fluency in the same NL CLI category — compare contracts, not slogans.",
+        links: [
+          {
+            label: "kprompt vs kubectl-ai",
+            href: "/blog/kprompt-vs-kubectl-ai",
+          },
+          {
+            label: "kubectl-ai alternatives",
+            href: "/blog/kubectl-ai-alternatives",
+          },
+          { label: "safety model", href: "/docs/safety" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "When chat is the wrong interface",
+      },
+      {
+        type: "ul",
+        items: [
+          "CI and runbooks need kubectl (or PlanResult JSON), not a chat transcript",
+          "Live watching of twenty Pods is still faster in K9s than in a chat loop",
+          "Steady-state desired state belongs in GitOps, not in a conversation history",
+        ],
+      },
+      {
+        type: "p",
+        text: "For non-AI interfaces, see kubectl vs K9s and kubectl alternatives. For category vocabulary (kubernetes ai, k8s ai tools), see What is Kubernetes AI?",
+        links: [
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+          {
+            label: "kubectl alternatives",
+            href: "/blog/kubectl-alternatives",
+          },
+          {
+            label: "What is Kubernetes AI?",
+            href: "/blog/what-is-kubernetes-ai",
+          },
+          { label: "Install kprompt", href: "/docs/install" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "best-ai-tools-kubernetes-troubleshooting",
+    title:
+      "Best AI tools for Kubernetes troubleshooting (2026)",
+    description:
+      "Practical shortlist of AI tools for Kubernetes troubleshooting: K8sGPT for scans, intent CLIs for explain/plan, kubectl for evidence — with an honest mutation checklist.",
+    publishedAt: "2026-08-02",
+    author: MUHTALIP_DEDE,
+    tags: ["kubernetes", "ai", "devops", "sre", "troubleshooting"],
+    keywords: [
+      "best ai tools for kubernetes troubleshooting",
+      "kubernetes ai troubleshooting",
+      "ai kubernetes troubleshooting",
+      "k8s ai tools",
+      "kubernetes ai tools",
+      "ai tools for kubernetes",
+      "best kubernetes ai tools 2026",
+      "troubleshoot kubernetes with ai",
+    ],
+    featured: false,
+    blocks: [
+      {
+        type: "p",
+        text: "“Best AI tools for Kubernetes troubleshooting” is not a single winner. Incidents have phases: notice, gather evidence, form a hypothesis, change something, verify. Different tools own different phases — ranking them as if they compete for one slot is how teams buy a chatbot when they needed a scanner.",
+      },
+      {
+        type: "p",
+        text: "This is a phase-based shortlist for 2026, aligned with searches like k8s ai tools and kubernetes ai tooling. For the full peer map, keep the Kubernetes AI tools comparison open in another tab.",
+        links: [
+          {
+            label: "Kubernetes AI tools comparison",
+            href: "/blog/kubernetes-ai-tools-comparison",
+          },
+          {
+            label: "What is Kubernetes AI?",
+            href: "/blog/what-is-kubernetes-ai",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Shortlist by phase",
+      },
+      {
+        type: "table",
+        headers: ["Phase", "Reach for", "Why"],
+        rows: [
+          [
+            "Notice / watch",
+            "K9s, alerts, dashboards",
+            "Live state beats chatting about state",
+          ],
+          [
+            "Evidence",
+            "kubectl describe / logs / events",
+            "Copy-pasteable artifacts for the incident channel",
+          ],
+          [
+            "Hypothesis / scan",
+            "K8sGPT (+ --explain)",
+            "Analyzer catalog + plain-language findings",
+          ],
+          [
+            "Explain in English",
+            "Intent CLI (kubectl-ai or kprompt)",
+            "You already know the question; need structured help",
+          ],
+          [
+            "Bounded fix",
+            "Reviewed plan or hand-typed kubectl",
+            "No silent apply; blast radius stays human-sized",
+          ],
+          [
+            "Verify",
+            "kubectl / metrics / GitOps sync",
+            "Confirm Ready, error rate, rollback if needed",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "1. K8sGPT — best default for “what is wrong?”",
+      },
+      {
+        type: "p",
+        text: "When the cluster is noisy and you need triage, K8sGPT (searches often say Kubegpt) is the strongest diagnose-first peer. Use it before you invent a mutate story.",
+        links: [
+          { label: "Kubegpt vs K8sGPT", href: "/blog/kubegpt-vs-k8sgpt" },
+          { label: "K8sGPT", href: "https://k8sgpt.ai/" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "2. Intent CLIs — best when the question is already clear",
+      },
+      {
+        type: "p",
+        text: "kubectl-ai and kprompt both turn English into cluster help on your laptop. Prefer kubectl-ai for REPL fluency; prefer kprompt when every mutate should print a plan with risk checks and an approval step. See kubectl-ai alternatives and the head-to-head.",
+        links: [
+          {
+            label: "kubectl-ai alternatives",
+            href: "/blog/kubectl-ai-alternatives",
+          },
+          {
+            label: "head-to-head",
+            href: "/blog/kprompt-vs-kubectl-ai",
+          },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Troubleshoot with a gate on the fix",
+        code: `kprompt "explain why api is crashing" -n payments
+kprompt "show events for api" -n payments
+kprompt "rollback api" -n payments   # review plan → y or n`,
+      },
+      {
+        type: "h2",
+        text: "3. kubectl (+ K9s) — still mandatory",
+      },
+      {
+        type: "p",
+        text: "AI does not replace the evidence layer. Keep kubectl for tickets and CI; keep K9s for live navigation. AI tools that cannot show you the same describe/logs path are demos, not runbooks.",
+        links: [
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+          {
+            label: "error prompt playbook",
+            href: "/blog/kubernetes-error-prompt-playbook",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Failure playbooks to pair with AI",
+      },
+      {
+        type: "ul",
+        items: [
+          "CrashLoopBackOff — restart loops and exit codes",
+          "ImagePullBackOff — registry/auth/tag mistakes",
+          "OOMKilled — memory limits and requests",
+          "AI for Kubernetes Pods — the diagnose loop without silent apply",
+        ],
+      },
+      {
+        type: "p",
+        text: "Deep dives: CrashLoopBackOff, ImagePullBackOff, OOMKilled, and AI for Kubernetes Pods. For “chat with the cluster” product shapes, see that landing. For non-AI interface swaps, see kubectl alternatives.",
+        links: [
+          {
+            label: "CrashLoopBackOff",
+            href: "/blog/kubernetes-crashloopbackoff",
+          },
+          {
+            label: "ImagePullBackOff",
+            href: "/blog/kubernetes-imagepullbackoff",
+          },
+          {
+            label: "OOMKilled",
+            href: "/blog/kubernetes-oomkilled",
+          },
+          {
+            label: "AI for Kubernetes Pods",
+            href: "/blog/ai-kubernetes-pod-diagnose",
+          },
+          {
+            label: "chat with the cluster",
+            href: "/blog/chat-with-kubernetes-cluster",
+          },
+          {
+            label: "kubectl alternatives",
+            href: "/blog/kubectl-alternatives",
           },
           { label: "Install kprompt", href: "/docs/install" },
         ],

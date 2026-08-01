@@ -36,6 +36,8 @@ const HIGH_SIGNAL_SLUGS = [
   "kubegpt-vs-k8sgpt",
   "kubectl-ai-alternatives",
   "ai-kubernetes-pod-diagnose",
+  "chat-with-kubernetes-cluster",
+  "best-ai-tools-kubernetes-troubleshooting",
   "kubernetes-ai-tools-comparison",
   "what-is-kubernetes-ai",
   "kubernetes-pods-vs-deployments",

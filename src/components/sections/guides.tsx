@@ -21,11 +21,18 @@ const GUIDES = [
       "K9s, Headlamp, Lens, and AI CLIs — which interface fits navigation, dashboards, and plan-before-apply.",
   },
   {
-    href: "/blog/k9s-alternatives",
-    kicker: "Comparison",
-    title: "K9s alternatives",
+    href: "/blog/best-ai-tools-kubernetes-troubleshooting",
+    kicker: "Playbook",
+    title: "Best AI tools for troubleshooting",
     blurb:
-      "Looking past K9s: kubectl, Lens, Headlamp, and when a natural-language CLI is the better next step.",
+      "Phase-based shortlist: K8sGPT for scans, intent CLIs for explain/plan, kubectl for evidence.",
+  },
+  {
+    href: "/blog/chat-with-kubernetes-cluster",
+    kicker: "Guide",
+    title: "Chat with your cluster",
+    blurb:
+      "What “chat with Kubernetes” actually means — and how to keep apply behind a human gate.",
   },
   {
     href: "/blog/kubernetes-ai-tools-comparison",
@@ -33,13 +40,6 @@ const GUIDES = [
     title: "Kubernetes AI tools, compared",
     blurb:
       "kubectl-ai, K8sGPT, Kagent, kprompt — what each one actually does to your cluster.",
-  },
-  {
-    href: "/blog/kubectl-ai-alternatives",
-    kicker: "Comparison",
-    title: "kubectl-ai alternatives",
-    blurb:
-      "Keep Google’s REPL, switch to a gated plan CLI, or hire K8sGPT when diagnosis is the job.",
   },
   {
     href: "/blog/ai-kubernetes-pod-diagnose",
@@ -62,8 +62,8 @@ export function Guides() {
             Guides and comparisons
           </h2>
           <p className="mt-3 text-muted-foreground">
-            kubectl vs K9s, AI CLI alternatives, and Pod diagnose playbooks —
-            plus comparisons operators already search for.
+            kubectl vs K9s, AI troubleshooting shortlists, and safe “chat with
+            your cluster” — what operators already search for.
           </p>
         </Reveal>
 
