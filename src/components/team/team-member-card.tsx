@@ -25,14 +25,14 @@ export function TeamMemberCard({ member }: { member: TeamMember }) {
           <Image
             src={member.avatar}
             alt={`${member.name} profile photo`}
-            width={160}
-            height={160}
-            className="size-32 rounded-2xl border border-border object-cover shadow-sm sm:size-36"
+            width={144}
+            height={176}
+            className="h-40 w-32 rounded-2xl border border-border object-cover shadow-sm sm:h-44 sm:w-36"
           />
         ) : (
           <div
             aria-hidden
-            className="flex size-32 items-center justify-center rounded-2xl border border-border bg-muted font-heading text-3xl font-semibold text-muted-foreground sm:size-36"
+            className="flex h-40 w-32 items-center justify-center rounded-2xl border border-border bg-muted font-heading text-3xl font-semibold text-muted-foreground sm:h-44 sm:w-36"
           >
             {member.name
               .split(" ")
