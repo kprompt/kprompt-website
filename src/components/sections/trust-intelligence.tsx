@@ -23,8 +23,6 @@ const INTEL = [
   "This deployment has restarted 14 times.",
   "This service depends on an unhealthy Redis.",
   "This namespace has wasted 64 CPU cores.",
-  "This rollout will probably fail.",
-  "This incident already happened two weeks ago.",
 ] as const;
 
 export function TrustIntelligence() {
@@ -76,10 +74,8 @@ export function TrustIntelligence() {
               </span>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Remembers namespace deps, recurring failure signatures, and open
-              incidents across restarts — local or in-cluster ConfigMaps only.
-              Recommendations improve with “seen before” and outcome learning;
-              memory never proves root cause alone and never auto-mutates.
+              Remembers namespace deps and recurring failure signatures — local
+              or in-cluster ConfigMaps only. Never auto-mutates.
             </p>
           </Reveal>
 
@@ -93,9 +89,8 @@ export function TrustIntelligence() {
               </span>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Read-only service dependency graph, reverse impact, and remembered
-              deps — not a continuous full-cluster topology. OTel call edges when
-              available; otherwise degraded honestly.
+              Read-only service dependency graph and reverse impact — not a
+              continuous full-cluster topology.
             </p>
             <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1.5">
               {GRAPH.map((item) => (

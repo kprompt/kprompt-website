@@ -1,7 +1,10 @@
 "use client";
 
-import { ArrowDown } from "lucide-react";
+import Link from "next/link";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const STEPS = [
   {
@@ -84,6 +87,16 @@ export function HowItWorks() {
             </div>
           ))}
         </div>
+
+        <Reveal delay={0.2} className="mt-10">
+          <Link
+            href="/docs/architecture"
+            className={cn(buttonVariants({ variant: "outline" }), "inline-flex")}
+          >
+            Architecture
+            <ArrowRight className="size-4" />
+          </Link>
+        </Reveal>
       </div>
     </section>
   );

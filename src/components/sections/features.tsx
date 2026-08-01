@@ -1,4 +1,8 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type Capability = {
   title: string;
@@ -6,21 +10,14 @@ type Capability = {
 };
 
 const CAPABILITIES: Capability[] = [
-  { title: "Continuous Cluster Observation", status: "shipped" },
-  { title: "AI Planning Engine", status: "shipped" },
-  { title: "Execution Graph", status: "shipped" },
-  { title: "Namespace Agents", status: "shipped" },
-  { title: "Coordinator Agent", status: "shipped" },
-  { title: "Policy Engine", status: "shipped" },
-  { title: "Knowledge Graph", status: "shipped" },
-  { title: "Incident Memory", status: "shipped" },
-  { title: "Automatic RCA", status: "shipped" },
-  { title: "Slack Integration", status: "shipped" },
-  { title: "GitHub Integration", status: "shipped" },
-  { title: "Approval Workflow", status: "shipped" },
-  { title: "Cost Intelligence", status: "shipped" },
-  { title: "Simulation", status: "shipped" },
-  { title: "Cluster Explainability", status: "shipped" },
+  { title: "Plan → approve mutations", status: "shipped" },
+  { title: "Observe agent (namespace watch)", status: "shipped" },
+  { title: "Policy hard-denies", status: "shipped" },
+  { title: "Natural-language CLI", status: "shipped" },
+  { title: "Optimize & rightsizing reports", status: "shipped" },
+  { title: "Multi-context kubeconfig", status: "shipped" },
+  { title: "CI PlanResult JSON", status: "shipped" },
+  { title: "Helm / signals / GitOps backends", status: "shipped" },
 ];
 
 export function Features() {
@@ -32,7 +29,7 @@ export function Features() {
             Capabilities
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Runtime surfaces — shipped today, or clearly marked as building.
+            High-signal surfaces shipping today. Full detail lives in the docs.
           </p>
         </Reveal>
 
@@ -56,6 +53,16 @@ export function Features() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.15} className="mt-10">
+          <Link
+            href="/docs"
+            className={cn(buttonVariants({ variant: "outline" }), "inline-flex")}
+          >
+            Full list in docs
+            <ArrowRight className="size-4" />
+          </Link>
+        </Reveal>
       </div>
     </section>
   );

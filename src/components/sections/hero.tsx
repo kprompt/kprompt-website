@@ -9,14 +9,6 @@ import { Logo } from "@/components/ui/logo";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-const SUBHEAD_LINES = [
-  "Observe your cluster.",
-  "Reason about what's happening.",
-  "Plan safe actions.",
-  "Execute with confidence.",
-  "Continuously improve.",
-] as const;
-
 export function Hero() {
   const reduced = useReducedMotion();
 
@@ -40,21 +32,14 @@ export function Hero() {
           <p className="mt-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">
             <span className="text-brand">{SITE.maturityLabel}</span>
             <span className="mx-2 text-border">·</span>
-            Reason · Plan · Validate · Approve · Execute
+            Plan before apply
           </p>
           <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl md:leading-[1.05]">
             The AI Runtime for Kubernetes
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            {SUBHEAD_LINES.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </p>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Wipe jokes hard-deny. Real mutates become a reviewable plan — then
-            wait for your yes. Start with a zero-LLM walkthrough on kind.
+            Observe, reason, and plan safe actions — then apply only after your
+            yes. Wipe jokes hard-deny; start with a zero-LLM walkthrough on kind.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
