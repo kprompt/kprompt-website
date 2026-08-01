@@ -35,18 +35,18 @@ const GUIDES = [
       "kubectl-ai, K8sGPT, Kagent, kprompt — what each one actually does to your cluster.",
   },
   {
-    href: "/blog/kubernetes-pods-vs-deployments",
-    kicker: "Beginner",
-    title: "Pods vs Deployments",
+    href: "/blog/kubectl-ai-alternatives",
+    kicker: "Comparison",
+    title: "kubectl-ai alternatives",
     blurb:
-      "What each object is, how they relate, and the kubectl commands that stick for beginners.",
+      "Keep Google’s REPL, switch to a gated plan CLI, or hire K8sGPT when diagnosis is the job.",
   },
   {
-    href: "/blog/kubernetes-service-vs-deployment",
-    kicker: "Beginner",
-    title: "Service vs Deployment",
+    href: "/blog/ai-kubernetes-pod-diagnose",
+    kicker: "Playbook",
+    title: "AI for Kubernetes Pods",
     blurb:
-      "Not rivals: Deployments run Pods; Services give those Pods a stable network identity.",
+      "Diagnose CrashLoop and friends with kubectl, K8sGPT, or an intent CLI — without silent apply.",
   },
 ] as const;
 
@@ -62,8 +62,8 @@ export function Guides() {
             Guides and comparisons
           </h2>
           <p className="mt-3 text-muted-foreground">
-            kubectl vs K9s, alternatives, and Kubernetes AI tooling — plus the
-            beginner guides operators actually search for.
+            kubectl vs K9s, AI CLI alternatives, and Pod diagnose playbooks —
+            plus comparisons operators already search for.
           </p>
         </Reveal>
 

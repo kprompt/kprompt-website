@@ -34,6 +34,8 @@ const HIGH_SIGNAL_SLUGS = [
   "k9s-alternatives",
   "kubectl-alternatives",
   "kubegpt-vs-k8sgpt",
+  "kubectl-ai-alternatives",
+  "ai-kubernetes-pod-diagnose",
   "kubernetes-ai-tools-comparison",
   "what-is-kubernetes-ai",
   "kubernetes-pods-vs-deployments",
