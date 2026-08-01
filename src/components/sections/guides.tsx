@@ -42,11 +42,11 @@ const GUIDES = [
       "What each object is, how they relate, and the kubectl commands that stick for beginners.",
   },
   {
-    href: "/blog/kprompt-vs-kubectl-ai",
-    kicker: "Comparison",
-    title: "kprompt vs kubectl-ai",
+    href: "/blog/kubernetes-service-vs-deployment",
+    kicker: "Beginner",
+    title: "Service vs Deployment",
     blurb:
-      "Same natural-language CLI lane, different mutate contract: plan, safety, then approve.",
+      "Not rivals: Deployments run Pods; Services give those Pods a stable network identity.",
   },
 ] as const;
 
