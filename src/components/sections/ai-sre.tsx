@@ -68,6 +68,26 @@ const DEMOS = [
     poster: SITE.timelineDemoPoster,
   },
   {
+    id: "impact",
+    label: "Impact",
+    caption: "impact → blast radius · who gets hurt before you approve",
+    ariaLabel:
+      "kprompt impact shows direct dependents and downstream Ingress for payment-api",
+    webm: SITE.impactDemoWebm,
+    mp4: SITE.impactDemoMp4,
+    poster: SITE.impactDemoPoster,
+  },
+  {
+    id: "verify",
+    label: "Verify",
+    caption: "approve → apply → verify · never silent auto-heal",
+    ariaLabel:
+      "kprompt waits for y approval, applies the memory patch, then verifies CrashLoopBackOff cleared",
+    webm: SITE.verifyDemoWebm,
+    mp4: SITE.verifyDemoMp4,
+    poster: SITE.verifyDemoPoster,
+  },
+  {
     id: "observe",
     label: "Observe",
     caption: "Watch → Incident → gated alert · $0 kind walkthrough",

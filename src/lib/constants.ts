@@ -76,6 +76,16 @@ export const SITE = {
   timelineDemoWebm: "/kprompt-timeline-demo.webm",
   timelineDemoMp4: "/kprompt-timeline-demo.mp4",
   timelineDemoPoster: "/kprompt-timeline-demo-poster.jpg",
+  /** AI SRE impact — blast radius. */
+  impactDemoGif: "/kprompt-impact-demo.gif",
+  impactDemoWebm: "/kprompt-impact-demo.webm",
+  impactDemoMp4: "/kprompt-impact-demo.mp4",
+  impactDemoPoster: "/kprompt-impact-demo-poster.jpg",
+  /** AI SRE approve → verify post-apply. */
+  verifyDemoGif: "/kprompt-verify-demo.gif",
+  verifyDemoWebm: "/kprompt-verify-demo.webm",
+  verifyDemoMp4: "/kprompt-verify-demo.mp4",
+  verifyDemoPoster: "/kprompt-verify-demo-poster.jpg",
   /** Hero plan-deny aha clip — wipe hard-deny → scale PlanResult → y/N. */
   planDenyGif: "/kprompt-plan-deny.gif",
   planDenyWebm: "/kprompt-plan-deny.webm",
