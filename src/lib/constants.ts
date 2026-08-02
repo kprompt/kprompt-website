@@ -86,6 +86,11 @@ export const SITE = {
   verifyDemoWebm: "/kprompt-verify-demo.webm",
   verifyDemoMp4: "/kprompt-verify-demo.mp4",
   verifyDemoPoster: "/kprompt-verify-demo-poster.jpg",
+  /** VS Code PlanResult review → Approve via CLI. */
+  ideDemoGif: "/kprompt-ide-demo.gif",
+  ideDemoWebm: "/kprompt-ide-demo.webm",
+  ideDemoMp4: "/kprompt-ide-demo.mp4",
+  ideDemoPoster: "/kprompt-ide-demo-poster.jpg",
   /** Hero plan-deny aha clip — wipe hard-deny → scale PlanResult → y/N. */
   planDenyGif: "/kprompt-plan-deny.gif",
   planDenyWebm: "/kprompt-plan-deny.webm",

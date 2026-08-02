@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>kprompt IDE PlanResult clip</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --chrome: #121a2b;
+    --sidebar: #0e1626;
+    --editor: #0d1524;
+    --fg: #f4f7fb;
+    --muted: #8fa3bf;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #fb7185;
+    --purple: #c4b5fd;
+    --pink: #f472b6;
+    --cyan: #38bdf8;
+    --brand: #60a5fa;
+    --border: rgba(148,183,255,0.16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #050b14;
+    color: var(--fg);
+    font-family: "SF Mono", Menlo, Monaco, "Courier New", monospace;
+  }
+  #stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 10%, rgba(59,130,246,0.18), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 90% 90%, rgba(56,189,248,0.10), transparent 50%),
+      linear-gradient(160deg, #050b14 0%, #0a1526 50%, #07111f 100%);
+  }
+  .ide {
+    position: absolute;
+    left: 56px; top: 48px;
+    width: 1168px; height: 600px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    overflow: hidden;
+    opacity: 0;
+    display: grid;
+    grid-template-rows: 40px 1fr 120px;
+    grid-template-columns: 52px 1fr 420px;
+  }
+  .titlebar {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 14px;
+    background: var(--chrome);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; }
+  .dot.y { background: #febc2e; }
+  .dot.g { background: #28c840; }
+  .titlebar .label {
+    margin-left: 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .activity {
+    background: var(--sidebar);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-top: 16px;
+  }
+  .act {
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    background: rgba(148,183,255,0.12);
+  }
+  .act.on { outline: 1px solid var(--brand); background: rgba(96,165,250,0.25); }
+  .editor {
+    background: var(--editor);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 1.45;
+    overflow: hidden;
+  }
+  .tab {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 4px 10px;
+    border-radius: 6px 6px 0 0;
+    background: rgba(96,165,250,0.12);
+    color: var(--brand);
+    font-size: 12px;
+  }
+  .json-line { color: var(--muted); white-space: pre; }
+  .json-line .k { color: var(--cyan); }
+  .json-line .s { color: var(--amber); }
+  .json-line .n { color: var(--purple); }
+  .panel {
+    background: #0c1422;
+    padding: 16px 18px;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .panel h1 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(251,191,36,0.45);
+    color: var(--amber);
+    margin-right: 6px;
+  }
+  .badge.need {
+    border-color: rgba(148,183,255,0.3);
+    color: var(--muted);
+  }
+  .meta { margin-top: 12px; color: var(--muted); font-size: 12px; }
+  .meta span { color: var(--fg); }
+  .diff-box {
+    margin-top: 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: rgba(0,0,0,0.25);
+  }
+  .diff-box .h {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .diff-box pre {
+    font-size: 12px;
+    color: var(--pink);
+    white-space: pre-wrap;
+  }
+  .btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    border: 1px solid transparent;
+  }
+  .btn.primary {
+    background: #2563eb;
+    color: #fff;
+  }
+  .btn.primary.pulse {
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.45);
+  }
+  .btn.ghost {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--muted);
+  }
+  .termbar {
+    grid-column: 2 / -1;
+    background: #080e18;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 10px 16px;
+    font-size: 12px;
+    line-height: 1.45;
+    opacity: 0;
+  }
+  .termbar .prompt { color: var(--green); }
+  .termbar .cmd { color: var(--amber); }
+  .termbar .ok { color: var(--green); }
+  .termbar .muted { color: var(--muted); }
+  .modal {
+    position: absolute;
+    left: 50%; top: 42%;
+    transform: translate(-50%, -50%);
+    width: 480px;
+    border-radius: 12px;
+    border: 1px solid rgba(251,191,36,0.35);
+    background: #121a2b;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+    padding: 18px 20px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .modal h2 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .modal p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+    margin-bottom: 14px;
+  }
+  .modal .quote {
+    color: var(--amber);
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+  .modal .row { display: flex; gap: 8px; justify-content: flex-end; }
+  .badge-float {
+    position: absolute;
+    right: 90px; top: 28px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid rgba(96,165,250,0.45);
+    background: rgba(11,18,32,0.85);
+    color: var(--brand);
+    opacity: 0;
+  }
+  .caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 22px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--muted);
+    opacity: 0;
+  }
+  .fade { opacity: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="badge-float" id="badge">Not a chat · IDE review</div>
+
+  <div class="ide" id="ide">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="label">VS Code — PlanResult · scale api to 3</span>
+    </div>
+    <div class="activity">
+      <div class="act"></div>
+      <div class="act on"></div>
+      <div class="act"></div>
+    </div>
+    <div class="editor">
+      <div class="tab">plan.json</div>
+      <div class="json-line">{ <span class="k">"kind"</span>: <span class="s">"PlanResult"</span>,</div>
+      <div class="json-line">{ <span class="k">"prompt"</span>: <span class="s">"scale api to 3"</span>,</div>
+      <div class="json-line">{ <span class="k">"plan"</span>: {</div>
+      <div class="json-line">    <span class="k">"intent"</span>: <span class="s">"scale"</span>,</div>
+      <div class="json-line">    <span class="k">"namespace"</span>: <span class="s">"payments"</span>,</div>
+      <div class="json-line">    <span class="k">"actions"</span>: [{ <span class="k">"op"</span>: <span class="s">"scale"</span>, … }]</div>
+      <div class="json-line">  },</div>
+      <div class="json-line">{ <span class="k">"risk"</span>: { <span class="k">"level"</span>: <span class="s">"medium"</span>, <span class="k">"denied"</span>: <span class="n">false</span> }</div>
+    </div>
+    <div class="panel" id="panel">
+      <p class="eyebrow">PlanResult · not a chat</p>
+      <h1>Scale Deployment/api to 3 replicas</h1>
+      <div>
+        <span class="badge">medium</span>
+        <span class="badge need">needs approve</span>
+      </div>
+      <div class="meta">
+        Prompt <span>scale api to 3</span><br/>
+        Scope <span>ns/payments · kind-dev</span><br/>
+        Risk note <span>mutating scale requires approval</span>
+      </div>
+      <div class="diff-box">
+        <div class="h">scale · Deployment/api · ns/payments</div>
+        <pre>replicas: 1 → 3</pre>
+      </div>
+      <div class="btns">
+        <div class="btn primary" id="approveBtn">Approve via CLI</div>
+        <div class="btn ghost">Close</div>
+      </div>
+    </div>
+    <div class="termbar" id="term">
+      <div><span class="prompt">$</span> <span class="cmd" id="termCmd"></span><span id="termCur" style="display:inline-block;width:7px;height:12px;background:#34d399;vertical-align:-1px;margin-left:2px;opacity:0"></span></div>
+      <div class="ok" id="termOut1" style="opacity:0">✓ Scaling deployment/api 1 → 3</div>
+      <div class="muted" id="termOut2" style="opacity:0">Applied via local CLI — kubeconfig stayed on the laptop</div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <h2>Approve mutating plan (risk=medium)?</h2>
+    <p class="quote">"scale api to 3"</p>
+    <p>Runs <span style="color:#fbbf24">kprompt … --approve</span> in a terminal. Nothing is applied until that process succeeds. Extension never talks to the apiserver.</p>
+    <div class="row">
+      <div class="btn ghost">Cancel</div>
+      <div class="btn primary" id="modalOk">Approve via CLI</div>
+    </div>
+  </div>
+
+  <div class="caption" id="caption">Review diffs in the IDE. Approve still goes through the local CLI.</div>
+</div>
+<script>
+const TERM_CMD = "kprompt 'scale api to 3' --approve -n payments";
+const DURATION = 18.0;
+
+function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+function seg(t, a, b) {
+  if (b <= a) return t >= b ? 1 : 0;
+  return clamp((t - a) / (b - a), 0, 1);
+}
+function ease(u) { return u * u * (3 - 2 * u); }
+
+window.__seek = function (t) {
+  t = clamp(t, 0, DURATION);
+  const ide = document.getElementById("ide");
+  const modal = document.getElementById("modal");
+  const term = document.getElementById("term");
+  const badge = document.getElementById("badge");
+  const caption = document.getElementById("caption");
+  const approveBtn = document.getElementById("approveBtn");
+  const modalOk = document.getElementById("modalOk");
+
+  const ideIn = ease(seg(t, 0.2, 0.7));
+  const ideOut = 1 - ease(seg(t, 17.2, 18.0));
+  ide.style.opacity = ideIn * ideOut;
+  ide.style.transform = `translateY(${(1 - ideIn) * 16}px)`;
+
+  badge.style.opacity = ease(seg(t, 2.2, 2.7)) * (1 - ease(seg(t, 8.0, 8.5)));
+  caption.style.opacity = ease(seg(t, 16.0, 16.6)) * (1 - ease(seg(t, 17.4, 18.0)));
+
+  // Highlight Approve button
+  if (t >= 4.5 && t < 7.0) {
+    approveBtn.classList.add("pulse");
+  } else {
+    approveBtn.classList.remove("pulse");
+  }
+
+  // Modal
+  const modalIn = ease(seg(t, 7.0, 7.4));
+  const modalOut = 1 - ease(seg(t, 10.4, 10.8));
+  modal.style.opacity = modalIn * modalOut;
+  if (t >= 9.2 && t < 10.5) {
+    modalOk.style.boxShadow = "0 0 0 2px rgba(37,99,235,0.55)";
+  } else {
+    modalOk.style.boxShadow = "none";
+  }
+
+  // Terminal
+  const termIn = ease(seg(t, 10.8, 11.3));
+  term.style.opacity = termIn * ideOut;
+
+  const cmdU = seg(t, 11.4, 13.2);
+  const n = Math.floor(TERM_CMD.length * cmdU);
+  document.getElementById("termCmd").textContent = TERM_CMD.slice(0, n);
+  const cur = document.getElementById("termCur");
+  cur.style.opacity = cmdU < 1 && t >= 11.4 ? (Math.floor(t * 4) % 2 === 0 ? 1 : 0.25) : 0;
+
+  document.getElementById("termOut1").style.opacity = ease(seg(t, 13.5, 13.9));
+  document.getElementById("termOut2").style.opacity = ease(seg(t, 14.4, 14.9));
+};
+
+window.__DURATION = DURATION;
+window.__seek(0);
+</script>
+</body>
+</html>

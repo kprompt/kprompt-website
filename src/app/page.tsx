@@ -6,6 +6,7 @@ import { FinalCta } from "@/components/sections/final-cta";
 import { Guides } from "@/components/sections/guides";
 import { Hero } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
+import { IdePlanResult } from "@/components/sections/ide-planresult";
 import { UsageGuide } from "@/components/sections/usage-guide";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { SITE } from "@/lib/constants";
@@ -28,6 +29,7 @@ export default function HomePage() {
       <Hero />
       <AiSre />
       <HowItWorks />
+      <IdePlanResult />
       <CliExamples />
       <UsageGuide />
       <Guides />
