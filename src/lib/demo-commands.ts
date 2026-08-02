@@ -133,6 +133,10 @@ export const HERO_DEMOS: DemoCommand[] = [
 ];
 
 export const CLI_EXAMPLES = [
+  "kprompt investigate checkout",
+  "kprompt why payment-api",
+  "kprompt timeline -n payments",
+  "kprompt agent run",
   'kprompt "deploy redis"',
   'kprompt "scale api to 10" --approve --wait',
   'kprompt "rollback payment-api"',
@@ -151,6 +155,30 @@ export const CLI_EXAMPLES = [
 ] as const;
 
 export const CLI_DEMO_OUTPUT: Record<string, string[]> = {
+  "kprompt investigate checkout": [
+    "Walking Service → Endpoints → Deploy → Pods → Events",
+    "Investigation: CrashLoopBackOff on checkout-api",
+    "Evidence: OOMKilled · last 3 restarts in 8m",
+    "Suggested: raise memory limit (plan ready)",
+  ],
+  "kprompt why payment-api": [
+    "Cause finding: ImagePullBackOff",
+    "Registry auth missing for ghcr.io/…",
+    "Related: Secret/regcred not mounted",
+    "Next: create pull secret → PlanResult",
+  ],
+  "kprompt timeline -n payments": [
+    "15:02  Deploy/payment-api scaled 2 → 4",
+    "15:04  Pod payment-api-7f9 OOMKilled",
+    "15:05  ReplicaSet backlog growing",
+    "15:07  HPA unable to stabilize",
+  ],
+  "kprompt agent run": [
+    "Observe: watching namespace payments",
+    "Incident: CrashLoopBackOff ×3 correlated",
+    "Confidence: high · severity: warning",
+    "Alert gated — no mutate (Observe mode)",
+  ],
   'kprompt "deploy redis"': [
     "Planning deployment…",
     "✓ Deployment/redis planned",

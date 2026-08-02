@@ -38,8 +38,9 @@ export function Hero() {
             The AI Runtime for Kubernetes
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Observe, reason, and plan safe actions — then apply only after your
-            yes. Wipe jokes hard-deny; start with a zero-LLM walkthrough on kind.
+            AI SRE that observes, investigates, and plans — apply only after
+            your yes. Wipe jokes hard-deny; start with a zero-LLM walkthrough on
+            kind.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">

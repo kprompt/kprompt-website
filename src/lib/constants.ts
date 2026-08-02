@@ -15,7 +15,7 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "The AI Runtime for Kubernetes",
   description:
-    "The AI Runtime for Kubernetes — observe your cluster, reason about what's happening, plan safe actions, execute with approval, and continuously improve. Open-source CLI + optional Observe agent. Experimental.",
+    "AI SRE for Kubernetes — investigate, why, timeline, and impact on demand; optional Observe agent always on. Plan safe actions, apply only with approval. Open-source CLI. Experimental.",
   github: "https://github.com/kprompt/kprompt",
   /** Product account on X. */
   twitter: "https://x.com/kpromptai",
@@ -61,6 +61,11 @@ export const SITE = {
   observeDemoWebm: "/kprompt-observe-demo.webm",
   observeDemoMp4: "/kprompt-observe-demo.mp4",
   observeDemoPoster: "/kprompt-observe-demo-poster.jpg",
+  /** AI SRE investigate → finding → plan clip. */
+  investigateDemoGif: "/kprompt-investigate-demo.gif",
+  investigateDemoWebm: "/kprompt-investigate-demo.webm",
+  investigateDemoMp4: "/kprompt-investigate-demo.mp4",
+  investigateDemoPoster: "/kprompt-investigate-demo-poster.jpg",
   /** Hero plan-deny aha clip — wipe hard-deny → scale PlanResult → y/N. */
   planDenyGif: "/kprompt-plan-deny.gif",
   planDenyWebm: "/kprompt-plan-deny.webm",

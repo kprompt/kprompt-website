@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>kprompt AI SRE investigate clip</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --chrome: #121a2b;
+    --fg: #f4f7fb;
+    --muted: #8fa3bf;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #fb7185;
+    --purple: #c4b5fd;
+    --pink: #f472b6;
+    --cyan: #38bdf8;
+    --brand: #60a5fa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #050b14;
+    color: var(--fg);
+    font-family: "SF Mono", Menlo, Monaco, "Courier New", monospace;
+  }
+  #stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 10%, rgba(59,130,246,0.18), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 90% 90%, rgba(56,189,248,0.10), transparent 50%),
+      linear-gradient(160deg, #050b14 0%, #0a1526 50%, #07111f 100%);
+  }
+  .term {
+    position: absolute;
+    left: 80px; top: 70px;
+    width: 1120px; height: 580px;
+    border-radius: 16px;
+    border: 1px solid rgba(148,183,255,0.18);
+    background: var(--bg);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    overflow: hidden;
+    opacity: 0;
+  }
+  .chrome {
+    display: flex; align-items: center; gap: 8px;
+    height: 48px; padding: 0 18px;
+    background: var(--chrome);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; }
+  .dot.y { background: #febc2e; }
+  .dot.g { background: #28c840; }
+  .title {
+    margin-left: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .body {
+    padding: 22px 28px;
+    font-size: 19px;
+    line-height: 1.28;
+    white-space: normal;
+  }
+  .prompt-line { color: var(--fg); line-height: 1.28; }
+  .prompt-line .dollar { color: var(--green); }
+  .out {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .line {
+    opacity: 0;
+    transform: translateY(4px);
+    margin: 0;
+    padding: 0;
+    line-height: 1.28;
+  }
+  .line.spacer { margin-top: 6px; }
+  .heading { color: var(--purple); font-weight: 700; }
+  .danger { color: var(--red); }
+  .success { color: var(--green); }
+  .warn { color: var(--amber); }
+  .accent { color: var(--pink); }
+  .muted { color: var(--muted); }
+  .info { color: var(--cyan); }
+  .brand { color: var(--brand); }
+  .bold { font-weight: 700; color: var(--fg); }
+  .cursor {
+    display: inline-block;
+    width: 10px; height: 18px;
+    background: var(--green);
+    vertical-align: -2px;
+    margin-left: 2px;
+    opacity: 0;
+  }
+  .badge {
+    position: absolute;
+    right: 100px; top: 40px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid rgba(148,183,255,0.25);
+    background: rgba(11,18,32,0.85);
+    color: var(--muted);
+    opacity: 0;
+  }
+  .badge.sre { color: var(--brand); border-color: rgba(96,165,250,0.45); }
+  .badge.plan { color: var(--green); border-color: rgba(52,211,153,0.45); }
+  .caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 28px;
+    text-align: center;
+    font-size: 16px;
+    color: var(--muted);
+    opacity: 0;
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="badge sre" id="badgeSre">AI SRE</div>
+  <div class="badge plan" id="badgePlan">Plan before apply</div>
+
+  <div class="term" id="sceneInv">
+    <div class="chrome">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="title">kprompt — investigate</span>
+    </div>
+    <div class="body">
+      <div class="prompt-line"><span class="dollar">$</span> <span id="invTyped"></span><span class="cursor" id="invCur"></span></div>
+      <div class="out" id="invOut">
+        <div class="line muted" data-i="0">Walking Service → Endpoints → Deploy → Pods → Events → Logs</div>
+        <div class="line spacer" data-i="1"><span class="heading">Investigation</span> <span class="muted">schemaVersion=1</span></div>
+        <div class="line" data-i="2"><span class="danger">Finding:</span> CrashLoopBackOff on <span class="accent">checkout-api</span></div>
+        <div class="line" data-i="3"><span class="info">Evidence:</span> OOMKilled · limit 256Mi · 3 restarts in 8m</div>
+        <div class="line" data-i="4"><span class="warn">Cause:</span> memory limit too low under peak traffic</div>
+        <div class="line spacer" data-i="5"><span class="success">Suggested:</span> raise memory to 512Mi <span class="muted">(plan ready)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="term" id="scenePlan">
+    <div class="chrome">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="title">kprompt — plan before apply</span>
+    </div>
+    <div class="body">
+      <div class="prompt-line"><span class="dollar">$</span> <span id="planTyped"></span><span class="cursor" id="planCur"></span></div>
+      <div class="out" id="planOut">
+        <div class="line" data-i="0"><span class="heading">Intent:</span> patch resources</div>
+        <div class="line" data-i="1"><span class="heading">Plan:</span>  set <span class="accent">Deployment/checkout-api</span> memory limit → 512Mi</div>
+        <div class="line" data-i="2"><span class="heading">Risk:</span>  <span class="warn">medium</span></div>
+        <div class="line" data-i="3"><span class="heading">Actions:</span></div>
+        <div class="line" data-i="4">  1. patch Deployment/checkout-api -n checkout</div>
+        <div class="line muted" data-i="5">     Diff: resources.limits.memory 256Mi → 512Mi</div>
+        <div class="line" data-i="6"><span class="heading">From investigation:</span> OOMKilled evidence attached</div>
+        <div class="line spacer" data-i="7"><span class="bold">Apply this plan?</span> [y/N]: <span class="cursor" id="planAnsCur" style="opacity:1"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caption" id="caption">Evidence first. Fix only after your yes.</div>
+</div>
+<script>
+const INV_CMD = "kprompt investigate checkout";
+const PLAN_CMD = 'kprompt "raise checkout-api memory to 512Mi" -n checkout';
+const DURATION = 20.0;
+
+function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+function seg(t, a, b) {
+  if (b <= a) return t >= b ? 1 : 0;
+  return clamp((t - a) / (b - a), 0, 1);
+}
+function ease(u) { return u * u * (3 - 2 * u); }
+
+function typeText(el, full, u, cursorEl) {
+  const n = Math.floor(full.length * clamp(u, 0, 1));
+  el.textContent = full.slice(0, n);
+  if (cursorEl) {
+    const blink = Math.floor(performance.now() / 250) % 2 === 0;
+    cursorEl.style.opacity = u < 1 ? (blink ? 1 : 0.25) : 0;
+  }
+}
+
+function showLines(root, startT, t, step) {
+  root.querySelectorAll(".line").forEach((el) => {
+    const i = Number(el.dataset.i || 0);
+    const a = ease(seg(t, startT + i * step, startT + i * step + 0.28));
+    el.style.opacity = a;
+    el.style.transform = `translateY(${(1 - a) * 4}px)`;
+  });
+}
+
+window.__seek = function (t) {
+  t = clamp(t, 0, DURATION);
+  const inv = document.getElementById("sceneInv");
+  const plan = document.getElementById("scenePlan");
+  const badgeSre = document.getElementById("badgeSre");
+  const badgePlan = document.getElementById("badgePlan");
+  const caption = document.getElementById("caption");
+
+  const invIn = ease(seg(t, 0.15, 0.55));
+  const invOut = 1 - ease(seg(t, 9.4, 9.9));
+  const planIn = ease(seg(t, 9.8, 10.3));
+  const planOut = 1 - ease(seg(t, 19.2, 20.0));
+
+  inv.style.opacity = invIn * invOut;
+  inv.style.transform = `translateY(${(1 - invIn) * 18}px)`;
+  plan.style.opacity = planIn * planOut;
+  plan.style.transform = `translateY(${(1 - planIn) * 18}px)`;
+
+  badgeSre.style.opacity = ease(seg(t, 4.0, 4.5)) * (1 - ease(seg(t, 9.2, 9.7)));
+  badgePlan.style.opacity = ease(seg(t, 14.8, 15.3)) * (1 - ease(seg(t, 19.0, 19.6)));
+  caption.style.opacity = ease(seg(t, 18.2, 18.8)) * (1 - ease(seg(t, 19.6, 20.0)));
+
+  typeText(
+    document.getElementById("invTyped"),
+    INV_CMD,
+    seg(t, 0.6, 2.2),
+    document.getElementById("invCur")
+  );
+  showLines(document.getElementById("invOut"), 2.5, t, 0.55);
+
+  typeText(
+    document.getElementById("planTyped"),
+    PLAN_CMD,
+    seg(t, 10.3, 12.6),
+    document.getElementById("planCur")
+  );
+  showLines(document.getElementById("planOut"), 12.9, t, 0.38);
+
+  const ansCur = document.getElementById("planAnsCur");
+  if (t >= 16.8) {
+    const blink = Math.floor(t * 3.5) % 2 === 0;
+    ansCur.style.opacity = blink ? 1 : 0.2;
+  } else {
+    ansCur.style.opacity = 0;
+  }
+};
+
+window.__DURATION = DURATION;
+window.__seek(0);
+</script>
+</body>
+</html>

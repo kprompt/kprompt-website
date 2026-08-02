@@ -4,8 +4,22 @@ import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-/** Homepage guides — GA beginner winners + GSC kubectl vs K9s. */
+/** Homepage guides — AI SRE positioning + GA beginner winners. */
 const GUIDES = [
+  {
+    href: "/blog/ai-sre-not-ai-kubectl",
+    kicker: "Positioning",
+    title: "Beyond AI kubectl",
+    blurb:
+      "Why kprompt aims at AI SRE: investigate → why → timeline → blast → verify — not a chat REPL.",
+  },
+  {
+    href: "/blog/building-ai-sre-in-public",
+    kicker: "Series",
+    title: "Building AI SRE in Public",
+    blurb:
+      "Intent compiler, PlanResult, safety, investigation graph — how the runtime is being built.",
+  },
   {
     href: "/blog/kubectl-vs-k9s",
     kicker: "Comparison",
@@ -19,20 +33,6 @@ const GUIDES = [
     title: "Pods vs Deployments",
     blurb:
       "What each object is, how they relate, and the kubectl commands that stick.",
-  },
-  {
-    href: "/blog/what-is-a-kubernetes-deployment",
-    kicker: "Beginner",
-    title: "What is a Deployment?",
-    blurb:
-      "Desired Pod count, rollouts, and the kubectl commands beginners need.",
-  },
-  {
-    href: "/blog/kubectl-get-pods-explained",
-    kicker: "Beginner",
-    title: "kubectl get pods explained",
-    blurb:
-      "READY, STATUS, RESTARTS — what the table means and which command to run next.",
   },
 ] as const;
 
@@ -48,7 +48,7 @@ export function Guides() {
             Guides
           </h2>
           <p className="mt-3 text-muted-foreground">
-            kubectl vs K9s and the beginner reads operators actually open.
+            AI SRE positioning and the beginner reads operators actually open.
           </p>
         </Reveal>
 
