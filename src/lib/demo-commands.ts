@@ -137,6 +137,7 @@ export const CLI_EXAMPLES = [
   "kprompt why payment-api",
   "kprompt timeline -n payments",
   "kprompt agent run",
+  'kprompt "check cluster drift"',
   'kprompt "deploy redis"',
   'kprompt "scale api to 10" --approve --wait',
   'kprompt "rollback payment-api"',
@@ -178,6 +179,12 @@ export const CLI_DEMO_OUTPUT: Record<string, string[]> = {
     "Incident: CrashLoopBackOff ×3 correlated",
     "Confidence: high · severity: warning",
     "Alert gated — no mutate (Observe mode)",
+  ],
+  'kprompt "check cluster drift"': [
+    "Scanning Flux · Argo CD…",
+    "OutOfSync: Application/payments",
+    "OutOfSync: Kustomization/checkout",
+    "Suggested sync plan — Apply? [y/N]",
   ],
   'kprompt "deploy redis"': [
     "Planning deployment…",

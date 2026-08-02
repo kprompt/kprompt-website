@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AiSre } from "@/components/sections/ai-sre";
 import { CliExamples } from "@/components/sections/cli-examples";
+import { Drift } from "@/components/sections/drift";
 import { Faq } from "@/components/sections/faq";
 import { FinalCta } from "@/components/sections/final-cta";
 import { Guides } from "@/components/sections/guides";
@@ -30,6 +31,7 @@ export default function HomePage() {
       <AiSre />
       <HowItWorks />
       <IdePlanResult />
+      <Drift />
       <CliExamples />
       <UsageGuide />
       <Guides />

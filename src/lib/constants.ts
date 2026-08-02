@@ -91,6 +91,11 @@ export const SITE = {
   ideDemoWebm: "/kprompt-ide-demo.webm",
   ideDemoMp4: "/kprompt-ide-demo.mp4",
   ideDemoPoster: "/kprompt-ide-demo-poster.jpg",
+  /** GitOps drift scan → approve-gated sync. */
+  driftDemoGif: "/kprompt-drift-demo.gif",
+  driftDemoWebm: "/kprompt-drift-demo.webm",
+  driftDemoMp4: "/kprompt-drift-demo.mp4",
+  driftDemoPoster: "/kprompt-drift-demo-poster.jpg",
   /** Hero plan-deny aha clip — wipe hard-deny → scale PlanResult → y/N. */
   planDenyGif: "/kprompt-plan-deny.gif",
   planDenyWebm: "/kprompt-plan-deny.webm",
