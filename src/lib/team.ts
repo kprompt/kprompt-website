@@ -39,10 +39,20 @@ export const YUSUF_TALHA_ATAS: TeamMember = {
   avatar: "/yusuf-talha-atas.png",
 };
 
+export const HARUN_TEMEL: TeamMember = {
+  name: "Harun Temel",
+  role: "Member",
+  bio: "Software engineer at Technoly Istanbul. Backend experience on distributed travel and commerce platforms, microservices, and Kubernetes on GCP and Azure. Computer Engineering graduate from Çukurova University.",
+  github: "https://github.com/Nekre",
+  linkedin: "https://www.linkedin.com/in/harun-temel-628a3b1b3/",
+  avatar: "/harun-temel.png",
+};
+
 export const TEAM_MEMBERS: TeamMember[] = [
   MUHTALIP_DEDE,
   EMIRE_BARIS,
   YUSUF_TALHA_ATAS,
+  HARUN_TEMEL,
 ];
 
 export const TEAM_PAGE = {
