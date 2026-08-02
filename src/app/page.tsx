@@ -8,6 +8,7 @@ import { Guides } from "@/components/sections/guides";
 import { Hero } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { IdePlanResult } from "@/components/sections/ide-planresult";
+import { MultiCluster } from "@/components/sections/multi-cluster";
 import { UsageGuide } from "@/components/sections/usage-guide";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { SITE } from "@/lib/constants";
@@ -32,6 +33,7 @@ export default function HomePage() {
       <HowItWorks />
       <IdePlanResult />
       <Drift />
+      <MultiCluster />
       <CliExamples />
       <UsageGuide />
       <Guides />

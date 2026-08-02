@@ -96,6 +96,11 @@ export const SITE = {
   driftDemoWebm: "/kprompt-drift-demo.webm",
   driftDemoMp4: "/kprompt-drift-demo.mp4",
   driftDemoPoster: "/kprompt-drift-demo-poster.jpg",
+  /** Multi-context read fan-out + per-context approve gate. */
+  multiClusterDemoGif: "/kprompt-multi-cluster-demo.gif",
+  multiClusterDemoWebm: "/kprompt-multi-cluster-demo.webm",
+  multiClusterDemoMp4: "/kprompt-multi-cluster-demo.mp4",
+  multiClusterDemoPoster: "/kprompt-multi-cluster-demo-poster.jpg",
   /** Hero plan-deny aha clip — wipe hard-deny → scale PlanResult → y/N. */
   planDenyGif: "/kprompt-plan-deny.gif",
   planDenyWebm: "/kprompt-plan-deny.webm",

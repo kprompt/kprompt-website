@@ -138,6 +138,7 @@ export const CLI_EXAMPLES = [
   "kprompt timeline -n payments",
   "kprompt agent run",
   'kprompt "check cluster drift"',
+  'kprompt --contexts staging,prod "list deployments"',
   'kprompt "deploy redis"',
   'kprompt "scale api to 10" --approve --wait',
   'kprompt "rollback payment-api"',
@@ -185,6 +186,12 @@ export const CLI_DEMO_OUTPUT: Record<string, string[]> = {
     "OutOfSync: Application/payments",
     "OutOfSync: Kustomization/checkout",
     "Suggested sync plan — Apply? [y/N]",
+  ],
+  'kprompt --contexts staging,prod "list deployments"': [
+    "staging · payments/api 2/2",
+    "prod · payments/api 4/4",
+    "prod · payments/web ImagePullBackOff",
+    "Read fan-out · kubeconfig local only",
   ],
   'kprompt "deploy redis"': [
     "Planning deployment…",
