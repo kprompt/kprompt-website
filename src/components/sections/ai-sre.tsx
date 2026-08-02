@@ -48,6 +48,26 @@ const DEMOS = [
     poster: SITE.investigateDemoPoster,
   },
   {
+    id: "why",
+    label: "Why",
+    caption: "why → named cause · evidence attached · no mutate yet",
+    ariaLabel:
+      "kprompt why finds ImagePullBackOff on payment-api with missing pull secret evidence",
+    webm: SITE.whyDemoWebm,
+    mp4: SITE.whyDemoMp4,
+    poster: SITE.whyDemoPoster,
+  },
+  {
+    id: "timeline",
+    label: "Timeline",
+    caption: "timeline → ordered events · story before you change anything",
+    ariaLabel:
+      "kprompt timeline shows scale spike then OOMKilled then HPA backlog in payments",
+    webm: SITE.timelineDemoWebm,
+    mp4: SITE.timelineDemoMp4,
+    poster: SITE.timelineDemoPoster,
+  },
+  {
     id: "observe",
     label: "Observe",
     caption: "Watch → Incident → gated alert · $0 kind walkthrough",

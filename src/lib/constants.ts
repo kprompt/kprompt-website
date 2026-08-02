@@ -66,6 +66,16 @@ export const SITE = {
   investigateDemoWebm: "/kprompt-investigate-demo.webm",
   investigateDemoMp4: "/kprompt-investigate-demo.mp4",
   investigateDemoPoster: "/kprompt-investigate-demo-poster.jpg",
+  /** AI SRE why — named cause finding. */
+  whyDemoGif: "/kprompt-why-demo.gif",
+  whyDemoWebm: "/kprompt-why-demo.webm",
+  whyDemoMp4: "/kprompt-why-demo.mp4",
+  whyDemoPoster: "/kprompt-why-demo-poster.jpg",
+  /** AI SRE timeline — ordered events. */
+  timelineDemoGif: "/kprompt-timeline-demo.gif",
+  timelineDemoWebm: "/kprompt-timeline-demo.webm",
+  timelineDemoMp4: "/kprompt-timeline-demo.mp4",
+  timelineDemoPoster: "/kprompt-timeline-demo-poster.jpg",
   /** Hero plan-deny aha clip — wipe hard-deny → scale PlanResult → y/N. */
   planDenyGif: "/kprompt-plan-deny.gif",
   planDenyWebm: "/kprompt-plan-deny.webm",

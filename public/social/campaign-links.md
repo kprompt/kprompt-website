@@ -13,9 +13,10 @@ Replace `ph-draft` with the scheduled launch date (e.g. `2026-08-05`) when you g
 - AI SRE post: https://kprompt.ai/blog/ai-sre-not-ai-kubectl?utm_source=producthunt&utm_medium=launch&utm_campaign=ph-draft
 
 Full form copy: architecture `PRODUCT-HUNT-DRAFT.md`.
-Gallery video: `kprompt-promo-16x9.mp4` (animated promo) · plan-deny aha: `../kprompt-plan-deny.mp4` · investigate AI SRE: `../kprompt-investigate-demo.mp4` · stills: `plan-demo.png`, `kprompt-observe-demo.gif`.
+Gallery video: `kprompt-promo-16x9.mp4` (animated promo) · plan-deny aha: `../kprompt-plan-deny.mp4` · investigate AI SRE: `../kprompt-investigate-demo.mp4` · why: `../kprompt-why-demo.mp4` · timeline: `../kprompt-timeline-demo.mp4` · stills: `plan-demo.png`, `kprompt-observe-demo.gif`.
 Re-render plan-deny clip: `.venv/bin/python render_plan_deny.py`
 Re-render investigate clip: `.venv/bin/python render_investigate.py`
+Re-render why / timeline: `.venv/bin/python render_clip.py why.html kprompt-why-demo` · `.venv/bin/python render_clip.py timeline.html kprompt-timeline-demo`
 Re-render promo video: `.venv/bin/python render_promo_v2.py` (after `playwright install chromium`).
 Re-render OG PNGs: `.venv/bin/python rasterize_og.py`.
 Banners (SVG + PNG): `x-banner`, `linkedin-cover`, `linkedin-cover-wide`.
