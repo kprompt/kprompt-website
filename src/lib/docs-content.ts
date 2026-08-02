@@ -487,8 +487,50 @@ kprompt history rerun 3 --approve`,
   },
   commands: {
     title: "Commands",
-    description: "Supported intents, prompt examples, and useful flags in the shipped CLI.",
+    description: "Supported intents, what kprompt will not do, prompt examples, and useful flags in the shipped CLI.",
     blocks: [
+      {
+        type: "h2",
+        text: "Capability map",
+      },
+      {
+        type: "p",
+        text: "kprompt is an intent compiler on an existing kubeconfig: plan → safety → approve → apply. It is not a cluster provisioner, cloud console, or silent remediator.",
+      },
+      {
+        type: "table",
+        headers: ["Can do", "Cannot / will not"],
+        rows: [
+          [
+            "Day-2 ops on a cluster you already reach (deploy, scale, explain, drift, …)",
+            "Create kind / EKS / GKE / AKS clusters (“bana bir cluster kur” → unknown intent)",
+          ],
+          [
+            "Optional Team /run via kprompt run listen on your laptop",
+            "Hold kubeconfig in the control plane or browse the live cluster from the app alone",
+          ],
+          [
+            "Observe agent: watch → Incident → gated alert / propose-only Autopilot",
+            "Silent apply from the agent (Autopilot apply stays gated)",
+          ],
+          [
+            "BYOK or local Ollama for NL plans",
+            "Sell or host LLM API keys as a kprompt product",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "Need a disposable cluster first? Use kind (or kprompt-examples make up), then point kubectl / kprompt at that context. App bridge: App runs & CLI bridge. Observe demo: Observe agent.",
+        links: [
+          { label: "App runs & CLI bridge", href: "/docs/runs" },
+          { label: "Observe agent", href: "/docs/agent" },
+          {
+            label: "kprompt-examples",
+            href: "https://github.com/kprompt/kprompt-examples",
+          },
+        ],
+      },
       {
         type: "h2",
         text: "Supported intents",
@@ -503,6 +545,10 @@ kprompt history rerun 3 --approve`,
           ["delete", '"delete deployment redis"', "Named Pod/Deployment/Service only"],
           ["get / list", '"list deployments"', "Read-only; built-ins + discoverable CRDs"],
           ["explain", '"explain why api is crashing"', "Deployment → ReplicaSet → Pods → Events → Logs; may suggest patch"],
+          ["investigate / why / timeline", '"investigate checkout"', "Multi-hop RCA / causal why / event timeline"],
+          ["drift", '"check cluster drift"', "Read-only GitOps sync/health vs live (RiskLow)"],
+          ["learn", '"learn my cluster"', "Detect tools; save local profile (RiskLow)"],
+          ["audit / cleanup / search / score", '"score my cluster"', "Hygiene, orphans, inventory search, scorecard"],
           ["logs", '"logs payment-api"', "Tail"],
           ["describe", '"describe payment-api"', "Compact describe"],
           ["Helm install / upgrade", '"install redis"', "Template and dry-run preview before approval"],
@@ -522,6 +568,20 @@ kprompt history rerun 3 --approve`,
       },
       {
         type: "h2",
+        text: "Day-2 reads (CLI docs)",
+      },
+      {
+        type: "p",
+        text: "Deeper guides live in the product repo: investigate, why, timeline, impact, audit, cleanup, search, score, architecture, learn, drift, watch, remember, session, recipes.",
+        links: [
+          {
+            label: "docs/ on GitHub",
+            href: "https://github.com/kprompt/kprompt/tree/main/docs",
+          },
+        ],
+      },
+      {
+        type: "h2",
         text: "Prompt examples",
       },
       {
@@ -532,6 +592,8 @@ kprompt "how many nodes are in the cluster"
 kprompt "scale api to 3" -n staging
 kprompt "rollback payment-api" --approve --wait
 kprompt "explain why redis is crashing"
+kprompt "check cluster drift"
+kprompt "learn my cluster"
 
 # Observability
 kprompt "why is my api slow?" -n production
@@ -548,7 +610,10 @@ kprompt "show gitops sync status"
 kprompt "provision a postgres database"
 
 # Multi-tool route (one plan, one approval for mutating chains)
-kprompt "why is api slow then scale api to 4"`,
+kprompt "why is api slow then scale api to 4"
+
+# Not supported — provision a new cluster elsewhere first
+# kprompt "create a kind cluster"   → unknown intent`,
       },
       {
         type: "h2",
@@ -586,6 +651,8 @@ kprompt "why is api slow then scale api to 4"`,
           "kprompt setup — dry-run / approve-gated host+cluster bootstrap (see Setup docs)",
           "kprompt doctor",
           "kprompt learn — detect cluster tools, save local profile",
+          "kprompt agent run / agent list — Observe bridge on laptop or fleet inventory",
+          "kprompt run listen — Team app /run CLI bridge",
           "kprompt dash — local read-only cluster UI (requires kprompt-dash on PATH; not a Lens replacement)",
           "kprompt login / login --open / logout / whoami",
           "kprompt policy / policy pull",
@@ -595,8 +662,11 @@ kprompt "why is api slow then scale api to 4"`,
       },
       {
         type: "p",
-        text: "Bootstrap honesty (what setup installs / does not): Setup bootstrap.",
-        links: [{ label: "Setup bootstrap", href: "/docs/setup" }],
+        text: "Bootstrap honesty (what setup installs / does not): Setup bootstrap. Team bridge: App runs & CLI bridge.",
+        links: [
+          { label: "Setup bootstrap", href: "/docs/setup" },
+          { label: "App runs & CLI bridge", href: "/docs/runs" },
+        ],
       },
       {
         type: "h2",
@@ -1288,6 +1358,65 @@ kprompt whoami           # confirm org + member`,
         text: "From a run or audit detail, Queue drill run re-queues the same prompt as plan_only with a staging-ish context hint. Prod-like hints are blocked. Still needs a live run listen worker — drill is not an in-browser executor.",
       },
       {
+        type: "p",
+        text: "Gotcha: drill often sets context_hint to staging. If that name is not a local kubeconfig context or alias, the bridge fails after claim. Map it with kprompt config alias set staging kind-kprompt-demo, or queue a fresh run with an empty / real context hint.",
+      },
+      {
+        type: "h2",
+        text: "Why status is failed (after claim)",
+        id: "failed",
+      },
+      {
+        type: "p",
+        text: "queued → running → failed means the laptop claimed the job but the local plan pipeline errored before a PlanResult existed. Check the red error field on the run detail page (authoritative), the bridge terminal (Posted run_… → failed: … on recent builds), and kprompt doctor on the same machine as run listen.",
+      },
+      {
+        type: "table",
+        headers: ["Error (typical)", "Cause", "Fix"],
+        rows: [
+          [
+            "missing API key / provider",
+            "No BYOK key for the configured provider",
+            "export KPROMPT_GEMINI_API_KEY=… (or use Ollama) · or kprompt secrets pull",
+          ],
+          [
+            'kube context "staging" not found',
+            "Drill / compose hint ≠ local contexts",
+            "Empty hint, real context name, or config alias set",
+          ],
+          [
+            "429 / quota exceeded",
+            "Gemini (or other) free-tier limit",
+            "Wait for reset, switch model, or use Ollama — see Providers",
+          ],
+          [
+            "Org policy max_risk … exceeds",
+            "Plan risk above cached org ceiling",
+            "Soften org max_risk, or use a read-only / lower-risk prompt",
+          ],
+          [
+            "unknown intent",
+            "Prompt outside supported ops (e.g. create a cluster)",
+            "Rephrase to a supported intent — see Commands",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "Providers details for Gemini free tier: Providers. Capability map: Commands.",
+        links: [
+          { label: "Providers", href: "/docs/providers" },
+          { label: "Commands", href: "/docs/commands" },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Local sanity check (same kube + provider as the bridge)",
+        code: `kprompt doctor
+kprompt --context kind-kprompt-demo "list pods" -n default
+# then re-queue in the app and keep: kprompt run listen`,
+      },
+      {
         type: "h2",
         text: "What this is not",
         id: "limits",
@@ -1322,7 +1451,7 @@ kprompt whoami           # confirm org + member`,
       },
       {
         type: "p",
-        text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, investigate, why, timeline, impact, logs, describe, performance, trace, dashboard, optimize, graph, Istio traffic, GitOps status) do not require approval.",
+        text: "Every mutating plan is risk-evaluated before apply. On a TTY, kprompt asks y/N unless you pass --approve. Read-only intents (get, list, explain, investigate, why, timeline, impact, audit, cleanup, search, score, architecture, learn, drift, logs, describe, performance, trace, dashboard, optimize, graph, Istio traffic, GitOps status) do not require approval.",
       },
       {
         type: "h2",
@@ -1420,7 +1549,7 @@ kprompt whoami           # confirm org + member`,
         rows: [
           [
             "low",
-            "Reads, explain, investigate, optimize reports, service graphs, GitOps status",
+            "Reads, explain, investigate, learn, drift, optimize reports, service graphs, GitOps status",
             "None required",
           ],
           [
@@ -1435,6 +1564,10 @@ kprompt whoami           # confirm org + member`,
           ],
           ["denied", "Hard-deny prompts and unsafe plans", "Never applies"],
         ],
+      },
+      {
+        type: "p",
+        text: "learn and drift are RiskLow (read-only scans). Optional approve-gated GitOps sync follow-ups from drift are separate KindGitOps plans at medium risk. If an older CLI treated drift as high, upgrade — org max_risk=medium would incorrectly deny those scans.",
       },
       {
         type: "p",
@@ -1475,6 +1608,14 @@ kprompt whoami           # confirm org + member`,
           ["deny_namespaces", "Denies plans targeting listed namespaces"],
           ["require_approve", "Forces approval for medium risk and above"],
         ],
+      },
+      {
+        type: "code",
+        caption: "Example org deny (max_risk=medium vs a high plan)",
+        code: `kprompt policy
+# max_risk: medium
+kprompt "delete deployment redis" -n payments
+# 🛡️ Org policy max_risk is medium — plan risk high exceeds it`,
       },
       {
         type: "p",
@@ -1594,6 +1735,43 @@ kprompt whoami           # confirm org + member`,
       {
         type: "p",
         text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. Groq, xAI (Grok), Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, and Together all speak the OpenAI-compatible API.",
+      },
+      {
+        type: "h2",
+        text: "Gemini free tier (honest)",
+      },
+      {
+        type: "p",
+        text: "AI Studio keys often start on a free tier with daily / per-minute quotas. Exceeding them returns HTTP 429 — Google’s limit, not a kprompt bug. Get a key at aistudio.google.com/apikey. Monitor quotas at ai.dev/rate-limit.",
+      },
+      {
+        type: "code",
+        code: `export KPROMPT_GEMINI_API_KEY=...
+kprompt config set provider gemini
+kprompt config set model gemini-2.0-flash   # or a current Flash / Flash-Lite id`,
+      },
+      {
+        type: "table",
+        headers: ["Symptom", "What to do"],
+        rows: [
+          [
+            "429 / generate_content_free_tier_*",
+            "Wait for reset, enable billing on that Google project (calls become paid), or switch to Ollama",
+          ],
+          [
+            "404 model no longer available to new users",
+            "Use a current model id (e.g. gemini-3.1-flash-lite / gemini-3.5-flash) — older gemini-2.5-flash-lite may be closed to new keys",
+          ],
+          [
+            "Works in CLI, Team /run fails",
+            "Bridge uses the same machine env/secrets — export the key (or secrets pull) where kprompt run listen runs",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "Prefer Ollama when you want $0 with no cloud quota. Team bridge failures: App runs & CLI bridge.",
+        links: [{ label: "App runs & CLI bridge", href: "/docs/runs" }],
       },
       {
         type: "h2",
@@ -1941,6 +2119,41 @@ echo "$json" | jq -e '.risk.level != "high"'`,
           "No LLM call on every raw API event — batch by open Incident",
           "Severity + confidence gate before Slack/webhook (defaults: medium / 0.7)",
           "Use --heuristic for demos; mount provider keys via Secret only",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Laptop demo: watching… vs emit-initial",
+      },
+      {
+        type: "p",
+        text: "agent run is a live watch. Without new Pod/Event traffic it only prints watching…. Already-broken workloads may stay quiet until the next BackOff. For demos, emit current state and stay offline ($0):",
+      },
+      {
+        type: "code",
+        code: `kprompt agent run -n payments \\
+  --emit-initial \\
+  --analyze --fetch-logs --health --heuristic \\
+  --memory --patterns --autopilot-propose`,
+      },
+      {
+        type: "table",
+        headers: ["Flag", "Effect"],
+        rows: [
+          ["--emit-initial", "Treat current Pods/Events as Added before the live stream"],
+          ["--heuristic", "Deterministic analysis — no LLM key / no cloud spend"],
+          ["--health", "Namespace score from open incidents + pod readiness/restarts"],
+          ["--analyze", "Gated AgentAlert (heuristic or LLM)"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Health vs incidents: ready=4/5 can drop the score while open=0 if the correlator has not opened an Incident yet (needs problem Events such as BackOff). Score ≠ alert. Break something with kprompt-examples, then re-run with --emit-initial.",
+        links: [
+          {
+            label: "kprompt-examples",
+            href: "https://github.com/kprompt/kprompt-examples",
+          },
         ],
       },
       {

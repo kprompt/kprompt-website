@@ -100,8 +100,8 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
         text: "Open app.kprompt.ai/run, enter a prompt plus optional namespace and context hint, pick an approve mode (plan_only is safest), and queue the run.",
       },
       {
-        name: "Unstick queued jobs",
-        text: "If status stays queued, no bridge is online — start run listen. If claim fails, re-login. Wrong cluster usually means a context_hint mismatch with local kubeconfig aliases.",
+        name: "Unstick queued or failed jobs",
+        text: "If status stays queued, start run listen. If status is failed after claim, read the run detail error: missing provider key, bad context_hint (e.g. staging), Gemini 429 quota, or unknown intent. Fix with doctor, aliases, or Providers docs, then re-queue.",
       },
     ],
   },
