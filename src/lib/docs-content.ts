@@ -580,13 +580,20 @@ kprompt "why is api slow then scale api to 4"`,
           "kprompt contexts / contexts --check / contexts --json",
           "kprompt history / history rerun [n]",
           "kprompt tools",
+          "kprompt setup — dry-run / approve-gated host+cluster bootstrap (see Setup docs)",
           "kprompt doctor",
+          "kprompt learn — detect cluster tools, save local profile",
           "kprompt dash — local read-only cluster UI (requires kprompt-dash on PATH; not a Lens replacement)",
           "kprompt login / login --open / logout / whoami",
           "kprompt policy / policy pull",
           "kprompt secrets pull",
           "kprompt version",
         ],
+      },
+      {
+        type: "p",
+        text: "Bootstrap honesty (what setup installs / does not): Setup bootstrap.",
+        links: [{ label: "Setup bootstrap", href: "/docs/setup" }],
       },
       {
         type: "h2",
@@ -815,11 +822,13 @@ export KPROMPT_THEME=gruvbox`,
     blocks: [
       {
         type: "p",
-        text: "kprompt orchestrates integrations; it does not replace them. Run kprompt tools to see what is installed or configured. Mutating operations still pass through plan, safety, and approval.",
+        text: "kprompt orchestrates integrations; it does not replace them. Run kprompt tools to see what is installed or configured. Missing Helm / Argo / Prometheus can be planned with kprompt setup (approve-gated). Mutating operations still pass through plan, safety, and approval.",
+        links: [{ label: "Setup bootstrap", href: "/docs/setup" }],
       },
       {
         type: "code",
-        code: "kprompt tools",
+        code: `kprompt tools
+kprompt setup --dry-run`,
       },
       {
         type: "h2",
@@ -957,6 +966,84 @@ kprompt "sync the payments application" --approve`,
         type: "code",
         code: `kprompt "why is api slow then scale api to 4"
 kprompt "show gitops sync status then sync payments" --approve`,
+      },
+    ],
+  },
+  setup: {
+    title: "Setup bootstrap",
+    description:
+      "Honest bootstrap for missing Helm / Argo / Prometheus — dry-run by default, approve-gated apply. What kprompt setup installs and what it never does.",
+    blocks: [
+      {
+        type: "p",
+        text: "kprompt setup turns tools.Detect gaps into a reviewable plan. Default is dry-run. Host and cluster installs need --approve or interactive confirm — never silent. Full flag reference lives in the product docs on GitHub.",
+        links: [
+          {
+            label: "docs/setup.md",
+            href: "https://github.com/kprompt/kprompt/blob/main/docs/setup.md",
+          },
+        ],
+      },
+      {
+        type: "code",
+        code: `kprompt tools
+kprompt setup
+kprompt setup --profile minimal --approve
+kprompt setup --profile platform --only prometheus --approve`,
+      },
+      {
+        type: "h2",
+        text: "Profiles",
+      },
+      {
+        type: "table",
+        headers: ["Profile", "Components", "Notes"],
+        rows: [
+          ["minimal", "Helm", "Host lane only"],
+          ["platform (default)", "Helm + Argo Workflows + Prometheus stack", "Approve-gated cluster installs"],
+          ["full", "platform + Grafana + OTel URL steps", "Config lane is hints only — never auto-writes ~/.kprompt/config"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "What setup installs (with --approve)",
+      },
+      {
+        type: "ul",
+        items: [
+          "Helm CLI on PATH via Homebrew or get-helm-3 (OS matrix in product docs)",
+          "Argo Workflows controller manifests into namespace argo (pinned release YAML)",
+          "kube-prometheus-stack via Helm into namespace monitoring (release kprompt-prom)",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What setup does not do",
+      },
+      {
+        type: "ul",
+        items: [
+          "Does not create clusters (kind / minikube / EKS / GKE provisioners)",
+          "Does not install Tekton, KEDA, Istio, Linkerd, Crossplane, Flux, or Argo CD",
+          "Does not replace Helmfile, Terraform, or Crossplane as a general installer",
+          "Does not auto-write Grafana / OpenTelemetry URLs (print config set hints only)",
+          "Does not wipe or uninstall — wipe-class helm uninstall / namespace delete stay hard-denied",
+          "Does not run in the background or install while you optimize",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Missing-tool hints",
+      },
+      {
+        type: "p",
+        text: "When kprompt tools or a prompt path finds Helm, Argo Workflows, or Prometheus missing, hints point at kprompt setup with the right --profile / --only. Prefer pointing at an existing Prometheus URL when you already have one.",
+        links: [{ label: "Integrations", href: "/docs/integrations" }],
+      },
+      {
+        type: "p",
+        text: "Safety model is unchanged: cluster installs are plan → safety → approve → apply, same as any other mutate.",
+        links: [{ label: "Safety", href: "/docs/safety" }],
       },
     ],
   },

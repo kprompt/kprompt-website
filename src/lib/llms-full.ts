@@ -4,7 +4,7 @@ import { FAQ } from "@/lib/faq";
 import { getPostBySlug } from "@/lib/blog-posts";
 
 /** Bump when docs copy changes so sitemap / TechArticle stay fresh. */
-export const DOCS_CONTENT_UPDATED_AT = "2026-07-29";
+export const DOCS_CONTENT_UPDATED_AT = "2026-08-02";
 
 /** Docs pages in canonical nav order, keyed for DOCS_PAGES lookup. */
 export const DOCS_FULL_INDEX = [
@@ -16,6 +16,7 @@ export const DOCS_FULL_INDEX = [
   { href: "/docs/multi-cluster", key: "multiCluster" },
   { href: "/docs/themes", key: "themes" },
   { href: "/docs/integrations", key: "integrations" },
+  { href: "/docs/setup", key: "setup" },
   { href: "/docs/architecture", key: "architecture" },
   { href: "/docs/agent", key: "agent" },
   { href: "/docs/roadmap", key: "roadmap" },

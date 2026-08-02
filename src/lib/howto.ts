@@ -76,7 +76,7 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
       },
       {
         name: "Try an installed integration",
-        text: 'Run kprompt tools to see which integrations are available, then try prompts such as "install redis" for Helm or "why is my api slow?" for Prometheus. Missing dependencies produce setup hints instead of fabricated output.',
+        text: 'Run kprompt tools to see which integrations are available. Missing Helm / Argo / Prometheus hints point at kprompt setup (dry-run by default — see /docs/setup). Then try prompts such as "install redis" for Helm or "why is my api slow?" for Prometheus — never fabricated backends.',
       },
     ],
   },
