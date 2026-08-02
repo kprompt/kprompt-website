@@ -17,6 +17,7 @@ export const DOCS_NAV: DocsNavItem[] = [
   { href: "/docs/agent", label: "Observe agent" },
   { href: "/docs/roadmap", label: "Roadmap & vision" },
   { href: "/docs/team", label: "Team" },
+  { href: "/docs/runs", label: "App runs & bridge" },
   { href: "/docs/safety", label: "Safety" },
   { href: "/docs/providers", label: "Providers" },
   { href: "/docs/ci", label: "CI / JSON" },

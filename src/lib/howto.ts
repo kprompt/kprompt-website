@@ -80,4 +80,29 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
       },
     ],
   },
+  "/docs/runs": {
+    name: "Enqueue a Team /run job with the CLI bridge",
+    description:
+      "Enroll the CLI, start kprompt run listen, compose a prompt at app.kprompt.ai/run, and understand why jobs stay queued until claimed.",
+    totalTime: "PT5M",
+    tools: ["kprompt CLI", "Team org access", "Local kubeconfig", "Browser"],
+    steps: [
+      {
+        name: "Enroll the CLI",
+        text: "Run kprompt login (or kprompt login --open), approve the user code at app.kprompt.ai/connect, then confirm with kprompt whoami.",
+      },
+      {
+        name: "Start the bridge worker",
+        text: "In a terminal on a laptop with kubeconfig, run kprompt run listen and leave it open. The worker claims jobs and plans locally — it never auto-applies.",
+      },
+      {
+        name: "Compose and queue in the app",
+        text: "Open app.kprompt.ai/run, enter a prompt plus optional namespace and context hint, pick an approve mode (plan_only is safest), and queue the run.",
+      },
+      {
+        name: "Unstick queued jobs",
+        text: "If status stays queued, no bridge is online — start run listen. If claim fails, re-login. Wrong cluster usually means a context_hint mismatch with local kubeconfig aliases.",
+      },
+    ],
+  },
 };

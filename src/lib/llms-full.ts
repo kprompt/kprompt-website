@@ -21,6 +21,7 @@ export const DOCS_FULL_INDEX = [
   { href: "/docs/agent", key: "agent" },
   { href: "/docs/roadmap", key: "roadmap" },
   { href: "/docs/team", key: "team" },
+  { href: "/docs/runs", key: "runs" },
   { href: "/docs/safety", key: "safety" },
   { href: "/docs/providers", key: "providers" },
   { href: "/docs/ci", key: "ci" },

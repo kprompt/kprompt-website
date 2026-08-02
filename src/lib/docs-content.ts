@@ -467,8 +467,11 @@ kprompt policy`,
       },
       {
         type: "p",
-        text: "Free CLI behavior is unchanged until you enroll. Login issues a Team kp_… token for orgs that already have access — not a public signup or LLM-key purchase.",
-        links: [{ label: "Team enrollment", href: "/docs/team" }],
+        text: "Free CLI behavior is unchanged until you enroll. Login issues a Team kp_… token for orgs that already have access — not a public signup or LLM-key purchase. App /run jobs also need kprompt run listen — see App runs & CLI bridge.",
+        links: [
+          { label: "Team enrollment", href: "/docs/team" },
+          { label: "App runs & CLI bridge", href: "/docs/runs" },
+        ],
       },
       {
         type: "h2",
@@ -1073,6 +1076,15 @@ kprompt logout           # revoke token + clear credentials/policy`,
       },
       {
         type: "h2",
+        text: "App /run jobs need a CLI bridge",
+      },
+      {
+        type: "p",
+        text: "Prompts composed at app.kprompt.ai/run stay queued until an enrolled laptop runs kprompt run listen. The control plane never holds kubeconfig. Full walkthrough: App runs & CLI bridge.",
+        links: [{ label: "App runs & CLI bridge", href: "/docs/runs" }],
+      },
+      {
+        type: "h2",
         text: "Org policy",
       },
       {
@@ -1103,6 +1115,198 @@ kprompt policy           # show cached policy`,
           "Audit payloads omit manifests and secrets",
           "History remains local (~/.kprompt/history.jsonl)",
           "You can logout anytime and return to Free CLI behavior",
+        ],
+      },
+      {
+        type: "p",
+        text: "Next: App runs & CLI bridge — login → Connect CLI → queue a prompt → run listen → why jobs stay queued.",
+        links: [{ label: "App runs & CLI bridge", href: "/docs/runs" }],
+      },
+    ],
+  },
+  runs: {
+    title: "App runs & CLI bridge",
+    description:
+      "How app.kprompt.ai/run works: device login, Connect CLI, kprompt run listen, why jobs stay queued, approve modes, and troubleshooting. No cluster credentials in the control plane.",
+    blocks: [
+      {
+        type: "p",
+        text: "Team /run lets you compose a prompt in the browser. Execution always happens on an enrolled laptop with local kubeconfig — never inside api.kprompt.ai. If nobody is running kprompt run listen, the job stays queued forever. That is intentional (ADR-0021), not a hang.",
+      },
+      {
+        type: "h2",
+        text: "Flow at a glance",
+        id: "flow",
+      },
+      {
+        type: "code",
+        caption: "Browser compose → queue → local bridge → PlanResult",
+        code: `You (browser)     app.kprompt.ai/run     →  POST /v1/runs  (status: queued)
+Laptop bridge     kprompt run listen     →  POST /v1/runs/claim
+                  local plan pipeline    →  kubeconfig stays on the laptop
+                  POST /v1/runs/{id}/result  →  app shows plan / awaiting_approve`,
+      },
+      {
+        type: "ul",
+        items: [
+          "Control plane stores prompt + status + PlanResult summary — never kubeconfig or cluster tokens",
+          "Same local safety + cached org policy as normal CLI plans",
+          "Mutations never auto-apply from the plane; plan_only never applies; require_approve waits for Approve in the app",
+        ],
+      },
+      {
+        type: "h2",
+        text: "1. Enroll the CLI (device login)",
+        id: "login",
+      },
+      {
+        type: "p",
+        text: "On the laptop that can reach the cluster:",
+      },
+      {
+        type: "code",
+        code: `kprompt login            # prints a user code + Connect URL
+kprompt login --open     # also opens the browser
+kprompt whoami           # confirm org + member`,
+      },
+      {
+        type: "ul",
+        items: [
+          "CLI shows a short user code (for example WXYZ-ABCD) and a URL under app.kprompt.ai/connect",
+          "Sign in to the Team app in the browser if needed",
+          "Open Connect CLI, enter or confirm the user code, Approve",
+          "CLI receives a kp_… token → ~/.kprompt/credentials.yaml (mode 0600)",
+        ],
+      },
+      {
+        type: "p",
+        text: "If whoami or doctor shows Team enrollment Forbidden, run kprompt logout then kprompt login again. See Team enrollment for policy and audit details.",
+        links: [{ label: "Team enrollment", href: "/docs/team" }],
+      },
+      {
+        type: "h2",
+        text: "2. Start the bridge worker",
+        id: "listen",
+      },
+      {
+        type: "p",
+        text: "Leave this running in a terminal while you use /run in the app:",
+      },
+      {
+        type: "code",
+        code: `kprompt run listen
+# optional:
+# kprompt run listen --interval 3s --worker-label laptop-muhtalip`,
+      },
+      {
+        type: "p",
+        text: "The worker polls POST /v1/runs/claim, runs the same plan pipeline as the CLI (never auto-applies), and posts the result. One active claim per worker; kubeconfig and LLM keys stay local.",
+      },
+      {
+        type: "h2",
+        text: "3. Compose and queue in the app",
+        id: "compose",
+      },
+      {
+        type: "ul",
+        items: [
+          "Open app.kprompt.ai/run",
+          "Enter the prompt (for example deploy redis), optional namespace and context hint",
+          "Pick approve_mode: plan_only (never apply), require_approve (pause for Approve/Deny), or auto_if_policy_allows (still subject to hard denies)",
+          "Queue run — status starts as queued",
+        ],
+      },
+      {
+        type: "p",
+        text: "The /run page itself says: Jobs stay queued until claimed. The empty-state copy points at kprompt login && kprompt run listen (also linked from Connect CLI).",
+      },
+      {
+        type: "h2",
+        text: "Why status stays queued",
+        id: "queued",
+      },
+      {
+        type: "p",
+        text: "queued means the job is waiting for a bridge. The app does not browse or mutate the live cluster from the browser. Common causes:",
+      },
+      {
+        type: "table",
+        headers: ["Symptom", "Likely cause", "Fix"],
+        rows: [
+          [
+            "Stuck on queued",
+            "No kprompt run listen on an enrolled laptop",
+            "Start the bridge; keep the terminal open",
+          ],
+          [
+            "listen errors / claim fails",
+            "Stale or missing kp_… token",
+            "kprompt logout && kprompt login && kprompt whoami",
+          ],
+          [
+            "Wrong cluster / context",
+            "context_hint does not match a local kubeconfig context or alias",
+            "Fix hint, or kprompt config alias set …; check kubectl config get-contexts",
+          ],
+          [
+            "Doctor: Team enrollment FAIL",
+            "API Forbidden or expired device session",
+            "Re-login; confirm org membership in the app",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Approve modes",
+        id: "approve-modes",
+      },
+      {
+        type: "table",
+        headers: ["Mode", "Bridge behavior"],
+        rows: [
+          [
+            "plan_only",
+            "Plans and posts PlanResult; never applies (including Replay / drill)",
+          ],
+          [
+            "require_approve",
+            "Mutating plans pause at awaiting_approve until Approve in the app; then the bridge may apply",
+          ],
+          [
+            "auto_if_policy_allows",
+            "May apply only when org policy allows; hard denies and wipe-class still block",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Replay / drill",
+        id: "replay",
+      },
+      {
+        type: "p",
+        text: "From a run or audit detail, Queue drill run re-queues the same prompt as plan_only with a staging-ish context hint. Prod-like hints are blocked. Still needs a live run listen worker — drill is not an in-browser executor.",
+      },
+      {
+        type: "h2",
+        text: "What this is not",
+        id: "limits",
+      },
+      {
+        type: "ul",
+        items: [
+          "Not a hosted cluster browser (Lens-style live inventory in the plane)",
+          "Not the in-cluster Observe agent (Helm kprompt-agent) — that watches namespaces; this worker is laptop-side Team jobs",
+          "Not silent Autopilot apply — mutations stay gated",
+        ],
+      },
+      {
+        type: "p",
+        text: "Related: Team enrollment · Safety · Observe agent.",
+        links: [
+          { label: "Team enrollment", href: "/docs/team" },
+          { label: "Safety", href: "/docs/safety" },
+          { label: "Observe agent", href: "/docs/agent" },
         ],
       },
     ],
