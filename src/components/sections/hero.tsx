@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
 import { GithubIcon } from "@/components/ui/github-icon";
+import { LazyDemoVideo } from "@/components/ui/lazy-demo-video";
 import { Logo } from "@/components/ui/logo";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -94,21 +95,13 @@ export function Hero() {
           className="mt-14 sm:mt-16"
         >
           <div className="mx-auto max-w-3xl overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm terminal-glow">
-            <video
-              className="mx-auto h-auto w-full"
-              width={1280}
-              height={720}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
+            <LazyDemoVideo
+              eager
+              webm={SITE.planDenyWebm}
+              mp4={SITE.planDenyMp4}
               poster={SITE.planDenyPoster}
               aria-label="kprompt hard-denies wipe prompts, then shows a scale plan waiting for Apply this plan? y/N"
-            >
-              <source src={SITE.planDenyWebm} type="video/webm" />
-              <source src={SITE.planDenyMp4} type="video/mp4" />
-            </video>
+            />
           </div>
           <p className="mx-auto mt-3 max-w-3xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
             Deny the wipe · review the plan · nothing applies without you

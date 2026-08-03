@@ -18,7 +18,7 @@ export const MUHTALIP_DEDE: TeamMember = {
   email: "muhtalipdede@gmail.com",
   github: "https://github.com/muhtalipdede",
   linkedin: "https://www.linkedin.com/in/muhtalipdede",
-  avatar: "/muhtalip-dede.png",
+  avatar: "/muhtalip-dede.jpg",
 };
 
 export const EMIRE_BARIS: TeamMember = {
@@ -27,7 +27,7 @@ export const EMIRE_BARIS: TeamMember = {
   bio: "Mathematical Engineering student learning and writing Kubernetes fundamentals for the kprompt community.",
   github: "https://github.com/emirebariiss",
   linkedin: "https://www.linkedin.com/in/emire-barış-948252250/",
-  avatar: "/emire-baris.png",
+  avatar: "/emire-baris.jpg",
 };
 
 export const YUSUF_TALHA_ATAS: TeamMember = {
@@ -36,7 +36,7 @@ export const YUSUF_TALHA_ATAS: TeamMember = {
   bio: "Junior software engineer at Yıldız Tech. Computer Engineering graduate from Yıldız Technical University; previously interned at Yapı Kredi Teknoloji, Baykar, and Datapad.",
   github: "https://github.com/yusuftalhaatas",
   linkedin: "https://www.linkedin.com/in/yusuftalhaatas/",
-  avatar: "/yusuf-talha-atas.png",
+  avatar: "/yusuf-talha-atas.jpg",
 };
 
 export const HARUN_TEMEL: TeamMember = {
@@ -45,7 +45,7 @@ export const HARUN_TEMEL: TeamMember = {
   bio: "Software engineer at Technoly Istanbul. Backend experience on distributed travel and commerce platforms, microservices, and Kubernetes on GCP and Azure. Computer Engineering graduate from Çukurova University.",
   github: "https://github.com/Nekre",
   linkedin: "https://www.linkedin.com/in/harun-temel-628a3b1b3/",
-  avatar: "/harun-temel.png",
+  avatar: "/harun-temel.jpg",
 };
 
 export const TEAM_MEMBERS: TeamMember[] = [

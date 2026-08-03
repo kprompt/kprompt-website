@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
+import { LazyDemoVideo } from "@/components/ui/lazy-demo-video";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -29,21 +30,12 @@ export function IdePlanResult() {
 
         <Reveal delay={0.08} className="mt-12">
           <div className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm terminal-glow">
-            <video
-              className="mx-auto h-auto w-full"
-              width={1280}
-              height={720}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
+            <LazyDemoVideo
+              webm={SITE.ideDemoWebm}
+              mp4={SITE.ideDemoMp4}
               poster={SITE.ideDemoPoster}
               aria-label="VS Code PlanResult panel shows scale diffs, confirm Approve via CLI, then terminal runs kprompt --approve"
-            >
-              <source src={SITE.ideDemoWebm} type="video/webm" />
-              <source src={SITE.ideDemoMp4} type="video/mp4" />
-            </video>
+            />
           </div>
           <p className="mx-auto mt-3 max-w-4xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
             Open PlanResult → review diffs → Approve via CLI

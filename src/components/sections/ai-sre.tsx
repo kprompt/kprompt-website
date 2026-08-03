@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
+import { LazyDemoVideo } from "@/components/ui/lazy-demo-video";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -160,22 +161,13 @@ export function AiSre() {
             className="mx-auto max-w-4xl"
           >
             <div className="overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm terminal-glow">
-              <video
+              <LazyDemoVideo
                 key={demo.id}
-                className="mx-auto h-auto w-full"
-                width={1280}
-                height={720}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
+                webm={demo.webm}
+                mp4={demo.mp4}
                 poster={demo.poster}
                 aria-label={demo.ariaLabel}
-              >
-                <source src={demo.webm} type="video/webm" />
-                <source src={demo.mp4} type="video/mp4" />
-              </video>
+              />
             </div>
             <p className="mt-3 text-center font-mono text-xs text-muted-foreground sm:text-sm">
               {demo.caption}

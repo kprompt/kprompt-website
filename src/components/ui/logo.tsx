@@ -2,7 +2,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /** Native logo aspect (trimmed transparent PNG) */
-const LOGO_ASPECT = 846 / 955;
+const LOGO_ASPECT = 141 / 160;
 
 type LogoProps = {
   className?: string;
