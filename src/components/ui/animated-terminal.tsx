@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { HERO_DEMOS, type DemoCommand } from "@/lib/demo-commands";
 
@@ -17,7 +16,7 @@ export function AnimatedTerminal({
   className,
   fixed,
 }: AnimatedTerminalProps) {
-  const reduced = useReducedMotion();
+  const [reduced, setReduced] = useState(false);
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
   const [visibleLines, setVisibleLines] = useState(0);
@@ -25,6 +24,14 @@ export function AnimatedTerminal({
 
   const current = fixed ?? demos[index % demos.length];
   const isOpener = !fixed && index === 0;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     if (reduced) {
@@ -66,7 +73,6 @@ export function AnimatedTerminal({
         setPhase("hold");
         return;
       }
-      // Beat before the punchline lands
       const pause =
         isOpener && line === current.lines.length - 1 ? 1100 : baseDelay;
       timeoutId = window.setTimeout(showNext, pause);
@@ -80,7 +86,6 @@ export function AnimatedTerminal({
   useEffect(() => {
     if (phase !== "hold" || fixed || reduced) return;
 
-    // Hold the deny punchline and plan gate longer — that's the product aha.
     const holdMs = isOpener || current.id === "scale-plan" ? 4200 : 2800;
     const hold = window.setTimeout(() => {
       setIndex((v) => (v + 1) % demos.length);
@@ -106,57 +111,47 @@ export function AnimatedTerminal({
       </div>
 
       <div className="relative min-h-[240px] bg-grid-dark px-4 py-5 sm:min-h-[260px] sm:px-5">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current.id}
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={reduced ? undefined : { opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="min-w-0 font-mono text-[13px] leading-relaxed sm:text-sm"
-          >
-            <p className="break-all text-white/95">
-              <span className="text-bright">›</span>{" "}
-              <span>{typed}</span>
-              <span
-                className={cn(
-                  "ml-0.5 inline-block h-[1.05em] w-[7px] translate-y-[2px] bg-bright align-baseline",
-                  phase === "typing" && !reduced ? "animate-pulse" : "opacity-0"
-                )}
-                aria-hidden
-              />
-            </p>
+        <div
+          key={current.id}
+          className="min-w-0 font-mono text-[13px] leading-relaxed sm:text-sm"
+        >
+          <p className="break-all text-white/95">
+            <span className="text-bright">›</span> <span>{typed}</span>
+            <span
+              className={cn(
+                "ml-0.5 inline-block h-[1.05em] w-[7px] translate-y-[2px] bg-bright align-baseline",
+                phase === "typing" && !reduced ? "animate-pulse" : "opacity-0"
+              )}
+              aria-hidden
+            />
+          </p>
 
-            <div className="mt-4 space-y-2 text-white/80">
-              {current.lines.slice(0, visibleLines).map((line) => {
-                const isWarn =
-                  line.startsWith("⚠") ||
-                  line.toLowerCase().includes("denied") ||
-                  line.toLowerCase().includes("risk: denied");
-                const isOk =
-                  line.startsWith("✓") ||
-                  line.toLowerCase().includes("applied") ||
-                  line.toLowerCase().includes("ready");
+          <div className="mt-4 space-y-2 text-white/80" aria-live="polite">
+            {current.lines.slice(0, visibleLines).map((line) => {
+              const isWarn =
+                line.startsWith("⚠") ||
+                line.toLowerCase().includes("denied") ||
+                line.toLowerCase().includes("risk: denied");
+              const isOk =
+                line.startsWith("✓") ||
+                line.toLowerCase().includes("applied") ||
+                line.toLowerCase().includes("ready");
 
-                return (
-                  <motion.p
-                    key={line}
-                    initial={reduced ? false : { opacity: 0, x: -4 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className={cn(
-                      "break-all",
-                      isOk && "text-bright",
-                      isWarn && "text-amber-400"
-                    )}
-                  >
-                    {line}
-                  </motion.p>
-                );
-              })}
-            </div>
-          </motion.div>
-        </AnimatePresence>
+              return (
+                <p
+                  key={line}
+                  className={cn(
+                    "break-all",
+                    isOk && "text-bright",
+                    isWarn && "text-amber-400"
+                  )}
+                >
+                  {line}
+                </p>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

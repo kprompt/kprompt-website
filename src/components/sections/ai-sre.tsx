@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
@@ -100,9 +100,38 @@ const DEMOS = [
   },
 ] as const;
 
+type DemoId = (typeof DEMOS)[number]["id"];
+
 export function AiSre() {
-  const [active, setActive] = useState<(typeof DEMOS)[number]["id"]>("investigate");
+  const [active, setActive] = useState<DemoId>("investigate");
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const demo = DEMOS.find((d) => d.id === active) ?? DEMOS[0];
+
+  const selectDemo = useCallback((id: DemoId, index: number) => {
+    setActive(id);
+    tabRefs.current[index]?.focus();
+  }, []);
+
+  const onTabKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const current = DEMOS.findIndex((d) => d.id === active);
+    if (current < 0) return;
+
+    let next = current;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      next = (current + 1) % DEMOS.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      next = (current - 1 + DEMOS.length) % DEMOS.length;
+    } else if (event.key === "Home") {
+      next = 0;
+    } else if (event.key === "End") {
+      next = DEMOS.length - 1;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    selectDemo(DEMOS[next].id, next);
+  };
 
   return (
     <section
@@ -130,33 +159,41 @@ export function AiSre() {
             className="flex flex-wrap gap-2"
             role="tablist"
             aria-label="AI SRE demos"
+            onKeyDown={onTabKeyDown}
           >
-            {DEMOS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                role="tab"
-                aria-selected={active === item.id}
-                id={`ai-sre-tab-${item.id}`}
-                aria-controls={`ai-sre-panel-${item.id}`}
-                onClick={() => setActive(item.id)}
-                className={cn(
-                  "rounded-lg border px-3.5 py-2 font-mono text-xs transition-colors sm:text-sm",
-                  active === item.id
-                    ? "border-brand/35 bg-brand/10 text-brand"
-                    : "border-transparent text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
-                )}
-              >
-                {item.label}
-              </button>
-            ))}
+            {DEMOS.map((item, index) => {
+              const selected = active === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  ref={(el) => {
+                    tabRefs.current[index] = el;
+                  }}
+                  aria-selected={selected}
+                  tabIndex={selected ? 0 : -1}
+                  id={`ai-sre-tab-${item.id}`}
+                  aria-controls="ai-sre-panel"
+                  onClick={() => selectDemo(item.id, index)}
+                  className={cn(
+                    "rounded-lg border px-3.5 py-2 font-mono text-xs transition-colors sm:text-sm",
+                    selected
+                      ? "border-brand/35 bg-brand/10 text-brand"
+                      : "border-transparent text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </div>
         </Reveal>
 
         <Reveal delay={0.12} className="mt-5">
           <div
             role="tabpanel"
-            id={`ai-sre-panel-${demo.id}`}
+            id="ai-sre-panel"
             aria-labelledby={`ai-sre-tab-${demo.id}`}
             className="mx-auto max-w-4xl"
           >
@@ -167,6 +204,7 @@ export function AiSre() {
                 mp4={demo.mp4}
                 poster={demo.poster}
                 aria-label={demo.ariaLabel}
+                transcript={demo.caption}
               />
             </div>
             <p className="mt-3 text-center font-mono text-xs text-muted-foreground sm:text-sm">
@@ -204,6 +242,7 @@ export function AiSre() {
               buttonVariants({ variant: "outline", size: "lg" }),
               "inline-flex"
             )}
+            aria-label={`${SITE.ctaPrimary} — Observe walkthrough`}
           >
             Try Observe walkthrough
           </Link>

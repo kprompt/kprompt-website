@@ -37,6 +37,7 @@ export function MultiCluster() {
               mp4={SITE.multiClusterDemoMp4}
               poster={SITE.multiClusterDemoPoster}
               aria-label="kprompt lists deployments across staging and prod, then refuses a blanket --approve for a multi-context scale"
+              transcript="--contexts staging,prod · read OK · blanket --approve refused"
             />
           </div>
           <p className="mx-auto mt-3 max-w-4xl text-center font-mono text-xs text-muted-foreground sm:text-sm">

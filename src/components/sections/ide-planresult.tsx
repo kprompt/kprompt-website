@@ -35,6 +35,7 @@ export function IdePlanResult() {
               mp4={SITE.ideDemoMp4}
               poster={SITE.ideDemoPoster}
               aria-label="VS Code PlanResult panel shows scale diffs, confirm Approve via CLI, then terminal runs kprompt --approve"
+              transcript="Open PlanResult → review diffs → Approve via CLI"
             />
           </div>
           <p className="mx-auto mt-3 max-w-4xl text-center font-mono text-xs text-muted-foreground sm:text-sm">

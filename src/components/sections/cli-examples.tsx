@@ -1,16 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/ui/reveal";
 import { CLI_DEMO_OUTPUT, CLI_EXAMPLES } from "@/lib/demo-commands";
 import { cn } from "@/lib/utils";
 
 export function CliExamples() {
-  const reduced = useReducedMotion();
   const [active, setActive] = useState(0);
+  const [reduced, setReduced] = useState(false);
   const command = CLI_EXAMPLES[active];
   const output = CLI_DEMO_OUTPUT[command] ?? [];
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     if (reduced) return;
@@ -34,26 +41,28 @@ export function CliExamples() {
 
         <div className="mt-12 grid min-w-0 gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
           <Reveal className="min-w-0">
-            <ul className="min-w-0 space-y-1.5" role="listbox" aria-label="CLI examples">
+            <div
+              className="flex min-w-0 flex-col gap-1.5"
+              role="group"
+              aria-label="CLI examples"
+            >
               {CLI_EXAMPLES.map((example, i) => (
-                <li key={example} className="min-w-0">
-                  <button
-                    type="button"
-                    role="option"
-                    aria-selected={i === active}
-                    onClick={() => setActive(i)}
-                    className={cn(
-                      "w-full min-w-0 break-all rounded-lg border px-3.5 py-2.5 text-left font-mono text-[12px] transition-colors sm:text-[13px]",
-                      i === active
-                        ? "border-brand/35 bg-brand/10 text-brand"
-                        : "border-transparent text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
-                    )}
-                  >
-                    {example}
-                  </button>
-                </li>
+                <button
+                  key={example}
+                  type="button"
+                  aria-pressed={i === active}
+                  onClick={() => setActive(i)}
+                  className={cn(
+                    "w-full min-w-0 break-all rounded-lg border px-3.5 py-2.5 text-left font-mono text-[12px] transition-colors sm:text-[13px]",
+                    i === active
+                      ? "border-brand/35 bg-brand/10 text-brand"
+                      : "border-transparent text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  {example}
+                </button>
               ))}
-            </ul>
+            </div>
           </Reveal>
 
           <Reveal delay={0.08} className="min-w-0">
@@ -74,12 +83,10 @@ export function CliExamples() {
                     aria-hidden
                   />
                 </p>
-                <div className="mt-4 space-y-1.5 text-white/80">
+                <div className="mt-4 space-y-1.5 text-white/80" aria-live="polite">
                   {output.map((line) => (
-                    <motion.p
+                    <p
                       key={`${command}-${line}`}
-                      initial={reduced ? false : { opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
                       className={cn(
                         "break-all",
                         line.startsWith("✓") && "text-bright",
@@ -87,7 +94,7 @@ export function CliExamples() {
                       )}
                     >
                       {line}
-                    </motion.p>
+                    </p>
                   ))}
                 </div>
               </div>

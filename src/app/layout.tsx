@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { DeferredGoogleAnalytics } from "@/components/seo/deferred-google-analytics";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SITE } from "@/lib/constants";
 import { THEME_BOOTSTRAP_SCRIPT } from "@/lib/theme";
@@ -107,7 +107,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
-        {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
+        {gaId ? <DeferredGoogleAnalytics gaId={gaId} /> : null}
         <Analytics />
         <SpeedInsights />
       </body>

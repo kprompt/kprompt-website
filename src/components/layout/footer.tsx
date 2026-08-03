@@ -64,8 +64,15 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   },
 ];
 
-function FooterNavLink({ link }: { link: FooterLink }) {
+function FooterNavLink({
+  link,
+  context,
+}: {
+  link: FooterLink;
+  context: string;
+}) {
   const className = "hover:text-foreground";
+  const ariaLabel = `${link.label} (${context})`;
 
   if (link.external) {
     const isMail = link.href.startsWith("mailto:");
@@ -73,6 +80,7 @@ function FooterNavLink({ link }: { link: FooterLink }) {
       <a
         href={link.href}
         className={className}
+        aria-label={ariaLabel}
         {...(isMail
           ? {}
           : { target: "_blank", rel: "noopener noreferrer" })}
@@ -90,7 +98,7 @@ function FooterNavLink({ link }: { link: FooterLink }) {
   }
 
   return (
-    <Link href={link.href} className={className}>
+    <Link href={link.href} className={className} aria-label={ariaLabel}>
       {link.label}
     </Link>
   );
@@ -126,7 +134,7 @@ export function Footer() {
                 <ul className="space-y-2 text-muted-foreground">
                   {column.links.map((link) => (
                     <li key={`${column.title}-${link.href}`}>
-                      <FooterNavLink link={link} />
+                      <FooterNavLink link={link} context={column.title} />
                     </li>
                   ))}
                 </ul>

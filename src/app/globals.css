@@ -71,7 +71,7 @@
   --secondary: #f1f5f9;
   --secondary-foreground: #0f172a;
   --muted: #f1f5f9;
-  --muted-foreground: #64748b;
+  --muted-foreground: #475569;
   --accent: #eff6ff;
   --accent-foreground: #0f172a;
   --destructive: #ef4444;
@@ -113,7 +113,7 @@
   --secondary: #1e293b;
   --secondary-foreground: #e2e8f0;
   --muted: #1e293b;
-  --muted-foreground: #94a3b8;
+  --muted-foreground: #cbd5e1;
   --accent: #172554;
   --accent-foreground: #e2e8f0;
   --destructive: #f87171;
@@ -234,9 +234,31 @@
       0 0 48px -16px rgb(59 130 246 / 20%),
       0 20px 56px -28px rgb(0 0 0 / 55%);
   }
+
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y, 16px), 0);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+    will-change: opacity, transform;
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
   *,
   *::before,
   *::after {

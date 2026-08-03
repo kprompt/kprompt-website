@@ -1,32 +1,88 @@
 "use client";
 
-import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { cn } from "@/lib/utils";
 
-type RevealProps = HTMLMotionProps<"div"> & {
+type RevealProps = {
+  children: ReactNode;
+  className?: string;
   delay?: number;
   y?: number;
 };
 
+/**
+ * Lightweight scroll reveal — CSS only (no framer-motion).
+ * useLayoutEffect arms opacity:0 before paint for below-fold nodes only.
+ */
 export function Reveal({
   children,
   className,
   delay = 0,
   y = 16,
-  ...props
 }: RevealProps) {
-  const reduced = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const [armed, setArmed] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const top = el.getBoundingClientRect().top;
+    if (top < window.innerHeight * 0.92) {
+      return;
+    }
+
+    setArmed(true);
+  }, []);
+
+  useEffect(() => {
+    if (!armed) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -40px 0px", threshold: 0.01 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [armed]);
 
   return (
-    <motion.div
-      className={cn(className)}
-      initial={reduced ? false : { opacity: 0, y }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay }}
-      {...props}
+    <div
+      ref={ref}
+      className={cn(
+        armed && "reveal",
+        armed && visible && "reveal-visible",
+        className
+      )}
+      style={
+        armed
+          ? ({
+              "--reveal-delay": `${delay}s`,
+              "--reveal-y": `${y}px`,
+            } as CSSProperties)
+          : undefined
+      }
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

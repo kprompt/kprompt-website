@@ -1,7 +1,4 @@
-"use client";
-
 import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
 import { GithubIcon } from "@/components/ui/github-icon";
@@ -11,20 +8,13 @@ import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function Hero() {
-  const reduced = useReducedMotion();
-
   return (
     <section className="relative isolate overflow-hidden pt-28 sm:pt-32">
       <div className="pointer-events-none absolute inset-0 bg-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden />
 
       <div className="relative mx-auto max-w-6xl px-4 pb-20 sm:px-6 sm:pb-28">
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl"
-        >
+        <div className="max-w-3xl">
           <Logo
             size={40}
             priority
@@ -64,6 +54,7 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+              aria-label="GitHub repository"
             >
               <GithubIcon className="size-4" />
               GitHub
@@ -71,6 +62,7 @@ export function Hero() {
             <a
               href={SITE.docs}
               className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+              aria-label="Documentation"
             >
               <BookOpen className="size-4" />
               Docs
@@ -82,18 +74,9 @@ export function Hero() {
           </p>
 
           <CopyCommand className="mt-5 w-full max-w-xl" size="sm" />
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.7,
-            delay: 0.12,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mt-14 sm:mt-16"
-        >
+        <div className="mt-14 sm:mt-16">
           <div className="mx-auto max-w-3xl overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm terminal-glow">
             <LazyDemoVideo
               eager
@@ -101,12 +84,13 @@ export function Hero() {
               mp4={SITE.planDenyMp4}
               poster={SITE.planDenyPoster}
               aria-label="kprompt hard-denies wipe prompts, then shows a scale plan waiting for Apply this plan? y/N"
+              transcript="Wipe prompt hard-denied. Scale plan shown with Apply this plan? y/N — nothing applies without approval."
             />
           </div>
           <p className="mx-auto mt-3 max-w-3xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
             Deny the wipe · review the plan · nothing applies without you
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

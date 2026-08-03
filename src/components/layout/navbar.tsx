@@ -279,6 +279,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={buttonVariants({ variant: "ghost" })}
+            aria-label="GitHub repository"
           >
             <GithubIcon className="size-4" />
             GitHub
@@ -346,9 +347,8 @@ export function Navbar() {
 
         <div
           id="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile navigation"
+          role="navigation"
+          aria-label="Mobile"
           inert={!open}
           className={cn(
             "absolute inset-x-0 top-0 z-10 max-h-[min(100%,calc(100dvh-4rem))] overflow-y-auto overscroll-contain border-b border-border bg-background shadow-lg transition-[opacity,transform] duration-200 ease-out",

@@ -37,6 +37,7 @@ export function Drift() {
               mp4={SITE.driftDemoMp4}
               poster={SITE.driftDemoPoster}
               aria-label="kprompt checks cluster drift, finds OutOfSync Argo and Flux apps, then offers an approve-gated sync plan"
+              transcript="check drift → OutOfSync → sync plan [y/N]"
             />
           </div>
           <p className="mx-auto mt-3 max-w-4xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
