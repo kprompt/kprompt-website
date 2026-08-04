@@ -24,6 +24,8 @@ export const DOCS_FULL_INDEX = [
   { href: "/docs/runs", key: "runs" },
   { href: "/docs/safety", key: "safety" },
   { href: "/docs/providers", key: "providers" },
+  { href: "/docs/init", key: "init" },
+  { href: "/docs/demo", key: "demo" },
   { href: "/docs/ci", key: "ci" },
 ] as const satisfies ReadonlyArray<{
   href: string;

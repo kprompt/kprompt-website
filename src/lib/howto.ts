@@ -60,11 +60,11 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
     steps: [
       {
         name: "Try at $0 — no provider key",
-        text: "Install kind, kubectl, and kprompt, clone kprompt-examples, then run make walkthrough. That brings up kind, breaks workloads on purpose, and runs the Observe agent in heuristic mode with zero LLM spend.",
+        text: "Run kprompt demo (or kprompt demo --check) for prerequisites, then follow the printed walkthrough: clone kprompt-examples and make walkthrough. That brings up kind, breaks workloads on purpose, and runs the Observe agent in heuristic mode with zero LLM spend.",
       },
       {
         name: "Level up with NL (Ollama first)",
-        text: "On a disposable cluster, prefer local Ollama ($0): kprompt config set provider ollama, then run read-only prompts. Cloud BYOK keys (e.g. KPROMPT_GEMINI_API_KEY) are optional — kprompt does not sell them.",
+        text: "On a disposable cluster, prefer local Ollama ($0): kprompt init --ollama, then run read-only prompts. Bare kprompt prints a readiness coach when unconfigured. Cloud BYOK keys (e.g. KPROMPT_GEMINI_API_KEY) are optional — kprompt does not sell them.",
       },
       {
         name: "Run your first NL prompts",

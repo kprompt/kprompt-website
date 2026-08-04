@@ -313,8 +313,9 @@ go install ./cmd/kprompt`,
     blocks: [
       {
         type: "p",
-        text: "Funnel: install → walkthrough ($0, no LLM) → Ollama for NL ($0) → optional cloud BYOK. kprompt does not sell API keys. Team kp_… tokens are org policy/audit only. When you are ready for natural-language plans on your own cluster, jump to Level up with NL.",
+        text: "Funnel: install → kprompt demo ($0 Observe) → kprompt init --ollama for NL ($0) → optional cloud BYOK. kprompt does not sell API keys. Team kp_… tokens are org policy/audit only. When you are ready for natural-language plans on your own cluster, jump to Level up with NL.",
         links: [
+          { label: "kprompt demo", href: "/docs/demo" },
           { label: "kprompt-examples", href: "https://github.com/kprompt/kprompt-examples" },
           { label: "Level up with NL", href: "#with-llm" },
         ],
@@ -326,17 +327,18 @@ go install ./cmd/kprompt`,
       },
       {
         type: "p",
-        text: "Requires Docker (or Colima/Podman), kind, kubectl, and make. The walkthrough is deterministic and offline — zero LLM spend.",
+        text: "Requires Docker (or Colima/Podman), kind, kubectl, and make. Start with kprompt demo for prerequisite checks and the exact commands. The walkthrough is deterministic and offline — zero LLM spend.",
+        links: [{ label: "kprompt demo", href: "/docs/demo" }],
       },
       {
         type: "code",
-        caption: "Install CLI + run the Observe walkthrough",
-        code: `brew install kind kubectl
-curl -fsSL https://kprompt.ai/install | bash
+        caption: "CLI guide + Observe walkthrough",
+        code: `kprompt demo
+kprompt demo --check
 
+# then (as printed):
 git clone https://github.com/kprompt/kprompt-examples.git
-cd kprompt-examples
-make walkthrough`,
+cd kprompt-examples && make walkthrough`,
       },
       {
         type: "p",
@@ -373,14 +375,16 @@ kubectl get ns`,
       {
         type: "code",
         code: `# ollama serve && ollama pull llama3.2
-kprompt config set provider ollama
-kprompt config set model llama3.2
-kprompt --provider ollama "list pods"`,
+kprompt init --ollama
+kprompt "list pods"`,
       },
       {
         type: "p",
-        text: "No cloud account and no provider key. Details and other local gateways: Providers.",
-        links: [{ label: "Providers", href: "/docs/providers" }],
+        text: "No cloud account and no provider key. Bare kprompt prints a readiness coach when unconfigured (no silent OpenAI default). Details: Providers · Init.",
+        links: [
+          { label: "Providers", href: "/docs/providers" },
+          { label: "Init", href: "/docs/init" },
+        ],
       },
       {
         type: "h3",
@@ -388,10 +392,9 @@ kprompt --provider ollama "list pods"`,
       },
       {
         type: "code",
-        code: `export KPROMPT_GEMINI_API_KEY="..."
-# or OPENAI / ANTHROPIC / GROQ / … — see Providers
-kprompt config set provider gemini
-kprompt config set model gemini-2.0-flash`,
+        code: `kprompt init --provider gemini
+export KPROMPT_GEMINI_API_KEY="..."
+# or OPENAI / ANTHROPIC / GROQ / … — see Providers`,
       },
       {
         type: "p",
@@ -491,6 +494,21 @@ kprompt history rerun 3 --approve`,
     blocks: [
       {
         type: "h2",
+        text: "Day-0 vs Advanced",
+      },
+      {
+        type: "p",
+        text: "kprompt --help groups Day-0 commands first (init, demo, doctor, config, contexts, version). Power surfaces (agent, setup, Team login, recipes, …) are under Advanced — also listed by kprompt advanced. Completion still includes Advanced command names.",
+      },
+      {
+        type: "table",
+        headers: ["Day-0", "Advanced (examples)"],
+        rows: [
+          ["init · demo · doctor · config · contexts · version", "agent · setup · tools · history · recipe · login · run"],
+        ],
+      },
+      {
+        type: "h2",
         text: "Capability map",
       },
       {
@@ -521,8 +539,9 @@ kprompt history rerun 3 --approve`,
       },
       {
         type: "p",
-        text: "Need a disposable cluster first? Use kind (or kprompt-examples make up), then point kubectl / kprompt at that context. App bridge: App runs & CLI bridge. Observe demo: Observe agent.",
+        text: "Need a disposable cluster first? Run kprompt demo, or kind / kprompt-examples make up, then point kubectl / kprompt at that context. App bridge: App runs & CLI bridge. Observe demo: Observe agent.",
         links: [
+          { label: "kprompt demo", href: "/docs/demo" },
           { label: "App runs & CLI bridge", href: "/docs/runs" },
           { label: "Observe agent", href: "/docs/agent" },
           {
@@ -623,7 +642,7 @@ kprompt "why is api slow then scale api to 4"
         type: "table",
         headers: ["Flag", "Description"],
         rows: [
-          ["--approve", "Apply without interactive confirmation"],
+          ["--approve", "Apply without interactive confirmation (primary CI flag; also history clear)"],
           ["--wait", "After apply, wait for Deployment rollout or Workflow/PipelineRun terminal phase"],
           ["--timeout", "Timeout for --wait (default 5m)"],
           ["--output / -o", "text (default) or json (PlanResult)"],
@@ -638,15 +657,20 @@ kprompt "why is api slow then scale api to 4"
         ],
       },
       {
+        type: "p",
+        text: "Interactive confirms use Apply …? [y/N]. Full vocabulary (including rare phrase gates): see CLI docs/approval.md on GitHub.",
+      },
+      {
         type: "h2",
         text: "Subcommands",
       },
       {
         type: "ul",
         items: [
+          "kprompt init / demo / doctor / advanced",
           "kprompt config / config set … / config alias set|unset",
           "kprompt contexts / contexts --check / contexts --json",
-          "kprompt history / history rerun [n]",
+          "kprompt history / history rerun [n] / history clear [--approve]",
           "kprompt tools",
           "kprompt setup — dry-run / approve-gated host+cluster bootstrap (see Setup docs)",
           "kprompt doctor",
@@ -1501,11 +1525,13 @@ kprompt --context kind-kprompt-demo "list pods" -n default
         code: `$ kprompt "delete everything in the cluster"
 🚨 Intent: destructive cluster operation
 🛡️ Safe execution: denied
-😅 Your cluster lives another day`,
+😅 Your cluster lives another day
+
+Next: kprompt "delete deployment <name>" -n <namespace>`,
       },
       {
         type: "p",
-        text: "A second layer denies unsafe plans even when the wording looked harmless. Deletes must name a single resource, and only three kinds are deletable at all.",
+        text: "Wipe-class denials rotate a small flavor pack of punchlines (stable per prompt) and always append a Next remediation line with a named-target example. The punchline is branding; the Next line is the teachable path.",
       },
       {
         type: "table",
@@ -1646,6 +1672,110 @@ kprompt "delete deployment redis" -n payments
       },
     ],
   },
+  init: {
+    title: "Init",
+    description:
+      "Day-0 kprompt init configures your LLM provider for natural-language plans — Ollama ($0) or BYOK. Does not create clusters or enroll Team.",
+    blocks: [
+      {
+        type: "p",
+        text: "After install, bare kprompt prints a readiness coach. With no provider in config and no --provider flag, the CLI is unconfigured (it does not silently default to OpenAI). Run kprompt init once, then doctor and your first read prompt.",
+      },
+      {
+        type: "h2",
+        text: "Quick path",
+      },
+      {
+        type: "code",
+        code: `# $0 local LLM
+ollama serve && ollama pull llama3.2
+kprompt init --ollama
+
+# BYOK
+kprompt init --provider openai
+export KPROMPT_OPENAI_API_KEY=sk-...
+
+kprompt doctor
+kprompt "list pods"`,
+      },
+      {
+        type: "h2",
+        text: "Flags",
+      },
+      {
+        type: "table",
+        headers: ["Flag", "Meaning"],
+        rows: [
+          ["--ollama", "Set provider to ollama (no API key)"],
+          ["--provider", "Named preset (openai, anthropic, gemini, …)"],
+          ["--model", "Override preset default model"],
+          ["--context", "Persist a kubeconfig context"],
+          ["--dry-run", "Print what would be written; do not save"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Non-interactive shells require --ollama or --provider. Interactive TTY with bare kprompt init walks provider → model → optional context.",
+      },
+      {
+        type: "h2",
+        text: "What it is not",
+      },
+      {
+        type: "ul",
+        items: [
+          "Does not create kind/minikube clusters",
+          "Does not run kprompt setup (Helm / Argo / Prom bootstrap)",
+          "Does not enroll Team (kprompt login)",
+        ],
+      },
+      {
+        type: "p",
+        text: "Full provider matrix: Providers. Health re-check: doctor. Host/cluster tool bootstrap: Setup. $0 Observe walkthrough: Demo.",
+        links: [
+          { label: "Providers", href: "/docs/providers" },
+          { label: "Setup", href: "/docs/setup" },
+          { label: "Demo", href: "/docs/demo" },
+        ],
+      },
+    ],
+  },
+  demo: {
+    title: "Demo",
+    description:
+      "kprompt demo — $0 Observe walkthrough checklist (kind + kprompt-examples). No LLM key. Not the NL plan→approve loop.",
+    blocks: [
+      {
+        type: "p",
+        text: "Prints prerequisite checks (Docker, kind, kubectl, make, git, kprompt) and the exact kprompt-examples commands. Does not clone or mutate — guided checklist MVP.",
+        links: [
+          {
+            label: "kprompt-examples",
+            href: "https://github.com/kprompt/kprompt-examples",
+          },
+        ],
+      },
+      {
+        type: "code",
+        code: `kprompt demo
+kprompt demo --check
+
+git clone https://github.com/kprompt/kprompt-examples.git
+cd kprompt-examples && make walkthrough`,
+      },
+      {
+        type: "p",
+        text: "This is Observe / heuristic (propose-only). For plan-before-apply on your cluster: Init, then a sample prompt.",
+        links: [{ label: "Init", href: "/docs/init" }],
+      },
+      {
+        type: "code",
+        code: `kprompt init --ollama
+kprompt "how's my cluster"
+kprompt "scale api to 3"`,
+      },
+    ],
+  },
   providers: {
     title: "Providers",
     description:
@@ -1653,7 +1783,8 @@ kprompt "delete deployment redis" -n payments
     blocks: [
       {
         type: "p",
-        text: "kprompt does not sell API keys. For NL plans use local Ollama ($0, no key) or BYOK — your own cloud provider key. Requests go from your machine to that provider; there is no kprompt-hosted inference proxy. Select with --provider or ~/.kprompt/config.yaml (provider, model, optional base_url). Provider keys are environment variables only and are never written to the config file. Optional Team kp_… tokens are for org policy/audit, not LLM inference.",
+        text: "kprompt does not sell API keys. For NL plans use local Ollama ($0, no key) via kprompt init --ollama, or BYOK with kprompt init --provider … plus your own cloud key. Requests go from your machine to that provider; there is no kprompt-hosted inference proxy. With no provider configured, the CLI stays unconfigured (no silent OpenAI default). Provider keys are environment variables only and are never written to the config file. Optional Team kp_… tokens are for org policy/audit, not LLM inference.",
+        links: [{ label: "kprompt init", href: "/docs/init" }],
       },
       {
         type: "h2",
