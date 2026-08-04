@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="1152" viewBox="0 0 2048 1152" role="img" aria-label="kprompt YouTube channel banner">
+  <defs>
+    <style>
+      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: Menlo, "DejaVu Sans Mono", Consolas, ui-monospace, monospace; font-variant-ligatures: none; }
+    </style>
+    <radialGradient id="glowBlue" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowBlue2" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="2048" height="1152" fill="#0b1220"/>
+  <circle cx="1746" cy="-46" r="480" fill="url(#glowBlue)"/>
+  <circle cx="245" cy="1200" r="420" fill="url(#glowBlue2)"/>
+
+  <!--
+    YouTube safe zone ~1237x338 centered at (1024, 576).
+    Content block inset ~120px from safe edges for desktop/TV crop headroom.
+  -->
+  <g transform="translate(1024 576)">
+    <text class="sans" x="0" y="-118" text-anchor="middle" fill="#f8fafc" style="font-size:42px;font-weight:750;letter-spacing:-0.03em">The AI Runtime for Kubernetes</text>
+    <text class="sans" x="0" y="-78" text-anchor="middle" fill="#94a3b8" style="font-size:22px">Observe &#183; reason &#183; plan &#183; approve &#183; execute</text>
+
+    <rect x="-460" y="-52" width="920" height="150" rx="12" fill="#111827" stroke="#334155" stroke-opacity="0.55"/>
+    <circle cx="-432" cy="-24" r="5" fill="#ff5555"/>
+    <circle cx="-414" cy="-24" r="5" fill="#f1fa8c"/>
+    <circle cx="-396" cy="-24" r="5" fill="#50fa7b"/>
+
+    <text class="mono" x="-432" y="30" style="font-size:22px" xml:space="preserve"><tspan fill="#50fa7b">$</tspan><tspan fill="#f8fafc"> kprompt </tspan><tspan fill="#f1fa8c">"scale api to 10"</tspan><tspan fill="#94a3b8"> -n payments</tspan></text>
+    <text class="mono" x="-432" y="68" style="font-size:22px" xml:space="preserve"><tspan fill="#60a5fa" style="font-weight:700">Risk:</tspan><tspan fill="#f1fa8c"> medium</tspan><tspan fill="#94a3b8">  &#183;  Apply this plan? [y/N]: </tspan><tspan fill="#50fa7b">&#9608;</tspan></text>
+
+    <text class="sans" x="-460" y="132" fill="#64748b" style="font-size:18px">Apache-2.0 &#183; Experimental</text>
+    <text class="sans" x="460" y="132" text-anchor="end" fill="#bfdbfe" style="font-size:22px">kprompt.ai</text>
+  </g>
+</svg>
