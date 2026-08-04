@@ -55,3 +55,62 @@ Video file: `kprompt-demo-1x1.mp4`
 3. https://kprompt.ai/blog/kubectl-vs-k9s
 4. https://kprompt.ai/blog/kubernetes-crashloopbackoff
 5. https://kprompt.ai/sitemap.xml (resubmit if needed)
+
+---
+
+# Social campaign links (growth)
+
+Copy these into posts so GA4 can attribute traffic by channel. Uses `utm_campaign=growth` (separate from launch). TypeScript mirror: `src/lib/utm.ts` → `GROWTH_LINKS`.
+
+## X (@kpromptai)
+
+- Kubernetes AI tools comparison: https://kprompt.ai/blog/kubernetes-ai-tools-comparison?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=ai-tools-comparison
+- AI SRE: https://kprompt.ai/blog/ai-sre-not-ai-kubectl?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=ai-sre
+- kprompt vs kubectl-ai: https://kprompt.ai/blog/kprompt-vs-kubectl-ai?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=vs-kubectl-ai
+- OOMKilled: https://kprompt.ai/blog/kubernetes-oomkilled?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=oomkilled
+- Error prompt playbook: https://kprompt.ai/blog/kubernetes-error-prompt-playbook?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=error-playbook
+- Intent compiler: https://kprompt.ai/blog/intent-compiler-not-chat?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=intent-compiler
+- Safety / plan-before-apply: https://kprompt.ai/blog/kubernetes-safety-plan-approve?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=safety
+- CI/CD plan gates: https://kprompt.ai/blog/kubernetes-ci-cd-plan-gates?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=ci-cd
+- PlanResult JSON: https://kprompt.ai/blog/planresult-json-deep-dive?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=planresult-json
+- Observe agent demo: https://kprompt.ai/blog/observe-agent-kind-demo?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=observe-demo
+- BYOK providers: https://kprompt.ai/blog/kubernetes-llm-providers-byok?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=byok
+- Building in public: https://kprompt.ai/blog/building-ai-sre-in-public?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=build-in-public
+- Quickstart: https://kprompt.ai/docs/quickstart?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=quickstart
+- Examples: https://github.com/kprompt/kprompt-examples?utm_source=x&utm_medium=social&utm_campaign=growth&utm_content=examples
+
+Video file: `kprompt-demo-16x9.mp4` · plan-deny: `../kprompt-plan-deny.mp4` · observe: `../kprompt-observe-demo.mp4`
+
+## LinkedIn (company/kprompt)
+
+- Kubernetes AI tools comparison: https://kprompt.ai/blog/kubernetes-ai-tools-comparison?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=ai-tools-comparison
+- AI SRE: https://kprompt.ai/blog/ai-sre-not-ai-kubectl?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=ai-sre
+- kprompt vs kubectl-ai: https://kprompt.ai/blog/kprompt-vs-kubectl-ai?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=vs-kubectl-ai
+- OOMKilled: https://kprompt.ai/blog/kubernetes-oomkilled?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=oomkilled
+- Error prompt playbook: https://kprompt.ai/blog/kubernetes-error-prompt-playbook?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=error-playbook
+- Intent compiler: https://kprompt.ai/blog/intent-compiler-not-chat?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=intent-compiler
+- Safety / plan-before-apply: https://kprompt.ai/blog/kubernetes-safety-plan-approve?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=safety
+- CI/CD plan gates: https://kprompt.ai/blog/kubernetes-ci-cd-plan-gates?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=ci-cd
+- PlanResult JSON: https://kprompt.ai/blog/planresult-json-deep-dive?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=planresult-json
+- Observe agent demo: https://kprompt.ai/blog/observe-agent-kind-demo?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=observe-demo
+- BYOK providers: https://kprompt.ai/blog/kubernetes-llm-providers-byok?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=byok
+- Building in public: https://kprompt.ai/blog/building-ai-sre-in-public?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=build-in-public
+- Quickstart: https://kprompt.ai/docs/quickstart?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=quickstart
+- Examples: https://github.com/kprompt/kprompt-examples?utm_source=linkedin&utm_medium=social&utm_campaign=growth&utm_content=examples
+
+Video file: `kprompt-demo-1x1.mp4`
+
+## Bluesky (@kprompt.bsky.social)
+
+- Kubernetes AI tools comparison: https://kprompt.ai/blog/kubernetes-ai-tools-comparison?utm_source=bluesky&utm_medium=social&utm_campaign=growth&utm_content=ai-tools-comparison
+- AI SRE: https://kprompt.ai/blog/ai-sre-not-ai-kubectl?utm_source=bluesky&utm_medium=social&utm_campaign=growth&utm_content=ai-sre
+- kprompt vs kubectl-ai: https://kprompt.ai/blog/kprompt-vs-kubectl-ai?utm_source=bluesky&utm_medium=social&utm_campaign=growth&utm_content=vs-kubectl-ai
+- Quickstart: https://kprompt.ai/docs/quickstart?utm_source=bluesky&utm_medium=social&utm_campaign=growth&utm_content=quickstart
+
+## GSC — request indexing
+
+1. https://kprompt.ai/blog/kubernetes-ai-tools-comparison
+2. https://kprompt.ai/blog/ai-sre-not-ai-kubectl
+3. https://kprompt.ai/blog/kprompt-vs-kubectl-ai
+4. https://kprompt.ai/blog/kubernetes-oomkilled
+5. https://kprompt.ai/sitemap.xml (resubmit if needed)

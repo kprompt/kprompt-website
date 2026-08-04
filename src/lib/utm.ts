@@ -19,6 +19,94 @@ export function withUtm(
   return url.toString();
 }
 
+type SocialSource = "x" | "linkedin" | "bluesky" | "github";
+
+/** Blog/docs landings for the ongoing growth series (Series 2). */
+const GROWTH_ENTRIES = {
+  aiToolsComparison: {
+    path: "/blog/kubernetes-ai-tools-comparison",
+    content: "ai-tools-comparison",
+  },
+  aiToolsComparisonReply: {
+    path: "/docs/quickstart",
+    content: "ai-tools-comparison-reply",
+  },
+  aiSre: {
+    path: "/blog/ai-sre-not-ai-kubectl",
+    content: "ai-sre",
+  },
+  vsKubectlAi: {
+    path: "/blog/kprompt-vs-kubectl-ai",
+    content: "vs-kubectl-ai",
+  },
+  oomkilled: {
+    path: "/blog/kubernetes-oomkilled",
+    content: "oomkilled",
+  },
+  errorPlaybook: {
+    path: "/blog/kubernetes-error-prompt-playbook",
+    content: "error-playbook",
+  },
+  intentCompiler: {
+    path: "/blog/intent-compiler-not-chat",
+    content: "intent-compiler",
+  },
+  safety: {
+    path: "/blog/kubernetes-safety-plan-approve",
+    content: "safety",
+  },
+  ciCd: {
+    path: "/blog/kubernetes-ci-cd-plan-gates",
+    content: "ci-cd",
+  },
+  planResultJson: {
+    path: "/blog/planresult-json-deep-dive",
+    content: "planresult-json",
+  },
+  observeDemo: {
+    path: "/blog/observe-agent-kind-demo",
+    content: "observe-demo",
+  },
+  byok: {
+    path: "/blog/kubernetes-llm-providers-byok",
+    content: "byok",
+  },
+  buildInPublic: {
+    path: "/blog/building-ai-sre-in-public",
+    content: "build-in-public",
+  },
+  quickstart: {
+    path: "/docs/quickstart",
+    content: "quickstart",
+  },
+  github: {
+    path: "https://github.com/kprompt/kprompt",
+    content: "github",
+  },
+  examples: {
+    path: "https://github.com/kprompt/kprompt-examples",
+    content: "examples",
+  },
+} as const;
+
+function growthLinksFor(source: SocialSource) {
+  return Object.fromEntries(
+    Object.entries(GROWTH_ENTRIES).map(([key, { path, content }]) => [
+      key,
+      withUtm(path, { source, campaign: "growth", content }),
+    ])
+  ) as {
+    [K in keyof typeof GROWTH_ENTRIES]: string;
+  };
+}
+
+/** Ready-to-paste landings for the growth series (`utm_campaign=growth`). */
+export const GROWTH_LINKS = {
+  x: growthLinksFor("x"),
+  linkedin: growthLinksFor("linkedin"),
+  bluesky: growthLinksFor("bluesky"),
+} as const;
+
 /** Ready-to-paste landings for the current launch campaign. */
 export const LAUNCH_LINKS = {
   x: {
