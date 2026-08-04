@@ -138,7 +138,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "code",
-        code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.7.0/install/install.sh | bash",
+        code: "curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v0.9.0/install/install.sh | bash",
       },
       {
         type: "p",
@@ -172,7 +172,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           [
             "KPROMPT_VERSION",
             "latest release",
-            "Pin a specific tag, for example v0.7.0",
+            "Pin a specific tag, for example v0.9.0",
           ],
           [
             "KPROMPT_INSTALL_DIR",
@@ -184,7 +184,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       {
         type: "code",
         caption: "Pin a version, or install system-wide",
-        code: `KPROMPT_VERSION=v0.7.0 curl -fsSL https://kprompt.ai/install | bash
+        code: `KPROMPT_VERSION=v0.9.0 curl -fsSL https://kprompt.ai/install | bash
 
 # system-wide (root-owned target needs sudo)
 KPROMPT_INSTALL_DIR=/usr/local/bin curl -fsSL https://kprompt.ai/install | sudo bash`,
@@ -2326,7 +2326,7 @@ echo "$json" | jq -e '.risk.level != "high"'`,
   --from-literal=OPENAI_API_KEY="$OPENAI_API_KEY"
 helm upgrade --install kprompt-agent ./charts/kprompt-agent \\
   -n payments --create-namespace \\
-  --set image.tag=0.7.0`,
+  --set image.tag=0.9.0`,
       },
       {
         type: "p",
