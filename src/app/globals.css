@@ -235,6 +235,86 @@
       0 20px 56px -28px rgb(0 0 0 / 55%);
   }
 
+  .mascot-track {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .mascot-runner {
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    width: 5.5rem;
+    animation: mascot-crossing 16s linear infinite;
+    will-change: transform;
+  }
+
+  .mascot-image {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 8px 10px rgb(15 23 42 / 18%));
+    transform-origin: 50% 85%;
+    animation: mascot-gallop 480ms ease-in-out infinite;
+  }
+
+  .mascot-shadow {
+    position: absolute;
+    right: 18%;
+    bottom: -1px;
+    left: 18%;
+    height: 7px;
+    border-radius: 999px;
+    background: rgb(15 23 42 / 18%);
+    filter: blur(4px);
+    animation: mascot-shadow-pulse 480ms ease-in-out infinite;
+  }
+
+  @media (min-width: 640px) {
+    .mascot-runner {
+      width: 7rem;
+    }
+  }
+
+  @keyframes mascot-crossing {
+    from {
+      transform: translate3d(calc(100vw + 8rem), 0, 0);
+    }
+    to {
+      transform: translate3d(-8rem, 0, 0);
+    }
+  }
+
+  @keyframes mascot-gallop {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(1deg);
+    }
+    50% {
+      transform: translate3d(0, -7px, 0) rotate(-2deg);
+    }
+  }
+
+  @keyframes mascot-shadow-pulse {
+    0%,
+    100% {
+      opacity: 0.8;
+      transform: scaleX(1);
+    }
+    50% {
+      opacity: 0.35;
+      transform: scaleX(0.72);
+    }
+  }
+
   .reveal {
     opacity: 0;
     transform: translate3d(0, var(--reveal-y, 16px), 0);
@@ -251,6 +331,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .mascot-track {
+    display: none;
+  }
+
   .reveal,
   .reveal-visible {
     opacity: 1;

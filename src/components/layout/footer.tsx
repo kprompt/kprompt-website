@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { Logo } from "@/components/ui/logo";
+import { RunningMascot } from "@/components/ui/running-mascot";
 import { SITE } from "@/lib/constants";
 
 type FooterLink = {
@@ -106,7 +107,8 @@ function FooterNavLink({
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-muted/40">
+    <footer className="relative border-t border-border bg-muted/40">
+      <RunningMascot />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
           <div className="max-w-sm shrink-0">
