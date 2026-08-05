@@ -251,7 +251,7 @@
     bottom: 3px;
     left: 0;
     width: 5.5rem;
-    animation: mascot-crossing 16s linear infinite;
+    animation: mascot-crossing 13s linear infinite;
     will-change: transform;
   }
 
@@ -262,8 +262,6 @@
     width: 100%;
     height: auto;
     filter: drop-shadow(0 8px 10px rgb(15 23 42 / 18%));
-    transform-origin: 50% 85%;
-    animation: mascot-gallop 480ms ease-in-out infinite;
   }
 
   .mascot-shadow {
@@ -275,7 +273,7 @@
     border-radius: 999px;
     background: rgb(15 23 42 / 18%);
     filter: blur(4px);
-    animation: mascot-shadow-pulse 480ms ease-in-out infinite;
+    animation: mascot-shadow-pulse 500ms ease-in-out infinite;
   }
 
   @media (min-width: 640px) {
@@ -290,16 +288,6 @@
     }
     to {
       transform: translate3d(-8rem, 0, 0);
-    }
-  }
-
-  @keyframes mascot-gallop {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0) rotate(1deg);
-    }
-    50% {
-      transform: translate3d(0, -7px, 0) rotate(-2deg);
     }
   }
 

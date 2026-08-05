@@ -6,12 +6,13 @@ export function RunningMascot() {
       <div className="mascot-runner">
         <span className="mascot-shadow" />
         <Image
-          src="/mascot-running.png"
+          src="/mascot-running-animated.png"
           alt=""
-          width={1329}
-          height={587}
+          width={512}
+          height={256}
           sizes="(max-width: 640px) 88px, 112px"
           className="mascot-image"
+          unoptimized
         />
       </div>
     </div>
