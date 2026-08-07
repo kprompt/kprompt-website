@@ -4831,15 +4831,15 @@ kprompt "scale api to 2" -n staging --approve --wait`,
         headers: ["Provider", "Flag", "Env key", "Default model"],
         rows: [
           ["OpenAI", "openai", "KPROMPT_OPENAI_API_KEY", "gpt-4o-mini"],
-          ["Anthropic", "anthropic", "KPROMPT_ANTHROPIC_API_KEY", "claude-sonnet-4-20250514"],
-          ["Gemini", "gemini", "KPROMPT_GEMINI_API_KEY", "gemini-2.0-flash"],
+          ["Anthropic", "anthropic", "KPROMPT_ANTHROPIC_API_KEY", "claude-sonnet-4-6"],
+          ["Gemini", "gemini", "KPROMPT_GEMINI_API_KEY", "gemini-3.6-flash"],
           ["Groq", "groq", "KPROMPT_GROQ_API_KEY", "llama-3.3-70b-versatile"],
           ["xAI (Grok)", "xai", "KPROMPT_XAI_API_KEY", "grok-4.5"],
           ["Mistral", "mistral", "KPROMPT_MISTRAL_API_KEY", "mistral-small-latest"],
           ["DeepSeek", "deepseek", "KPROMPT_DEEPSEEK_API_KEY", "deepseek-chat"],
           ["Moonshot (Kimi K3)", "moonshot", "KPROMPT_MOONSHOT_API_KEY", "kimi-k3"],
           ["OpenRouter", "openrouter", "KPROMPT_OPENROUTER_API_KEY", "openai/gpt-4o-mini"],
-          ["Together", "together", "KPROMPT_TOGETHER_API_KEY", "Llama 3.1 8B Turbo"],
+          ["Together", "together", "KPROMPT_TOGETHER_API_KEY", "meta-llama/Llama-3.3-70B-Instruct-Turbo"],
           ["Ollama", "ollama", "(none required)", "llama3.2"],
           ["OpenAI-compatible", "openai-compatible", "KPROMPT_OPENAI_API_KEY", "set base_url"],
         ],
@@ -4854,14 +4854,14 @@ kprompt "scale api to 2" -n staging --approve --wait`,
       },
       {
         type: "p",
-        text: "Gemini 2.0 Flash is a strong default for list/get/scale plans and short explains: low latency, low cost, good structured output. Most kprompt docs and examples use Gemini for that reason. Platform engineers running dozens of prompts per shift often standardize here first.",
+        text: "Gemini 3.6 Flash is a strong default for list/get/scale plans and short explains: low latency, low cost, good structured output. Most kprompt docs and examples use Gemini for that reason. Platform engineers running dozens of prompts per shift often standardize here first.",
       },
       {
         type: "code",
         caption: "Gemini setup",
         code: `export KPROMPT_GEMINI_API_KEY="..."
 kprompt config set provider gemini
-kprompt config set model gemini-2.0-flash
+kprompt config set model gemini-3.6-flash
 kprompt "list deployments" -n staging`,
       },
       {
