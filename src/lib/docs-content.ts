@@ -1805,13 +1805,13 @@ kprompt "scale api to 3"`,
             "Anthropic",
             "anthropic",
             "KPROMPT_ANTHROPIC_API_KEY / ANTHROPIC_API_KEY",
-            "claude-sonnet-4-20250514",
+            "claude-sonnet-4-6",
           ],
           [
             "Google Gemini",
             "gemini",
             "KPROMPT_GEMINI_API_KEY / GEMINI_API_KEY / GOOGLE_API_KEY",
-            "gemini-2.0-flash",
+            "gemini-3.6-flash",
           ],
           [
             "Groq",
@@ -1853,7 +1853,7 @@ kprompt "scale api to 3"`,
             "Together",
             "together",
             "KPROMPT_TOGETHER_API_KEY / TOGETHER_API_KEY",
-            "Llama 3.1 8B Turbo",
+            "meta-llama/Llama-3.3-70B-Instruct-Turbo",
           ],
           [
             "OpenAI-compatible",
@@ -1879,7 +1879,7 @@ kprompt "scale api to 3"`,
         type: "code",
         code: `export KPROMPT_GEMINI_API_KEY=...
 kprompt config set provider gemini
-kprompt config set model gemini-2.0-flash   # or a current Flash / Flash-Lite id`,
+kprompt config set model gemini-3.6-flash   # current GA Flash`,
       },
       {
         type: "table",
@@ -1935,7 +1935,7 @@ export KPROMPT_ANTHROPIC_API_KEY=sk-ant-...
 kprompt --provider anthropic "explain why api is crashing"
 
 export KPROMPT_GEMINI_API_KEY=...
-kprompt --provider gemini --model gemini-2.0-flash "deploy redis"
+kprompt --provider gemini --model gemini-3.6-flash "deploy redis"
 
 export KPROMPT_XAI_API_KEY=...
 kprompt --provider xai "explain why api is crashlooping"
@@ -1967,7 +1967,7 @@ kprompt --provider openai-compatible --model gpt-4o "list services"`,
         code: `provider: ollama
 model: llama3.2
 # provider: gemini
-# model: gemini-2.0-flash
+# model: gemini-3.6-flash
 # base_url: https://api.groq.com/openai/v1   # optional override
 namespace: default`,
       },
