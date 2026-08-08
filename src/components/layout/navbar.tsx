@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   Menu,
   Newspaper,
+  Search,
   Users,
   X,
 } from "lucide-react";
@@ -16,6 +17,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { Logo } from "@/components/ui/logo";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { SearchCommand } from "@/components/layout/search-command";
+import type { BlogSearchItem } from "@/lib/blog-posts";
+import type { DocsSearchItem } from "@/lib/docs-meta";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -65,17 +69,10 @@ function DesktopNavLink({
   external?: boolean;
 }) {
   const className = cn(
-    "group relative px-3 py-2 text-sm font-medium transition-colors",
-    active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-  );
-  const underline = (
-    <span
-      aria-hidden
-      className={cn(
-        "absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand transition-transform duration-200",
-        active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-      )}
-    />
+    "relative rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
+    active
+      ? "bg-muted/70 text-foreground"
+      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
   );
 
   return (
@@ -88,7 +85,6 @@ function DesktopNavLink({
           className={className}
         >
           {label}
-          {underline}
         </a>
       ) : (
         <Link
@@ -97,7 +93,6 @@ function DesktopNavLink({
           className={className}
         >
           {label}
-          {underline}
         </Link>
       )}
     </li>
@@ -174,16 +169,35 @@ function MobileNavLink({
   );
 }
 
-export function Navbar() {
+export function Navbar({
+  blogIndex = [],
+  docsIndex = [],
+}: {
+  blogIndex?: BlogSearchItem[];
+  docsIndex?: DocsSearchItem[];
+}) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setOpen(false);
+        setSearchOpen((value) => !value);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   useEffect(() => {
@@ -237,30 +251,28 @@ export function Navbar() {
   const closeMenu = () => setOpen(false);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300",
-        open
-          ? "border-b border-border bg-background"
-          : scrolled
-            ? "glass shadow-sm"
-            : "border-b border-transparent"
-      )}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-4">
       <nav
-        className="mx-auto flex h-16 w-full min-w-0 max-w-6xl items-center gap-3 px-4 sm:gap-4 sm:px-6"
+        className={cn(
+          "mx-auto mt-2 flex h-14 w-full min-w-0 max-w-5xl items-center gap-2 rounded-2xl border px-2.5 transition-[background-color,box-shadow,border-color] duration-300 sm:mt-3 sm:gap-3 sm:px-3",
+          open
+            ? "border-border bg-background"
+            : scrolled
+              ? "border-border/70 bg-background/70 shadow-lg shadow-black/3 backdrop-blur-xl supports-backdrop-filter:bg-background/60 dark:shadow-black/20"
+              : "border-transparent bg-transparent"
+        )}
         aria-label="Primary"
       >
         <Link
           href="/"
           aria-label="kprompt.ai home"
-          className="min-w-0 shrink overflow-hidden"
+          className="min-w-0 shrink overflow-hidden pl-1"
           onClick={closeMenu}
         >
-          <Logo size={28} priority />
+          <Logo size={26} priority />
         </Link>
 
-        <ul className="hidden min-w-0 flex-1 items-center justify-center gap-2 md:flex">
+        <ul className="hidden min-w-0 items-center gap-1 md:flex">
           {NAV_LINKS.map((link) => (
             <DesktopNavLink
               key={link.href}
@@ -273,24 +285,27 @@ export function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-2 md:ml-auto md:flex">
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search the blog"
+            className="group inline-flex h-9 w-52 items-center gap-2 rounded-lg border border-border bg-muted/40 px-3 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted/70 hover:text-foreground"
+          >
+            <Search className="size-4 shrink-0" aria-hidden />
+            <span className="flex-1 text-left">Search…</span>
+            <kbd className="pointer-events-none flex items-center gap-0.5 rounded border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+              <span className="text-[11px]">⌘</span>K
+            </kbd>
+          </button>
           <ThemeToggle />
           <a
             href={SITE.github}
             target="_blank"
             rel="noopener noreferrer"
-            className={buttonVariants({ variant: "ghost" })}
+            className={buttonVariants({ variant: "ghost", size: "icon" })}
             aria-label="GitHub repository"
           >
             <GithubIcon className="size-4" />
-            GitHub
-          </a>
-          <a
-            href={SITE.app}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={buttonVariants({ variant: "outline" })}
-          >
-            App
           </a>
           <Link href={SITE.getStarted} className={buttonVariants()}>
             {SITE.ctaPrimary}
@@ -299,15 +314,14 @@ export function Navbar() {
         </div>
 
         <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 md:hidden">
-          <Link
-            href={SITE.getStarted}
-            className={cn(
-              buttonVariants({ size: "sm" }),
-              "hidden min-[420px]:inline-flex"
-            )}
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            className={buttonVariants({ variant: "outline", size: "icon" })}
+            aria-label="Search the blog"
           >
-            {SITE.ctaPrimary}
-          </Link>
+            <Search className="size-4" />
+          </button>
           <ThemeToggle />
           <button
             type="button"
@@ -410,6 +424,13 @@ export function Navbar() {
           </div>
         </div>
       </div>
+
+      <SearchCommand
+        open={searchOpen}
+        onOpenChange={setSearchOpen}
+        blogItems={blogIndex}
+        docsItems={docsIndex}
+      />
     </header>
   );
 }

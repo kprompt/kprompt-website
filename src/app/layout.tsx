@@ -6,6 +6,8 @@ import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { DeferredGoogleAnalytics } from "@/components/seo/deferred-google-analytics";
 import { JsonLd } from "@/components/seo/json-ld";
+import { getBlogSearchIndex } from "@/lib/blog-posts";
+import { getDocsSearchIndex } from "@/lib/docs-meta";
 import { SITE } from "@/lib/constants";
 import { THEME_BOOTSTRAP_SCRIPT } from "@/lib/theme";
 import "./globals.css";
@@ -95,6 +97,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const blogSearchIndex = getBlogSearchIndex();
+  const docsSearchIndex = getDocsSearchIndex();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -104,7 +108,7 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${dmSans.variable} ${jetbrains.variable} min-h-screen font-sans antialiased`}
       >
-        <Navbar />
+        <Navbar blogIndex={blogSearchIndex} docsIndex={docsSearchIndex} />
         {children}
         <Footer />
         {gaId ? <DeferredGoogleAnalytics gaId={gaId} /> : null}

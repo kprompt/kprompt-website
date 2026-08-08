@@ -12293,6 +12293,29 @@ export function getAllPostSlugs(): string[] {
   return BLOG_POSTS.map((post) => post.slug);
 }
 
+/** Minimal, client-safe shape for the navbar search palette (no heavy blocks). */
+export type BlogSearchItem = {
+  slug: string;
+  title: string;
+  description: string;
+  tags: string[];
+  publishedAt: string;
+};
+
+/**
+ * Lightweight blog index intended to be serialized to the client (navbar search).
+ * Excludes the large `blocks` payload to keep the client bundle small.
+ */
+export function getBlogSearchIndex(): BlogSearchItem[] {
+  return getAllPosts().map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    description: post.description,
+    tags: post.tags,
+    publishedAt: post.publishedAt,
+  }));
+}
+
 export function blogTagSlug(tag: string): string {
   return tag
     .toLowerCase()
