@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { BookOpen, FileText, Search, SearchX, X } from "lucide-react";
+import { track } from "@/lib/analytics";
 import type { BlogSearchItem } from "@/lib/blog-posts";
 import type { DocsSearchItem } from "@/lib/docs-meta";
 import {
@@ -50,6 +51,14 @@ function ResultRow({
     <li>
       <Link
         href={entry.href}
+        onClick={() =>
+          track("search_select", {
+            query,
+            kind: entry.kind,
+            href: entry.href,
+            source: "search_page",
+          })
+        }
         className="group flex items-start gap-3 rounded-xl border border-border bg-card/40 px-4 py-3.5 transition-colors hover:border-brand/30 hover:bg-card"
       >
         <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground group-hover:border-brand/25 group-hover:bg-brand/10 group-hover:text-brand">

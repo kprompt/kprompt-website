@@ -1,3 +1,5 @@
+import { slugify } from "@/lib/utils";
+
 export type DocsBlock =
   | {
       type: "p";
@@ -13,6 +15,19 @@ export type DocsBlock =
       headers: string[];
       rows: string[][];
     };
+
+export type Heading = { id: string; text: string };
+
+/** Extract top-level (h2) headings with stable anchor ids for a table of contents. */
+export function extractHeadings(blocks: DocsBlock[]): Heading[] {
+  const headings: Heading[] = [];
+  for (const block of blocks) {
+    if (block.type === "h2") {
+      headings.push({ id: block.id ?? slugify(block.text), text: block.text });
+    }
+  }
+  return headings;
+}
 
 export type DocsPage = {
   title: string;

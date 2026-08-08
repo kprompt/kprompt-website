@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Check, Copy } from "lucide-react";
+import { track } from "@/lib/analytics";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -29,6 +30,7 @@ export function CopyCommand({
     try {
       await navigator.clipboard.writeText(command);
       setCopied(true);
+      track("copy_command", { command });
     } catch {
       setCopied(false);
     }

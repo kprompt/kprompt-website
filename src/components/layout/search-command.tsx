@@ -19,6 +19,7 @@ import {
   SearchX,
   X,
 } from "lucide-react";
+import { track } from "@/lib/analytics";
 import type { BlogSearchItem } from "@/lib/blog-posts";
 import type { DocsSearchItem } from "@/lib/docs-meta";
 import {
@@ -96,6 +97,24 @@ export function SearchCommand({
     [onOpenChange, router]
   );
 
+  const selectResult = useCallback(
+    (entry: SearchEntry) => {
+      track("search_select", {
+        query: deferredQuery,
+        kind: entry.kind,
+        href: entry.href,
+      });
+      go(entry.href);
+    },
+    [deferredQuery, go]
+  );
+
+  const seeAllResults = useCallback(() => {
+    const q = query.trim();
+    track("search_submit", { query: q.toLowerCase() });
+    go(`/search?q=${encodeURIComponent(q)}`);
+  }, [query, go]);
+
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "ArrowDown") {
       event.preventDefault();
@@ -109,9 +128,9 @@ export function SearchCommand({
       event.preventDefault();
       const target = flat[activeIndex];
       if (target) {
-        go(target.href);
+        selectResult(target);
       } else if (deferredQuery) {
-        go(`/search?q=${encodeURIComponent(query.trim())}`);
+        seeAllResults();
       }
     }
   };
@@ -131,7 +150,7 @@ export function SearchCommand({
         <button
           type="button"
           data-index={index}
-          onClick={() => go(entry.href)}
+          onClick={() => selectResult(entry)}
           onMouseMove={() => setActiveIndex(index)}
           className={cn(
             "flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors",
@@ -252,7 +271,7 @@ export function SearchCommand({
           {deferredQuery ? (
             <button
               type="button"
-              onClick={() => go(`/search?q=${encodeURIComponent(query.trim())}`)}
+              onClick={seeAllResults}
               className="flex w-full items-center justify-between gap-2 border-t border-border px-4 py-2.5 text-left text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
             >
               <span>

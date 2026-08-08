@@ -1,10 +1,12 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { CodeBlock } from "@/components/docs/code-block";
+import { TableOfContents } from "@/components/docs/table-of-contents";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { HowToJsonLd } from "@/components/seo/howto-json-ld";
 import { TechArticleJsonLd } from "@/components/seo/tech-article-json-ld";
-import type { DocsBlock, DocsPage } from "@/lib/docs-content";
+import { extractHeadings, type DocsBlock, type DocsPage } from "@/lib/docs-content";
 import { DOCS_NAV } from "@/lib/docs-nav";
 import { DOCS_HOWTOS } from "@/lib/howto";
 import { slugify } from "@/lib/utils";
@@ -107,18 +109,7 @@ function Block({ block }: { block: DocsBlock }) {
         </ul>
       );
     case "code":
-      return (
-        <div className="mt-4">
-          {block.caption ? (
-            <p className="mb-2 font-mono text-xs text-muted-foreground">
-              {block.caption}
-            </p>
-          ) : null}
-          <pre className="max-w-full overflow-x-auto rounded-lg border border-border bg-navy p-3 font-mono text-[12px] leading-relaxed text-white/90 sm:p-4 sm:text-[13px]">
-            <code>{block.code}</code>
-          </pre>
-        </div>
-      );
+      return <CodeBlock code={block.code} caption={block.caption} />;
     case "table":
       return (
         <div className="-mx-4 mt-4 overflow-x-auto overscroll-x-contain px-4 sm:mx-0 sm:px-0">
@@ -172,6 +163,7 @@ export function DocsArticle({
       ? DOCS_NAV[navIndex + 1]
       : undefined;
   const howto = DOCS_HOWTOS[path];
+  const headings = extractHeadings(page.blocks);
 
   return (
     <>
@@ -197,6 +189,9 @@ export function DocsArticle({
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
           {page.description}
         </p>
+
+        <TableOfContents headings={headings} className="mt-8" />
+
         <div className="mt-8 sm:mt-10">
           <DocsBlocks blocks={page.blocks} />
         </div>

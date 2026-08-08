@@ -1,11 +1,14 @@
-import type { DocsBlock } from "@/lib/docs-content";
+import {
+  extractHeadings,
+  type DocsBlock,
+  type Heading,
+} from "@/lib/docs-content";
 import {
   EMIRE_BARIS,
   HARUN_TEMEL,
   MUHTALIP_DEDE,
   type BlogAuthor,
 } from "@/lib/team";
-import { slugify } from "@/lib/utils";
 
 export type { BlogAuthor };
 export { EMIRE_BARIS, HARUN_TEMEL, MUHTALIP_DEDE };
@@ -12398,13 +12401,7 @@ export function readingMinutes(blocks: DocsBlock[]): number {
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 }
 
-export type BlogHeading = { id: string; text: string };
-
 /** Top-level (h2) headings, for an on-this-page table of contents. */
-export function getPostHeadings(post: BlogPost): BlogHeading[] {
-  return post.blocks
-    .filter((block): block is Extract<DocsBlock, { type: "h2" }> =>
-      block.type === "h2"
-    )
-    .map((block) => ({ id: block.id ?? slugify(block.text), text: block.text }));
+export function getPostHeadings(post: BlogPost): Heading[] {
+  return extractHeadings(post.blocks);
 }
