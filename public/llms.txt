@@ -25,7 +25,7 @@
 - Contact: hello@kprompt.ai
 - Demo scenarios (kind): https://github.com/kprompt/kprompt-examples
 - Demo walkthrough: git clone …/kprompt-examples && make walkthrough
-- Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.7.0
+- Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.10.0
 
 ## Positioning (honest)
 - Category: AI Runtime for Kubernetes — not a ChatGPT wrapper, not a generic workflow engine, not a Kubernetes chatbot.
@@ -35,7 +35,8 @@
 - Not a K8sGPT fleet scanner; not a hosted Lens clone.
 - Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.
 - Autopilot (ADR-0015) is propose-only by default — never silent apply.
-- Building / next: richer Namespace Agents, Coordinator, Knowledge Graph, Simulation — do not claim as fully shipped.
+- Shipped v0.10.0 (AI Runtime closure, ADR-0023): closed Learn loop, policy-gated Autopilot apply, continuous Coordinator (proactive tick + opt-in mesh/OTel blast-radius + durable outcome ring), topology Knowledge Graph edges, Incident→PlanResult bridge, durable cluster memory — default stays propose-only.
+- Building / next: deeper multi-agent reasoning, Secret-value/external-API Knowledge Graph + topology UI, sandbox/chaos Simulation — do not claim as shipped.
 - Long-term direction: continuous reasoning under the same approval DNA — see roadmap.
 
 ## High-signal articles
