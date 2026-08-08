@@ -31,6 +31,14 @@ export function JsonLd() {
         description: SITE.description,
         publisher: { "@id": `${SITE.url}/#organization` },
         inLanguage: "en-US",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${SITE.url}/search?q={search_term_string}`,
+          },
+          "query-input": "required name=search_term_string",
+        },
       },
       {
         "@type": "SoftwareApplication",

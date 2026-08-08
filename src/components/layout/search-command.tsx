@@ -7,6 +7,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -14,12 +15,17 @@ import {
   BookOpen,
   CornerDownLeft,
   FileText,
-  SearchX,
   Search,
+  SearchX,
   X,
 } from "lucide-react";
 import type { BlogSearchItem } from "@/lib/blog-posts";
 import type { DocsSearchItem } from "@/lib/docs-meta";
+import {
+  buildSearchEntries,
+  filterSearchEntries,
+  type SearchEntry,
+} from "@/lib/search";
 import { cn } from "@/lib/utils";
 
 type SearchCommandProps = {
@@ -29,53 +35,22 @@ type SearchCommandProps = {
   docsItems: DocsSearchItem[];
 };
 
-type Entry = {
-  kind: "docs" | "blog";
-  href: string;
-  title: string;
-  subtitle: string;
-  haystack: string;
-};
-
 const GROUP_LIMIT = 6;
 
-function blogSubtitle(item: BlogSearchItem) {
-  const date = new Date(item.publishedAt).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-  const tags = item.tags.slice(0, 3).join(" · ");
-  return tags ? `${tags} — ${date}` : date;
-}
-
-function buildEntries(
-  blogItems: BlogSearchItem[],
-  docsItems: DocsSearchItem[]
-): Entry[] {
-  const docs: Entry[] = docsItems.map((item) => ({
-    kind: "docs",
-    href: item.href,
-    title: item.title,
-    subtitle: item.section,
-    haystack: `${item.title} ${item.section} ${item.description}`.toLowerCase(),
-  }));
-  const blog: Entry[] = blogItems.map((item) => ({
-    kind: "blog",
-    href: `/blog/${item.slug}`,
-    title: item.title,
-    subtitle: blogSubtitle(item),
-    haystack: `${item.title} ${item.tags.join(" ")} ${item.description}`.toLowerCase(),
-  }));
-  return [...docs, ...blog];
-}
-
-function score(entry: Entry, q: string) {
-  const index = entry.haystack.indexOf(q);
-  if (index === -1) return 0;
-  if (entry.title.toLowerCase().includes(q)) return 100 - index;
-  return 50 - index;
+/** Bold the matched substring of `text` (case-insensitive) for the given query. */
+function Highlight({ text, query }: { text: string; query: string }): ReactNode {
+  if (!query) return text;
+  const index = text.toLowerCase().indexOf(query);
+  if (index === -1) return text;
+  return (
+    <>
+      {text.slice(0, index)}
+      <mark className="bg-transparent font-semibold text-foreground">
+        {text.slice(index, index + query.length)}
+      </mark>
+      {text.slice(index + query.length)}
+    </>
+  );
 }
 
 export function SearchCommand({
@@ -91,19 +66,12 @@ export function SearchCommand({
   const listRef = useRef<HTMLDivElement>(null);
 
   const entries = useMemo(
-    () => buildEntries(blogItems, docsItems),
+    () => buildSearchEntries(blogItems, docsItems),
     [blogItems, docsItems]
   );
 
   const { docsShown, blogShown, flat } = useMemo(() => {
-    let pool = entries;
-    if (deferredQuery) {
-      pool = entries
-        .map((entry) => ({ entry, s: score(entry, deferredQuery) }))
-        .filter(({ s }) => s > 0)
-        .sort((a, b) => b.s - a.s)
-        .map(({ entry }) => entry);
-    }
+    const pool = filterSearchEntries(entries, deferredQuery);
     const docs = pool.filter((e) => e.kind === "docs").slice(0, GROUP_LIMIT);
     const blog = pool.filter((e) => e.kind === "blog").slice(0, GROUP_LIMIT);
     return { docsShown: docs, blogShown: blog, flat: [...docs, ...blog] };
@@ -140,7 +108,11 @@ export function SearchCommand({
     } else if (event.key === "Enter") {
       event.preventDefault();
       const target = flat[activeIndex];
-      if (target) go(target.href);
+      if (target) {
+        go(target.href);
+      } else if (deferredQuery) {
+        go(`/search?q=${encodeURIComponent(query.trim())}`);
+      }
     }
   };
 
@@ -151,7 +123,7 @@ export function SearchCommand({
     el?.scrollIntoView({ block: "nearest" });
   }, [activeIndex]);
 
-  const renderItem = (entry: Entry, index: number) => {
+  const renderItem = (entry: SearchEntry, index: number) => {
     const active = index === activeIndex;
     const Icon = entry.kind === "docs" ? BookOpen : FileText;
     return (
@@ -180,7 +152,7 @@ export function SearchCommand({
           </span>
           <span className="min-w-0 flex-1">
             <span className="block truncate text-sm font-medium text-foreground">
-              {entry.title}
+              <Highlight text={entry.title} query={deferredQuery} />
             </span>
             <span className="mt-0.5 block truncate text-xs text-muted-foreground">
               {entry.subtitle}
@@ -277,24 +249,38 @@ export function SearchCommand({
             )}
           </div>
 
-          <div className="flex items-center justify-between gap-2 border-t border-border px-4 py-2.5 text-[11px] text-muted-foreground">
-            <span className="flex items-center gap-1.5">
-              <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono">
-                ↑↓
-              </kbd>
-              navigate
-              <kbd className="ml-1.5 rounded border border-border bg-muted px-1.5 py-0.5 font-mono">
-                ↵
-              </kbd>
-              open
-            </span>
-            <span className="flex items-center gap-1.5">
-              <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono">
-                esc
-              </kbd>
-              close
-            </span>
-          </div>
+          {deferredQuery ? (
+            <button
+              type="button"
+              onClick={() => go(`/search?q=${encodeURIComponent(query.trim())}`)}
+              className="flex w-full items-center justify-between gap-2 border-t border-border px-4 py-2.5 text-left text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+            >
+              <span>
+                See all results for{" "}
+                <span className="font-mono text-foreground">{query.trim()}</span>
+              </span>
+              <CornerDownLeft className="size-3.5 shrink-0" aria-hidden />
+            </button>
+          ) : (
+            <div className="flex items-center justify-between gap-2 border-t border-border px-4 py-2.5 text-[11px] text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono">
+                  ↑↓
+                </kbd>
+                navigate
+                <kbd className="ml-1.5 rounded border border-border bg-muted px-1.5 py-0.5 font-mono">
+                  ↵
+                </kbd>
+                open
+              </span>
+              <span className="flex items-center gap-1.5">
+                <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono">
+                  esc
+                </kbd>
+                close
+              </span>
+            </div>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

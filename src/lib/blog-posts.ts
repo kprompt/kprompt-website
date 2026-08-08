@@ -5,6 +5,7 @@ import {
   MUHTALIP_DEDE,
   type BlogAuthor,
 } from "@/lib/team";
+import { slugify } from "@/lib/utils";
 
 export type { BlogAuthor };
 export { EMIRE_BARIS, HARUN_TEMEL, MUHTALIP_DEDE };
@@ -12363,4 +12364,47 @@ export function formatBlogDate(isoDate: string): string {
     day: "numeric",
     timeZone: "UTC",
   });
+}
+
+const WORDS_PER_MINUTE = 220;
+
+function countWords(text: string): number {
+  const trimmed = text.trim();
+  return trimmed ? trimmed.split(/\s+/).length : 0;
+}
+
+/** Rough reading time in minutes for a set of docs/blog blocks. */
+export function readingMinutes(blocks: DocsBlock[]): number {
+  let words = 0;
+  for (const block of blocks) {
+    switch (block.type) {
+      case "p":
+      case "h2":
+      case "h3":
+        words += countWords(block.text);
+        break;
+      case "ul":
+        words += countWords(block.items.join(" "));
+        break;
+      case "table":
+        words += countWords(block.rows.flat().join(" "));
+        break;
+      case "code":
+        // Code scans faster than prose; weight it down.
+        words += Math.round(countWords(block.code) * 0.5);
+        break;
+    }
+  }
+  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+}
+
+export type BlogHeading = { id: string; text: string };
+
+/** Top-level (h2) headings, for an on-this-page table of contents. */
+export function getPostHeadings(post: BlogPost): BlogHeading[] {
+  return post.blocks
+    .filter((block): block is Extract<DocsBlock, { type: "h2" }> =>
+      block.type === "h2"
+    )
+    .map((block) => ({ id: block.id ?? slugify(block.text), text: block.text }));
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, Home, Newspaper } from "lucide-react";
+import { ArrowRight, BookOpen, Home, Newspaper, Search } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
 import { SITE } from "@/lib/constants";
@@ -23,6 +23,12 @@ const DESTINATIONS = [
     label: "Blog",
     blurb: "Comparisons, playbooks, and release notes",
     icon: Newspaper,
+  },
+  {
+    href: "/search",
+    label: "Search",
+    blurb: "Find any doc or post (or press ⌘K)",
+    icon: Search,
   },
 ] as const;
 
@@ -61,7 +67,7 @@ export default function NotFound() {
           </div>
         </div>
 
-        <ul className="mt-14 grid max-w-3xl gap-8 sm:grid-cols-3">
+        <ul className="mt-14 grid max-w-3xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {DESTINATIONS.map((item) => (
             <li key={item.href}>
               <Link href={item.href} className="group block">

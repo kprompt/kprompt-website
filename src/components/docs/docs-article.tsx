@@ -1,11 +1,13 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { HowToJsonLd } from "@/components/seo/howto-json-ld";
 import { TechArticleJsonLd } from "@/components/seo/tech-article-json-ld";
 import type { DocsBlock, DocsPage } from "@/lib/docs-content";
 import { DOCS_NAV } from "@/lib/docs-nav";
 import { DOCS_HOWTOS } from "@/lib/howto";
+import { slugify } from "@/lib/utils";
 
 function LinkedText({
   text,
@@ -81,7 +83,7 @@ function Block({ block }: { block: DocsBlock }) {
     case "h2":
       return (
         <h2
-          id={block.id}
+          id={block.id ?? slugify(block.text)}
           className="mt-10 scroll-mt-24 font-heading text-xl font-semibold tracking-tight first:mt-0"
         >
           {block.text}
@@ -90,7 +92,7 @@ function Block({ block }: { block: DocsBlock }) {
     case "h3":
       return (
         <h3
-          id={block.id}
+          id={block.id ?? slugify(block.text)}
           className="mt-6 scroll-mt-24 font-heading text-base font-semibold tracking-tight"
         >
           {block.text}
@@ -162,7 +164,13 @@ export function DocsArticle({
   page: DocsPage;
   path: string;
 }) {
-  const navLabel = DOCS_NAV.find((item) => item.href === path)?.label;
+  const navIndex = DOCS_NAV.findIndex((item) => item.href === path);
+  const navLabel = navIndex >= 0 ? DOCS_NAV[navIndex].label : undefined;
+  const prev = navIndex > 0 ? DOCS_NAV[navIndex - 1] : undefined;
+  const next =
+    navIndex >= 0 && navIndex < DOCS_NAV.length - 1
+      ? DOCS_NAV[navIndex + 1]
+      : undefined;
   const howto = DOCS_HOWTOS[path];
 
   return (
@@ -192,6 +200,44 @@ export function DocsArticle({
         <div className="mt-8 sm:mt-10">
           <DocsBlocks blocks={page.blocks} />
         </div>
+
+        {prev || next ? (
+          <nav
+            aria-label="Docs pagination"
+            className="mt-12 grid gap-3 border-t border-border pt-8 sm:grid-cols-2"
+          >
+            {prev ? (
+              <Link
+                href={prev.href}
+                className="group flex flex-col gap-1 rounded-xl border border-border bg-card/40 px-4 py-3 transition-colors hover:border-brand/30 hover:bg-card"
+              >
+                <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <ArrowLeft className="size-3" aria-hidden />
+                  Previous
+                </span>
+                <span className="font-heading text-sm font-semibold tracking-tight group-hover:text-brand">
+                  {prev.label}
+                </span>
+              </Link>
+            ) : (
+              <span className="hidden sm:block" />
+            )}
+            {next ? (
+              <Link
+                href={next.href}
+                className="group flex flex-col gap-1 rounded-xl border border-border bg-card/40 px-4 py-3 text-right transition-colors hover:border-brand/30 hover:bg-card"
+              >
+                <span className="inline-flex items-center justify-end gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  Next
+                  <ArrowRight className="size-3" aria-hidden />
+                </span>
+                <span className="font-heading text-sm font-semibold tracking-tight group-hover:text-brand">
+                  {next.label}
+                </span>
+              </Link>
+            ) : null}
+          </nav>
+        ) : null}
       </article>
     </>
   );

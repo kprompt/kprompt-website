@@ -2,9 +2,10 @@ import Link from "next/link";
 import { BlogAuthorAvatar, BlogAuthorName } from "@/components/blog/blog-author-byline";
 import { BlogTagLink } from "@/components/blog/blog-tag-link";
 import type { BlogPost } from "@/lib/blog-posts";
-import { formatBlogDate } from "@/lib/blog-posts";
+import { formatBlogDate, readingMinutes } from "@/lib/blog-posts";
 
 export function BlogCard({ post }: { post: BlogPost }) {
+  const minutes = readingMinutes(post.blocks);
   return (
     <article className="group flex flex-col rounded-xl border border-border bg-card/50 p-6 transition-colors hover:border-brand/30 hover:bg-card">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
@@ -14,6 +15,8 @@ export function BlogCard({ post }: { post: BlogPost }) {
           <BlogAuthorAvatar author={post.author} size="sm" />
           <BlogAuthorName author={post.author} />
         </span>
+        <span aria-hidden>·</span>
+        <span>{minutes} min read</span>
       </div>
 
       <h2 className="mt-3 font-heading text-xl font-semibold tracking-tight group-hover:text-brand">

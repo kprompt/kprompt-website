@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -17,11 +18,14 @@ import { buttonVariants } from "@/components/ui/button";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { Logo } from "@/components/ui/logo";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { SearchCommand } from "@/components/layout/search-command";
 import type { BlogSearchItem } from "@/lib/blog-posts";
 import type { DocsSearchItem } from "@/lib/docs-meta";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+
+const SearchCommand = dynamic(() =>
+  import("@/components/layout/search-command").then((m) => m.SearchCommand)
+);
 
 const NAV_ICONS = {
   Docs: BookOpen,
@@ -180,6 +184,7 @@ export function Navbar({
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchLoaded, setSearchLoaded] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -234,6 +239,10 @@ export function Navbar({
       window.scrollTo(0, scrollY);
     };
   }, [open]);
+
+  useEffect(() => {
+    if (searchOpen) setSearchLoaded(true);
+  }, [searchOpen]);
 
   useEffect(() => {
     setOpen(false);
@@ -425,12 +434,14 @@ export function Navbar({
         </div>
       </div>
 
-      <SearchCommand
-        open={searchOpen}
-        onOpenChange={setSearchOpen}
-        blogItems={blogIndex}
-        docsItems={docsIndex}
-      />
+      {searchLoaded ? (
+        <SearchCommand
+          open={searchOpen}
+          onOpenChange={setSearchOpen}
+          blogItems={blogIndex}
+          docsItems={docsIndex}
+        />
+      ) : null}
     </header>
   );
 }
