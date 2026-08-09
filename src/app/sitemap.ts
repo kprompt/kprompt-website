@@ -76,6 +76,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       };
     }),
     {
+      url: `${SITE.url}/billing`,
+      lastModified: STATIC_CONTENT_UPDATED_AT,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${SITE.url}/team`,
       lastModified: STATIC_CONTENT_UPDATED_AT,
       changeFrequency: "monthly",

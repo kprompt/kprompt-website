@@ -12,7 +12,14 @@ export function JsonLd() {
         url: SITE.url,
         logo: `${SITE.url}/kprompt-logo.png`,
         email: SITE.email,
-        sameAs: [SITE.github, SITE.twitter, SITE.linkedin, SITE.bluesky],
+        sameAs: [
+          SITE.github,
+          SITE.twitter,
+          SITE.linkedin,
+          SITE.bluesky,
+          SITE.youtube,
+          SITE.instagram,
+        ],
         contactPoint: [
           {
             "@type": "ContactPoint",
