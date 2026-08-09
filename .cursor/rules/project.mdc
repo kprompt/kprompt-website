@@ -1,0 +1,35 @@
+---
+description: kprompt-website defaults — Next.js marketing site, positioning, honesty
+alwaysApply: true
+---
+
+# kprompt-website rules
+
+## Repo
+
+Public Next.js 15 (App Router, Turbopack) + TypeScript + Tailwind + shadcn/radix marketing site + `/docs`. See `AGENTS.md`.
+
+## Locked constraints
+
+- Category: **The AI Runtime for Kubernetes**. Never compare against ChatGPT / generic AI chat tools.
+- Honesty: shipped-only claims; label MVP; roadmap = "Building next", not fake dates; never "AI auto-fixes everything."
+- Providers / features must match what the product actually ships.
+
+## Style
+
+- App Router conventions; server components by default, `"use client"` only when needed.
+- Reuse `src/components` primitives and `src/lib/constants.ts`; do not fork parallel design tokens.
+- Preserve SEO surfaces: JSON-LD, OG image routes, `sitemap.ts`, `llms.txt`.
+- Tailwind utility classes consistent with neighbors; no inline hardcoded brand colors that break theming.
+
+## Checks
+
+```bash
+npm run lint
+npm run test
+npm run build
+```
+
+## Commits
+
+Only commit or open PRs when the user asks.

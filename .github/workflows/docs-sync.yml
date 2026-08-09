@@ -1,0 +1,86 @@
+name: docs-sync
+
+# ADP-5 - AI docs-sync for the website (propose-first).
+# Checks that /docs content and provider/feature tables stay aligned with the product,
+# and opens a PR with drift fixes. Advisory; a human merges to approve.
+#
+# Security model:
+# - Runs from the base repo via schedule / manual dispatch (no untrusted input path).
+# - The agent step sees ONLY CURSOR_API_KEY; git/gh steps use GITHUB_TOKEN.
+# - Output is a PR only; no push to main, no auto-merge.
+
+on:
+  schedule:
+    - cron: "30 7 * * 1" # Mondays 07:30 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: docs-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Install Cursor CLI
+        run: |
+          curl https://cursor.com/install -fsS | bash
+          echo "$HOME/.cursor/bin" >> "$GITHUB_PATH"
+
+      - name: Run docs-sync agent
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+        run: |
+          test -n "$CURSOR_API_KEY" || { echo "No CURSOR_API_KEY set; skipping."; exit 0; }
+          PROMPT="$(cat <<'EOP'
+          You are the kprompt website docs-sync agent. Follow AGENTS.md and
+          .cursor/rules/project.mdc, and use the .cursor/skills/web-page skill.
+
+          Review the docs surfaces in this repo (src/app/docs/**, src/lib/docs-content.ts,
+          providers/features/roadmap pages, public/llms.txt) for internal consistency and
+          honesty drift:
+          - Providers/features listed that are not actually shipped, or shipped ones missing.
+          - Roadmap items with fake ship dates, or shipped-vs-building mislabels.
+          - Stale flag names / command examples vs the documented behavior.
+          - Broken internal links or duplicated/contradictory copy.
+
+          Make MINIMAL corrective edits to the affected docs files only. Do not restyle
+          pages, change design tokens, or touch unrelated routes. Keep the locked
+          positioning ("The AI Runtime for Kubernetes"; never "AI auto-fixes everything").
+          If nothing is wrong, make no edits. Output a short summary of fixes (or none).
+          EOP
+          )"
+          agent -p "$PROMPT" --trust --force --output-format text --model gpt-5 < /dev/null > summary.md || true
+          test -s summary.md || echo "No docs-sync output." > summary.md
+
+      - name: Open PR if changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "No docs drift found."; exit 0
+          fi
+          BRANCH="docs/ai-docs-sync-$(date +%Y%m%d%H%M%S)"
+          git config user.name "kprompt-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "docs: AI docs-sync drift fixes (ADP-5, advisory)"
+          git push -u origin "$BRANCH"
+          {
+            echo "### Docs-sync (ADP-5)"
+            echo
+            cat summary.md
+            echo
+            echo "_Advisory drift fixes - review honesty + voice before merge._"
+          } > pr-body.md
+          gh pr create --repo "${{ github.repository }}" \
+            --title "docs: AI docs-sync drift fixes (advisory)" \
+            --body-file pr-body.md --head "$BRANCH" --base main || true
