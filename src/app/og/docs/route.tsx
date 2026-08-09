@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import { SITE } from "@/lib/constants";
 import { DOCS_PAGES } from "@/lib/docs-content";
 import { DOCS_FULL_INDEX } from "@/lib/llms-full";
+import { loadLogoDataUrl, ogLogoSize } from "@/lib/og-brand";
 
 export const contentType = "image/png";
 export const size = {
@@ -29,6 +30,8 @@ export async function GET(request: Request) {
     resolved?.page.description ??
     "Open-source Kubernetes CLI: natural language → reviewable plans → approve before apply.";
   const pathLabel = (resolved?.path ?? "/docs").replace(/^\//, "");
+  const logo = await loadLogoDataUrl();
+  const logoSize = ogLogoSize(44);
 
   return new ImageResponse(
     (
@@ -62,21 +65,31 @@ export async function GET(request: Request) {
               fontWeight: 700,
             }}
           >
-            <div
-              style={{
-                width: 44,
-                height: 44,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 12,
-                color: "#fff",
-                backgroundColor: "#2563eb",
-                fontSize: 25,
-              }}
-            >
-              k
-            </div>
+            {logo ? (
+              <img
+                src={logo}
+                alt=""
+                width={logoSize.width}
+                height={logoSize.height}
+                style={{ objectFit: "contain" }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 12,
+                  color: "#fff",
+                  backgroundColor: "#2563eb",
+                  fontSize: 25,
+                }}
+              >
+                k
+              </div>
+            )}
             {SITE.name}
           </div>
           <div style={{ display: "flex", fontSize: 22, color: "#94a3b8" }}>
