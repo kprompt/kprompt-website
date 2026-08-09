@@ -152,6 +152,7 @@ export function buildLlmsFullText(): string {
     "- Category: AI Runtime for Kubernetes — observe, reason, plan, validate, approve, execute, learn.",
     "- Not McKinsey ARK (Agentic Runtime): hosts agent apps as CRDs — https://kprompt.ai/blog/kprompt-vs-ark",
     "- Not kagent (CNCF agent platform): Agents/MCP/A2A on K8s vs PlanResult ops — https://kprompt.ai/blog/kprompt-vs-kagent",
+    "- MCP tool provider (`kprompt mcp serve`): editor assistants (Cursor, Claude Desktop) call read/plan-only tools over stdio; mutations return a PlanResult and never auto-apply. IDE interop, not an MCP/A2A agent platform (that stays kagent's lane) — https://kprompt.ai/docs/mcp",
     "- Same NL-CLI lane as kubectl-ai for day-2 mutate; different mutate contract (plan → safety → approve) plus in-cluster Observe path.",
     "- Not a K8sGPT fleet scanner; not a hosted Lens clone.",
     "- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.",

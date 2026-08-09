@@ -8238,8 +8238,8 @@ kprompt "optimize my cluster"`,
           ],
           [
             "MCP server / IDE agent integration today",
-            "kubectl-ai",
-            "MCP mode is a first-class kubectl-ai path",
+            "Either",
+            "kubectl-ai has broad MCP mode; kprompt mcp serve is read/plan-only — mutations return a PlanResult, never auto-apply",
           ],
           [
             "BYOK + Apache-2.0 laptop-local CLI",

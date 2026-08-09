@@ -17,6 +17,7 @@
 - Safety: https://kprompt.ai/docs/safety
 - CI / PlanResult JSON: https://kprompt.ai/docs/ci
 - Integrations: https://kprompt.ai/docs/integrations
+- MCP (editor assistants): https://kprompt.ai/docs/mcp
 - Multi-cluster: https://kprompt.ai/docs/multi-cluster
 - GitHub: https://github.com/kprompt/kprompt
 - X: https://x.com/kpromptai
@@ -33,6 +34,7 @@
 - Category: AI Runtime for Kubernetes — not a ChatGPT wrapper, not a generic workflow engine, not a Kubernetes chatbot.
 - Not McKinsey ARK (Agentic Runtime): ARK hosts agent apps as CRDs on K8s; kprompt reasons about cluster ops under plan → approve. See https://kprompt.ai/blog/kprompt-vs-ark
 - Not kagent (CNCF agent platform): Agents/MCP/A2A on the cluster vs PlanResult ops CLI + Observe. See https://kprompt.ai/blog/kprompt-vs-kagent
+- MCP tool provider (`kprompt mcp serve`): editor assistants (Cursor, Claude Desktop) call read/plan-only tools; mutations return a PlanResult and never auto-apply. This is IDE interop, not an MCP/A2A agent platform (that stays kagent's lane).
 - Same NL-CLI lane as kubectl-ai for day-2 mutate; different contract (plan → safety → approve) plus in-cluster Observe path.
 - Not a K8sGPT fleet scanner; not a hosted Lens clone.
 - Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.
