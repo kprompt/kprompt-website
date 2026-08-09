@@ -61,6 +61,8 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { href: SITE.github, label: "GitHub", external: true },
       { href: SITE.twitter, label: `X ${SITE.twitterHandle}`, external: true },
       { href: SITE.linkedin, label: "LinkedIn", external: true },
+      { href: SITE.youtube, label: "YouTube", external: true },
+      { href: SITE.instagram, label: "Instagram", external: true },
       { href: `mailto:${SITE.email}`, label: "Contact", external: true },
     ],
   },

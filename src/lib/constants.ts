@@ -25,6 +25,12 @@ export const SITE = {
   /** Product account on Bluesky. */
   bluesky: "https://bsky.app/profile/kprompt.bsky.social",
   blueskyHandle: "@kprompt.bsky.social",
+  /** Product channel on YouTube. */
+  youtube: "https://www.youtube.com/@kprompt-ai",
+  youtubeHandle: "@kprompt-ai",
+  /** Product account on Instagram. */
+  instagram: "https://www.instagram.com/kprompt.ai",
+  instagramHandle: "@kprompt.ai",
   /** Public contact inbox — forwarded, so it is safe to publish. */
   email: "hello@kprompt.ai",
   /** Runnable kind demos for the Observe agent. */
