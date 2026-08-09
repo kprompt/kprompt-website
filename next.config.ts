@@ -47,6 +47,13 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  outputFileTracingIncludes: {
+    "/og/docs": ["./public/kprompt-logo.png"],
+    "/blog/[slug]/opengraph-image": [
+      "./public/kprompt-logo.png",
+      "./public/blog/**/*",
+    ],
+  },
   async headers() {
     return [
       {
