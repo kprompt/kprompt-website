@@ -22,6 +22,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { href: "/", label: "Home" },
       { href: SITE.getStarted, label: SITE.ctaPrimary },
       { href: "/docs/install", label: "Install" },
+      { href: "/billing", label: "Pricing" },
       { href: "/docs", label: "Docs" },
       { href: "/blog", label: "Blog" },
       { href: SITE.app, label: "App", external: true },

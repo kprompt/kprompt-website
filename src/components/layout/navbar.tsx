@@ -11,6 +11,7 @@ import {
   Menu,
   Newspaper,
   Search,
+  Tag,
   Users,
   X,
 } from "lucide-react";
@@ -29,6 +30,7 @@ const SearchCommand = dynamic(() =>
 
 const NAV_ICONS = {
   Docs: BookOpen,
+  Pricing: Tag,
   Blog: Newspaper,
   Team: Users,
   App: LayoutDashboard,
@@ -36,6 +38,7 @@ const NAV_ICONS = {
 
 const NAV_BLURBS: Record<(typeof NAV_LINKS)[number]["label"], string> = {
   Docs: "Install, commands, safety, CI",
+  Pricing: "CLI is free forever — BYOK",
   Blog: "Updates and notes from the team",
   Team: "People building kprompt",
   App: "Team console at app.kprompt.ai",

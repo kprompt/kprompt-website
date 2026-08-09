@@ -100,6 +100,7 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { href: "/docs", label: "Docs" },
+  { href: "/billing", label: "Pricing" },
   { href: "/blog", label: "Blog" },
   { href: "/team", label: "Team" },
   { href: SITE.app, label: "App", external: true },
