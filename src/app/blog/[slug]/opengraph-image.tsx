@@ -5,6 +5,7 @@ import {
   getAllPostSlugs,
   getPostBySlug,
 } from "@/lib/blog-posts";
+import { loadLogoDataUrl, ogLogoSize } from "@/lib/og-brand";
 
 export const alt = "kprompt blog article";
 export const size = {
@@ -42,6 +43,8 @@ export default async function OpenGraphImage({ params }: ImageProps) {
   const tags = post?.tags.slice(0, 4) ?? ["kubernetes", "ai"];
   const author = post?.author;
   const avatar = await loadAvatarDataUrl(author?.avatar);
+  const logo = await loadLogoDataUrl();
+  const logoSize = ogLogoSize(44);
 
   return new ImageResponse(
     (
@@ -75,21 +78,31 @@ export default async function OpenGraphImage({ params }: ImageProps) {
               fontWeight: 700,
             }}
           >
-            <div
-              style={{
-                width: 44,
-                height: 44,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 12,
-                color: "#fff",
-                backgroundColor: "#2563eb",
-                fontSize: 25,
-              }}
-            >
-              k
-            </div>
+            {logo ? (
+              <img
+                src={logo}
+                alt=""
+                width={logoSize.width}
+                height={logoSize.height}
+                style={{ objectFit: "contain" }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 12,
+                  color: "#fff",
+                  backgroundColor: "#2563eb",
+                  fontSize: 25,
+                }}
+              >
+                k
+              </div>
+            )}
             kprompt
           </div>
           <div style={{ display: "flex", fontSize: 22, color: "#94a3b8" }}>
