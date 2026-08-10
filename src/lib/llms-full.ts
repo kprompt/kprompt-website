@@ -4,7 +4,7 @@ import { FAQ } from "@/lib/faq";
 import { getPostBySlug } from "@/lib/blog-posts";
 
 /** Bump when docs copy changes so sitemap / TechArticle stay fresh. */
-export const DOCS_CONTENT_UPDATED_AT = "2026-08-02";
+export const DOCS_CONTENT_UPDATED_AT = "2026-08-10";
 
 /** Docs pages in canonical nav order, keyed for DOCS_PAGES lookup. */
 export const DOCS_FULL_INDEX = [
@@ -27,6 +27,7 @@ export const DOCS_FULL_INDEX = [
   { href: "/docs/init", key: "init" },
   { href: "/docs/demo", key: "demo" },
   { href: "/docs/ci", key: "ci" },
+  { href: "/docs/mcp", key: "mcp" },
 ] as const satisfies ReadonlyArray<{
   href: string;
   key: keyof typeof DOCS_PAGES;
@@ -51,6 +52,7 @@ const HIGH_SIGNAL_SLUGS = [
   "kprompt-vs-kubectl-ai",
   "kprompt-vs-kagent",
   "kprompt-vs-ark",
+  "kprompt-mcp-tool-provider",
   "ai-runtime-for-kubernetes",
   "context-engineering-not-prompt-engineering",
   "observe-agent-kind-demo",
@@ -157,6 +159,7 @@ export function buildLlmsFullText(): string {
     "- Not a K8sGPT fleet scanner; not a hosted Lens clone.",
     "- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.",
     "- Autopilot (ADR-0015) is propose-only by default — never silent apply.",
+    "- Shipped v0.11.0: `kprompt mcp serve` (read/plan-only IDE interop, ADR-0024), Azure OpenAI preset (P-006), DaemonSet `--wait`.",
     "- Shipped AI Runtime closure v0.10.0 (ADR-0023): closed Learn loop, policy-gated Autopilot apply (product path), continuous Coordinator (proactive tick + opt-in mesh/OTel blast-radius), topology Knowledge Graph edges, Incident→PlanResult bridge, durable cluster memory (cross-ns outcome ring + fleet read) — default stays propose-only, never silent auto-heal.",
     "- Building / next: deeper continuous multi-agent reasoning, Secret-value/external-API Knowledge Graph + topology UI, sandbox/chaos Simulation.",
     "- Shipped Team GitHub App install MVP: GET/PUT/DELETE /v1/org/github + Setup URL auto-bind (A-067) + App JWT installation tokens (A-068) + app /integrations.",

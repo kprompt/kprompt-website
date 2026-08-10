@@ -28,6 +28,7 @@ export const DOCS_NAV_SECTIONS: DocsNavSection[] = [
       { href: "/docs/providers", label: "Providers" },
       { href: "/docs/themes", label: "Themes" },
       { href: "/docs/ci", label: "CI / JSON" },
+      { href: "/docs/mcp", label: "MCP" },
     ],
   },
   {

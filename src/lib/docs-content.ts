@@ -2093,6 +2093,162 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
     ],
   },
+  mcp: {
+    title: "MCP",
+    description:
+      "kprompt mcp serve — read/plan-only Model Context Protocol tools for IDE assistants. Mutations return PlanResult JSON and never auto-apply.",
+    blocks: [
+      {
+        type: "p",
+        text: "kprompt mcp serve exposes kprompt to IDE assistants (Cursor, Claude Desktop, Windsurf, …) as a read/plan-only Model Context Protocol tool provider. kprompt here is an MCP tool provider, not an agent platform. Mutating prompts return a typed PlanResult and stop — the MCP surface never applies a change to the cluster. Approval stays a human action you run yourself (kprompt \"…\" --approve in your own terminal).",
+        links: [
+          {
+            label: "Positioning post",
+            href: "/blog/kprompt-mcp-tool-provider",
+          },
+          {
+            label: "ADR-0024",
+            href: "https://github.com/kprompt/kprompt-architecture/blob/main/decisions/ADR-0024-mcp-interop.md",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Transport",
+      },
+      {
+        type: "p",
+        text: "Newline-delimited JSON-RPC 2.0 over stdio. Your editor spawns kprompt mcp serve and talks to it on stdin/stdout; kprompt’s human-readable output goes to stderr, keeping stdout clean for the protocol.",
+      },
+      {
+        type: "code",
+        code: "kprompt mcp serve",
+      },
+      {
+        type: "h2",
+        text: "Tools",
+      },
+      {
+        type: "table",
+        headers: ["Tool", "What it does", "Mutates?"],
+        rows: [
+          [
+            "kprompt.read",
+            "Natural-language read against the active kubeconfig. Returns PlanResult JSON.",
+            "No",
+          ],
+          [
+            "kprompt.investigate",
+            "Multi-hop root-cause walk for a target.",
+            "No",
+          ],
+          [
+            "kprompt.why",
+            "Causal analysis of why a target is failing/pending/crashing.",
+            "No",
+          ],
+          [
+            "kprompt.timeline",
+            "Chronology of what happened to a target.",
+            "No",
+          ],
+          [
+            "kprompt.impact",
+            "Reverse dependencies / blast radius for a target.",
+            "No",
+          ],
+          [
+            "kprompt.plan",
+            "Compile a mutation prompt into a typed PlanResult. Never applies. Wipe-class intents hard-deny.",
+            "No",
+          ],
+          [
+            "kprompt.tools",
+            "List detected integrations as JSON.",
+            "No",
+          ],
+          [
+            "kprompt.doctor",
+            "Read-only environment health report. Never prints API keys.",
+            "No",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "Reasoning tools need a configured LLM provider because they compile natural language into intent. They honor your kubeconfig RBAC — no cluster credentials leave your machine. kprompt.plan is the explicit mutation surface: it returns the plan an assistant can show you; applying it stays out-of-band. The MCP server exposes no approval path.",
+        links: [
+          { label: "Providers", href: "/docs/providers" },
+          { label: "Safety", href: "/docs/safety" },
+          { label: "CI / PlanResult", href: "/docs/ci" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Editor configuration",
+      },
+      {
+        type: "h3",
+        text: "Cursor",
+      },
+      {
+        type: "code",
+        caption: "~/.cursor/mcp.json or project .cursor/mcp.json",
+        code: `{
+  "mcpServers": {
+    "kprompt": {
+      "command": "kprompt",
+      "args": ["mcp", "serve"]
+    }
+  }
+}`,
+      },
+      {
+        type: "h3",
+        text: "Claude Desktop",
+      },
+      {
+        type: "code",
+        caption: "claude_desktop_config.json",
+        code: `{
+  "mcpServers": {
+    "kprompt": {
+      "command": "kprompt",
+      "args": ["mcp", "serve"]
+    }
+  }
+}`,
+      },
+      {
+        type: "p",
+        text: "Use an absolute path to the kprompt binary if it is not on the editor’s PATH.",
+        links: [{ label: "Install", href: "/docs/install" }],
+      },
+      {
+        type: "h2",
+        text: "Safety",
+      },
+      {
+        type: "ul",
+        items: [
+          "No remote auto-apply — the server never executes a mutation; --approve is not reachable over MCP",
+          "Hard-denies intact — wipe-class / namespace-delete intents are refused regardless of caller",
+          "Local trust — stdio transport is scoped to the operator who launched the editor; there is no network listener by default",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Quick manual check",
+      },
+      {
+        type: "code",
+        code: `printf '%s\\n' \\
+  '{"jsonrpc":"2.0","id":1,"method":"initialize"}' \\
+  '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \\
+  | kprompt mcp serve`,
+      },
+    ],
+  },
   architecture: {
     title: "Architecture",
     description:
