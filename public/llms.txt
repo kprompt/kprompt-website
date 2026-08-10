@@ -11,6 +11,7 @@
 - Docs: https://kprompt.ai/docs
 - Install: https://kprompt.ai/docs/install
 - Quickstart: https://kprompt.ai/docs/quickstart
+- Adopt (brownfield 15 min): https://kprompt.ai/docs/adopt
 - Architecture (diagrams): https://kprompt.ai/docs/architecture
 - Observe agent (Helm): https://kprompt.ai/docs/agent
 - Roadmap & vision: https://kprompt.ai/docs/roadmap
@@ -48,6 +49,7 @@
 - https://kprompt.ai/blog/top-100-kubernetes-prompts
 - https://kprompt.ai/blog/kprompt-helm-deep-dive
 - https://kprompt.ai/blog/kprompt-mcp-tool-provider
+- https://kprompt.ai/blog/brownfield-kprompt-in-15-minutes
 - https://kprompt.ai/blog/kprompt-vs-kagent
 - https://kprompt.ai/blog/kprompt-vs-ark
 - https://kprompt.ai/blog/ai-runtime-for-kubernetes

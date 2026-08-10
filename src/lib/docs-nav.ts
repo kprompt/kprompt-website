@@ -16,6 +16,7 @@ export const DOCS_NAV_SECTIONS: DocsNavSection[] = [
       { href: "/docs", label: "Overview" },
       { href: "/docs/install", label: "Install" },
       { href: "/docs/quickstart", label: "Quickstart" },
+      { href: "/docs/adopt", label: "Adopt (15 min)" },
       { href: "/docs/init", label: "Init" },
       { href: "/docs/demo", label: "Demo" },
     ],
