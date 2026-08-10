@@ -15,8 +15,9 @@ Product direction and positioning live in the private `kprompt-architecture` rep
 | Path | Role |
 |------|------|
 | `src/app` | App Router routes (marketing + `/docs` + `/blog` + OG image routes) |
+| `src/content/blog` | One TypeScript module per blog post (`<slug>.ts`) + `index.ts` registry |
 | `src/components` | UI (layout, seo, shadcn primitives) |
-| `src/lib` | `constants.ts`, `docs-content.ts`, OG brand helpers |
+| `src/lib` | `constants.ts`, `docs-content.ts`, `blog-posts.ts` helpers, OG brand helpers |
 | `public` | Static assets, `llms.txt` |
 | `docs` | Repo docs |
 

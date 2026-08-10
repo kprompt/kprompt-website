@@ -14,7 +14,7 @@ description: >-
 |------|----------|
 | Marketing route | `src/app/<route>/page.tsx` |
 | Docs page | `src/app/docs/<slug>/page.tsx` + content in `src/lib/docs-content.ts` |
-| Blog post | `src/app/blog/[slug]` data source |
+| Blog post | `src/content/blog/<slug>.ts` + register in `src/content/blog/index.ts`; helpers in `src/lib/blog-posts.ts` |
 | OG image | `src/app/og/**` / `opengraph-image.tsx` |
 
 Reuse layout + primitives from `src/components`; pull shared copy/links from `src/lib/constants.ts`.
