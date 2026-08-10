@@ -53,6 +53,8 @@ const HIGH_SIGNAL_SLUGS = [
   "kprompt-vs-kagent",
   "kprompt-vs-ark",
   "kprompt-mcp-tool-provider",
+  "kprompt-helm-deep-dive",
+  "top-100-kubernetes-prompts",
   "ai-runtime-for-kubernetes",
   "context-engineering-not-prompt-engineering",
   "observe-agent-kind-demo",
