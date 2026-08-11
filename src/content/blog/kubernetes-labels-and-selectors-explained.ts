@@ -7,7 +7,7 @@ const post: BlogPost = {
     "Kubernetes labels and selectors explained (the glue between objects)",
   description:
     "Labels and selectors in Kubernetes: how Deployments label Pods, how Services find them, kubectl -l and endpoints checks, common mistakes, and optional kprompt examples.",
-  publishedAt: "2026-08-12",
+  publishedAt: "2026-08-11",
   author: EMIRE_BARIS,
   tags: ["kubernetes", "beginner", "kubectl", "devops", "networking"],
   keywords: [
