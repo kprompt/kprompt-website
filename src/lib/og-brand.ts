@@ -6,6 +6,14 @@ import { SITE } from "@/lib/constants";
 const LOGO_ASPECT = 141 / 160;
 const LOGO_FILE = "kprompt-logo.png";
 
+/** Bump when OG artwork changes so social crawlers fetch a fresh image URL. */
+export const OG_IMAGE_CACHE_BUST = "2";
+
+export function withOgCacheBust(url: string): string {
+  const sep = url.includes("?") ? "&" : "?";
+  return `${url}${sep}v=${OG_IMAGE_CACHE_BUST}`;
+}
+
 export function ogLogoSize(height: number) {
   return { height, width: Math.round(height * LOGO_ASPECT) };
 }

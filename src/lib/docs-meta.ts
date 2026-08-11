@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SITE } from "@/lib/constants";
 import { DOCS_PAGES, type DocsPage } from "@/lib/docs-content";
 import { DOCS_NAV_SECTIONS } from "@/lib/docs-nav";
+import { withOgCacheBust } from "@/lib/og-brand";
 
 /** Minimal, client-safe shape for the navbar search palette (no heavy blocks). */
 export type DocsSearchItem = {
@@ -38,7 +39,7 @@ export function getDocsSearchIndex(): DocsSearchItem[] {
 }
 
 export function docsOgImagePath(path: string): string {
-  return `/og/docs?path=${encodeURIComponent(path)}`;
+  return withOgCacheBust(`/og/docs?path=${encodeURIComponent(path)}`);
 }
 
 export function docsMetadata(
