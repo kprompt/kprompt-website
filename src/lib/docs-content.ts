@@ -51,8 +51,11 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "The AI Runtime for Kubernetes. Optional Observe agent watches a namespace and notifies — it does not silently mutate. Natural-language plans use your kubeconfig and your LLM (local Ollama = $0, or your own cloud provider key — BYOK). Mutations always produce a plan with risk checks and hard denies before apply. Fastest first run: zero-LLM kind walkthrough — $0, no provider key.",
-        links: [{ label: "zero-LLM kind walkthrough", href: "/docs/quickstart" }],
+        text: "The AI Runtime for Kubernetes. Optional Observe agent watches a namespace and notifies — it does not silently mutate. Natural-language plans use your kubeconfig and your LLM (local Ollama = $0, or your own cloud provider key — BYOK). Mutations always produce a plan with risk checks and hard denies before apply. Fastest first run: zero-LLM kind walkthrough — $0, no provider key. Already have a cluster? Adopt (15 min) prefers bind-over-install.",
+        links: [
+          { label: "zero-LLM kind walkthrough", href: "/docs/quickstart" },
+          { label: "Adopt (15 min)", href: "/docs/adopt" },
+        ],
       },
       {
         type: "p",
@@ -328,11 +331,12 @@ go install ./cmd/kprompt`,
     blocks: [
       {
         type: "p",
-        text: "Funnel: install → kprompt demo ($0 Observe) → kprompt init --ollama for NL ($0) → optional cloud BYOK. kprompt does not sell API keys. Team kp_… tokens are org policy/audit only. When you are ready for natural-language plans on your own cluster, jump to Level up with NL.",
+        text: "Funnel: install → kprompt demo ($0 Observe) → kprompt init --ollama for NL ($0) → optional cloud BYOK. kprompt does not sell API keys. Team kp_… tokens are org policy/audit only. When you are ready for natural-language plans on your own cluster, jump to Level up with NL. Already have a real cluster? Prefer the brownfield Adopt playbook (bind tools, read-first) over installing a second stack.",
         links: [
           { label: "kprompt demo", href: "/docs/demo" },
           { label: "kprompt-examples", href: "https://github.com/kprompt/kprompt-examples" },
           { label: "Level up with NL", href: "#with-llm" },
+          { label: "Adopt playbook", href: "/docs/adopt" },
         ],
       },
       {
@@ -1154,8 +1158,230 @@ kprompt setup --profile platform --only prometheus --approve`,
       },
       {
         type: "p",
-        text: "Safety model is unchanged: cluster installs are plan → safety → approve → apply, same as any other mutate.",
-        links: [{ label: "Safety", href: "/docs/safety" }],
+        text: "Safety model is unchanged: cluster installs are plan → safety → approve → apply, same as any other mutate. Already have Prometheus / Grafana / OTel? Prefer bind-over-install — see Adopt (15 min).",
+        links: [
+          { label: "Safety", href: "/docs/safety" },
+          { label: "Adopt (15 min)", href: "/docs/adopt" },
+        ],
+      },
+    ],
+  },
+  adopt: {
+    title: "Adopt on an existing cluster",
+    description:
+      "Brownfield playbook: attach kprompt to a working kubeconfig in ~15 minutes — detect, bind existing tools, read-first insight, optional MCP. Prefer configure over install.",
+    blocks: [
+      {
+        type: "p",
+        text: "Greenfield is easy (kind + demo). This page is the other path: you already have a cluster, Helm or Prometheus somewhere, GitOps, and RBAC you do not want to rewrite. Goal — first useful insight without installing a second monitoring stack.",
+        links: [
+          { label: "Quickstart (kind / $0)", href: "/docs/quickstart" },
+          {
+            label: "Narrative post",
+            href: "/blog/brownfield-kprompt-in-15-minutes",
+          },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Scorecard",
+      },
+      {
+        type: "table",
+        headers: ["Signal", "Good", "Avoid"],
+        rows: [
+          [
+            "Time-to-first-insight",
+            "Useful read in ≤15 min",
+            "Spend the hour installing operators first",
+          ],
+          [
+            "Cluster touch",
+            "No new operators",
+            "kube-prometheus-stack “just for the demo”",
+          ],
+          [
+            "Tools",
+            "Bind URLs / PATH you already have",
+            "Treat missing as “must install via setup”",
+          ],
+          [
+            "Mutations",
+            "Plan only; apply later on a TTY",
+            "--approve on the first unfamiliar prompt",
+          ],
+          [
+            "IDE",
+            "Optional MCP read/plan",
+            "Expect auto-apply from the editor",
+          ],
+        ],
+      },
+      {
+        type: "h2",
+        id: "minute-plan",
+        text: "15-minute path",
+      },
+      {
+        type: "h3",
+        text: "0–2 min — binary + context",
+      },
+      {
+        type: "code",
+        code: `curl -fsSL https://kprompt.ai/install | bash   # or: brew install kprompt/tap/kprompt
+kubectl config current-context                 # staging / sandbox first
+kprompt version`,
+      },
+      {
+        type: "p",
+        text: "Use a non-production context until the plan loop feels boring. Multi-context notes: Multi-cluster.",
+        links: [
+          { label: "Install", href: "/docs/install" },
+          { label: "Multi-cluster", href: "/docs/multi-cluster" },
+        ],
+      },
+      {
+        type: "h3",
+        text: "2–5 min — provider",
+      },
+      {
+        type: "code",
+        code: `# $0 local (recommended first)
+ollama serve && ollama pull llama3.2
+kprompt init --ollama
+
+# or BYOK — your key, never stored in config.yaml
+# kprompt init --provider openai && export KPROMPT_OPENAI_API_KEY=…
+
+kprompt doctor`,
+      },
+      {
+        type: "p",
+        text: "Init only writes provider/model (and optional context). It does not create clusters or run setup installs.",
+        links: [
+          { label: "Init", href: "/docs/init" },
+          { label: "Providers", href: "/docs/providers" },
+        ],
+      },
+      {
+        type: "h3",
+        text: "5–8 min — detect, then bind",
+      },
+      {
+        type: "code",
+        code: `kprompt tools
+
+# Prefer bind when backends already exist:
+kprompt config set tools.prometheus.url http://prometheus.monitoring:9090
+# kprompt config set tools.grafana.url http://grafana.monitoring:3000
+# kprompt config set tools.otel.backend tempo
+
+kprompt tools
+kprompt doctor`,
+      },
+      {
+        type: "p",
+        text: "kprompt tools inventories Helm on PATH, Argo Workflow CRDs, Prom/Grafana/OTel URLs, GitOps controllers, and more. Missing is a hint — not a mandate to install. Use kprompt setup only when you truly lack a component and accept an approve-gated install plan. Full flag reference: Setup · Integrations.",
+        links: [
+          { label: "Setup", href: "/docs/setup" },
+          { label: "Integrations", href: "/docs/integrations" },
+        ],
+      },
+      {
+        type: "h3",
+        text: "8–12 min — first insight (read-only)",
+      },
+      {
+        type: "code",
+        code: `kprompt "list deployments" -n <your-ns>
+kprompt "explain why <workload> is failing" -n <your-ns>
+kprompt "why is my api slow?" -n <your-ns>          # needs Prometheus URL
+kprompt "optimize my cluster"                       # read-only report
+kprompt "show service dependency graph"`,
+      },
+      {
+        type: "p",
+        text: "Reads run under your kubeconfig RBAC. Optimize and graph degrade honestly when Prom/OTel are absent — they do not invent metrics.",
+        links: [
+          {
+            label: "optimize my cluster",
+            href: "/blog/optimize-my-cluster",
+          },
+        ],
+      },
+      {
+        type: "h3",
+        text: "12–15 min — optional IDE + plan-only mutate",
+      },
+      {
+        type: "code",
+        caption: "MCP (Cursor / Claude Desktop) — never applies",
+        code: `# ~/.cursor/mcp.json  (or project .cursor/mcp.json)
+{
+  "mcpServers": {
+    "kprompt": {
+      "command": "kprompt",
+      "args": ["mcp", "serve"]
+    }
+  }
+}`,
+      },
+      {
+        type: "code",
+        caption: "Mutation stays plan → human approve",
+        code: `kprompt "scale <workload> to 3" -n <your-ns>
+# read the plan + risk; approve on TTY, or leave it
+
+# Apply only after you trust the shape:
+# kprompt "scale <workload> to 3" -n <your-ns> --approve`,
+      },
+      {
+        type: "p",
+        text: "MCP tools are read/plan-only. An assistant can call kprompt.plan; it cannot pass --approve over the protocol. Details: MCP · Safety.",
+        links: [
+          { label: "MCP", href: "/docs/mcp" },
+          { label: "Safety", href: "/docs/safety" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Anti-patterns",
+      },
+      {
+        type: "ul",
+        items: [
+          "Installing kube-prometheus-stack before trying tools.prometheus.url against the Prom you already run",
+          "Pointing the first session at production with --approve",
+          "Treating setup --profile platform as the default brownfield path",
+          "Expecting MCP or Autopilot to mutate without a human on the approve path",
+          "Skipping doctor when tools look empty — often config URL, not a missing CRD",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What this playbook is not",
+      },
+      {
+        type: "ul",
+        items: [
+          "Not a cluster provisioner (kind / EKS / GKE stay out of scope)",
+          "Not a second GitOps or Helmfile installer",
+          "Not a promise that every integration lights up green in 15 minutes — only that the path prefers bind + read-first",
+          "Not production Autopilot — Observe agent and Autopilot stay propose/notify unless you explicitly opt into approve flows elsewhere",
+        ],
+      },
+      {
+        type: "p",
+        text: "Next: deepen Integrations, wire MCP, or practice Safety on a sandbox mutate. Narrative version of this path: brownfield in 15 minutes.",
+        links: [
+          { label: "Integrations", href: "/docs/integrations" },
+          { label: "MCP", href: "/docs/mcp" },
+          { label: "Safety", href: "/docs/safety" },
+          {
+            label: "brownfield in 15 minutes",
+            href: "/blog/brownfield-kprompt-in-15-minutes",
+          },
+        ],
       },
     ],
   },
@@ -1746,10 +1972,11 @@ kprompt "list pods"`,
       },
       {
         type: "p",
-        text: "Full provider matrix: Providers. Health re-check: doctor. Host/cluster tool bootstrap: Setup. $0 Observe walkthrough: Demo.",
+        text: "Full provider matrix: Providers. Health re-check: doctor. Host/cluster tool bootstrap: Setup. Existing cluster in ~15 min: Adopt. $0 Observe walkthrough: Demo.",
         links: [
           { label: "Providers", href: "/docs/providers" },
           { label: "Setup", href: "/docs/setup" },
+          { label: "Adopt", href: "/docs/adopt" },
           { label: "Demo", href: "/docs/demo" },
         ],
       },

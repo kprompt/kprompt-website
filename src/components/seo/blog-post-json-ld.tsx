@@ -1,5 +1,6 @@
 import { SITE } from "@/lib/constants";
 import type { BlogPost } from "@/lib/blog-posts";
+import { withOgCacheBust } from "@/lib/og-brand";
 
 export function BlogPostJsonLd({ post }: { post: BlogPost }) {
   const url = `${SITE.url}/blog/${post.slug}`;
@@ -15,7 +16,7 @@ export function BlogPostJsonLd({ post }: { post: BlogPost }) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
-    image: `${url}/opengraph-image`,
+    image: withOgCacheBust(`${url}/opengraph-image`),
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
     author: {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE } from "@/lib/constants";
 import type { BlogPost } from "@/lib/blog-posts";
+import { withOgCacheBust } from "@/lib/og-brand";
 
 export function blogIndexMetadata(): Metadata {
   const url = `${SITE.url}/blog`;
@@ -20,7 +21,7 @@ export function blogIndexMetadata(): Metadata {
 
 export function blogPostMetadata(post: BlogPost): Metadata {
   const url = `${SITE.url}/blog/${post.slug}`;
-  const image = `${url}/opengraph-image`;
+  const image = withOgCacheBust(`${url}/opengraph-image`);
   return {
     title: post.title,
     description: post.description,

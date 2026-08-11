@@ -1,5 +1,6 @@
 import type { BlogPost } from "@/lib/blog-types";
 import kubernetesLabelsAndSelectorsExplained from "./kubernetes-labels-and-selectors-explained";
+import brownfieldKpromptIn15Minutes from "./brownfield-kprompt-in-15-minutes";
 import kpromptMcpToolProvider from "./kprompt-mcp-tool-provider";
 import kpromptHelmDeepDive from "./kprompt-helm-deep-dive";
 import top100KubernetesPrompts from "./top-100-kubernetes-prompts";
@@ -61,6 +62,7 @@ import kubernetesNamespacesExplained from "./kubernetes-namespaces-explained";
 /** All blog posts in source order (newest-first convention in tree). */
 export const BLOG_POSTS: BlogPost[] = [
   kubernetesLabelsAndSelectorsExplained,
+  brownfieldKpromptIn15Minutes,
   kpromptMcpToolProvider,
   kpromptHelmDeepDive,
   top100KubernetesPrompts,
