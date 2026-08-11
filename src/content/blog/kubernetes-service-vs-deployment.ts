@@ -93,7 +93,13 @@ const post: BlogPost = {
       },
       {
         type: "p",
-        text: "The glue is labels. The Deployment’s Pod template sets labels (for example app: api). The Service’s selector asks for the same labels. Scale the Deployment and the Service automatically includes the new Pods — you do not edit the Service for each replica.",
+        text: "The glue is labels. For a full beginner walkthrough, see labels and selectors explained. The Deployment’s Pod template sets labels (for example app: api). The Service’s selector asks for the same labels. Scale the Deployment and the Service automatically includes the new Pods — you do not edit the Service for each replica.",
+        links: [
+          {
+            label: "labels and selectors explained",
+            href: "/blog/kubernetes-labels-and-selectors-explained",
+          },
+        ],
       },
       {
         type: "code",
