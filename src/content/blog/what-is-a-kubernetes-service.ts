@@ -98,7 +98,13 @@ const post: BlogPost = {
       },
       {
         type: "p",
-        text: "A Service does not list Pod names. It uses a label selector. Your Deployment labels Pods with app: api; the Service selects app: api. When replicas scale up or Pods restart, the Service automatically includes matching Pods.",
+        text: "A Service does not list Pod names. It uses a label selector. For a full beginner walkthrough, see labels and selectors explained. Your Deployment labels Pods with app: api; the Service selects app: api. When replicas scale up or Pods restart, the Service automatically includes matching Pods.",
+        links: [
+          {
+            label: "labels and selectors explained",
+            href: "/blog/kubernetes-labels-and-selectors-explained",
+          },
+        ],
       },
       {
         type: "code",

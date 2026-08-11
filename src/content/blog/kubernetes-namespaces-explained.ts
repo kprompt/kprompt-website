@@ -162,8 +162,12 @@ kprompt "describe service api in default"`,
       },
       {
         type: "p",
-        text: "You now have the core trilogy: Pods and Deployments for workloads, Services for stable traffic, Namespaces for scope. Still unsure Service vs Deployment? Read that decision page. From here, dive into troubleshooting (OOMKilled), kubectl habits, or kubectl vs K9s for day-2 tooling.",
+        text: "You now have the core trilogy: Pods and Deployments for workloads, Services for stable traffic, Namespaces for scope. Next in the beginner track: labels and selectors explained — how Deployments and Services connect. Still unsure Service vs Deployment? Read that decision page. From here, dive into troubleshooting (OOMKilled), kubectl habits, or kubectl vs K9s for day-2 tooling.",
         links: [
+          {
+            label: "labels and selectors explained",
+            href: "/blog/kubernetes-labels-and-selectors-explained",
+          },
           {
             label: "Pods vs Deployments",
             href: "/blog/kubernetes-pods-vs-deployments",
