@@ -42,6 +42,7 @@ const post: BlogPost = {
         links: [
           { label: "Helm vs kubectl (day-2)", href: "/blog/helm-vs-kubectl-day-2" },
           { label: "Integrations", href: "/docs/integrations" },
+          { label: "kprompt + Prometheus", href: "/blog/kprompt-prometheus" },
         ],
       },
       {

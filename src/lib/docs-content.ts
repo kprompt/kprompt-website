@@ -1044,18 +1044,53 @@ kprompt "show service dependency graph for payments"`,
       },
       {
         type: "h2",
-        text: "Tekton · KEDA · Istio · Crossplane",
+        text: "Tekton",
       },
       {
         type: "p",
-        text: "Tekton PipelineRuns and KEDA ScaledObjects generate reviewable CRs before submit. Istio is read-first (VirtualService traffic/canary summary). Crossplane cloud claims are RiskHigh and need strong approval.",
+        text: "Tekton PipelineRuns generate as reviewable CRs before submit. Missing Tekton CRDs fail clear — kprompt does not invent a pipeline engine.",
       },
       {
         type: "code",
         code: `kprompt "run the build pipeline"
-kprompt "autoscale api with KEDA to zero when idle"
-kprompt "show traffic for checkout"
-kprompt "provision a postgres database"`,
+kprompt "create a CI pipeline"`,
+      },
+      {
+        type: "h2",
+        text: "KEDA",
+      },
+      {
+        type: "p",
+        text: "Event-driven scale and scale-to-zero map to KEDA ScaledObjects. The CR is planned first; apply still needs approval.",
+      },
+      {
+        type: "code",
+        code: `kprompt "autoscale api with KEDA to zero when idle"`,
+      },
+      {
+        type: "h2",
+        text: "Istio",
+      },
+      {
+        type: "p",
+        text: "Istio is read-first: VirtualService traffic and canary summaries. kprompt does not claim write canaries or mesh install.",
+      },
+      {
+        type: "code",
+        code: `kprompt "show traffic for checkout"
+kprompt "show virtualservice for payments"`,
+      },
+      {
+        type: "h2",
+        text: "Crossplane",
+      },
+      {
+        type: "p",
+        text: "Cloud claims via Crossplane CRDs are RiskHigh and need strong approval. Prefer an existing claim over inventing a cloud account.",
+      },
+      {
+        type: "code",
+        code: `kprompt "provision a postgres database"`,
       },
       {
         type: "h2",

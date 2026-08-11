@@ -56,6 +56,7 @@ const HIGH_SIGNAL_SLUGS = [
   "kprompt-mcp-tool-provider",
   "brownfield-kprompt-in-15-minutes",
   "kprompt-helm-deep-dive",
+  "kprompt-prometheus",
   "top-100-kubernetes-prompts",
   "ai-runtime-for-kubernetes",
   "context-engineering-not-prompt-engineering",

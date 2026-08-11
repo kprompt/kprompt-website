@@ -192,6 +192,7 @@ const post: BlogPost = {
         text: "Prometheus, OpenTelemetry, Grafana, and friends. Missing backends fail clear — they do not invent latency numbers.",
         links: [
           { label: "Integrations", href: "/docs/integrations" },
+          { label: "kprompt + Prometheus", href: "/blog/kprompt-prometheus" },
         ],
       },
       {

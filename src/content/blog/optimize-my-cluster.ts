@@ -37,6 +37,7 @@ const post: BlogPost = {
         links: [
           { label: "Integrations", href: "/docs/integrations" },
           { label: "Safety docs", href: "/docs/safety" },
+          { label: "kprompt + Prometheus", href: "/blog/kprompt-prometheus" },
         ],
       },
       {

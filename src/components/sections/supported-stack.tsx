@@ -5,36 +5,121 @@ import { cn } from "@/lib/utils";
 type LogoItem = {
   name: string;
   src: string;
+  href: string;
   /** Black/currentColor marks — invert in dark mode. */
   invertInDark?: boolean;
 };
 
 const STACK: LogoItem[] = [
-  { name: "Kubernetes", src: "/logos/stack/kubernetes.svg" },
-  { name: "Helm", src: "/logos/stack/helm.svg" },
-  { name: "Argo", src: "/logos/stack/argo.svg" },
-  { name: "Prometheus", src: "/logos/stack/prometheus.svg" },
-  { name: "OpenTelemetry", src: "/logos/stack/opentelemetry.svg" },
-  { name: "Grafana", src: "/logos/stack/grafana.svg" },
-  { name: "Tekton", src: "/logos/stack/tekton.svg" },
-  { name: "KEDA", src: "/logos/stack/keda.svg" },
-  { name: "Istio", src: "/logos/stack/istio.svg" },
-  { name: "Crossplane", src: "/logos/stack/crossplane.svg" },
-  { name: "Flux", src: "/logos/stack/flux.svg" },
+  {
+    name: "Kubernetes",
+    src: "/logos/stack/kubernetes.svg",
+    href: "/docs/integrations#generic-kubernetes-reads",
+  },
+  { name: "Helm", src: "/logos/stack/helm.svg", href: "/docs/integrations#helm" },
+  {
+    name: "Argo",
+    src: "/logos/stack/argo.svg",
+    href: "/docs/integrations#argo-workflows",
+  },
+  {
+    name: "Prometheus",
+    src: "/logos/stack/prometheus.svg",
+    href: "/docs/integrations#prometheus",
+  },
+  {
+    name: "OpenTelemetry",
+    src: "/logos/stack/opentelemetry.svg",
+    href: "/docs/integrations#opentelemetry-jaeger-tempo",
+  },
+  {
+    name: "Grafana",
+    src: "/logos/stack/grafana.svg",
+    href: "/docs/integrations#grafana",
+  },
+  {
+    name: "Tekton",
+    src: "/logos/stack/tekton.svg",
+    href: "/docs/integrations#tekton",
+  },
+  { name: "KEDA", src: "/logos/stack/keda.svg", href: "/docs/integrations#keda" },
+  {
+    name: "Istio",
+    src: "/logos/stack/istio.svg",
+    href: "/docs/integrations#istio",
+  },
+  {
+    name: "Crossplane",
+    src: "/logos/stack/crossplane.svg",
+    href: "/docs/integrations#crossplane",
+  },
+  {
+    name: "Flux",
+    src: "/logos/stack/flux.svg",
+    href: "/docs/integrations#gitops-flux-argo-cd",
+  },
 ];
 
 const PROVIDERS: LogoItem[] = [
-  { name: "Ollama", src: "/logos/providers/ollama.svg", invertInDark: true },
-  { name: "OpenAI", src: "/logos/providers/openai.svg", invertInDark: true },
-  { name: "Anthropic", src: "/logos/providers/anthropic.svg", invertInDark: true },
-  { name: "Gemini", src: "/logos/providers/gemini.svg" },
-  { name: "Groq", src: "/logos/providers/groq.svg" },
-  { name: "xAI", src: "/logos/providers/xai.svg", invertInDark: true },
-  { name: "Mistral", src: "/logos/providers/mistral.svg" },
-  { name: "DeepSeek", src: "/logos/providers/deepseek.svg" },
-  { name: "Moonshot", src: "/logos/providers/moonshot.svg" },
-  { name: "OpenRouter", src: "/logos/providers/openrouter.svg" },
-  { name: "Together", src: "/logos/providers/together.svg" },
+  {
+    name: "Ollama",
+    src: "/logos/providers/ollama.svg",
+    href: "/docs/providers#supported-providers",
+    invertInDark: true,
+  },
+  {
+    name: "OpenAI",
+    src: "/logos/providers/openai.svg",
+    href: "/docs/providers#supported-providers",
+    invertInDark: true,
+  },
+  {
+    name: "Anthropic",
+    src: "/logos/providers/anthropic.svg",
+    href: "/docs/providers#supported-providers",
+    invertInDark: true,
+  },
+  {
+    name: "Gemini",
+    src: "/logos/providers/gemini.svg",
+    href: "/docs/providers#gemini-free-tier-honest",
+  },
+  {
+    name: "Groq",
+    src: "/logos/providers/groq.svg",
+    href: "/docs/providers#supported-providers",
+  },
+  {
+    name: "xAI",
+    src: "/logos/providers/xai.svg",
+    href: "/docs/providers#supported-providers",
+    invertInDark: true,
+  },
+  {
+    name: "Mistral",
+    src: "/logos/providers/mistral.svg",
+    href: "/docs/providers#supported-providers",
+  },
+  {
+    name: "DeepSeek",
+    src: "/logos/providers/deepseek.svg",
+    href: "/docs/providers#supported-providers",
+  },
+  {
+    name: "Moonshot",
+    src: "/logos/providers/moonshot.svg",
+    href: "/docs/providers#supported-providers",
+  },
+  {
+    name: "OpenRouter",
+    src: "/logos/providers/openrouter.svg",
+    href: "/docs/providers#supported-providers",
+  },
+  {
+    name: "Together",
+    src: "/logos/providers/together.svg",
+    href: "/docs/providers#supported-providers",
+  },
 ];
 
 function LogoRow({
@@ -51,23 +136,30 @@ function LogoRow({
         hidden && "logo-marquee-duplicate"
       )}
       aria-hidden={hidden || undefined}
+      inert={hidden || undefined}
     >
       {items.map((item) => (
-        <li key={item.name} className="group/logo flex shrink-0 items-center gap-2.5">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={item.src}
-            alt=""
-            width={32}
-            height={32}
-            className={cn(
-              "size-7 shrink-0 object-contain sm:size-8",
-              item.invertInDark && "dark:invert"
-            )}
-          />
-          <span className="font-heading text-sm font-semibold tracking-tight text-muted-foreground transition-colors duration-200 group-hover/logo:text-foreground sm:text-[15px]">
-            {item.name}
-          </span>
+        <li key={item.name}>
+          <Link
+            href={item.href}
+            className="group/logo flex shrink-0 items-center gap-2.5 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+            tabIndex={hidden ? -1 : undefined}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={item.src}
+              alt=""
+              width={32}
+              height={32}
+              className={cn(
+                "size-7 shrink-0 object-contain sm:size-8",
+                item.invertInDark && "dark:invert"
+              )}
+            />
+            <span className="font-heading text-sm font-semibold tracking-tight text-muted-foreground transition-colors duration-200 group-hover/logo:text-foreground sm:text-[15px]">
+              {item.name}
+            </span>
+          </Link>
         </li>
       ))}
     </ul>

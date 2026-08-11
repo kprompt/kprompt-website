@@ -3,6 +3,7 @@ import kubernetesLabelsAndSelectorsExplained from "./kubernetes-labels-and-selec
 import brownfieldKpromptIn15Minutes from "./brownfield-kprompt-in-15-minutes";
 import kpromptMcpToolProvider from "./kprompt-mcp-tool-provider";
 import kpromptHelmDeepDive from "./kprompt-helm-deep-dive";
+import kpromptPrometheus from "./kprompt-prometheus";
 import top100KubernetesPrompts from "./top-100-kubernetes-prompts";
 import crashloopbackoffCheckoutKprompt from "./crashloopbackoff-checkout-kprompt";
 import k9sVsKubernetes from "./k9s-vs-kubernetes";
@@ -64,6 +65,7 @@ export const BLOG_POSTS: BlogPost[] = [
   kubernetesLabelsAndSelectorsExplained,
   brownfieldKpromptIn15Minutes,
   kpromptMcpToolProvider,
+  kpromptPrometheus,
   kpromptHelmDeepDive,
   top100KubernetesPrompts,
   crashloopbackoffCheckoutKprompt,
