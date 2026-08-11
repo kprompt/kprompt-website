@@ -13,7 +13,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden />
 
-      <div className="relative mx-auto max-w-6xl px-4 pb-20 sm:px-6 sm:pb-28">
+      <div className="relative mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
         <div className="max-w-3xl">
           <Logo
             size={40}

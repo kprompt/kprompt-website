@@ -9,6 +9,7 @@ import { Hero } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { IdePlanResult } from "@/components/sections/ide-planresult";
 import { MultiCluster } from "@/components/sections/multi-cluster";
+import { SupportedStack } from "@/components/sections/supported-stack";
 import { UsageGuide } from "@/components/sections/usage-guide";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { SITE } from "@/lib/constants";
@@ -29,6 +30,7 @@ export default function HomePage() {
     <main>
       <FaqJsonLd entries={FAQ} />
       <Hero />
+      <SupportedStack />
       <AiSre />
       <HowItWorks />
       <IdePlanResult />

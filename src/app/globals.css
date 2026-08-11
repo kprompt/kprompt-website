@@ -316,6 +316,44 @@
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
+
+  .logo-marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 5%,
+      #000 95%,
+      transparent
+    );
+  }
+
+  .logo-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: logo-marquee 48s linear infinite;
+    will-change: transform;
+    user-select: none;
+  }
+
+  .logo-marquee:hover .logo-marquee-track,
+  .logo-marquee:focus-within .logo-marquee-track {
+    animation-play-state: paused;
+  }
+
+  .logo-marquee-track-reverse {
+    animation-direction: reverse;
+    animation-duration: 56s;
+  }
+
+  @keyframes logo-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -329,6 +367,31 @@
     transform: none;
     transition: none;
     will-change: auto;
+  }
+
+  .logo-marquee {
+    mask-image: none;
+    overflow: visible;
+  }
+
+  .logo-marquee-track {
+    animation: none !important;
+    transform: none !important;
+    width: 100%;
+    justify-content: center;
+    will-change: auto;
+  }
+
+  .logo-marquee-track ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding-right: 0;
+    row-gap: 0.85rem;
+  }
+
+  .logo-marquee-duplicate {
+    display: none;
   }
 
   *,
