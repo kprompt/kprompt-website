@@ -2056,7 +2056,7 @@ kprompt "scale api to 3"`,
   providers: {
     title: "Providers",
     description:
-      "Local Ollama ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, or any OpenAI-compatible gateway. kprompt does not sell API keys.",
+      "Local Ollama ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, Fireworks, or any OpenAI-compatible gateway. kprompt does not sell API keys.",
     blocks: [
       {
         type: "p",
@@ -2131,6 +2131,12 @@ kprompt "scale api to 3"`,
             "together",
             "KPROMPT_TOGETHER_API_KEY / TOGETHER_API_KEY",
             "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          ],
+          [
+            "Fireworks",
+            "fireworks",
+            "KPROMPT_FIREWORKS_API_KEY / FIREWORKS_API_KEY",
+            "accounts/fireworks/models/llama-v3p3-70b-instruct",
           ],
           [
             "OpenAI-compatible",
