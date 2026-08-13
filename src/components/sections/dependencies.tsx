@@ -32,7 +32,7 @@ export function Dependencies() {
             Don&apos;t just inspect the failing pod.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Failures are often downstream. KPrompt connects the dots across
+            Failures are often downstream. kprompt connects the dots across
             relationships and the operational signals already in your
             environment — not a bespoke connector for every database.
           </p>
@@ -94,7 +94,7 @@ export function Dependencies() {
             <div className="mt-4 flex items-center gap-2 text-muted-foreground/60">
               <ArrowDown className="size-4" aria-hidden />
               <span className="font-mono text-xs uppercase tracking-wider">
-                KPrompt runtime
+                kprompt runtime
               </span>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">

@@ -15,7 +15,7 @@ export function Philosophy() {
               For operators who already know Kubernetes
             </p>
             <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-              You already know Kubernetes. KPrompt helps you see more of it.
+              You already know Kubernetes. kprompt helps you see more of it.
             </h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
               Experts know kubectl, PDBs, HPA, topology spread, and common failure
@@ -24,7 +24,7 @@ export function Philosophy() {
               continuously.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              KPrompt augments that expertise. It does not pretend to replace it.
+              kprompt augments that expertise. It does not pretend to replace it.
             </p>
           </Reveal>
 
@@ -37,7 +37,7 @@ export function Philosophy() {
             </h3>
             <p className="mt-4 text-muted-foreground leading-relaxed">
               The problem is the amount of context humans need to understand and
-              operate it. KPrompt exists to provide that context — so you can
+              operate it. kprompt exists to provide that context — so you can
               work at the level of intent: operate, investigate, and improve.
             </p>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">

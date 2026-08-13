@@ -35,7 +35,7 @@ export function Differentiation() {
             Context, not commands or charts alone.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            KPrompt is a runtime that reasons about your Kubernetes environment —
+            kprompt is a runtime that reasons about your Kubernetes environment —
             not a chat REPL, not a thin kubectl wrapper, and not an AIOps
             dashboard.
           </p>
@@ -59,7 +59,7 @@ export function Differentiation() {
                   </div>
                   <div>
                     <p className="font-mono text-[11px] uppercase tracking-wider text-brand">
-                      KPrompt
+                      kprompt
                     </p>
                     <p className="mt-2 text-sm leading-relaxed text-foreground/90">
                       {row.us}

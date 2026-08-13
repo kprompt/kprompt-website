@@ -17,7 +17,7 @@ const STEPS = [
     step: "02",
     title: "Understand",
     description:
-      "KPrompt reads Kubernetes state, relationships, events, and available signals (logs, metrics, traces) in context.",
+      "kprompt reads Kubernetes state, relationships, events, and available signals (logs, metrics, traces) in context.",
   },
   {
     step: "03",
@@ -35,7 +35,7 @@ const STEPS = [
 
 const FLOW = [
   "Human intent",
-  "KPrompt runtime",
+  "kprompt runtime",
   "Kubernetes",
   "Workloads · deps · signals",
 ] as const;

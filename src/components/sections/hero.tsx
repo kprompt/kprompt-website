@@ -31,7 +31,7 @@ export function Hero() {
             Tell Kubernetes what to do.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            KPrompt is an AI-powered runtime that understands your Kubernetes
+            kprompt is an AI-powered runtime that understands your Kubernetes
             environment — turning intent into context-aware operations,
             investigations, and recommendations. Apply only after your yes.
           </p>

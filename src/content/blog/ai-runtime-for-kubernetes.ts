@@ -71,7 +71,7 @@ const post: BlogPost = {
           "Kubernetes schedules containers.",
           "Argo schedules workflows.",
           "Operators reconcile state.",
-          "KPrompt reasons about infrastructure.",
+          "kprompt reasons about infrastructure.",
         ],
       },
       {
