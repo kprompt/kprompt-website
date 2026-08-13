@@ -1,11 +1,10 @@
 "use client";
 
-import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { AnimatedTerminal } from "@/components/ui/animated-terminal";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
 import { GithubIcon } from "@/components/ui/github-icon";
-import { LazyDemoVideo } from "@/components/ui/lazy-demo-video";
 import { Logo } from "@/components/ui/logo";
 import { HERO_RUNTIME_DEMOS } from "@/lib/demo-commands";
 import { SITE } from "@/lib/constants";
@@ -14,8 +13,10 @@ import { cn } from "@/lib/utils";
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden pt-28 sm:pt-32">
-      <div className="pointer-events-none absolute inset-0 bg-glow" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden />
+      <div
+        className="pointer-events-none absolute inset-0 bg-grid opacity-60"
+        aria-hidden
+      />
 
       <div className="relative mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
         <div className="max-w-3xl">
@@ -27,17 +28,21 @@ export function Hero() {
           <p className="mt-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">
             <span className="text-brand">{SITE.maturityLabel}</span>
             <span className="mx-2 text-border">·</span>
-            Plan before apply
-            <span className="mx-2 text-border">·</span>
             {SITE.tagline}
           </p>
           <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl md:leading-[1.05]">
             Tell Kubernetes what to do.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            kprompt is an AI-powered runtime that understands your Kubernetes
-            environment — turning intent into context-aware operations,
-            investigations, and recommendations. Apply only after your yes.
+            An AI-powered runtime that understands your cluster — operate on
+            intent, investigate with evidence, and run an always-on{" "}
+            <a
+              href="#agent"
+              className="text-foreground underline-offset-4 hover:underline"
+            >
+              Observe agent
+            </a>{" "}
+            that watches namespaces without silent mutate. Plan before apply.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -49,11 +54,10 @@ export function Hero() {
               <ArrowRight className="size-4" />
             </a>
             <a
-              href={SITE.levelUp}
+              href="#agent"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
-              <Sparkles className="size-4" />
-              {SITE.ctaSecondary}
+              Observe agent
             </a>
             <a
               href={SITE.github}
@@ -85,28 +89,10 @@ export function Hero() {
         <div className="mt-14 sm:mt-16">
           <AnimatedTerminal
             demos={HERO_RUNTIME_DEMOS}
-            className="mx-auto max-w-3xl"
+            className="mx-auto max-w-3xl shadow-none"
           />
           <p className="mx-auto mt-3 max-w-3xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
-            Operate · investigate · analyze — review the plan before apply
-          </p>
-        </div>
-
-        <div className="mx-auto mt-10 max-w-2xl">
-          <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            Safety
-          </p>
-          <div className="mt-3 overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm">
-            <LazyDemoVideo
-              webm={SITE.planDenyWebm}
-              mp4={SITE.planDenyMp4}
-              poster={SITE.planDenyPoster}
-              aria-label="kprompt hard-denies wipe prompts, then shows a scale plan waiting for Apply this plan? y/N"
-              transcript="Wipe prompt hard-denied. Scale plan shown with Apply this plan? y/N — nothing applies without approval."
-            />
-          </div>
-          <p className="mt-2 text-center font-mono text-[11px] text-muted-foreground sm:text-xs">
-            Wipe jokes hard-deny · nothing mutates without you
+            Intent in · context out · approve before apply
           </p>
         </div>
       </div>

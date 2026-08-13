@@ -15,7 +15,7 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "The AI Runtime for Kubernetes",
   description:
-    "AI-powered runtime that understands your Kubernetes environment — turn intent into context-aware operations, investigations, and recommendations. Plan before apply. Open-source CLI. Experimental.",
+    "AI-powered runtime that understands your Kubernetes environment — turn intent into context-aware operations, investigations, and recommendations. Optional always-on Observe agent. Plan before apply. Open-source CLI. Experimental.",
   github: "https://github.com/kprompt/kprompt",
   /** Product account on X. */
   twitter: "https://x.com/kpromptai",
@@ -62,46 +62,6 @@ export const SITE = {
   installCommandGitHub: `curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v${CLI_VERSION}/install/install.sh | bash`,
   /** One-liner shown under hero CTAs. */
   walkthroughHint: "No API key · kind cluster · ~60 seconds",
-  /** Observe agent kind walkthrough. */
-  observeDemoWebm: "/kprompt-observe-demo.webm",
-  observeDemoMp4: "/kprompt-observe-demo.mp4",
-  observeDemoPoster: "/kprompt-observe-demo-poster.jpg",
-  /** AI SRE investigate → finding → plan clip. */
-  investigateDemoWebm: "/kprompt-investigate-demo.webm",
-  investigateDemoMp4: "/kprompt-investigate-demo.mp4",
-  investigateDemoPoster: "/kprompt-investigate-demo-poster.jpg",
-  /** AI SRE why — named cause finding. */
-  whyDemoWebm: "/kprompt-why-demo.webm",
-  whyDemoMp4: "/kprompt-why-demo.mp4",
-  whyDemoPoster: "/kprompt-why-demo-poster.jpg",
-  /** AI SRE timeline — ordered events. */
-  timelineDemoWebm: "/kprompt-timeline-demo.webm",
-  timelineDemoMp4: "/kprompt-timeline-demo.mp4",
-  timelineDemoPoster: "/kprompt-timeline-demo-poster.jpg",
-  /** AI SRE impact — blast radius. */
-  impactDemoWebm: "/kprompt-impact-demo.webm",
-  impactDemoMp4: "/kprompt-impact-demo.mp4",
-  impactDemoPoster: "/kprompt-impact-demo-poster.jpg",
-  /** AI SRE approve → verify post-apply. */
-  verifyDemoWebm: "/kprompt-verify-demo.webm",
-  verifyDemoMp4: "/kprompt-verify-demo.mp4",
-  verifyDemoPoster: "/kprompt-verify-demo-poster.jpg",
-  /** VS Code PlanResult review → Approve via CLI. */
-  ideDemoWebm: "/kprompt-ide-demo.webm",
-  ideDemoMp4: "/kprompt-ide-demo.mp4",
-  ideDemoPoster: "/kprompt-ide-demo-poster.jpg",
-  /** GitOps drift scan → approve-gated sync. */
-  driftDemoWebm: "/kprompt-drift-demo.webm",
-  driftDemoMp4: "/kprompt-drift-demo.mp4",
-  driftDemoPoster: "/kprompt-drift-demo-poster.jpg",
-  /** Multi-context read fan-out + per-context approve gate. */
-  multiClusterDemoWebm: "/kprompt-multi-cluster-demo.webm",
-  multiClusterDemoMp4: "/kprompt-multi-cluster-demo.mp4",
-  multiClusterDemoPoster: "/kprompt-multi-cluster-demo-poster.jpg",
-  /** Hero plan-deny aha clip — wipe hard-deny → scale PlanResult → y/N. */
-  planDenyWebm: "/kprompt-plan-deny.webm",
-  planDenyMp4: "/kprompt-plan-deny.mp4",
-  planDenyPoster: "/kprompt-plan-deny-poster.jpg",
 } as const;
 
 export const NAV_LINKS = [

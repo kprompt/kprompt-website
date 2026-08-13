@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Agent } from "@/components/sections/agent";
 import { CliExamples } from "@/components/sections/cli-examples";
 import { Differentiation } from "@/components/sections/differentiation";
 import { Faq } from "@/components/sections/faq";
@@ -28,6 +29,7 @@ export default function HomePage() {
       <FaqJsonLd entries={FAQ} />
       <Hero />
       <HowItWorks />
+      <Agent />
       <UseCases />
       <Differentiation />
       <Philosophy />

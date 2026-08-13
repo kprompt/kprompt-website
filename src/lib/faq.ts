@@ -48,6 +48,12 @@ export const FAQ: FaqEntry[] = [
     more: { label: "Integrations", href: "/docs/integrations" },
   },
   {
+    question: "What is the kprompt agent?",
+    answer:
+      "An optional in-cluster Observe agent that watches a namespace, correlates Pods/Events into Incidents, and sends gated Slack/Discord/webhook alerts. Default mode never mutates. Optional Autopilot propose emits a PlanResult; apply stays human-gated. The laptop CLI still works without any agent.",
+    more: { label: "Observe agent docs", href: "/docs/agent" },
+  },
+  {
     question: "Does kprompt apply changes to my cluster automatically?",
     answer:
       "No. Every mutating intent compiles into a PlanResult that lists the resources, diffs, and risk level before anything runs. On a TTY you confirm with y/N; in scripts you pass --approve explicitly. Wipe-class prompts are hard-denied instead of planned, and Autopilot is propose-only by default (ADR-0015) — it never applies silently.",

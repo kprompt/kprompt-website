@@ -9,6 +9,11 @@ const USE_CASES = [
     note: "Intent → plan → approve → apply",
   },
   {
+    lane: "Agent",
+    prompt: "kprompt agent run -n payments --analyze --health",
+    note: "Always-on Observe — watch, correlate, gated alert; no silent mutate",
+  },
+  {
     lane: "Investigate",
     prompt: "kprompt why checkout-api",
     note: "Evidence-backed findings, not chat guesses",
@@ -17,12 +22,6 @@ const USE_CASES = [
     lane: "Analyze",
     prompt: 'kprompt "optimize my cluster"',
     note: "Inventory, idle, rightsizing, HPA hints",
-  },
-  {
-    lane: "Recommend",
-    prompt: 'kprompt "scorecard for the cluster"',
-    note: "MVP rollup from audit + optimize — not a full reliability scanner",
-    caveat: true,
   },
 ] as const;
 
@@ -38,8 +37,9 @@ export function UseCases() {
             One runtime. Many outcomes.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Investigation is a capability — not the whole product. Operate,
-            analyze, and recommend with the same approval DNA.
+            Investigation is a capability — not the whole product. Operate with
+            the CLI, keep an Observe agent on the namespace, analyze with the
+            same approval DNA.
           </p>
         </Reveal>
 
@@ -59,15 +59,9 @@ export function UseCases() {
                       {item.note}
                     </p>
                   </div>
-                  {"caveat" in item && item.caveat ? (
-                    <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                      MVP
-                    </span>
-                  ) : (
-                    <span className="font-mono text-[11px] uppercase tracking-wider text-brand/80">
-                      Shipped
-                    </span>
-                  )}
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-brand/80">
+                    Shipped
+                  </span>
                 </div>
               </Reveal>
             </li>

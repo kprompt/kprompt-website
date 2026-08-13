@@ -4,7 +4,7 @@ export type DemoCommand = {
   lines: string[];
 };
 
-/** Hero rotation — operate / investigate / analyze (motivation-first). */
+/** Hero rotation — operate / investigate / analyze / agent. */
 export const HERO_RUNTIME_DEMOS: DemoCommand[] = [
   {
     id: "scale-checkout",
@@ -37,6 +37,17 @@ export const HERO_RUNTIME_DEMOS: DemoCommand[] = [
       "HPA hints: 3 workloads at maxReplicas — read-only",
     ],
   },
+  {
+    id: "agent-observe",
+    command:
+      "kprompt agent run -n payments --analyze --health --heuristic",
+    lines: [
+      "Observe: watching namespace payments",
+      "Incident: CrashLoopBackOff ×3 correlated",
+      "Confidence: high · severity: warning",
+      "Alert gated — no mutate (Observe mode)",
+    ],
+  },
 ];
 
 /** Alias used by AnimatedTerminal default. */
@@ -45,13 +56,13 @@ export const HERO_DEMOS = HERO_RUNTIME_DEMOS;
 /** Motivation-first CLI strip (~8 prompts). */
 export const CLI_EXAMPLES = [
   'kprompt "scale api to 10" --approve --wait',
+  "kprompt agent run -n payments --analyze --health --heuristic",
   'kprompt "optimize my cluster"',
   'kprompt "show service dependency graph"',
   "kprompt why payment-api",
   'kprompt "deploy redis"',
   'kprompt "explain why payment-api is crashing"',
   'kprompt "audit my cluster"',
-  'kprompt "scale api to 10" -o json',
 ] as const;
 
 export const CLI_DEMO_OUTPUT: Record<string, string[]> = {
@@ -59,6 +70,12 @@ export const CLI_DEMO_OUTPUT: Record<string, string[]> = {
     "✓ Scaling deployment/api 3 → 10",
     "Waiting for rollout…",
     "✓ Ready",
+  ],
+  "kprompt agent run -n payments --analyze --health --heuristic": [
+    "Observe: watching namespace payments",
+    "Incident: CrashLoopBackOff ×3 correlated",
+    "Confidence: high · severity: warning",
+    "Alert gated — no mutate (Observe mode)",
   ],
   'kprompt "optimize my cluster"': [
     "Inventory: 48 workloads · 12 namespaces",
@@ -94,10 +111,5 @@ export const CLI_DEMO_OUTPUT: Record<string, string[]> = {
     "Finding: Audit.MissingLimits on payment-worker",
     "Finding: Audit.RunAsRoot on jobs-runner",
     "Harden plan ready — Apply? [y/N]",
-  ],
-  'kprompt "scale api to 10" -o json': [
-    "PlanResult schemaVersion=1",
-    "intent=scale  risk.level=medium",
-    "applied=false  (stdout is JSON only)",
   ],
 };

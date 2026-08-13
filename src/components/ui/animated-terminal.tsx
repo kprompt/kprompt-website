@@ -97,7 +97,7 @@ export function AnimatedTerminal({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border border-navy/20 bg-navy terminal-glow",
+        "relative overflow-hidden rounded-xl border border-navy/20 bg-navy",
         className
       )}
     >

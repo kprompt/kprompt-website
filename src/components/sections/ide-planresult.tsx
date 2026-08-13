@@ -4,16 +4,13 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
-import { LazyDemoVideo } from "@/components/ui/lazy-demo-video";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
+/** Optional section — not on the lean homepage. Demo media intentionally omitted. */
 export function IdePlanResult() {
   return (
-    <section
-      id="ide"
-      className="relative scroll-mt-20 py-20 sm:py-28"
-    >
+    <section id="ide" className="relative scroll-mt-20 py-20 sm:py-28">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <p className="font-mono text-xs uppercase tracking-wider text-brand">
@@ -26,21 +23,6 @@ export function IdePlanResult() {
             The runtime emits a typed PlanResult — risk, diffs, blast radius —
             not a chat transcript. Review in the IDE; approve still runs the
             local CLI.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.08} className="mt-12">
-          <div className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm terminal-glow">
-            <LazyDemoVideo
-              webm={SITE.ideDemoWebm}
-              mp4={SITE.ideDemoMp4}
-              poster={SITE.ideDemoPoster}
-              aria-label="VS Code PlanResult panel shows scale diffs, confirm Approve via CLI, then terminal runs kprompt --approve"
-              transcript="Open PlanResult → review diffs → Approve via CLI"
-            />
-          </div>
-          <p className="mx-auto mt-3 max-w-4xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
-            Open PlanResult → review diffs → Approve via CLI
           </p>
         </Reveal>
 

@@ -22,8 +22,8 @@ export function FinalCta() {
             Run the runtime where your cluster is
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Install the CLI, try a zero-LLM kind walkthrough, then operate,
-            investigate, and improve with plan-before-apply. Prefer
+            Install the CLI, try a zero-LLM kind walkthrough, then operate with
+            intent or run the Observe agent on a namespace. Prefer
             non-production first — {SITE.maturityLabel.toLowerCase()} software.
           </p>
 
