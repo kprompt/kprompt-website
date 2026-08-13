@@ -4,21 +4,28 @@ import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-/** Homepage guides — AI SRE positioning + GA beginner winners. */
+/** Homepage guides — runtime positioning + high-signal reads. */
 const GUIDES = [
   {
-    href: "/blog/ai-sre-not-ai-kubectl",
+    href: "/blog/ai-runtime-for-kubernetes",
     kicker: "Positioning",
-    title: "Beyond AI kubectl",
+    title: "AI Runtime for Kubernetes",
     blurb:
-      "Why kprompt aims at AI SRE: investigate → why → timeline → blast → verify — not a chat REPL.",
+      "What the category means: intent → context → operate, investigate, recommend — not another AI wrapper.",
   },
   {
-    href: "/blog/building-ai-sre-in-public",
-    kicker: "Series",
-    title: "Building AI SRE in Public",
+    href: "/blog/ai-sre-not-ai-kubectl",
+    kicker: "Capability",
+    title: "Beyond AI kubectl",
     blurb:
-      "Intent compiler, PlanResult, safety, investigation graph — how the runtime is being built.",
+      "Investigation is one runtime lane: investigate → why → timeline → blast → verify — still plan-gated.",
+  },
+  {
+    href: "/blog/optimize-my-cluster",
+    kicker: "Analyze",
+    title: "Optimize my cluster",
+    blurb:
+      "Read-only idle / rightsizing / HPA report — proactive analysis without auto-apply.",
   },
   {
     href: "/blog/kubectl-vs-k9s",
@@ -26,13 +33,6 @@ const GUIDES = [
     title: "kubectl vs K9s",
     blurb:
       "Not rivals: kubectl is the scriptable API client; K9s is a live terminal UI over it.",
-  },
-  {
-    href: "/blog/kubernetes-pods-vs-deployments",
-    kicker: "Beginner",
-    title: "Pods vs Deployments",
-    blurb:
-      "What each object is, how they relate, and the kubectl commands that stick.",
   },
 ] as const;
 
@@ -48,34 +48,40 @@ export function Guides() {
             Guides
           </h2>
           <p className="mt-3 text-muted-foreground">
-            AI SRE positioning and the beginner reads operators actually open.
+            Positioning, investigation depth, and day-2 reads — without reducing
+            the product to a single use case.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2">
+        <ul className="mt-12 grid gap-8 sm:grid-cols-2">
           {GUIDES.map((guide, i) => (
-            <Reveal key={guide.href} delay={Math.min(i, 3) * 0.05}>
-              <Link href={guide.href} className="group block">
-                <p className="font-mono text-xs uppercase tracking-wider text-brand">
-                  {guide.kicker}
-                </p>
-                <h3 className="mt-2 font-heading text-base font-semibold tracking-tight group-hover:text-brand">
-                  {guide.title}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                  {guide.blurb}
-                </p>
-              </Link>
+            <Reveal key={guide.href} delay={i * 0.05}>
+              <li>
+                <Link
+                  href={guide.href}
+                  className="group block outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+                >
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-brand">
+                    {guide.kicker}
+                  </p>
+                  <h3 className="mt-2 font-heading text-xl font-semibold tracking-tight transition-colors group-hover:text-brand">
+                    {guide.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {guide.blurb}
+                  </p>
+                </Link>
+              </li>
             </Reveal>
           ))}
-        </div>
+        </ul>
 
-        <Reveal delay={0.15} className="mt-12">
+        <Reveal delay={0.2} className="mt-10">
           <Link
             href="/blog"
-            className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            className={cn(buttonVariants({ variant: "outline" }), "inline-flex")}
           >
-            All guides
+            All posts
             <ArrowRight className="size-4" />
           </Link>
         </Reveal>

@@ -4,7 +4,7 @@ import { FAQ } from "@/lib/faq";
 import { getPostBySlug } from "@/lib/blog-posts";
 
 /** Bump when docs copy changes so sitemap / TechArticle stay fresh. */
-export const DOCS_CONTENT_UPDATED_AT = "2026-08-10";
+export const DOCS_CONTENT_UPDATED_AT = "2026-08-13";
 
 /** Docs pages in canonical nav order, keyed for DOCS_PAGES lookup. */
 export const DOCS_FULL_INDEX = [
@@ -156,7 +156,10 @@ export function buildLlmsFullText(): string {
     "",
     "## Positioning (honest)",
     "",
-    "- Category: AI Runtime for Kubernetes — observe, reason, plan, validate, approve, execute, learn.",
+    "- Category: AI Runtime for Kubernetes — understands your environment; turns intent into operate / investigate / recommend with plan-before-apply. Not a chatbot, kubectl wrapper, or monitoring-only AIOps product.",
+    "- Experienced engineers are a target: augment expertise by reducing context you must gather manually.",
+    "- Investigation/AI SRE packs and Observe are capability lanes — not the entire product.",
+    "- Signals (Prom/OTel/logs) enrich the runtime when present; no bespoke per-database connectors.",
     "- Not McKinsey ARK (Agentic Runtime): hosts agent apps as CRDs — https://kprompt.ai/blog/kprompt-vs-ark",
     "- Not kagent (CNCF agent platform): Agents/MCP/A2A on K8s vs PlanResult ops — https://kprompt.ai/blog/kprompt-vs-kagent",
     "- MCP tool provider (`kprompt mcp serve`): editor assistants (Cursor, Claude Desktop) call read/plan-only tools over stdio; mutations return a PlanResult and never auto-apply. IDE interop, not an MCP/A2A agent platform (that stays kagent's lane) — https://kprompt.ai/docs/mcp",

@@ -31,11 +31,15 @@ export function CliExamples() {
     <section id="cli" className="relative scroll-mt-20 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
-          <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            CLI that speaks Kubernetes.
+          <p className="font-mono text-xs uppercase tracking-wider text-brand">
+            CLI interface
+          </p>
+          <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+            One binary into the runtime.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            One binary. Natural language in. Cluster actions out.
+            Natural language in. Context-aware plan out. Mutate only after you
+            approve — operate, investigate, and analyze from the same CLI.
           </p>
         </Reveal>
 

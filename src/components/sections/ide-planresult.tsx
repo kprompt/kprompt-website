@@ -17,14 +17,15 @@ export function IdePlanResult() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <p className="font-mono text-xs uppercase tracking-wider text-brand">
-            VS Code extension
+            PlanResult artifact
           </p>
           <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            PlanResult in the IDE
+            Reasoning you can refuse
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Review risk and diffs beside your editor. Approve still runs the
-            local CLI — not a chat REPL, not an in-IDE apiserver.
+            The runtime emits a typed PlanResult — risk, diffs, blast radius —
+            not a chat transcript. Review in the IDE; approve still runs the
+            local CLI.
           </p>
         </Reveal>
 

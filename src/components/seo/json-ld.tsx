@@ -73,7 +73,8 @@ export function JsonLd() {
         description: SITE.description,
         softwareVersion: SITE.version,
         featureList: [
-          "AI Runtime for Kubernetes — observe, reason, plan, execute, learn",
+          "AI Runtime for Kubernetes — intent → understand → reason → act",
+          "Context-aware operate, investigate, and recommend — not command generation alone",
           "Natural language intent → reviewable PlanResult",
           "Reason → Plan → Validate → Approve → Execute",
           "BYOK LLM providers (OpenAI, Anthropic, Gemini, Groq, xAI/Grok, Moonshot/Kimi, Ollama)",

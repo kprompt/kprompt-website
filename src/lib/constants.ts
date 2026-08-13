@@ -15,7 +15,7 @@ export const SITE = {
   url: LIVE_ORIGIN,
   tagline: "The AI Runtime for Kubernetes",
   description:
-    "AI SRE for Kubernetes — investigate, why, timeline, and impact on demand; optional Observe agent always on. Plan safe actions, apply only with approval. Open-source CLI. Experimental.",
+    "AI-powered runtime that understands your Kubernetes environment — turn intent into context-aware operations, investigations, and recommendations. Plan before apply. Open-source CLI. Experimental.",
   github: "https://github.com/kprompt/kprompt",
   /** Product account on X. */
   twitter: "https://x.com/kpromptai",

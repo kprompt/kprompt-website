@@ -12,10 +12,40 @@ export type FaqEntry = {
 
 export const FAQ: FaqEntry[] = [
   {
-    question: "What is kprompt?",
+    question: "What is an AI Runtime for Kubernetes?",
     answer:
-      "kprompt is the AI Runtime for Kubernetes: a reasoning layer that observes your cluster, plans safe actions, and executes only after approval. The open-source CLI compiles natural language into a reviewable PlanResult; the optional Observe agent watches a namespace and notifies without mutating. It is not a ChatGPT wrapper, a workflow engine, or a silent auto-healer.",
+      "kprompt is an AI-powered runtime that understands your Kubernetes environment and turns intent into context-aware operations, investigations, and recommendations. You describe the outcome; it gathers relevant cluster context, reasons about what matters, and produces a reviewable PlanResult before any mutation. It is not a ChatGPT wrapper, a kubectl command generator, a monitoring-only AIOps dashboard, or a silent auto-healer.",
     more: { label: "Architecture", href: "/docs/architecture" },
+  },
+  {
+    question: "Is kprompt only for incidents and AI SRE?",
+    answer:
+      "No. Investigation (investigate / why / timeline / impact) and the optional Observe agent are one capability lane. The same runtime also covers day-2 operate (deploy, scale, rollback), explain/read, optimize and audit reports, dependency graphs, and multi-tool routes — always under plan → approve for mutations.",
+    more: { label: "Overview", href: "/docs" },
+  },
+  {
+    question: "Why would an experienced Kubernetes engineer use it?",
+    answer:
+      "You already know kubectl, PDBs, HPA, and failure modes. What still hurts at scale is gathering and correlating context across workloads, dependencies, events, metrics, and risks. kprompt augments that expertise by reducing manual correlation — it does not pretend to replace it.",
+    more: {
+      label: "Beyond AI kubectl",
+      href: "/blog/ai-sre-not-ai-kubectl",
+    },
+  },
+  {
+    question: "How is kprompt different from a chatbot, CLI wrapper, or dashboard?",
+    answer:
+      "A chatbot answers how-to docs; kprompt reasons about your live cluster. A CLI wrapper translates English into kubectl; kprompt understands environment state before proposing a PlanResult. A dashboard shows isolated signals; kprompt connects related evidence when signals are available. Same word “AI,” different contract.",
+    more: {
+      label: "Kubernetes AI tools compared",
+      href: "/blog/kubernetes-ai-tools-comparison",
+    },
+  },
+  {
+    question: "Do I need Prometheus, Loki, or OpenTelemetry?",
+    answer:
+      "No for core Kubernetes operate and many reads. When Prom, OTel, Grafana, or similar backends are configured, they enrich understanding (perf explain, optional graph edges, dashboards). Missing backends degrade honestly — kprompt does not invent metrics or claim per-database product connectors.",
+    more: { label: "Integrations", href: "/docs/integrations" },
   },
   {
     question: "Does kprompt apply changes to my cluster automatically?",
@@ -24,18 +54,9 @@ export const FAQ: FaqEntry[] = [
     more: { label: "Safety model", href: "/docs/safety" },
   },
   {
-    question: "How is kprompt different from other Kubernetes AI tools?",
-    answer:
-      "Most peers optimize for one job: K8sGPT diagnoses, kubectl-ai is an NL kubectl REPL, Kagent/ARK host agents on the cluster. kprompt is a plan-before-apply ops CLI — reviewable PlanResult, hard denies, CI JSON — plus optional Observe. Same word “AI,” different contract.",
-    more: {
-      label: "Kubernetes AI tools compared",
-      href: "/blog/kubernetes-ai-tools-comparison",
-    },
-  },
-  {
     question: "Should I replace kubectl or K9s with kprompt?",
     answer:
-      "No. kubectl remains the precise API client and scripting language; K9s remains the best live terminal UI for watching rollouts and hopping between Pods. kprompt sits beside them when the bottleneck is reasoning about intent — not exact flags or a resource browser.",
+      "No. kubectl remains the precise API client and scripting language; K9s remains the best live terminal UI for watching rollouts and hopping between Pods. kprompt sits beside them when the bottleneck is correlating intent and cluster context — not exact flags or a resource browser.",
     more: {
       label: "kubectl vs K9s",
       href: "/blog/kubectl-vs-k9s",

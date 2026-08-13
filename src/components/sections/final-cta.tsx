@@ -19,17 +19,12 @@ export function FinalCta() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
-            See it on a broken kind cluster first
+            Run the runtime where your cluster is
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Install the CLI, run{" "}
-            <span className="font-mono text-sm text-foreground">
-              make walkthrough
-            </span>
-            , watch Observe correlate real failures — $0, no provider key. Prefer
-            local Ollama for natural-language plans, or your own cloud key (BYOK)
-            when you want it. Prefer non-production —{" "}
-            {SITE.maturityLabel.toLowerCase()} software.
+            Install the CLI, try a zero-LLM kind walkthrough, then operate,
+            investigate, and improve with plan-before-apply. Prefer
+            non-production first — {SITE.maturityLabel.toLowerCase()} software.
           </p>
 
           <CopyCommand className="mx-auto mt-8 w-full max-w-xl text-left" size="lg" />

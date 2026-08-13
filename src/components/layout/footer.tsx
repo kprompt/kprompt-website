@@ -117,7 +117,9 @@ export function Footer() {
           <div className="max-w-sm shrink-0">
             <Logo size={28} />
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {SITE.tagline}. Open-source CLI for operators — plan before apply.
+              {SITE.tagline} — understand your cluster, operate with intent,
+              investigate and improve. Open-source CLI for operators; plan
+              before apply.
             </p>
             <p className="mt-3 text-xs leading-relaxed text-muted-foreground/90">
               <span className="font-medium text-foreground/80">

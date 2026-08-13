@@ -143,14 +143,15 @@ export function AiSre() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <p className="font-mono text-xs uppercase tracking-wider text-brand">
-            AI SRE agent
+            Investigation
           </p>
           <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            AI SRE for your cluster
+            Investigate when something breaks
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Investigate → why → timeline → impact. Propose a fix only after you
-            approve — never silent auto-heal.
+            One runtime capability among many: investigate → why → timeline →
+            impact. Propose a fix only after you approve — never silent
+            auto-heal.
           </p>
         </Reveal>
 

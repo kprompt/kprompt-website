@@ -24,14 +24,16 @@ export function Hero() {
             <span className="text-brand">{SITE.maturityLabel}</span>
             <span className="mx-2 text-border">·</span>
             Plan before apply
+            <span className="mx-2 text-border">·</span>
+            {SITE.tagline}
           </p>
           <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl md:leading-[1.05]">
-            The AI Runtime for Kubernetes
+            Tell Kubernetes what to do.
           </h1>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            AI SRE that observes, investigates, and plans — apply only after
-            your yes. Wipe jokes hard-deny; start with a zero-LLM walkthrough on
-            kind.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            KPrompt is an AI-powered runtime that understands your Kubernetes
+            environment — turning intent into context-aware operations,
+            investigations, and recommendations. Apply only after your yes.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -88,7 +90,7 @@ export function Hero() {
             />
           </div>
           <p className="mx-auto mt-3 max-w-3xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
-            Deny the wipe · review the plan · nothing applies without you
+            Deny the wipe · scale with a plan · nothing applies without you
           </p>
         </div>
       </div>

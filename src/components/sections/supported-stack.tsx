@@ -239,9 +239,9 @@ export function SupportedStack() {
       className="relative border-y border-border bg-muted/35 py-10 sm:py-12"
     >
       <RowIntro
-        kicker="Integrations"
-        title="Works with the stack you already run"
-        description="Helm, Argo, Prometheus, GitOps — orchestrated, not replaced."
+        kicker="Signals &amp; stack"
+        title="Connect the dots — not fifty connectors"
+        description="Kubernetes plus the logs, metrics, and traces you already run enrich the runtime. Orchestrated, not replaced. No bespoke Redis/MySQL product connectors."
         href="/docs/integrations"
         linkLabel="Docs"
       />

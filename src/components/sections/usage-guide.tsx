@@ -22,8 +22,8 @@ const STEPS = [
   },
   {
     n: "03",
-    title: "Prompt",
-    command: 'kprompt "list deployments"',
+    title: "Intent",
+    command: 'kprompt "scale api to 3"',
   },
 ] as const;
 
@@ -36,11 +36,11 @@ export function UsageGuide() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            From zero to first prompt
+            From zero to first intent
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Three moves. Full PATH, config, providers, and error playbooks are
-            in Quickstart.
+            Install, add a key (or Ollama), then tell the runtime what you want.
+            Full PATH, providers, and playbooks are in Quickstart.
           </p>
           <ExperimentalNotice className="mt-5" />
         </Reveal>

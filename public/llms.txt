@@ -2,7 +2,7 @@
 # Guidance for AI assistants and crawlers about kprompt.
 # Full docs dump: https://kprompt.ai/llms-full.txt
 
-> kprompt is The AI Runtime for Kubernetes: observe → reason → plan → validate → approve → execute → learn. Open-source CLI compiles natural language into a reviewable PlanResult; optional Observe agent for always-on namespace alerts. Apache-2.0. Experimental. Local kubeconfig + BYOK — no cluster credentials uploaded by default. Never silent auto-heal.
+> kprompt is The AI Runtime for Kubernetes: an AI-powered runtime that understands your cluster and turns intent into context-aware operations, investigations, and recommendations. Open-source CLI → reviewable PlanResult → approve before apply. Investigation/AI SRE is one capability lane — not the whole product. Optional Observe agent. Apache-2.0. Experimental. Local kubeconfig + BYOK. Never silent auto-heal.
 
 ## Product
 - Site: https://kprompt.ai
@@ -32,7 +32,11 @@
 - Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.11.0
 
 ## Positioning (honest)
-- Category: AI Runtime for Kubernetes — not a ChatGPT wrapper, not a generic workflow engine, not a Kubernetes chatbot.
+- Category: AI Runtime for Kubernetes — plain language: understands your environment; turns intent into operate / investigate / recommend with plan-before-apply.
+- Not a ChatGPT wrapper, kubectl command generator, Kubernetes chatbot, or monitoring-only AIOps product.
+- Experienced engineers are a target: augment expertise by reducing context you must gather manually.
+- Investigation (investigate/why/timeline/impact) and Observe are capabilities — not the entire product.
+- Signals (Prom/OTel/logs) enrich the runtime when present; no bespoke per-database connectors.
 - Not McKinsey ARK (Agentic Runtime): ARK hosts agent apps as CRDs on K8s; kprompt reasons about cluster ops under plan → approve. See https://kprompt.ai/blog/kprompt-vs-ark
 - Not kagent (CNCF agent platform): Agents/MCP/A2A on the cluster vs PlanResult ops CLI + Observe. See https://kprompt.ai/blog/kprompt-vs-kagent
 - MCP tool provider (`kprompt mcp serve`): editor assistants (Cursor, Claude Desktop) call read/plan-only tools; mutations return a PlanResult and never auto-apply. This is IDE interop, not an MCP/A2A agent platform (that stays kagent's lane).
@@ -42,7 +46,7 @@
 - Autopilot (ADR-0015) is propose-only by default — never silent apply.
 - Shipped v0.11.0: `kprompt mcp serve` (read/plan-only IDE interop), Azure OpenAI preset, DaemonSet `--wait`.
 - Shipped v0.10.0 (AI Runtime closure, ADR-0023): closed Learn loop, policy-gated Autopilot apply, continuous Coordinator (proactive tick + opt-in mesh/OTel blast-radius + durable outcome ring), topology Knowledge Graph edges, Incident→PlanResult bridge, durable cluster memory — default stays propose-only.
-- Building / next: deeper multi-agent reasoning, Secret-value/external-API Knowledge Graph + topology UI, sandbox/chaos Simulation — do not claim as shipped.
+- Building / next: deeper multi-agent reasoning, Secret-value/external-API Knowledge Graph + topology UI, sandbox/chaos Simulation, richer reliability-practice scanners beyond optimize/audit/score MVP — do not claim as shipped.
 - Long-term direction: continuous reasoning under the same approval DNA — see roadmap.
 
 ## High-signal articles

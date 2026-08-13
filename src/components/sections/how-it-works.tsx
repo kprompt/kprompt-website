@@ -11,32 +11,33 @@ const STEPS = [
     step: "01",
     title: "Intent",
     description:
-      "Describe the goal in plain English — or let an agent observe continuously. You are not writing workflows.",
+      "State the outcome — scale a workload, ask why something is failing, or analyze the cluster. You are not writing kubectl.",
   },
   {
     step: "02",
-    title: "Plan",
+    title: "Understand",
     description:
-      "Planning engine maps intent to a concrete execution graph with diffs and risk.",
+      "KPrompt reads Kubernetes state, relationships, events, and available signals (logs, metrics, traces) in context.",
   },
   {
     step: "03",
-    title: "Validate",
+    title: "Reason",
     description:
-      "Policy and safety hard-denies run before anything touches the cluster.",
+      "It decides what matters, what is related, what looks abnormal, and what is worth investigating or improving.",
   },
   {
     step: "04",
-    title: "Approve",
+    title: "Act / recommend",
     description:
-      "Sensitive operations need TTY y/N or --approve. Trust is the product.",
+      "Execute operations, investigate problems, explain findings, or surface risks — with a reviewable plan before apply.",
   },
-  {
-    step: "05",
-    title: "Execute",
-    description:
-      "Apply against live Kubernetes. Then observe outcomes and learn.",
-  },
+] as const;
+
+const FLOW = [
+  "Human intent",
+  "KPrompt runtime",
+  "Kubernetes",
+  "Workloads · deps · signals",
 ] as const;
 
 export function HowItWorks() {
@@ -49,13 +50,34 @@ export function HowItWorks() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
-          <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            How it works
+          <p className="font-mono text-xs uppercase tracking-wider text-brand">
+            Runtime story
+          </p>
+          <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+            Understand. Investigate. Change. Improve.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Reason before act. Plan before apply. Never silent mutate by
-            default.
+            An intelligent runtime between your intent and the cluster — not a
+            chatbot that emits kubectl, and not a monitoring dashboard.
           </p>
+        </Reveal>
+
+        <Reveal delay={0.06} className="mt-10">
+          <ol className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
+            {FLOW.map((label, i) => (
+              <li key={label} className="flex items-center gap-2">
+                <span className="font-mono text-xs text-foreground/90 sm:text-sm">
+                  {label}
+                </span>
+                {i < FLOW.length - 1 && (
+                  <ArrowDown
+                    className="size-3.5 shrink-0 text-muted-foreground/50 sm:-rotate-90"
+                    aria-hidden
+                  />
+                )}
+              </li>
+            ))}
+          </ol>
         </Reveal>
 
         <div className="mt-12 flex flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-2">
@@ -81,7 +103,7 @@ export function HowItWorks() {
                   className="flex items-center justify-center py-2 text-muted-foreground/60 lg:px-0.5 lg:py-0"
                   aria-hidden
                 >
-                  <ArrowDown className="size-4 lg:rotate-[-90deg]" />
+                  <ArrowDown className="size-4 lg:-rotate-90" />
                 </div>
               )}
             </div>
