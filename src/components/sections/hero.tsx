@@ -1,9 +1,13 @@
+"use client";
+
 import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { AnimatedTerminal } from "@/components/ui/animated-terminal";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
 import { GithubIcon } from "@/components/ui/github-icon";
 import { LazyDemoVideo } from "@/components/ui/lazy-demo-video";
 import { Logo } from "@/components/ui/logo";
+import { HERO_RUNTIME_DEMOS } from "@/lib/demo-commands";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -79,9 +83,21 @@ export function Hero() {
         </div>
 
         <div className="mt-14 sm:mt-16">
-          <div className="mx-auto max-w-3xl overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm terminal-glow">
+          <AnimatedTerminal
+            demos={HERO_RUNTIME_DEMOS}
+            className="mx-auto max-w-3xl"
+          />
+          <p className="mx-auto mt-3 max-w-3xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
+            Operate · investigate · analyze — review the plan before apply
+          </p>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-2xl">
+          <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            Safety
+          </p>
+          <div className="mt-3 overflow-hidden rounded-xl border border-navy/20 bg-navy shadow-sm">
             <LazyDemoVideo
-              eager
               webm={SITE.planDenyWebm}
               mp4={SITE.planDenyMp4}
               poster={SITE.planDenyPoster}
@@ -89,8 +105,8 @@ export function Hero() {
               transcript="Wipe prompt hard-denied. Scale plan shown with Apply this plan? y/N — nothing applies without approval."
             />
           </div>
-          <p className="mx-auto mt-3 max-w-3xl text-center font-mono text-xs text-muted-foreground sm:text-sm">
-            Deny the wipe · scale with a plan · nothing applies without you
+          <p className="mt-2 text-center font-mono text-[11px] text-muted-foreground sm:text-xs">
+            Wipe jokes hard-deny · nothing mutates without you
           </p>
         </div>
       </div>

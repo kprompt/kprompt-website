@@ -7,37 +7,21 @@ const USE_CASES = [
     lane: "Operate",
     prompt: 'kprompt "scale checkout-api to 10"',
     note: "Intent → plan → approve → apply",
-    shipped: true,
   },
   {
     lane: "Investigate",
     prompt: "kprompt why checkout-api",
     note: "Evidence-backed findings, not chat guesses",
-    shipped: true,
-  },
-  {
-    lane: "Understand",
-    prompt: 'kprompt "explain what\'s running in payments"',
-    note: "Cluster state and relationships in context",
-    shipped: true,
   },
   {
     lane: "Analyze",
     prompt: 'kprompt "optimize my cluster"',
     note: "Inventory, idle, rightsizing, HPA hints",
-    shipped: true,
-  },
-  {
-    lane: "Improve",
-    prompt: 'kprompt "audit my cluster"',
-    note: "Security and hygiene findings before you harden further",
-    shipped: true,
   },
   {
     lane: "Recommend",
     prompt: 'kprompt "scorecard for the cluster"',
     note: "MVP rollup from audit + optimize — not a full reliability scanner",
-    shipped: true,
     caveat: true,
   },
 ] as const;
@@ -55,7 +39,7 @@ export function UseCases() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             Investigation is a capability — not the whole product. Operate,
-            understand, analyze, and improve with the same approval DNA.
+            analyze, and recommend with the same approval DNA.
           </p>
         </Reveal>
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { HERO_DEMOS, type DemoCommand } from "@/lib/demo-commands";
+import { HERO_RUNTIME_DEMOS, type DemoCommand } from "@/lib/demo-commands";
 
 type AnimatedTerminalProps = {
   demos?: DemoCommand[];
@@ -12,7 +12,7 @@ type AnimatedTerminalProps = {
 };
 
 export function AnimatedTerminal({
-  demos = HERO_DEMOS,
+  demos = HERO_RUNTIME_DEMOS,
   className,
   fixed,
 }: AnimatedTerminalProps) {
@@ -86,7 +86,7 @@ export function AnimatedTerminal({
   useEffect(() => {
     if (phase !== "hold" || fixed || reduced) return;
 
-    const holdMs = isOpener || current.id === "scale-plan" ? 4200 : 2800;
+    const holdMs = isOpener || current.id === "scale-checkout" ? 4200 : 2800;
     const hold = window.setTimeout(() => {
       setIndex((v) => (v + 1) % demos.length);
     }, holdMs);
