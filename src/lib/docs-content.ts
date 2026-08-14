@@ -2150,7 +2150,7 @@ kprompt "scale api to 3"`,
       },
       {
         type: "p",
-        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. Groq, xAI (Grok), Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, and Together all speak the OpenAI-compatible API.",
+        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. Groq, xAI (Grok), Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, Together, and Fireworks all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…).",
       },
       {
         type: "h2",
