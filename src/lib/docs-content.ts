@@ -2105,6 +2105,12 @@ kprompt "scale api to 3"`,
             "grok-4.5",
           ],
           [
+            "Cerebras",
+            "cerebras",
+            "KPROMPT_CEREBRAS_API_KEY / CEREBRAS_API_KEY",
+            "gpt-oss-120b",
+          ],
+          [
             "Mistral",
             "mistral",
             "KPROMPT_MISTRAL_API_KEY / MISTRAL_API_KEY",
@@ -2141,6 +2147,12 @@ kprompt "scale api to 3"`,
             "accounts/fireworks/models/llama-v3p3-70b-instruct",
           ],
           [
+            "Azure OpenAI",
+            "azure",
+            "KPROMPT_AZURE_API_KEY / AZURE_OPENAI_API_KEY / KPROMPT_OPENAI_API_KEY",
+            "deployment name (requires base_url)",
+          ],
+          [
             "OpenAI-compatible",
             "openai-compatible",
             "KPROMPT_OPENAI_API_KEY",
@@ -2150,7 +2162,7 @@ kprompt "scale api to 3"`,
       },
       {
         type: "p",
-        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. Groq, xAI (Grok), Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, Together, and Fireworks all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…).",
+        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. Groq, xAI (Grok), Cerebras, Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, Together, and Fireworks all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…). Azure OpenAI uses the named azure preset with a resource base_url; --model is your deployment name.",
       },
       {
         type: "h2",
@@ -2234,13 +2246,18 @@ kprompt --provider moonshot "explain why api is crashlooping"`,
       },
       {
         type: "p",
-        text: "Anything that exposes an OpenAI-compatible endpoint works through the openai-compatible provider plus a base URL. That covers Azure OpenAI, an internal LLM gateway, or a proxy that adds logging and rate limits.",
+        text: "Azure OpenAI has a named azure preset (still OpenAI-compatible under the hood). Set the resource URL as base_url; --model is the deployment name you created in the portal — not an OpenAI model id. Generic gateways keep using openai-compatible.",
       },
       {
         type: "code",
-        code: `export KPROMPT_OPENAI_API_KEY=...
+        code: `export KPROMPT_AZURE_API_KEY=...
 export KPROMPT_OPENAI_BASE_URL=https://YOUR_RESOURCE.openai.azure.com/openai/v1
-kprompt --provider openai-compatible --model gpt-4o "list services"`,
+kprompt --provider azure --model my-gpt4o-deploy "list services"
+
+# or any OpenAI-compatible gateway
+export KPROMPT_OPENAI_API_KEY=...
+export KPROMPT_OPENAI_BASE_URL=https://gateway.example/v1
+kprompt --provider openai-compatible --model gpt-4o-mini "list services"`,
       },
       {
         type: "h2",
