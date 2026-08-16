@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 const BILLING = {
   title: "Pricing",
   description:
-    "The kprompt CLI is free forever — open source, no seat limits, no credit card. Bring your own LLM key, run locally, own your data. Optional Team plan for shared clusters.",
+    "The kprompt CLI is free forever — open source, no seat limits, no credit card. Bring your own LLM key, run locally, own your data. The optional Team console is free for now while early.",
 } as const;
 
 export const metadata: Metadata = {
@@ -75,10 +75,12 @@ const TIERS: Tier[] = [
   },
   {
     name: "Team",
-    price: "Custom",
-    tagline: "Shared clusters, shared history, shared guardrails.",
+    price: "$0",
+    cadence: "free for now",
+    tagline: "Shared clusters, shared history, shared guardrails — early access, nothing to buy today.",
     features: TEAM_FEATURES,
-    cta: { label: "Talk to us", href: `mailto:${SITE.email}`, external: true },
+    cta: { label: "Open Team console", href: SITE.app, external: true },
+    badge: "Free for now",
   },
 ];
 
@@ -97,7 +99,7 @@ const FAQ = [
   },
   {
     q: "What is the Team plan for?",
-    a: "The optional Team console adds shared run history, audit trails, and role-based approvals for organizations. The CLI stays free regardless.",
+    a: "The optional Team console at app.kprompt.ai adds shared run history, audit trails, and role-based approvals for organizations. It is free for now while early — there is nothing to buy as a public signup product today. The CLI stays free forever regardless.",
   },
 ] as const;
 

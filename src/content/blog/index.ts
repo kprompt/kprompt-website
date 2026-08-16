@@ -1,4 +1,11 @@
 import type { BlogPost } from "@/lib/blog-types";
+import aiRuntimeVsAiGatewayVsAgentPlatform from "./ai-runtime-vs-ai-gateway-vs-agent-platform";
+import kpromptOnAzureAks from "./kprompt-on-azure-aks";
+import agentgatewayAlternatives from "./agentgateway-alternatives";
+import kpromptVsAgentgateway from "./kprompt-vs-agentgateway";
+import kagentAlternatives from "./kagent-alternatives";
+import kpromptOnAwsEks from "./kprompt-on-aws-eks";
+import kpromptOnGoogleCloudGke from "./kprompt-on-google-cloud-gke";
 import kubernetesLabelsAndSelectorsExplained from "./kubernetes-labels-and-selectors-explained";
 import brownfieldKpromptIn15Minutes from "./brownfield-kprompt-in-15-minutes";
 import kpromptMcpToolProvider from "./kprompt-mcp-tool-provider";
@@ -64,8 +71,15 @@ import kubernetesNamespacesExplained from "./kubernetes-namespaces-explained";
 
 /** All blog posts in source order (newest-first convention in tree). */
 export const BLOG_POSTS: BlogPost[] = [
+  aiRuntimeVsAiGatewayVsAgentPlatform,
   observeVsInvestigate,
   observeAgentAlertFatigue,
+  kpromptOnAzureAks,
+  agentgatewayAlternatives,
+  kpromptVsAgentgateway,
+  kagentAlternatives,
+  kpromptOnAwsEks,
+  kpromptOnGoogleCloudGke,
   kubernetesLabelsAndSelectorsExplained,
   brownfieldKpromptIn15Minutes,
   kpromptMcpToolProvider,

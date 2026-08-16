@@ -1,13 +1,24 @@
 import Link from "next/link";
-import { GithubIcon } from "@/components/ui/github-icon";
+import { Mail, Users } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 import { Logo } from "@/components/ui/logo";
 import { RunningMascot } from "@/components/ui/running-mascot";
+import {
+  GithubIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  XIcon,
+  YouTubeIcon,
+} from "@/components/ui/social-icons";
 import { SITE } from "@/lib/constants";
+
+type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { className?: string }>;
 
 type FooterLink = {
   href: string;
   label: string;
   external?: boolean;
+  icon?: IconComponent;
 };
 
 type FooterColumn = {
@@ -74,16 +85,52 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Community",
     links: [
-      { href: "/team", label: "Team" },
-      { href: SITE.github, label: "GitHub", external: true },
-      { href: SITE.twitter, label: `X ${SITE.twitterHandle}`, external: true },
-      { href: SITE.linkedin, label: "LinkedIn", external: true },
-      { href: SITE.youtube, label: "YouTube", external: true },
-      { href: SITE.instagram, label: "Instagram", external: true },
-      { href: `mailto:${SITE.email}`, label: "Contact", external: true },
+      { href: "/team", label: "Team", icon: Users },
+      { href: SITE.github, label: "GitHub", external: true, icon: GithubIcon },
+      {
+        href: SITE.twitter,
+        label: `X ${SITE.twitterHandle}`,
+        external: true,
+        icon: XIcon,
+      },
+      {
+        href: SITE.linkedin,
+        label: "LinkedIn",
+        external: true,
+        icon: LinkedInIcon,
+      },
+      {
+        href: SITE.youtube,
+        label: "YouTube",
+        external: true,
+        icon: YouTubeIcon,
+      },
+      {
+        href: SITE.instagram,
+        label: "Instagram",
+        external: true,
+        icon: InstagramIcon,
+      },
+      {
+        href: `mailto:${SITE.email}`,
+        label: "Contact",
+        external: true,
+        icon: Mail,
+      },
     ],
   },
 ];
+
+function LinkLabel({ link }: { link: FooterLink }) {
+  if (!link.icon) return <>{link.label}</>;
+  const Icon = link.icon;
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <Icon className="size-3.5 shrink-0" />
+      {link.label}
+    </span>
+  );
+}
 
 function FooterNavLink({
   link,
@@ -106,21 +153,14 @@ function FooterNavLink({
           ? {}
           : { target: "_blank", rel: "noopener noreferrer" })}
       >
-        {link.label === "GitHub" ? (
-          <span className="inline-flex items-center gap-1.5">
-            <GithubIcon className="size-3.5" />
-            GitHub
-          </span>
-        ) : (
-          link.label
-        )}
+        <LinkLabel link={link} />
       </a>
     );
   }
 
   return (
     <Link href={link.href} className={className} aria-label={ariaLabel}>
-      {link.label}
+      <LinkLabel link={link} />
     </Link>
   );
 }
