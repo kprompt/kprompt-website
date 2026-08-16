@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rasterize CLI social-preview.svg → OG / social-preview PNGs.
+"""Rasterize social-preview.svg + x-banner.svg → OG / social / org banner PNGs.
 
 Run from this directory after `python3 -m venv .venv && .venv/bin/pip install playwright
 && .venv/bin/playwright install chromium`:
@@ -16,12 +16,15 @@ from playwright.async_api import async_playwright
 
 HERE = Path(__file__).resolve().parent
 REPOS = HERE.parents[2]  # …/github/kprompt
-SVG = REPOS / "kprompt/.github/assets/social-preview.svg"
+OG_SVG = REPOS / "kprompt/.github/assets/social-preview.svg"
+BANNER_SVG = HERE / "x-banner.svg"
 
 TARGETS = [
-    (REPOS / "kprompt/.github/assets/social-preview.png", 1280, 640),
-    (REPOS / "kprompt-website/public/og.png", 1200, 630),
-    (REPOS / "kprompt-github/profile/assets/og.png", 1200, 630),
+    (OG_SVG, REPOS / "kprompt/.github/assets/social-preview.png", 1280, 640),
+    (OG_SVG, REPOS / "kprompt-website/public/og.png", 1200, 630),
+    (OG_SVG, REPOS / "kprompt-github/profile/assets/og.png", 1200, 630),
+    (BANNER_SVG, HERE / "x-banner.png", 1500, 500),
+    (BANNER_SVG, REPOS / "kprompt-github/profile/assets/banner.png", 1500, 500),
 ]
 
 
@@ -38,17 +41,21 @@ async def rasterize(svg_text: str, out: Path, width: int, height: int) -> None:
         )
         await page.set_content(html, wait_until="load")
         await page.wait_for_timeout(150)
+        out.parent.mkdir(parents=True, exist_ok=True)
         await page.screenshot(path=str(out), type="png")
         await browser.close()
     print(f"Wrote {out} ({out.stat().st_size // 1024} KB)", flush=True)
 
 
 async def main() -> None:
-    svg = SVG.read_text()
-    if svg.startswith("<?xml"):
-        svg = svg.split("?>", 1)[1].strip()
-    for out, w, h in TARGETS:
-        await rasterize(svg, out, w, h)
+    cache: dict[Path, str] = {}
+    for svg_path, out, w, h in TARGETS:
+        if svg_path not in cache:
+            svg = svg_path.read_text(encoding="utf-8")
+            if svg.startswith("<?xml"):
+                svg = svg.split("?>", 1)[1].strip()
+            cache[svg_path] = svg
+        await rasterize(cache[svg_path], out, w, h)
 
 
 if __name__ == "__main__":

@@ -32,5 +32,5 @@
   <text class="mono" x="448" y="340" style="font-size:22px" xml:space="preserve"><tspan fill="#60a5fa" style="font-weight:700">Risk:</tspan><tspan fill="#f1fa8c"> medium</tspan><tspan fill="#94a3b8">  ·  Apply this plan? [y/N]: </tspan><tspan fill="#50fa7b">█</tspan></text>
 
   <text class="sans" x="1410" y="460" text-anchor="end" fill="#bfdbfe" style="font-size:22px">kprompt.ai</text>
-  <text class="sans" x="420" y="460" fill="#64748b" style="font-size:18px">Apache-2.0 · Experimental</text>
+  <text class="sans" x="420" y="460" fill="#64748b" style="font-size:18px">Apache-2.0 · Go</text>
 </svg>

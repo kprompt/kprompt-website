@@ -7,7 +7,7 @@ const LOGO_ASPECT = 141 / 160;
 const LOGO_FILE = "kprompt-logo.png";
 
 /** Bump when OG artwork changes so social crawlers fetch a fresh image URL. */
-export const OG_IMAGE_CACHE_BUST = "2";
+export const OG_IMAGE_CACHE_BUST = "3";
 
 export function withOgCacheBust(url: string): string {
   const sep = url.includes("?") ? "&" : "?";
