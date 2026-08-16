@@ -14,6 +14,16 @@ const CONTRASTS = [
     us: "Understand environment state first, then propose a reviewable PlanResult before anything applies.",
   },
   {
+    category: "In-cluster agent platform (e.g. kagent)",
+    them: "Agents as CRDs · MCP · A2A · GitOps agent product",
+    us: "PlanResult ops CLI + optional Observe notify — not a multi-agent control plane. Keep kagent when agents are the product.",
+  },
+  {
+    category: "AI / MCP gateway (e.g. agentgateway)",
+    them: "LLM · MCP · A2A traffic policy on Gateway API",
+    us: "Ops compiler at the keyboard — not a data-plane proxy. Keep agentgateway when every agent hop needs a governed edge.",
+  },
+  {
     category: "Traditional observability",
     them: "“CPU: 94%”",
     us: "Connect symptoms with related workloads, dependencies, and signals when they are available — not a single chart.",

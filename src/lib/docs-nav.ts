@@ -16,9 +16,10 @@ export const DOCS_NAV_SECTIONS: DocsNavSection[] = [
       { href: "/docs", label: "Overview" },
       { href: "/docs/install", label: "Install" },
       { href: "/docs/quickstart", label: "Quickstart" },
+      { href: "/docs/demo", label: "Demo ($0 Observe)" },
+      { href: "/docs/agent", label: "Observe agent" },
       { href: "/docs/adopt", label: "Adopt (15 min)" },
       { href: "/docs/init", label: "Init" },
-      { href: "/docs/demo", label: "Demo" },
     ],
   },
   {
@@ -45,7 +46,6 @@ export const DOCS_NAV_SECTIONS: DocsNavSection[] = [
     title: "Platform",
     items: [
       { href: "/docs/architecture", label: "Architecture" },
-      { href: "/docs/agent", label: "Observe agent" },
       { href: "/docs/team", label: "Team" },
       { href: "/docs/runs", label: "App runs" },
       { href: "/docs/roadmap", label: "Roadmap" },

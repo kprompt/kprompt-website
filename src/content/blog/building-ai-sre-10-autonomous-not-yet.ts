@@ -164,9 +164,10 @@ kprompt agent autopilot apply-proposal --file proposal.json --approve --policy .
       {
         type: "ul",
         items: [
-          "Shipped: plan → safety → approve → apply; Observe; Autopilot propose + gated apply; Investigation / timeline / impact / graph MVP",
+          "Shipped: plan → safety → approve → apply; Observe; Autopilot propose + gated apply; Investigation / timeline / impact / graph",
+          "Shipped (v0.10 Runtime closure): closed Learn · Incident→PlanResult · continuous Coordinator · topology KG · durable cluster memory",
           "Shipped: reality anchors docs; memory evidence-not-proof; soft-agree confidence caps",
-          "Building: richer verify, topology UI, deeper Prom/OTel/mesh hops",
+          "Building: richer verify depth; Team topology UI; deeper Prom/OTel/mesh hops; sandbox/chaos Simulation",
           "Refuse: silent apply as default; “1000 agents” fleets; memory/graph as sole proof; model-waived hard denies",
         ],
       },

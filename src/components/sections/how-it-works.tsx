@@ -58,7 +58,15 @@ export function HowItWorks() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             An intelligent runtime between your intent and the cluster — not a
-            chatbot that emits kubectl, and not a monitoring dashboard.
+            chatbot that emits kubectl, and not a monitoring dashboard. Pair the
+            reactive CLI with an optional{" "}
+            <a
+              href="#agent"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              Observe agent
+            </a>{" "}
+            when you want always-on watch in a namespace.
           </p>
         </Reveal>
 
@@ -110,12 +118,19 @@ export function HowItWorks() {
           ))}
         </div>
 
-        <Reveal delay={0.2} className="mt-10">
+        <Reveal delay={0.2} className="mt-10 flex flex-wrap gap-3">
           <Link
             href="/docs/architecture"
             className={cn(buttonVariants({ variant: "outline" }), "inline-flex")}
           >
             Architecture
+            <ArrowRight className="size-4" />
+          </Link>
+          <Link
+            href="/docs/agent"
+            className={cn(buttonVariants({ variant: "ghost" }), "inline-flex")}
+          >
+            Observe agent
             <ArrowRight className="size-4" />
           </Link>
         </Reveal>

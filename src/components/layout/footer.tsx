@@ -21,6 +21,8 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     links: [
       { href: "/", label: "Home" },
       { href: SITE.getStarted, label: SITE.ctaPrimary },
+      { href: "/docs/agent", label: "Observe agent" },
+      { href: "/docs/demo", label: "Demo ($0 Observe)" },
       { href: "/docs/install", label: "Install" },
       { href: "/billing", label: "Pricing" },
       { href: "/docs", label: "Docs" },
@@ -31,6 +33,21 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Learn",
     links: [
+      {
+        href: "/blog/ai-runtime-vs-ai-gateway-vs-agent-platform",
+        label: "Runtime vs Gateway vs Platform",
+      },
+      { href: "/blog/kprompt-vs-kagent", label: "kprompt vs kagent" },
+      { href: "/blog/kagent-alternatives", label: "kagent alternatives" },
+      {
+        href: "/blog/kprompt-vs-agentgateway",
+        label: "vs agentgateway",
+      },
+      {
+        href: "/blog/agentgateway-alternatives",
+        label: "agentgateway alternatives",
+      },
+      { href: "/blog/kprompt-vs-kubectl-ai", label: "vs kubectl-ai" },
       { href: "/blog/kubectl-vs-k9s", label: "kubectl vs K9s" },
       {
         href: "/blog/kubernetes-pods-vs-deployments",
@@ -117,9 +134,9 @@ export function Footer() {
           <div className="max-w-sm shrink-0">
             <Logo size={28} />
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {SITE.tagline} — understand your cluster, operate with intent,
-              investigate and improve. Open-source CLI for operators; plan
-              before apply.
+              {SITE.tagline} — operate with intent, investigate with evidence,
+              and run an always-on Observe agent. Open-source CLI; plan before
+              apply.
             </p>
             <p className="mt-3 text-xs leading-relaxed text-muted-foreground/90">
               <span className="font-medium text-foreground/80">

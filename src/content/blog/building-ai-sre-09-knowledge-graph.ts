@@ -149,6 +149,7 @@ kprompt "impact of service api" -n production`,
         items: [
           "Shipped: service-graph JSON; Ingress/PVC/volume-ref edges; reverse impact MVP; memory dep hints",
           "Shipped: Secret/ConfigMap name-only mounts; degraded honesty for OTel/mesh gaps",
+          "Shipped (v0.10): topology edges — ExternalName / env-host / EndpointSlice / NetworkPolicy into impact",
           "Building: always-on external APIs / Kafka as first-class nodes; interactive Team /graph UI",
           "Exploring: ADR / docs2src as knowledge nodes (not a second chat brain)",
           "Non-goal: auto-remediation from edges; inventing runtime callers; replacing Prom/mesh/CMDB products",

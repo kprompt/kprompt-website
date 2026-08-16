@@ -204,20 +204,17 @@ k8sgpt analyze --explain
         text: "Kagent is a Kubernetes-native framework for building and running AI agents as cluster resources — controllers, tools, model configs, and a UI/CLI to manage them. It is not a drop-in “type English, fix CrashLoop” product. It is infrastructure for teams that want agents as first-class workloads next to the apps they operate.",
         links: [
           { label: "Kagent", href: "https://github.com/kagent-dev/kagent" },
-        ],
-      },
-      {
-        type: "ul",
-        items: [
-          "Best when you need multi-step, reusable agent workflows in-cluster",
-          "Agents and tools managed as CRDs with familiar kubectl workflows",
-          "Powerful for platform teams building internal AIOps — heavier to adopt",
-          "Credential and blast-radius questions live with whatever ServiceAccount the agent uses",
+          { label: "kagent alternatives", href: "/blog/kagent-alternatives" },
+          { label: "kprompt vs kagent", href: "/blog/kprompt-vs-kagent" },
         ],
       },
       {
         type: "p",
-        text: "Compared with kprompt: Kagent is a general in-cluster agent platform. kprompt’s optional Observe agent is a single, kprompt-native pipeline (watch → Incident → gated Slack/webhook) with Role-scoped RBAC and no Autopilot mutate in V1. Choose Kagent when you need multi-agent CRDs and shared tool runtimes. Choose kprompt Observe when you want threaded alerts with Incident/AgentAlert DNA — and keep the laptop CLI for plan → approve → apply.",
+        text: "Compared with kprompt: Kagent is a general in-cluster agent platform. kprompt’s optional Observe agent is a single, kprompt-native pipeline (watch → Incident → gated Slack/webhook) with Role-scoped RBAC and no Autopilot mutate in V1. Choose Kagent when you need multi-agent CRDs and shared tool runtimes. Choose kprompt Observe when you want threaded alerts with Incident/AgentAlert DNA — and keep the laptop CLI for plan → approve → apply. Searching for a kagent alternative by job? Use the dedicated hub.",
+        links: [
+          { label: "kprompt vs kagent", href: "/blog/kprompt-vs-kagent" },
+          { label: "kagent alternatives", href: "/blog/kagent-alternatives" },
+        ],
       },
       {
         type: "h2",

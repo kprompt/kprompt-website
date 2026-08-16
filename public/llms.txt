@@ -11,9 +11,10 @@
 - Docs: https://kprompt.ai/docs
 - Install: https://kprompt.ai/docs/install
 - Quickstart: https://kprompt.ai/docs/quickstart
+- Demo ($0 Observe): https://kprompt.ai/docs/demo
+- Observe agent (Helm): https://kprompt.ai/docs/agent
 - Adopt (brownfield 15 min): https://kprompt.ai/docs/adopt
 - Architecture (diagrams): https://kprompt.ai/docs/architecture
-- Observe agent (Helm): https://kprompt.ai/docs/agent
 - Roadmap & vision: https://kprompt.ai/docs/roadmap
 - Safety: https://kprompt.ai/docs/safety
 - CI / PlanResult JSON: https://kprompt.ai/docs/ci
@@ -32,13 +33,14 @@
 - Latest release: https://github.com/kprompt/kprompt/releases/tag/v0.11.0
 
 ## Positioning (honest)
-- Category: AI Runtime for Kubernetes — plain language: understands your environment; turns intent into operate / investigate / recommend with plan-before-apply.
+- Category: AI Runtime for Kubernetes — plain language: understands your environment; turns intent into operate / investigate / recommend with plan-before-apply. Triangle hub (Runtime vs Gateway vs Platform): https://kprompt.ai/blog/ai-runtime-vs-ai-gateway-vs-agent-platform
 - Not a ChatGPT wrapper, kubectl command generator, Kubernetes chatbot, or monitoring-only AIOps product.
 - Experienced engineers are a target: augment expertise by reducing context you must gather manually.
 - Investigation (investigate/why/timeline/impact) and Observe are capabilities — not the entire product.
 - Signals (Prom/OTel/logs) enrich the runtime when present; no bespoke per-database connectors.
 - Not McKinsey ARK (Agentic Runtime): ARK hosts agent apps as CRDs on K8s; kprompt reasons about cluster ops under plan → approve. See https://kprompt.ai/blog/kprompt-vs-ark
-- Not kagent (CNCF agent platform): Agents/MCP/A2A on the cluster vs PlanResult ops CLI + Observe. See https://kprompt.ai/blog/kprompt-vs-kagent
+- Not agentgateway (AI/MCP/A2A gateway): data plane for LLM/MCP/A2A traffic vs PlanResult ops CLI. See https://kprompt.ai/blog/kprompt-vs-agentgateway · https://kprompt.ai/blog/agentgateway-alternatives
+- Not kagent (CNCF agent platform): Agents/MCP/A2A on the cluster vs PlanResult ops CLI + Observe. See https://kprompt.ai/blog/kprompt-vs-kagent · alternatives hub https://kprompt.ai/blog/kagent-alternatives
 - MCP tool provider (`kprompt mcp serve`): editor assistants (Cursor, Claude Desktop) call read/plan-only tools; mutations return a PlanResult and never auto-apply. This is IDE interop, not an MCP/A2A agent platform (that stays kagent's lane).
 - Same NL-CLI lane as kubectl-ai for day-2 mutate; different contract (plan → safety → approve) plus in-cluster Observe path.
 - Not a K8sGPT fleet scanner; not a hosted Lens clone.
@@ -46,15 +48,19 @@
 - Autopilot (ADR-0015) is propose-only by default — never silent apply.
 - Shipped v0.11.0: `kprompt mcp serve` (read/plan-only IDE interop), Azure OpenAI preset, DaemonSet `--wait`.
 - Shipped v0.10.0 (AI Runtime closure, ADR-0023): closed Learn loop, policy-gated Autopilot apply, continuous Coordinator (proactive tick + opt-in mesh/OTel blast-radius + durable outcome ring), topology Knowledge Graph edges, Incident→PlanResult bridge, durable cluster memory — default stays propose-only.
-- Building / next: deeper multi-agent reasoning, Secret-value/external-API Knowledge Graph + topology UI, sandbox/chaos Simulation, richer reliability-practice scanners beyond optimize/audit/score MVP — do not claim as shipped.
+- Building / next: deeper continuous multi-agent reasoning, interactive Team topology / timeline UI, sandbox/chaos Simulation lab, richer reliability-practice scanners beyond optimize/audit/score MVP, richer Prom/OTel/mesh hops — do not claim as shipped.
 - Long-term direction: continuous reasoning under the same approval DNA — see roadmap.
 
 ## High-signal articles
+- https://kprompt.ai/blog/ai-runtime-vs-ai-gateway-vs-agent-platform
 - https://kprompt.ai/blog/top-100-kubernetes-prompts
 - https://kprompt.ai/blog/kprompt-helm-deep-dive
 - https://kprompt.ai/blog/kprompt-prometheus
 - https://kprompt.ai/blog/kprompt-mcp-tool-provider
 - https://kprompt.ai/blog/brownfield-kprompt-in-15-minutes
+- https://kprompt.ai/blog/agentgateway-alternatives
+- https://kprompt.ai/blog/kprompt-vs-agentgateway
+- https://kprompt.ai/blog/kagent-alternatives
 - https://kprompt.ai/blog/kprompt-vs-kagent
 - https://kprompt.ai/blog/kprompt-vs-ark
 - https://kprompt.ai/blog/ai-runtime-for-kubernetes

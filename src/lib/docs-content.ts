@@ -51,10 +51,24 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "The AI Runtime for Kubernetes means: you state intent; kprompt understands cluster context; it reasons; then it operates, investigates, or recommends — with a reviewable PlanResult before mutate. Investigation and AI SRE packs are one capability lane, not the whole product. Optional Observe agent watches a namespace and notifies — it does not silently mutate. Natural-language plans use your kubeconfig and your LLM (local Ollama = $0, or BYOK). Fastest first run: zero-LLM kind walkthrough. Already have a cluster? Adopt (15 min) prefers bind-over-install.",
+        text: "The AI Runtime for Kubernetes means: you state intent; kprompt understands cluster context; it reasons; then it operates, investigates, or recommends — with a reviewable PlanResult before mutate. Investigation and AI SRE packs are one capability lane, not the whole product. Natural-language plans use your kubeconfig and your LLM (local Ollama = $0, or BYOK). Fastest first run: zero-LLM kind Observe walkthrough. Already have a cluster? Adopt (15 min) prefers bind-over-install.",
         links: [
           { label: "zero-LLM kind walkthrough", href: "/docs/quickstart" },
+          { label: "Demo ($0 Observe)", href: "/docs/demo" },
           { label: "Adopt (15 min)", href: "/docs/adopt" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Two surfaces — one contract",
+      },
+      {
+        type: "p",
+        text: "Laptop CLI is reactive: you ask, kprompt plans. Optional Observe agent is always-on in a namespace: watch → Incident → gated Slack/webhook — never silent mutate. Same PlanResult DNA if a fix is proposed. Start with Demo, then read Observe agent for Helm.",
+        links: [
+          { label: "Demo ($0 Observe)", href: "/docs/demo" },
+          { label: "Observe agent", href: "/docs/agent" },
+          { label: "Architecture", href: "/docs/architecture" },
         ],
       },
       {
@@ -71,6 +85,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
         items: [
           "AI Runtime for Kubernetes — understands environment context; turns intent into outcomes",
           "Apache-2.0 CLI: Plan → safety → approve → apply loop",
+          "Optional Observe agent (Helm) — namespace watch → Incident → gated Slack/webhook; no mutate",
           "Operate: deploy, scale, rollback, named delete",
           "Understand: get/list, explain, logs, describe, dependency graph",
           "Investigate: investigate / why / timeline / impact (one capability lane)",
@@ -78,7 +93,6 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Helm, Argo Workflows, Prometheus, OpenTelemetry, Grafana (when present)",
           "Tekton, KEDA, Istio (read-first), Crossplane, Flux/Argo CD GitOps",
           "Local history, CI JSON PlanResult, Homebrew install, optional Team login",
-          "Optional Observe agent (Helm) — namespace watch → Incident → gated Slack/webhook; no mutate",
         ],
       },
       {
@@ -92,7 +106,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
           "Not a monitoring-only AIOps dashboard or incident-only product",
           "Not production-hardened or stability-guaranteed",
           "Not Autopilot-by-default — optional agent is Observe; Autopilot MVP is propose-only (ADR-0015)",
-          "Not a Secret-value / external-API Knowledge Graph CMDB — MVP+ includes service graph + Ingress/PVC + Secret/CM name-only mounts + impact + memory deps (docs/graph)",
+          "Not a Secret-value / external-API Knowledge Graph CMDB — topology KG (service + Ingress/PVC + Secret/CM name-only + ExternalName/env-host/EndpointSlice/NetworkPolicy) ships; Secret values stay out (docs/graph)",
           "Not a sandbox / failure-injection Simulation lab — MVP is change preview (plan + blastRadius + impact + Helm dry-run; docs/simulation)",
           "Not a full PDB/topology-spread reliability scanner product — use optimize/audit/score MVP; richer scanners are direction",
           "Not a Kagent-class multi-agent framework or a K8sGPT fleet scanner",
@@ -105,7 +119,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "Where we are headed (Namespace Agents, Coordinator, knowledge graph, trust loops, multi-cluster) is documented honestly on Roadmap & vision — shipped vs building vs exploring. Multi-context CLI docs: Multi-cluster. Observe agent install: Observe agent.",
+        text: "Where we deepen next (richer recipes, drift reports, deeper multi-agent reasoning, sandbox Simulation) is documented honestly on Roadmap & vision — shipped vs building vs exploring. Multi-context CLI docs: Multi-cluster. Observe agent install: Observe agent. Runtime closure (Learn · Incident→PlanResult · continuous Coordinator · topology KG · durable memory) shipped in v0.10.",
         links: [
           { label: "Roadmap & vision", href: "/docs/roadmap" },
           { label: "Multi-cluster", href: "/docs/multi-cluster" },
@@ -2833,7 +2847,7 @@ kprompt agent run -n payments --analyze --health --heuristic`,
       },
       {
         type: "p",
-        text: "kprompt is The AI Runtime for Kubernetes — an AI-powered runtime that understands your Kubernetes environment and turns intent into context-aware operations, investigations, and recommendations. Today the laptop path is an intent compiler: natural language → reviewable PlanResult → approve → apply. Investigation and AI SRE packs are one capability among operate / analyze / recommend. The in-cluster path starts with Observe (watch → Incident → notify). The long-term bet is continuous reasoning — Namespace Agents, Coordinator correlation, knowledge graph / incident memory — while keeping the same approval contract. Not a free-form chat REPL, not a silent analyzer daemon, not a monitoring-only AIOps product, not a hosted fleet scanner. Experienced Kubernetes engineers remain a target: augment expertise by reducing context they must gather manually. Read Building AI SRE in Public, Intent compiler, not chat, Context engineering, Kubernetes AI tools compared, and Beyond AI kubectl for public positioning.",
+        text: "kprompt is The AI Runtime for Kubernetes — an AI-powered runtime that understands your Kubernetes environment and turns intent into context-aware operations, investigations, and recommendations. Today the laptop path is an intent compiler: natural language → reviewable PlanResult → approve → apply. Investigation and AI SRE packs (investigate / why / timeline / impact) ship alongside operate / analyze / recommend. The in-cluster path starts with Observe and includes Namespace Agents, Coordinator correlation, topology Knowledge Graph edges, and durable incident memory (v0.10 Runtime closure) — while keeping the same approval contract. Not a free-form chat REPL, not a silent analyzer daemon, not a monitoring-only AIOps product, not a hosted fleet scanner. Experienced Kubernetes engineers remain a target: augment expertise by reducing context they must gather manually. Read Building AI SRE in Public, Intent compiler, not chat, Context engineering, Kubernetes AI tools compared, and Beyond AI kubectl for public positioning.",
         links: [
           {
             label: "Building AI SRE in Public",
@@ -2925,7 +2939,8 @@ kprompt agent run -n payments --analyze --health --heuristic`,
           "Deeper CrashLoop recipes (non-Deployment rollbacks, exit-code specific fixes)",
           "audit non-privilege harden fixes (runAsNonRoot, resource requests) with safe defaults",
           "drift — live vs Git desired-state reports",
-          "GitHub Checks annotate write-back (A-069; needs App JWT A-068 shipped)",
+          "Deeper continuous multi-agent reasoning (beyond Namespace Agent + Coordinator today)",
+          "Richer Prom/OTel/mesh hops on investigate / timeline when backends are present",
         ],
       },
       {
@@ -2938,10 +2953,11 @@ kprompt agent run -n payments --analyze --health --heuristic`,
           "Slack interface (bidirectional): ask status / why / what broke in-channel from the Observe agent — read-only answers; mutating plans still plan → approve (Slack `approve <proposal-id>` shipped in v0.10.0 under policyAuto, RT-008)",
           "Proactive local watch (opt-in laptop): signal → “latency up; investigate?” — never auto-mutate",
           "Local remember / session digests (facts stay on your machine by default)",
-          "Multi-cluster: contexts inventory, read fan-out, explicit per-cluster mutate safety; org registry metadata without uploading kubeconfig",
+          "Multi-cluster: richer org registry metadata without uploading kubeconfig (contexts inventory + read fan-out already ship)",
           "Team web polish on app.kprompt.ai (policy, audit, Insights) — CLI stays free; nothing to buy today",
           "Workflow recipe packs (harden production, Ingress → Gateway API) as curated plan chains",
           "Sandbox / chaos / capacity what-if Simulation lab (today’s Simulation MVP stays change preview)",
+          "Interactive Team topology / timeline viewers beyond CLI artifacts",
         ],
       },
       {

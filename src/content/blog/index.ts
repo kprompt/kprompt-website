@@ -21,6 +21,8 @@ import whatIsKubernetesAi from "./what-is-kubernetes-ai";
 import kubernetesImagepullbackoff from "./kubernetes-imagepullbackoff";
 import kubectlVsK9s from "./kubectl-vs-k9s";
 import kubernetesCrashloopbackoff from "./kubernetes-crashloopbackoff";
+import observeVsInvestigate from "./observe-vs-investigate";
+import observeAgentAlertFatigue from "./observe-agent-alert-fatigue";
 import observeAgentKindDemo from "./observe-agent-kind-demo";
 import kpromptV05ObserveAgent from "./kprompt-v0-5-observe-agent";
 import introducingKprompt from "./introducing-kprompt";
@@ -62,6 +64,8 @@ import kubernetesNamespacesExplained from "./kubernetes-namespaces-explained";
 
 /** All blog posts in source order (newest-first convention in tree). */
 export const BLOG_POSTS: BlogPost[] = [
+  observeVsInvestigate,
+  observeAgentAlertFatigue,
   kubernetesLabelsAndSelectorsExplained,
   brownfieldKpromptIn15Minutes,
   kpromptMcpToolProvider,

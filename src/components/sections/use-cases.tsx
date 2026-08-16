@@ -9,9 +9,9 @@ const USE_CASES = [
     note: "Intent → plan → approve → apply",
   },
   {
-    lane: "Agent",
+    lane: "Observe",
     prompt: "kprompt agent run -n payments --analyze --health",
-    note: "Always-on Observe — watch, correlate, gated alert; no silent mutate",
+    note: "Always-on agent — watch, correlate, gated alert; no silent mutate",
   },
   {
     lane: "Investigate",

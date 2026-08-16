@@ -192,8 +192,8 @@ kprompt "optimize my cluster"
       {
         type: "ul",
         items: [
-          "Shipped: Intent → plan → safety → approve → apply; JSON PlanResult; multi-tool routes",
-          "Building: richer investigate/why trees and blast-radius fields on the same IR",
+          "Shipped: Intent → plan → safety → approve → apply; JSON PlanResult; investigate / why / timeline on the same IR; blast-radius; multi-tool routes",
+          "Building: deeper continuous multi-agent reasoning; richer Prom/OTel-backed trees when backends exist",
           "Exploring: knowledge/ADR context feeding the compiler — still not unsupervised mutate",
         ],
       },

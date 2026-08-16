@@ -212,15 +212,28 @@ kprompt "rollback orders config to last good" -n payments
             "MCP/A2A as part of an agent platform on the cluster",
             "Different product — we are tool provider for ops, not Agents-as-CRDs",
           ],
+          [
+            "agentgateway",
+            "MCP/LLM/A2A gateway data plane (Gateway API)",
+            "Different layer — we speak MCP to IDEs; we do not federate MCP servers on the wire",
+          ],
         ],
       },
       {
         type: "p",
-        text: "The head-to-head with kubectl-ai still holds: same natural-language CLI neighborhood for day-2, different contract when something must change the cluster. MCP does not erase that fork — it makes the fork visible inside the editor.",
+        text: "The head-to-head with kubectl-ai still holds: same natural-language CLI neighborhood for day-2, different contract when something must change the cluster. MCP does not erase that fork — it makes the fork visible inside the editor. For gateway vs ops-compiler, see vs agentgateway.",
         links: [
           {
             label: "kprompt vs kubectl-ai",
             href: "/blog/kprompt-vs-kubectl-ai",
+          },
+          {
+            label: "kprompt vs agentgateway",
+            href: "/blog/kprompt-vs-agentgateway",
+          },
+          {
+            label: "agentgateway alternatives",
+            href: "/blog/agentgateway-alternatives",
           },
           {
             label: "Kubernetes AI tools comparison",
@@ -266,7 +279,7 @@ kprompt "rollback orders config to last good" -n payments
         type: "ul",
         items: [
           "Not a hosted multi-tenant MCP endpoint",
-          "Not an MCP/A2A control plane or agent marketplace",
+          "Not an MCP/A2A control plane, agent marketplace, or AI gateway (see agentgateway)",
           "Not silent Autopilot from the editor",
           "Not a replacement for running kprompt in CI — PlanResult JSON gates stay the pipeline path",
         ],
@@ -278,6 +291,10 @@ kprompt "rollback orders config to last good" -n payments
           { label: "MCP docs", href: "/docs/mcp" },
           { label: "Quickstart", href: "/docs/quickstart" },
           { label: "CI / PlanResult", href: "/docs/ci" },
+          {
+            label: "vs agentgateway",
+            href: "/blog/kprompt-vs-agentgateway",
+          },
           { label: "GitHub", href: "https://github.com/kprompt/kprompt" },
         ],
       },

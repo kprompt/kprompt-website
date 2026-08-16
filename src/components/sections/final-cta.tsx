@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Eye, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
@@ -22,9 +22,9 @@ export function FinalCta() {
             Run the runtime where your cluster is
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Install the CLI, try a zero-LLM kind walkthrough, then operate with
-            intent or run the Observe agent on a namespace. Prefer
-            non-production first — {SITE.maturityLabel.toLowerCase()} software.
+            Install the CLI, try the $0 Observe walkthrough on kind, then operate
+            with intent or Helm the agent into a namespace. Prefer non-production
+            first — {SITE.maturityLabel.toLowerCase()} software.
           </p>
 
           <CopyCommand className="mx-auto mt-8 w-full max-w-xl text-left" size="lg" />
@@ -52,8 +52,15 @@ export function FinalCta() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href={SITE.levelUp}
+              href="/docs/agent"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              <Eye className="size-4" />
+              Observe agent
+            </Link>
+            <Link
+              href={SITE.levelUp}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
             >
               <Sparkles className="size-4" />
               {SITE.ctaSecondary}

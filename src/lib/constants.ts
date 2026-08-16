@@ -61,7 +61,7 @@ export const SITE = {
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub: `curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v${CLI_VERSION}/install/install.sh | bash`,
   /** One-liner shown under hero CTAs. */
-  walkthroughHint: "No API key · kind cluster · ~60 seconds",
+  walkthroughHint: "No API key · kind Observe demo · ~60 seconds",
 } as const;
 
 export const NAV_LINKS = [
@@ -75,6 +75,6 @@ export const NAV_LINKS = [
 export const INSTALL_STEPS = [
   "Install the CLI",
   "Clone kprompt-examples",
-  "make walkthrough ($0)",
+  "make walkthrough ($0 Observe)",
   "Ollama or BYOK for NL (optional)",
 ] as const;

@@ -48,10 +48,49 @@ export const FAQ: FaqEntry[] = [
     more: { label: "Integrations", href: "/docs/integrations" },
   },
   {
-    question: "What is the kprompt agent?",
+    question: "What is the Observe agent?",
     answer:
-      "An optional in-cluster Observe agent that watches a namespace, correlates Pods/Events into Incidents, and sends gated Slack/Discord/webhook alerts. Default mode never mutates. Optional Autopilot propose emits a PlanResult; apply stays human-gated. The laptop CLI still works without any agent.",
+      "An optional in-cluster Observe agent that watches a namespace, correlates Pods/Events into Incidents, and sends gated Slack/Discord/webhook alerts. Default mode never mutates. Optional Autopilot propose emits a PlanResult; apply stays human-gated. The laptop CLI still works without any agent — try kprompt demo for a $0 kind walkthrough.",
     more: { label: "Observe agent docs", href: "/docs/agent" },
+  },
+  {
+    question: "AI Runtime vs AI Gateway vs Agent Platform — which is kprompt?",
+    answer:
+      "kprompt is an AI Runtime for Kubernetes ops: PlanResult → safety → approve. An AI Gateway (e.g. agentgateway) governs LLM/MCP/A2A traffic. An Agent Platform (e.g. kagent) runs Agents as CRDs. Same vocabulary, three layers — see the hub post for the triangle and deep links.",
+    more: {
+      label: "Runtime vs Gateway vs Platform",
+      href: "/blog/ai-runtime-vs-ai-gateway-vs-agent-platform",
+    },
+  },
+  {
+    question: "How is kprompt different from agentgateway?",
+    answer:
+      "agentgateway is an AI-native proxy for LLM, MCP, and A2A traffic (Gateway API). kprompt is a plan-before-apply ops CLI (and optional Observe notify) — natural language → PlanResult → approve. kprompt mcp serve is IDE interop, not a cluster MCP gateway. Keep agentgateway for traffic governance; choose kprompt for gated day-2. Many teams use both.",
+    more: {
+      label: "kprompt vs agentgateway",
+      href: "/blog/kprompt-vs-agentgateway",
+    },
+  },
+  {
+    question: "Is kprompt an agentgateway alternative?",
+    answer:
+      "Yes for the job “gated Kubernetes day-2 / SRE without standing up an AI/MCP gateway.” No for the job “LLM/MCP/A2A Gateway API data plane.” See the agentgateway alternatives hub for a job-based map.",
+    more: {
+      label: "agentgateway alternatives",
+      href: "/blog/agentgateway-alternatives",
+    },
+  },
+  {
+    question: "How is kprompt different from kagent?",
+    answer:
+      "kagent (CNCF Sandbox) is a Kubernetes-native agent platform: Agents as CRDs, MCP tools, A2A, GitOps. kprompt is a plan-before-apply ops CLI (and optional Observe notify agent) — natural language → PlanResult → approve. Overlapping SRE demos, different products. Keep kagent when you need an agent control plane; choose kprompt when you need a refuse-able day-2 plan. Many teams use both.",
+    more: { label: "kprompt vs kagent", href: "/blog/kprompt-vs-kagent" },
+  },
+  {
+    question: "Is kprompt a kagent alternative?",
+    answer:
+      "Yes for the job “gated Kubernetes day-2 / SRE without standing up Agents-as-CRDs.” No for the job “CNCF agent platform with MCP/A2A.” See the kagent alternatives hub for a job-based map.",
+    more: { label: "kagent alternatives", href: "/blog/kagent-alternatives" },
   },
   {
     question: "Does kprompt apply changes to my cluster automatically?",

@@ -54,9 +54,10 @@ const post: BlogPost = {
       },
       {
         type: "p",
-        text: "You can already run day-2 ops under plan → safety → approve → apply: deploy, scale, rollback, named delete, deep explain chains, logs, Helm through GitOps integrations, Prometheus performance explain, optimize reports, and service dependency graphs. Context aliases and doctor help you stay on the right cluster. That is the wedge — not a wishlist.",
+        text: "You can already run day-2 ops under plan → safety → approve → apply: deploy, scale, rollback, named delete, deep explain chains, logs, Helm through GitOps integrations, Prometheus performance explain, optimize reports, and service dependency graphs. Investigation packs ship too: investigate / why / timeline / impact, blast-radius on mutating plans, and post-apply verify with --wait. Optional Observe agent watches a namespace; Autopilot stays propose-only by default. Context aliases and doctor help you stay on the right cluster.",
         links: [
           { label: "Integrations", href: "/docs/integrations" },
+          { label: "Observe agent", href: "/docs/agent" },
           { label: "Quickstart", href: "/docs/quickstart" },
         ],
       },
@@ -65,37 +66,36 @@ const post: BlogPost = {
         caption: "Shipped north-star prompts",
         code: `kprompt "why isn't my deployment ready?"
 kprompt "why is my api slow?" -n production
+kprompt investigate checkout-api -n payments
 kprompt "optimize my cluster"
 kprompt "show service dependency graph"`,
       },
       {
         type: "h2",
-        text: "Building next — think about the cluster",
+        text: "Building next — deepen trust, not drop the gate",
       },
       {
         type: "p",
-        text: "The next layer is investigation and trust, not more one-shot commands. These are in progress on our public Roadmap & vision — no ship dates, no fake demos.",
+        text: "The Runtime closure pack (v0.10 / ADR-0023) already closed Learn, Incident→PlanResult, continuous Coordinator, topology Knowledge Graph edges, and durable cluster memory under the same approval DNA. What remains in progress is depth — richer recipes, safer harden defaults, GitOps drift reports — not a new unsupervised auto-heal story. Full split: Roadmap & vision.",
         links: [{ label: "Roadmap & vision", href: "/docs/roadmap" }],
       },
       {
         type: "ul",
         items: [
-          "Blast-radius preview on mutating plans — who/what is affected before you type y",
-          "Post-apply verify — confirm the goal after --wait, not only “applied”",
-          "investigate — multi-hop RCA across ingress, Service, Endpoints, Pods, events, logs, NetworkPolicy, mesh/DNS",
-          "why — structured cause trees (Pending → affinity → no matching GPU nodes)",
-          "timeline — incident chronology from events, rollouts, HPA (+ optional metrics)",
-          "audit / cleanup / drift — hygiene and GitOps drift with optional approved remediations",
-          "Team GitHub org binding + CI Checks (beyond CLI --gitops PR mode)",
+          "Deeper CrashLoop / exit-code recipes beyond today’s suggest packs",
+          "audit non-privilege harden fixes (runAsNonRoot, resource requests) with safe defaults",
+          "drift — live vs Git desired-state reports",
+          "Deeper continuous multi-agent reasoning (beyond Namespace Agent + Coordinator today)",
+          "Sandbox / chaos / capacity what-if Simulation lab (today’s Simulation MVP stays change preview)",
         ],
       },
       {
         type: "p",
-        text: "The shape we want for RCA is still PlanResult-shaped: evidence refs, a root-cause summary, and an optional suggested fix that still needs approval. Never auto-apply because the model sounded confident.",
+        text: "The shape for RCA stays PlanResult-shaped: evidence refs, a root-cause summary, and an optional suggested fix that still needs approval. Never auto-apply because the model sounded confident.",
       },
       {
         type: "code",
-        caption: "Target investigate shape (illustrative — building)",
+        caption: "Shipped investigate shape (approve still required for mutate)",
         code: `$ kprompt "why are my APIs returning 503?"
 
 Root cause
@@ -115,8 +115,9 @@ Suggested fix
         items: [
           "Opt-in local watch: surface a signal (“latency up”) and offer investigate — never mutate without approve",
           "Local remember / session digests — facts stay on your machine by default",
-          "Multi-cluster: contexts inventory and read fan-out; no kubeconfig upload to a control plane",
+          "Richer multi-cluster org registry metadata without uploading kubeconfig",
           "Workflow recipe packs (harden production, Ingress → Gateway API) as curated plan chains",
+          "Interactive Team topology / timeline viewers beyond today’s CLI artifacts",
         ],
       },
       {

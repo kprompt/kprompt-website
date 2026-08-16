@@ -161,9 +161,9 @@ const post: BlogPost = {
       {
         type: "ul",
         items: [
-          "Shipped: core PlanResult + JSON gates; optional blastRadius / verify",
-          "Building: richer investigate/why/timeline shapes on the same envelope",
-          "Exploring: memory / knowledge feeding planning — still never silent apply",
+          "Shipped: core PlanResult + JSON gates; blastRadius / verify; investigate / why / timeline / impact shapes on the same envelope",
+          "Shipped (v0.10): closed Learn + Incident→PlanResult bridge feeding the next plan under evidence-not-proof caps",
+          "Exploring: ADR/docs knowledge feeding planning — still never silent apply",
         ],
       },
       {

@@ -119,8 +119,8 @@ kprompt "optimize my cluster"
       {
         type: "ul",
         items: [
-          "Shipped: intent → PlanResult → approve; explain/logs; multi-tool routes; namespace memory priors; service-graph MVP",
-          "Building: deeper investigate / why / timeline / post-apply verify; richer Knowledge Graph topology UI",
+          "Shipped: intent → PlanResult → approve; investigate / why / timeline / impact; blast-radius + --wait verify; Observe; namespace memory; service + topology graph MVP (v0.10)",
+          "Building: deeper multi-agent reasoning; interactive Team topology UI; richer Prom/OTel/mesh hops",
           "Exploring: ADR/docs knowledge nodes — never silent mutate",
         ],
       },

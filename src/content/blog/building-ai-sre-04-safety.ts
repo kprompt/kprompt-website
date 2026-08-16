@@ -136,7 +136,8 @@ Risk: denied
         items: [
           "Shipped: hard denies, risk levels, plan-before-apply, JSON risk.denied for CI",
           "Shipped: blast-radius preview and post-apply verify as trust aids",
-          "Building: richer investigate suggestions that still pass through safety",
+          "Shipped: investigate suggest packs (OOM / CrashLoop / ImagePull / probe) still pass through safety before approve",
+          "Building: deeper CrashLoop / exit-code recipes; audit non-privilege harden with safe defaults",
           "Non-goal: model-only refusals; silent apply; one --approve across all contexts",
         ],
       },

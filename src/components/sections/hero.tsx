@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { AnimatedTerminal } from "@/components/ui/animated-terminal";
 import { buttonVariants } from "@/components/ui/button";
 import { CopyCommand } from "@/components/ui/copy-command";
@@ -35,14 +35,14 @@ export function Hero() {
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             An AI-powered runtime that understands your cluster — operate on
-            intent, investigate with evidence, and run an always-on{" "}
+            intent, investigate with evidence, and keep an always-on{" "}
             <a
               href="#agent"
-              className="text-foreground underline-offset-4 hover:underline"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
             >
               Observe agent
             </a>{" "}
-            that watches namespaces without silent mutate. Plan before apply.
+            watching namespaces without silent mutate. Plan before apply.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -60,6 +60,12 @@ export function Hero() {
               Observe agent
             </a>
             <a
+              href="/docs/agent"
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+            >
+              Agent docs
+            </a>
+            <a
               href={SITE.github}
               target="_blank"
               rel="noopener noreferrer"
@@ -68,14 +74,6 @@ export function Hero() {
             >
               <GithubIcon className="size-4" />
               GitHub
-            </a>
-            <a
-              href={SITE.docs}
-              className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
-              aria-label="Documentation"
-            >
-              <BookOpen className="size-4" />
-              Docs
             </a>
           </div>
 

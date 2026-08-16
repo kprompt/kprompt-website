@@ -4,7 +4,11 @@
  */
 export const BLOG_TAG_DESCRIPTIONS: Record<string, string> = {
   agent:
-    "Observe agent notes: namespace watch, Incidents, gated Slack alerts, and propose-only Autopilot.",
+    "Observe agent notes: namespace watch, Incidents, gated Slack alerts — and how that differs from kagent-class platforms.",
+  kagent:
+    "kagent (CNCF) comparisons: Agents-as-CRDs vs kprompt PlanResult ops, alternatives hubs, and coexistence notes.",
+  mcp:
+    "MCP for Kubernetes AI: kprompt mcp serve (IDE read/plan-only) vs MCP gateways like agentgateway — different layers.",
   ai: "Practical AI-for-Kubernetes writing: intent compilers, plan gates, and honest product limits.",
   architecture:
     "Architecture essays: intent compilers, PlanResult, context engineering, and fail-closed design for cluster AI.",
@@ -44,7 +48,7 @@ export const BLOG_TAG_DESCRIPTIONS: Record<string, string> = {
     "Plan safety, hard denies, risk levels, and why --approve is never a substitute for review.",
   security:
     "Credentials, BYOK keys, and the mutate contract that keeps cluster changes reviewable.",
-  sre: "Building toward AI SRE: investigate, why, timeline, and approval-bounded automation.",
+  sre: "AI SRE capability lane: investigate, why, timeline, impact, Observe — always plan-before-apply.",
   troubleshooting:
     "Kubernetes troubleshooting playbooks: CrashLoopBackOff, ImagePullBackOff, OOMKilled, and more.",
   tutorial:

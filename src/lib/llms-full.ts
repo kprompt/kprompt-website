@@ -60,6 +60,8 @@ const HIGH_SIGNAL_SLUGS = [
   "top-100-kubernetes-prompts",
   "ai-runtime-for-kubernetes",
   "context-engineering-not-prompt-engineering",
+  "observe-vs-investigate",
+  "observe-agent-alert-fatigue",
   "observe-agent-kind-demo",
   "kprompt-v0-5-observe-agent",
   "building-ai-sre-in-public",

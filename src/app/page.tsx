@@ -28,8 +28,8 @@ export default function HomePage() {
     <main>
       <FaqJsonLd entries={FAQ} />
       <Hero />
-      <HowItWorks />
       <Agent />
+      <HowItWorks />
       <UseCases />
       <Differentiation />
       <Philosophy />
