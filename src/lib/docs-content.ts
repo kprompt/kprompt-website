@@ -2072,7 +2072,7 @@ kprompt "scale api to 3"`,
   providers: {
     title: "Providers",
     description:
-      "Local Ollama ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, Fireworks, or any OpenAI-compatible gateway. kprompt does not sell API keys.",
+      "Local Ollama or LM Studio ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, Fireworks, or any OpenAI-compatible gateway. kprompt does not sell API keys.",
     blocks: [
       {
         type: "p",
@@ -2088,6 +2088,12 @@ kprompt "scale api to 3"`,
         headers: ["Provider", "--provider", "Env key(s)", "Default model"],
         rows: [
           ["Ollama (local)", "ollama", "none required — $0 first path", "llama3.2"],
+          [
+            "LM Studio (local)",
+            "lmstudio",
+            "none required — $0, needs a loaded model",
+            "local-model (placeholder — must match a loaded model)",
+          ],
           [
             "OpenAI",
             "openai",
@@ -2176,7 +2182,7 @@ kprompt "scale api to 3"`,
       },
       {
         type: "p",
-        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. Groq, xAI (Grok), Cerebras, Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, Together, and Fireworks all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…). Azure OpenAI uses the named azure preset with a resource base_url; --model is your deployment name.",
+        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. LM Studio is the same $0 local pattern at http://127.0.0.1:1234/v1: start the LM Studio server and load a model first — DefaultModel local-model is a placeholder, not a real model id, so set --model to whatever you actually loaded. Groq, xAI (Grok), Cerebras, Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, Together, and Fireworks all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…). Azure OpenAI uses the named azure preset with a resource base_url; --model is your deployment name.",
       },
       {
         type: "h2",
@@ -2238,6 +2244,9 @@ kprompt config set model gemini-3.6-flash   # current GA Flash`,
         type: "code",
         code: `# Local Ollama ($0)
 kprompt --provider ollama --model llama3.2 "list pods"
+
+# Local LM Studio ($0 — start the server and load a model first)
+kprompt --provider lmstudio --model your-loaded-model "list pods"
 
 export KPROMPT_OPENAI_API_KEY=sk-...
 kprompt "list deployments"
