@@ -2072,7 +2072,7 @@ kprompt "scale api to 3"`,
   providers: {
     title: "Providers",
     description:
-      "Local Ollama ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, Fireworks, or any OpenAI-compatible gateway. kprompt does not sell API keys.",
+      "Local Ollama or LM Studio ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, Fireworks, or any OpenAI-compatible gateway. kprompt does not sell API keys.",
     blocks: [
       {
         type: "p",
@@ -2088,6 +2088,12 @@ kprompt "scale api to 3"`,
         headers: ["Provider", "--provider", "Env key(s)", "Default model"],
         rows: [
           ["Ollama (local)", "ollama", "none required — $0 first path", "llama3.2"],
+          [
+            "LM Studio (local)",
+            "lmstudio",
+            "none required — $0; server must be running with a model loaded",
+            "local-model (must match a loaded model name)",
+          ],
           [
             "OpenAI",
             "openai",
@@ -2143,6 +2149,12 @@ kprompt "scale api to 3"`,
             "kimi-k3",
           ],
           [
+            "Qwen (DashScope)",
+            "qwen",
+            "KPROMPT_QWEN_API_KEY / DASHSCOPE_API_KEY / QWEN_API_KEY",
+            "qwen-plus",
+          ],
+          [
             "OpenRouter",
             "openrouter",
             "KPROMPT_OPENROUTER_API_KEY / OPENROUTER_API_KEY",
@@ -2176,7 +2188,7 @@ kprompt "scale api to 3"`,
       },
       {
         type: "p",
-        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. Groq, xAI (Grok), Cerebras, Mistral, DeepSeek, Moonshot (Kimi K3), OpenRouter, Together, and Fireworks all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…). Azure OpenAI uses the named azure preset with a resource base_url; --model is your deployment name.",
+        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. LM Studio is the same local OpenAI-compatible shape at http://127.0.0.1:1234/v1; start the app, load a model, and pass --model with that model's name. Groq, xAI (Grok), Cerebras, Mistral, DeepSeek, Moonshot (Kimi K3), Qwen (DashScope), OpenRouter, Together, and Fireworks all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…). The qwen preset defaults to the international DashScope endpoint; mainland China keys need KPROMPT_OPENAI_BASE_URL pointed at the CN compatible-mode URL. Azure OpenAI uses the named azure preset with a resource base_url; --model is your deployment name.",
       },
       {
         type: "h2",
@@ -2222,7 +2234,7 @@ kprompt config set model gemini-3.6-flash   # current GA Flash`,
       {
         type: "ul",
         items: [
-          "Ollama needs no provider key",
+          "Ollama and LM Studio need no provider key",
           "The KPROMPT_-prefixed variable is checked first, then the vendor default such as OPENAI_API_KEY",
           "Environment variables always win over keys pulled from a Team org with kprompt secrets pull",
           "~/.kprompt/config.yaml stores provider, model, namespace, and base_url — never a key",
@@ -2239,6 +2251,9 @@ kprompt config set model gemini-3.6-flash   # current GA Flash`,
         code: `# Local Ollama ($0)
 kprompt --provider ollama --model llama3.2 "list pods"
 
+# LM Studio (local $0 — start the server and load a model first)
+kprompt --provider lmstudio --model <loaded-model-name> "list pods"
+
 export KPROMPT_OPENAI_API_KEY=sk-...
 kprompt "list deployments"
 
@@ -2252,7 +2267,10 @@ export KPROMPT_XAI_API_KEY=...
 kprompt --provider xai "explain why api is crashlooping"
 
 export KPROMPT_MOONSHOT_API_KEY=...
-kprompt --provider moonshot "explain why api is crashlooping"`,
+kprompt --provider moonshot "explain why api is crashlooping"
+
+export KPROMPT_QWEN_API_KEY=...
+kprompt --provider qwen "explain why api is crashlooping"`,
       },
       {
         type: "h2",
