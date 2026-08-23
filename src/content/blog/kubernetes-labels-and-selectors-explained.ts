@@ -276,8 +276,12 @@ kprompt "explain why service api has no endpoints in staging"`,
     },
     {
       type: "p",
-      text: "Labels connect Deployments to Services. Next, configure apps with ConfigMaps and Secrets (env vars and mounted files). For deeper kubectl reading, see kubectl get pods explained and the troubleshooting guides when Pods misbehave.",
+      text: "Labels connect Deployments to Services. Next, configure apps with ConfigMaps and Secrets — see ConfigMap vs Secret. For deeper kubectl reading, see kubectl get pods explained and the troubleshooting guides when Pods misbehave.",
       links: [
+        {
+          label: "ConfigMap vs Secret",
+          href: "/blog/kubernetes-configmap-vs-secret-explained",
+        },
         {
           label: "Service vs Deployment",
           href: "/blog/kubernetes-service-vs-deployment",
