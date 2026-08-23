@@ -1,4 +1,5 @@
 import type { BlogPost } from "@/lib/blog-types";
+import kubernetesConfigmapVsSecretExplained from "./kubernetes-configmap-vs-secret-explained";
 import aiRuntimeVsAiGatewayVsAgentPlatform from "./ai-runtime-vs-ai-gateway-vs-agent-platform";
 import kpromptOnAzureAks from "./kprompt-on-azure-aks";
 import agentgatewayAlternatives from "./agentgateway-alternatives";
@@ -71,6 +72,7 @@ import kubernetesNamespacesExplained from "./kubernetes-namespaces-explained";
 
 /** All blog posts in source order (newest-first convention in tree). */
 export const BLOG_POSTS: BlogPost[] = [
+  kubernetesConfigmapVsSecretExplained,
   aiRuntimeVsAiGatewayVsAgentPlatform,
   observeVsInvestigate,
   observeAgentAlertFatigue,
