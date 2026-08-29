@@ -37,9 +37,10 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "Helm day-2 has its own deep dive. This post is the metrics sibling: detect, bind-over-install, the performance explain shape, how optimize uses the same URL, and what we refuse to claim.",
+      text: "Helm day-2 has its own deep dive. OpenTelemetry is the traces sibling. This post is metrics: detect, bind-over-install, the performance explain shape, how optimize uses the same URL, and what we refuse to claim.",
       links: [
         { label: "kprompt + Helm deep dive", href: "/blog/kprompt-helm-deep-dive" },
+        { label: "kprompt + OpenTelemetry", href: "/blog/kprompt-opentelemetry" },
         { label: "Integrations", href: "/docs/integrations#prometheus" },
         { label: "Adopt (15 min)", href: "/docs/adopt" },
       ],

@@ -193,6 +193,7 @@ const post: BlogPost = {
         links: [
           { label: "Integrations", href: "/docs/integrations" },
           { label: "kprompt + Prometheus", href: "/blog/kprompt-prometheus" },
+          { label: "kprompt + OpenTelemetry", href: "/blog/kprompt-opentelemetry" },
         ],
       },
       {

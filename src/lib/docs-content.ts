@@ -1022,7 +1022,13 @@ kprompt "why is my api slow?" -n production`,
       },
       {
         type: "p",
-        text: "Trace intents search the configured Jaeger or Tempo backend, print a span tree, and narrate bottleneck spans when present.",
+        text: "Trace intents search the configured Jaeger or Tempo backend, print a span tree, and narrate bottleneck spans when present. Deep dive: kprompt + OpenTelemetry.",
+        links: [
+          {
+            label: "kprompt + OpenTelemetry",
+            href: "/blog/kprompt-opentelemetry",
+          },
+        ],
       },
       {
         type: "code",
