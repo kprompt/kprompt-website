@@ -2072,7 +2072,7 @@ kprompt "scale api to 3"`,
   providers: {
     title: "Providers",
     description:
-      "Local Ollama or LM Studio ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, Fireworks, or any OpenAI-compatible gateway. kprompt does not sell API keys.",
+      "Local Ollama or LM Studio ($0) or bring your own cloud key: OpenAI, Anthropic, Gemini, Groq, xAI, Mistral, DeepSeek, OpenRouter, Together, Fireworks, Hetzner Inference (experimental), or any OpenAI-compatible gateway. kprompt does not sell API keys.",
     blocks: [
       {
         type: "p",
@@ -2173,6 +2173,12 @@ kprompt "scale api to 3"`,
             "accounts/fireworks/models/llama-v3p3-70b-instruct",
           ],
           [
+            "Hetzner Inference",
+            "hetzner",
+            "KPROMPT_HETZNER_API_KEY / HETZNER_API_KEY",
+            "Qwen/Qwen3.6-35B-A3B-FP8 (experimental / free while in beta)",
+          ],
+          [
             "Azure OpenAI",
             "azure",
             "KPROMPT_AZURE_API_KEY / AZURE_OPENAI_API_KEY / KPROMPT_OPENAI_API_KEY",
@@ -2188,7 +2194,7 @@ kprompt "scale api to 3"`,
       },
       {
         type: "p",
-        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. LM Studio is the same local OpenAI-compatible shape at http://127.0.0.1:1234/v1; start the app, load a model, and pass --model with that model's name. Groq, xAI (Grok), Cerebras, Mistral, DeepSeek, Moonshot (Kimi K3), Qwen (DashScope), OpenRouter, Together, and Fireworks all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…). The qwen preset defaults to the international DashScope endpoint; mainland China keys need KPROMPT_OPENAI_BASE_URL pointed at the CN compatible-mode URL. Azure OpenAI uses the named azure preset with a resource base_url; --model is your deployment name.",
+        text: "Ollama runs locally at http://127.0.0.1:11434/v1 and needs no key — the $0 path for trying kprompt or running it in CI. LM Studio is the same local OpenAI-compatible shape at http://127.0.0.1:1234/v1; start the app, load a model, and pass --model with that model's name. Groq, xAI (Grok), Cerebras, Mistral, DeepSeek, Moonshot (Kimi K3), Qwen (DashScope), OpenRouter, Together, Fireworks, and Hetzner Inference all speak the OpenAI-compatible API. Fireworks model ids are account-scoped (accounts/fireworks/models/…). Hetzner Inference is experimental (free while in beta, no SLA). The qwen preset defaults to the international DashScope endpoint; mainland China keys need KPROMPT_OPENAI_BASE_URL pointed at the CN compatible-mode URL. Azure OpenAI uses the named azure preset with a resource base_url; --model is your deployment name.",
       },
       {
         type: "h2",
@@ -2270,7 +2276,11 @@ export KPROMPT_MOONSHOT_API_KEY=...
 kprompt --provider moonshot "explain why api is crashlooping"
 
 export KPROMPT_QWEN_API_KEY=...
-kprompt --provider qwen "explain why api is crashlooping"`,
+kprompt --provider qwen "explain why api is crashlooping"
+
+# Hetzner Inference (experimental — free while in beta)
+export KPROMPT_HETZNER_API_KEY=...
+kprompt --provider hetzner "list pods"`,
       },
       {
         type: "h2",
