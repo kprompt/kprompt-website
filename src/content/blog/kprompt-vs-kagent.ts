@@ -173,7 +173,7 @@ const post: BlogPost = {
           ],
           [
             "Primary artifacts",
-            "Agent / Session / ToolServer CRDs + traces",
+            "Agent / Session + MCPServer / RemoteMCPServer + traces",
             "PlanResult (+ Incident / AgentAlert for Observe)",
           ],
           [
@@ -303,7 +303,13 @@ Apply? [y/N]`,
       },
       {
         type: "p",
-        text: "Yes. A platform team can run kagent to host internal agents (docs RAG, ticket triage, mesh-aware helpers) while operators use kprompt for gated day-2 mutates and Observe for namespace paging. An ambitious setup could even have a kagent agent propose changes that a human still applies via kprompt’s PlanResult — but that composition is yours to build; we do not claim it ships today.",
+        text: "Yes. A platform team can run kagent to host internal agents (docs RAG, ticket triage, mesh-aware helpers) while operators use kprompt for gated day-2 mutates and Observe for namespace paging. An ambitious setup can wrap kprompt mcp serve as a kmcp MCPServer and pin toolNames on an Agent — but we do not claim a first-party one-liner image yet. The architecture invite (MCPServer phases, safety invariants, open call to the kagent community) lives in the integration post.",
+        links: [
+          {
+            label: "kprompt + kagent integration",
+            href: "/blog/kprompt-kagent-integration",
+          },
+        ],
       },
       {
         type: "h2",
@@ -334,9 +340,13 @@ kprompt "scale api to 3" -n staging   # review → y/N`,
       },
       {
         type: "p",
-        text: "For kagent’s own quickstart (kind + Helm + Agent CRD), start at kagent.dev. For “kagent alternative” queries by job, see the alternatives hub. For category without hype, read the AI Runtime essay. For the other “runtime” naming cousin, read vs ARK.",
+        text: "For kagent’s own quickstart (kind + Helm + Agent CRD), start at kagent.dev. For composing PlanResult under a kagent Agent, read the integration post. For “kagent alternative” queries by job, see the alternatives hub. For category without hype, read the AI Runtime essay. For the other “runtime” naming cousin, read vs ARK.",
         links: [
           { label: "kagent get started", href: "https://kagent.dev/" },
+          {
+            label: "kprompt + kagent",
+            href: "/blog/kprompt-kagent-integration",
+          },
           { label: "kagent alternatives", href: "/blog/kagent-alternatives" },
           {
             label: "AI Runtime for Kubernetes",

@@ -170,7 +170,7 @@ export function buildLlmsFullText(): string {
     "- Not McKinsey ARK (Agentic Runtime): hosts agent apps as CRDs — https://kprompt.ai/blog/kprompt-vs-ark",
     "- Not agentgateway (AI/MCP/A2A gateway): LLM/MCP traffic data plane vs PlanResult ops — https://kprompt.ai/blog/kprompt-vs-agentgateway · https://kprompt.ai/blog/agentgateway-alternatives",
     "- Not kagent (CNCF agent platform): Agents/MCP/A2A on K8s vs PlanResult ops — https://kprompt.ai/blog/kprompt-vs-kagent · https://kprompt.ai/blog/kagent-alternatives",
-    "- Compose with kagent (architecture invite): kagent hosts Agents; kprompt MCP tools return PlanResult; apply stays out-of-band — https://kprompt.ai/blog/kprompt-kagent-integration",
+    "- Compose with kagent (architecture invite): wrap kprompt mcp serve as kmcp MCPServer / RemoteMCPServer; PlanResult stays refuse-able; apply out-of-band — https://kprompt.ai/blog/kprompt-kagent-integration",
     "- MCP tool provider (`kprompt mcp serve`): editor assistants (Cursor, Claude Desktop) call read/plan-only tools over stdio; mutations return a PlanResult and never auto-apply. IDE interop, not an MCP/A2A agent platform (that stays kagent's lane) — https://kprompt.ai/docs/mcp",
     "- Same NL-CLI lane as kubectl-ai for day-2 mutate; different mutate contract (plan → safety → approve) plus in-cluster Observe path.",
     "- Not a K8sGPT fleet scanner; not a hosted Lens clone.",

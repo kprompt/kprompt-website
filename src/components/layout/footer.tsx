@@ -49,6 +49,10 @@ const FOOTER_COLUMNS: FooterColumn[] = [
         label: "Runtime vs Gateway vs Platform",
       },
       { href: "/blog/kprompt-vs-kagent", label: "kprompt vs kagent" },
+      {
+        href: "/blog/kprompt-kagent-integration",
+        label: "kprompt + kagent",
+      },
       { href: "/blog/kagent-alternatives", label: "kagent alternatives" },
       {
         href: "/blog/kprompt-vs-agentgateway",

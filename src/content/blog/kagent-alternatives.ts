@@ -51,9 +51,13 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "This is the kagent-centered sibling of our head-to-head with kprompt, the broader Kubernetes AI tools map, and the Runtime vs Gateway vs Platform hub. Start here if your query was literally “kagent alternative.”",
+      text: "This is the kagent-centered sibling of our head-to-head with kprompt, the broader Kubernetes AI tools map, and the Runtime vs Gateway vs Platform hub. Start here if your query was literally “kagent alternative.” If you already run kagent and want PlanResult as an MCP tool under Agents — not a replace story — read the integration post.",
       links: [
         { label: "kprompt vs kagent", href: "/blog/kprompt-vs-kagent" },
+        {
+          label: "kprompt + kagent integration",
+          href: "/blog/kprompt-kagent-integration",
+        },
         {
           label: "Runtime vs Gateway vs Platform",
           href: "/blog/ai-runtime-vs-ai-gateway-vs-agent-platform",
@@ -202,9 +206,13 @@ kprompt agent run -n payments --analyze --health --heuristic`,
     },
     {
       type: "p",
-      text: "Deep comparison tables and coexistence notes: kprompt vs kagent. Gateway layer cousin: vs agentgateway. Category without hype: AI Runtime for Kubernetes. Install when you want a gated plan on staging before you touch prod.",
+      text: "Deep comparison tables and coexistence notes: kprompt vs kagent. Compose PlanResult under Agents: kprompt + kagent. Gateway layer cousin: vs agentgateway. Category without hype: AI Runtime for Kubernetes. Install when you want a gated plan on staging before you touch prod.",
       links: [
         { label: "kprompt vs kagent", href: "/blog/kprompt-vs-kagent" },
+        {
+          label: "kprompt + kagent",
+          href: "/blog/kprompt-kagent-integration",
+        },
         {
           label: "kprompt vs agentgateway",
           href: "/blog/kprompt-vs-agentgateway",
