@@ -174,6 +174,7 @@ export function buildLlmsFullText(): string {
     "- Not a K8sGPT fleet scanner; not a hosted Lens clone.",
     "- Optional in-cluster Observe agent (Helm): namespace watch → Incident → gated notify.",
     "- Autopilot (ADR-0015) is propose-only by default — never silent apply.",
+    "- Shipped v0.12.0: Fireworks / LM Studio / Qwen / Hetzner presets, GitOps PR patch (audit harden), multi-context graph/Istio/GitOps reads, Argo unknown-model fail-closed, opt-in agent NetworkPolicy.",
     "- Shipped v0.11.0: `kprompt mcp serve` (read/plan-only IDE interop, ADR-0024), Azure OpenAI preset (P-006), DaemonSet `--wait`.",
     "- Shipped AI Runtime closure v0.10.0 (ADR-0023): closed Learn loop, policy-gated Autopilot apply (product path), continuous Coordinator (proactive tick + opt-in mesh/OTel blast-radius), topology Knowledge Graph edges, Incident→PlanResult bridge, durable cluster memory (cross-ns outcome ring + fleet read) — default stays propose-only, never silent auto-heal.",
     "- Building / next: deeper continuous multi-agent reasoning, interactive Team topology / timeline UI, sandbox/chaos Simulation lab, richer Prom/OTel/mesh hops — do not claim Secret-value CMDB or unsupervised auto-heal.",
