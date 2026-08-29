@@ -111,7 +111,10 @@ export function extractShareExcerpt(
   description: string,
   blocks: DocsBlock[]
 ): string {
-  const firstP = blocks.find((b) => b.type === "p" && b.text.trim())?.text;
+  const firstP = blocks.find(
+    (b): b is Extract<DocsBlock, { type: "p" }> =>
+      b.type === "p" && Boolean(b.text.trim())
+  )?.text;
   const source = description.trim() || firstP?.trim() || "";
   return truncateShareExcerpt(source, 320);
 }
