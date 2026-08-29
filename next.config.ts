@@ -53,6 +53,11 @@ const nextConfig: NextConfig = {
       "./public/kprompt-logo.png",
       "./public/blog/**/*",
     ],
+    "/blog/[slug]/share-image": [
+      "./public/kprompt-logo.png",
+      "./public/fonts/share/**/*",
+      "./public/**/*",
+    ],
   },
   async headers() {
     return [

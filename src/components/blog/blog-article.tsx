@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { BlogAuthorByline } from "@/components/blog/blog-author-byline";
 import { BlogTagLink } from "@/components/blog/blog-tag-link";
 import { RelatedPosts } from "@/components/blog/related-posts";
+import { BlogShareDialog } from "@/components/blog/blog-share-dialog";
 import { DocsBlocks } from "@/components/docs/docs-article";
 import { TableOfContents } from "@/components/docs/table-of-contents";
 import type { BlogPost } from "@/lib/blog-posts";
@@ -29,6 +30,12 @@ export function BlogArticle({ post }: { post: BlogPost }) {
           <BlogAuthorByline author={post.author} variant="compact" />
           <span aria-hidden>·</span>
           <span>{minutes} min read</span>
+          <span aria-hidden>·</span>
+          <BlogShareDialog
+            slug={post.slug}
+            title={post.title}
+            description={post.description}
+          />
         </div>
 
         <h1 className="mt-4 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
