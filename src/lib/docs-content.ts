@@ -1120,7 +1120,10 @@ kprompt "show virtualservice for payments"`,
       },
       {
         type: "p",
-        text: "Status and health are read-only. Sync / promote / rollback paths require approval and apply through the real Flux Kustomization or Argo CD Application APIs.",
+        text: "Status and health are read-only. Sync / promote / rollback paths require approval and apply through the real Flux Kustomization or Argo CD Application APIs. Deep dive: kprompt + Argo CD.",
+        links: [
+          { label: "kprompt + Argo CD", href: "/blog/kprompt-argo-cd" },
+        ],
       },
       {
         type: "code",

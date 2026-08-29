@@ -161,7 +161,10 @@ const post: BlogPost = {
       },
       {
         type: "p",
-        text: "Flux / Argo CD status and drift are reads. --gitops opens a PR path for supported mutates — not silent cluster apply. Scale/delete stay cluster apply.",
+        text: "Flux / Argo CD status and drift are reads. --gitops opens a PR path for supported mutates — not silent cluster apply. Scale/delete stay cluster apply. Deep dive: kprompt + Argo CD.",
+        links: [
+          { label: "kprompt + Argo CD", href: "/blog/kprompt-argo-cd" },
+        ],
       },
       {
         type: "table",

@@ -57,6 +57,7 @@
 - https://kprompt.ai/blog/kprompt-helm-deep-dive
 - https://kprompt.ai/blog/kprompt-prometheus
 - https://kprompt.ai/blog/kprompt-opentelemetry
+- https://kprompt.ai/blog/kprompt-argo-cd
 - https://kprompt.ai/blog/kprompt-mcp-tool-provider
 - https://kprompt.ai/blog/brownfield-kprompt-in-15-minutes
 - https://kprompt.ai/blog/agentgateway-alternatives

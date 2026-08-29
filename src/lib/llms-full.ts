@@ -63,6 +63,7 @@ const HIGH_SIGNAL_SLUGS = [
   "kprompt-helm-deep-dive",
   "kprompt-prometheus",
   "kprompt-opentelemetry",
+  "kprompt-argo-cd",
   "top-100-kubernetes-prompts",
   "ai-runtime-for-kubernetes",
   "context-engineering-not-prompt-engineering",

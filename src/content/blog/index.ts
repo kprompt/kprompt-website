@@ -12,6 +12,7 @@ import kubernetesLabelsAndSelectorsExplained from "./kubernetes-labels-and-selec
 import brownfieldKpromptIn15Minutes from "./brownfield-kprompt-in-15-minutes";
 import kpromptMcpToolProvider from "./kprompt-mcp-tool-provider";
 import kpromptHelmDeepDive from "./kprompt-helm-deep-dive";
+import kpromptArgoCd from "./kprompt-argo-cd";
 import kpromptOpentelemetry from "./kprompt-opentelemetry";
 import kpromptPrometheus from "./kprompt-prometheus";
 import top100KubernetesPrompts from "./top-100-kubernetes-prompts";
@@ -74,6 +75,7 @@ import kubernetesNamespacesExplained from "./kubernetes-namespaces-explained";
 
 /** All blog posts in source order (newest-first convention in tree). */
 export const BLOG_POSTS: BlogPost[] = [
+  kpromptArgoCd,
   kpromptOpentelemetry,
   kpromptKagentIntegration,
   kubernetesConfigmapVsSecretExplained,

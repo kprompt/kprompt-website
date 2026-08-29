@@ -37,9 +37,10 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "Prometheus day-2 has its own deep dive (metrics / why-slow). This post is the traces sibling: detect, bind-over-install, the trace walk shape, how service graphs optionally add OTel call edges, and what we refuse to claim.",
+      text: "Prometheus day-2 has its own deep dive (metrics / why-slow). GitOps day-2 covers Argo CD / Flux. This post is the traces sibling: detect, bind-over-install, the trace walk shape, how service graphs optionally add OTel call edges, and what we refuse to claim.",
       links: [
         { label: "kprompt + Prometheus", href: "/blog/kprompt-prometheus" },
+        { label: "kprompt + Argo CD", href: "/blog/kprompt-argo-cd" },
         { label: "kprompt + Helm deep dive", href: "/blog/kprompt-helm-deep-dive" },
         {
           label: "Integrations",
