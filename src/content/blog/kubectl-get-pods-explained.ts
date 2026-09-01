@@ -130,8 +130,14 @@ kubectl get events -n staging --sort-by=.lastTimestamp | tail -40`,
       },
       {
         type: "p",
-        text: "Prefer label selectors when a Deployment owns many Pods: kubectl get pods -l app=api -n staging. For live watching without retyping, K9s helps — then come back to kubectl for ticket-ready commands. See kubectl vs K9s.",
-        links: [{ label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" }],
+        text: "Prefer label selectors when a Deployment owns many Pods: kubectl get pods -l app=api -n staging. For how to read describe output next, see kubectl describe explained. For live watching without retyping, K9s helps — then come back to kubectl for ticket-ready commands. See kubectl vs K9s.",
+        links: [
+          {
+            label: "kubectl describe explained",
+            href: "/blog/kubectl-describe-explained-beginners",
+          },
+          { label: "kubectl vs K9s", href: "/blog/kubectl-vs-k9s" },
+        ],
       },
       {
         type: "h2",

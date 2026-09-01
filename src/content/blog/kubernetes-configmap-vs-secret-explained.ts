@@ -268,8 +268,12 @@ kprompt "describe pod for deployment api in staging"`,
     },
     {
       type: "p",
-      text: "ConfigMaps and Secrets feed your Deployment. Next, learn to read kubectl describe output when Pods misbehave, then resource requests and limits before you hit OOMKilled in production.",
+      text: "ConfigMaps and Secrets feed your Deployment. Next, read kubectl describe explained when Pods misbehave, then resource requests and limits before you hit OOMKilled in production.",
       links: [
+        {
+          label: "kubectl describe explained",
+          href: "/blog/kubectl-describe-explained-beginners",
+        },
         {
           label: "labels and selectors explained",
           href: "/blog/kubernetes-labels-and-selectors-explained",
