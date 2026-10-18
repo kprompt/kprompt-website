@@ -3,10 +3,11 @@ import { MUHTALIP_DEDE } from "@/lib/team";
 
 const post: BlogPost = {
     slug: "k9s-vs-kubernetes",
-    title: "K9s vs Kubernetes (k8s): what people mix up — and the real comparison",
+    title: "K9s vs k8s: not rivals — what each is (then kubectl vs K9s)",
     description:
-      "k9s vs k8s is usually a category mistake: Kubernetes is the platform, K9s is a terminal UI for it. Clear the confusion, then see kubectl vs K9s and K9s alternatives.",
+      "k8s vs k9s / k9s vs k8s: Kubernetes (k8s) is the platform; K9s is a terminal UI on top of it. Clear answer, then the real comparison — kubectl vs K9s.",
     publishedAt: "2026-08-02",
+    updatedAt: "2026-10-18",
     author: MUHTALIP_DEDE,
     tags: ["kubernetes", "kubectl", "kubernetes cli", "devops", "beginner"],
     keywords: [
@@ -23,7 +24,7 @@ const post: BlogPost = {
     blocks: [
       {
         type: "p",
-        text: "If you searched k9s vs k8s or k8s vs k9s, you are comparing a product to a platform. Kubernetes (often abbreviated k8s) is the cluster system: API server, controllers, Pods, Deployments, Services. K9s is a terminal user interface that talks to that API using your kubeconfig — the same credentials kubectl uses.",
+        text: "Searched k8s vs k9s or k9s vs k8s? Short answer: they are not rivals. Kubernetes (k8s) is the cluster platform — API server, controllers, Pods, Deployments, Services. K9s is a terminal UI that talks to that API with your kubeconfig — the same credentials kubectl uses.",
         links: [
           {
             label: "Kubernetes",

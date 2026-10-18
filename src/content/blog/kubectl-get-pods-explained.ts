@@ -3,15 +3,16 @@ import { EMIRE_BARIS } from "@/lib/team";
 
 const post: BlogPost = {
     slug: "kubectl-get-pods-explained",
-    title:
-      "kubectl get pods explained: STATUS, restarts, and next commands",
+    title: "kubectl get pods STATUS explained: READY, restarts, next commands",
     description:
-      "How to read kubectl get pods output — READY, STATUS, RESTARTS, AGE — what CrashLoopBackOff and Pending mean, and which kubectl command to run next.",
+      "kubectl get pods / kubectl get pod status: how to read READY, STATUS, RESTARTS, AGE — what CrashLoopBackOff and Pending mean, and which kubectl command to run next.",
     publishedAt: "2026-08-02",
+    updatedAt: "2026-10-18",
     author: EMIRE_BARIS,
     tags: ["kubernetes", "beginner", "kubectl", "devops", "troubleshooting"],
     keywords: [
       "kubectl get pods",
+      "kubectl get pod status",
       "kubectl get pods explained",
       "kubectl get pods status",
       "pod status kubernetes",
@@ -24,7 +25,7 @@ const post: BlogPost = {
     blocks: [
       {
         type: "p",
-        text: "kubectl get pods is usually the first command people learn — and the first place they get stuck. The table looks simple until STATUS says CrashLoopBackOff or Pending and RESTARTS climbs. This guide is how to read that table and what to run next.",
+        text: "kubectl get pods is usually the first command people learn — and the first place they get stuck when checking pod status. The table looks simple until STATUS says CrashLoopBackOff or Pending and RESTARTS climbs. This guide is how to read that STATUS column and what to run next.",
       },
       {
         type: "p",

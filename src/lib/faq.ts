@@ -12,6 +12,12 @@ export type FaqEntry = {
 
 export const FAQ: FaqEntry[] = [
   {
+    question: "What is kprompt?",
+    answer:
+      "kprompt is The AI Runtime for Kubernetes — an open-source CLI (and optional Observe agent) that turns natural-language intent into a reviewable PlanResult before any cluster mutation. Install from https://kprompt.ai (curl or Homebrew). It is not ChatGPT-for-kubectl, not silent auto-heal, and not a replacement for kubectl or K9s.",
+    more: { label: "Install", href: "/docs/install" },
+  },
+  {
     question: "What is an AI Runtime for Kubernetes?",
     answer:
       "kprompt is an AI-powered runtime that understands your Kubernetes environment and turns intent into context-aware operations, investigations, and recommendations. You describe the outcome; it gathers relevant cluster context, reasons about what matters, and produces a reviewable PlanResult before any mutation. It is not a ChatGPT wrapper, a kubectl command generator, a monitoring-only AIOps dashboard, or a silent auto-healer.",

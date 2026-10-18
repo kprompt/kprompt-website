@@ -8,6 +8,7 @@ const post: BlogPost = {
   description:
     "Looking for a kagent alternative? Map by job: kprompt for plan-before-apply day-2 + Observe notify, kubectl-ai for NL kubectl REPL, K8sGPT for diagnosis, ARK for agent apps as CRDs — plus when to keep CNCF kagent.",
   publishedAt: "2026-08-16",
+  updatedAt: "2026-10-18",
   author: MUHTALIP_DEDE,
   tags: [
     "kubernetes",
@@ -205,8 +206,29 @@ kprompt agent run -n payments --analyze --health --heuristic`,
       ],
     },
     {
+      type: "h2",
+      text: "Try the PlanResult job",
+    },
+    {
       type: "p",
-      text: "Deep comparison tables and coexistence notes: kprompt vs kagent. Compose PlanResult under Agents: kprompt + kagent. Gateway layer cousin: vs agentgateway. Category without hype: AI Runtime for Kubernetes. Install when you want a gated plan on staging before you touch prod.",
+      text: "If your job is gated day-2 (not Agents-as-CRDs), install kprompt, run a read-only prompt on staging, then open the quickstart before any --approve.",
+      links: [
+        { label: "Install", href: "/docs/install" },
+        { label: "Quickstart", href: "/docs/quickstart" },
+      ],
+    },
+    {
+      type: "code",
+      caption: "Install → plan before apply",
+      code: `curl -fsSL https://kprompt.ai/install | bash
+# or: brew install kprompt/tap/kprompt
+
+kprompt "list deployments" -n staging
+kprompt "scale api to 3" -n staging   # review PlanResult → y/N`,
+    },
+    {
+      type: "p",
+      text: "Deep comparison tables and coexistence notes: kprompt vs kagent. Compose PlanResult under Agents: kprompt + kagent. Gateway layer cousin: vs agentgateway. Category without hype: AI Runtime for Kubernetes.",
       links: [
         { label: "kprompt vs kagent", href: "/blog/kprompt-vs-kagent" },
         {

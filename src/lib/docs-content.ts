@@ -43,6 +43,19 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
     blocks: [
       {
         type: "h2",
+        text: "What is kprompt?",
+      },
+      {
+        type: "p",
+        text: "kprompt is The AI Runtime for Kubernetes: an open-source CLI (Apache-2.0) plus an optional in-cluster Observe agent. You state intent in natural language; it gathers cluster context, reasons, and emits a reviewable PlanResult before any mutate. Install from kprompt.ai — curl or Homebrew — then start with the $0 kind Observe walkthrough or Adopt on an existing cluster.",
+        links: [
+          { label: "Install", href: "/docs/install" },
+          { label: "Quickstart", href: "/docs/quickstart" },
+          { label: "kprompt.ai", href: "https://kprompt.ai" },
+        ],
+      },
+      {
+        type: "h2",
         text: "Experimental — use carefully",
       },
       {

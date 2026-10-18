@@ -8,7 +8,7 @@ const post: BlogPost = {
     description:
       "kubectl vs K9s (and k9s vs kubectl): kubectl is the scriptable API client; K9s is a live terminal UI over the same API. When to use each in incidents, CI, and day-2 ops — plus where AI CLIs fit.",
     publishedAt: "2026-07-26",
-    updatedAt: "2026-08-02",
+    updatedAt: "2026-10-18",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -277,6 +277,27 @@ k9s -n payments
 kprompt "explain why api is crashing" -n payments`,
       },
       {
+        type: "h2",
+        text: "When intent is the bottleneck",
+      },
+      {
+        type: "p",
+        text: "If the hard part is “scale api and roll back if Ready drops” — not live TUI navigation — try a plan-before-apply CLI. Install kprompt, stay on staging, and open the quickstart before any --approve.",
+        links: [
+          { label: "Install", href: "/docs/install" },
+          { label: "Quickstart", href: "/docs/quickstart" },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Install → plan before apply",
+        code: `curl -fsSL https://kprompt.ai/install | bash
+# or: brew install kprompt/tap/kprompt
+
+kprompt "explain why api is crashing" -n payments
+kprompt "scale api to 3" -n staging   # review PlanResult → y/N`,
+      },
+      {
         type: "p",
         text: "For the wider interface survey (Headlamp, Lens, dashboards), see our kubectl alternatives post. Searching specifically for K9s alternatives? Use the dedicated K9s alternatives guide. For the AI peer map (K8sGPT, kubectl-ai, Kagent), see the Kubernetes AI tools comparison. For the specific failure above, see the CrashLoopBackOff guide.",
         links: [
@@ -297,6 +318,7 @@ kprompt "explain why api is crashing" -n payments`,
             href: "/blog/kubernetes-crashloopbackoff",
           },
           { label: "Install kprompt", href: "/docs/install" },
+          { label: "Quickstart", href: "/docs/quickstart" },
         ],
       },
     ],

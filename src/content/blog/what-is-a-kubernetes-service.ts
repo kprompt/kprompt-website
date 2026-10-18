@@ -3,14 +3,15 @@ import { EMIRE_BARIS } from "@/lib/team";
 
 const post: BlogPost = {
     slug: "what-is-a-kubernetes-service",
-    title:
-      "What is a Kubernetes Service? A beginner guide to stable networking",
+    title: "What is a Kubernetes Service? Stable networking + kubectl get svc",
     description:
-      "Why Pod IPs are not enough, what a Service does, ClusterIP vs NodePort vs LoadBalancer, selectors and Endpoints, kubectl commands, and optional natural-language checks with kprompt.",
+      "Kubernetes Service explained: why Pod IPs are not enough, ClusterIP vs NodePort vs LoadBalancer, selectors and Endpoints, kubectl get svc / describe, and optional kprompt checks.",
     publishedAt: "2026-08-01",
     author: EMIRE_BARIS,
     tags: ["kubernetes", "beginner", "kubectl", "devops", "networking"],
     keywords: [
+      "kubernetes service",
+      "kubernetes services",
       "what is a kubernetes service",
       "kubernetes service explained",
       "kubernetes service vs deployment",
@@ -18,11 +19,13 @@ const post: BlogPost = {
       "clusterip nodeport loadbalancer",
       "kubernetes service selector",
       "kubectl get services",
+      "kubectl get svc",
+      "kubectl service",
       "pod ip vs service",
       "kubernetes networking beginner",
       "kubernetes endpoints",
     ],
-    updatedAt: "2026-08-02",
+    updatedAt: "2026-10-18",
     blocks: [
       {
         type: "p",
@@ -157,11 +160,11 @@ spec:
       },
       {
         type: "h2",
-        text: "Endpoints: proof the Service has backends",
+        text: "kubectl get svc — list Services and prove backends",
       },
       {
         type: "p",
-        text: "Kubernetes maintains an Endpoints (or EndpointSlice) object listing the Pod IPs that match the Service selector. If Endpoints is empty, your Service has no backends — check labels on the Deployment template and the Service selector.",
+        text: "Day-to-day, kubectl get svc (alias for kubectl get services) is how you confirm a Kubernetes Service exists, which type it is, and which ClusterIP or external address it owns. Kubernetes also maintains an Endpoints (or EndpointSlice) object listing the Pod IPs that match the Service selector. If Endpoints is empty, the Service has no backends — check labels on the Deployment template and the Service selector.",
       },
       {
         type: "code",

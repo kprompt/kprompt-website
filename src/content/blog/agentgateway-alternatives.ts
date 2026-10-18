@@ -8,6 +8,7 @@ const post: BlogPost = {
   description:
     "Looking for an agentgateway alternative? Map by job: kprompt for plan-before-apply day-2 + Observe notify, other AI/MCP gateways for LLM traffic policy, kagent for Agents-as-CRDs — plus when to keep Linux Foundation agentgateway.",
   publishedAt: "2026-08-16",
+  updatedAt: "2026-10-18",
   author: MUHTALIP_DEDE,
   tags: [
     "kubernetes",
@@ -187,8 +188,29 @@ kprompt mcp serve`,
       ],
     },
     {
+      type: "h2",
+      text: "Try the PlanResult job",
+    },
+    {
       type: "p",
-      text: "Deep comparison: kprompt vs agentgateway. Category without hype: AI Runtime for Kubernetes. Install when you want a gated plan on staging before you touch prod.",
+      text: "If your job is gated day-2 (not an AI/MCP gateway), install kprompt, run a read-only prompt on staging, then open the quickstart before any --approve.",
+      links: [
+        { label: "Install", href: "/docs/install" },
+        { label: "Quickstart", href: "/docs/quickstart" },
+      ],
+    },
+    {
+      type: "code",
+      caption: "Install → plan before apply",
+      code: `curl -fsSL https://kprompt.ai/install | bash
+# or: brew install kprompt/tap/kprompt
+
+kprompt "list deployments" -n staging
+kprompt "scale api to 3" -n staging   # review PlanResult → y/N`,
+    },
+    {
+      type: "p",
+      text: "Deep comparison: kprompt vs agentgateway. Category without hype: AI Runtime for Kubernetes. Keep agentgateway when every LLM/MCP/A2A hop needs a governed edge.",
       links: [
         {
           label: "kprompt vs agentgateway",

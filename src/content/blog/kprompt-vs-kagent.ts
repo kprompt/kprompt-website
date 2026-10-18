@@ -4,11 +4,11 @@ import { MUHTALIP_DEDE } from "@/lib/team";
 const post: BlogPost = {
     slug: "kprompt-vs-kagent",
     title:
-      "kprompt vs kagent: PlanResult ops CLI vs Kubernetes-native agent platform",
+      "kagent vs kprompt: PlanResult ops CLI vs Kubernetes-native agent platform",
     description:
-      "kagent (CNCF Sandbox / Solo.io) is a Kubernetes-native agent runtime — Agents as CRDs, MCP, A2A, mesh. kprompt is an AI Runtime for cluster ops: PlanResult → approve, plus Observe notify. Is kprompt a kagent alternative? Only for the ops job — decision guide.",
+      "kagent vs kprompt (and kagent vs agentgateway): CNCF Agents-as-CRDs + MCP/A2A vs PlanResult → approve ops CLI + Observe notify. Is kprompt a kagent alternative? Only for the ops job — decision guide.",
     publishedAt: "2026-07-29",
-    updatedAt: "2026-08-16",
+    updatedAt: "2026-10-18",
     author: MUHTALIP_DEDE,
     tags: [
         "kubernetes",
@@ -21,8 +21,10 @@ const post: BlogPost = {
         "kagent",
     ],
     keywords: [
-        "kprompt vs kagent",
+        "kagent vs",
         "kagent vs kprompt",
+        "kprompt vs kagent",
+        "kagent vs agentgateway",
         "kagent alternative",
         "kagent alternatives",
         "what is kagent",
@@ -340,7 +342,7 @@ kprompt "scale api to 3" -n staging   # review → y/N`,
       },
       {
         type: "p",
-        text: "For kagent’s own quickstart (kind + Helm + Agent CRD), start at kagent.dev. For composing PlanResult under a kagent Agent, read the integration post. For “kagent alternative” queries by job, see the alternatives hub. For category without hype, read the AI Runtime essay. For the other “runtime” naming cousin, read vs ARK.",
+        text: "For kagent’s own quickstart (kind + Helm + Agent CRD), start at kagent.dev. Comparing layers in the same Solo neighborhood — kagent vs agentgateway — use the Runtime vs Gateway vs Platform hub and the agentgateway head-to-head. For composing PlanResult under a kagent Agent, read the integration post. For “kagent alternative” queries by job, see the alternatives hub. For category without hype, read the AI Runtime essay. For the other “runtime” naming cousin, read vs ARK.",
         links: [
           { label: "kagent get started", href: "https://kagent.dev/" },
           {
@@ -348,6 +350,18 @@ kprompt "scale api to 3" -n staging   # review → y/N`,
             href: "/blog/kprompt-kagent-integration",
           },
           { label: "kagent alternatives", href: "/blog/kagent-alternatives" },
+          {
+            label: "Runtime vs Gateway vs Platform",
+            href: "/blog/ai-runtime-vs-ai-gateway-vs-agent-platform",
+          },
+          {
+            label: "kprompt vs agentgateway",
+            href: "/blog/kprompt-vs-agentgateway",
+          },
+          {
+            label: "agentgateway alternatives",
+            href: "/blog/agentgateway-alternatives",
+          },
           {
             label: "AI Runtime for Kubernetes",
             href: "/blog/ai-runtime-for-kubernetes",

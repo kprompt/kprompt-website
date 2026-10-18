@@ -4,7 +4,7 @@ import { FAQ } from "@/lib/faq";
 import { getPostBySlug } from "@/lib/blog-posts";
 
 /** Bump when docs copy changes so sitemap / TechArticle stay fresh. */
-export const DOCS_CONTENT_UPDATED_AT = "2026-08-13";
+export const DOCS_CONTENT_UPDATED_AT = "2026-10-18";
 
 /** Docs pages in canonical nav order, keyed for DOCS_PAGES lookup. */
 export const DOCS_FULL_INDEX = [

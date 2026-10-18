@@ -3,10 +3,11 @@ import { MUHTALIP_DEDE } from "@/lib/team";
 
 const post: BlogPost = {
     slug: "kubegpt-vs-k8sgpt",
-    title: "Kubegpt vs K8sGPT: same search, different tools (and what to use)",
+    title: "Kubegpt meaning: usually K8sGPT — vs kubectl-ai and plan CLIs",
     description:
-      "People searching Kubegpt usually mean K8sGPT — the analyzer-first Kubernetes AI tool. How it differs from kubectl-ai and plan-before-apply CLIs, and when each job fits.",
+      "Searching Kubegpt? Most people mean K8sGPT — the analyzer-first Kubernetes AI tool. How it differs from kubectl-ai and plan-before-apply CLIs, and when each job fits.",
     publishedAt: "2026-08-02",
+    updatedAt: "2026-10-18",
     author: MUHTALIP_DEDE,
     tags: ["kubernetes", "ai", "devops", "sre", "kubernetes cli"],
     keywords: [

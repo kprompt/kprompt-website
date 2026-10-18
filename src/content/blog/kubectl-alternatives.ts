@@ -4,11 +4,11 @@ import { MUHTALIP_DEDE } from "@/lib/team";
 const post: BlogPost = {
     slug: "kubectl-alternatives",
     title:
-      "Kubectl alternatives in 2026: K9s, Kubernetes dashboards, and AI CLIs compared",
+      "Kubectl alternatives in 2026: K9s, dashboards, and plan-before-apply CLIs",
     description:
-      "Compare kubectl alternatives: K9s terminal UI, Headlamp and Lens dashboards, and natural-language Kubernetes CLIs. Which interface fits navigation, visual management, troubleshooting, and plan-before-apply operations.",
+      "Looking for kubectl alternatives? Map by job: K9s for live TUI, Headlamp/Lens for visual multi-cluster, and a plan-before-apply AI CLI when intent — not flags — is the bottleneck.",
     publishedAt: "2026-07-16",
-    updatedAt: "2026-08-02",
+    updatedAt: "2026-10-18",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",

@@ -3,20 +3,23 @@ import { EMIRE_BARIS } from "@/lib/team";
 
 const post: BlogPost = {
     slug: "kubernetes-service-vs-deployment",
-    title:
-      "Kubernetes Service vs Deployment: roles, not rivals",
+    title: "Kubernetes Service vs Deployment: roles, not rivals",
     description:
-      "Service vs Deployment in Kubernetes: Deployments run and update Pods; Services give those Pods a stable network identity. When you need each, how they connect via labels, and kubectl checks that stick.",
+      "Kubernetes Service vs Deployment: Deployments run and update Pods; a Service gives those Pods a stable network identity. When you need each, how labels connect them, and kubectl get svc checks.",
     publishedAt: "2026-08-02",
+    updatedAt: "2026-10-18",
     author: EMIRE_BARIS,
     tags: ["kubernetes", "beginner", "kubectl", "devops", "networking"],
     keywords: [
+      "kubernetes service",
+      "kubernetes services",
       "kubernetes service vs deployment",
       "service vs deployment kubernetes",
       "deployment vs service kubernetes",
       "what is a deployment in kubernetes",
       "kubernetes service and deployment",
       "do i need a service and deployment",
+      "kubectl get svc",
       "kubectl get svc deployment",
     ],
     featured: false,

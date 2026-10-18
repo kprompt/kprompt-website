@@ -3,11 +3,11 @@ import { MUHTALIP_DEDE } from "@/lib/team";
 
 const post: BlogPost = {
     slug: "k9s-alternatives",
-    title:
-      "K9s alternatives in 2026: kubectl, Lens, Headlamp, and AI CLIs",
+    title: "K9s alternatives in 2026: kubectl, Lens, Headlamp, and AI CLIs",
     description:
-      "Best K9s alternatives by job: stick with kubectl for scripts, Lens or Headlamp for visual multi-cluster, or a plan-before-apply AI CLI when intent is the bottleneck — not the TUI.",
+      "Looking for a K9s alternative? Map by job: kubectl for scripts/CI, Lens or Headlamp for visual multi-cluster, or a plan-before-apply AI CLI when intent — not the TUI — is the bottleneck.",
     publishedAt: "2026-08-02",
+    updatedAt: "2026-10-18",
     author: MUHTALIP_DEDE,
     tags: [
       "kubernetes",
@@ -31,7 +31,7 @@ const post: BlogPost = {
     blocks: [
       {
         type: "p",
-        text: "Searching for k9s alternatives usually means one of three jobs failed: the TUI feels heavy, you need something scriptable, or you want a visual multi-cluster IDE instead of a terminal. K9s remains excellent at live keyboard navigation — alternatives should be chosen by the job you are hiring for, not by a generic “best tool” list.",
+        text: "Looking for a K9s alternative? Usually one of three jobs failed: the TUI feels heavy, you need something scriptable, or you want a visual multi-cluster IDE instead of a terminal. K9s remains excellent at live keyboard navigation — pick alternatives by the job you are hiring for, not by a generic “best tool” list.",
         links: [{ label: "K9s", href: "https://github.com/derailed/k9s" }],
       },
       {
