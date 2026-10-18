@@ -18,7 +18,11 @@ export function ObservePipelineDiagram({ className }: { className?: string }) {
       title="Observe agent pipeline"
       caption="Always-on, namespace-scoped. Batches by open Incident — not one LLM call per raw event. Mutate stays off."
     >
-      <FlowRail nodes={OBSERVE} ariaLabel="Observe agent pipeline" />
+      <FlowRail
+        layout="board"
+        nodes={OBSERVE}
+        ariaLabel="Observe agent pipeline"
+      />
     </DiagramFrame>
   );
 }
