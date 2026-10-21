@@ -70,6 +70,10 @@ export const SITE = {
     name: "Coppergate",
     url: "https://coppergate.ai",
     label: "Actively developed and maintained by Coppergate",
+    /** Local copies from coppergate.ai brand assets. */
+    logoMark: "/logos/coppergate/logo.svg",
+    logoLockupLight: "/logos/coppergate/logo-lockup-black.svg",
+    logoLockupDark: "/logos/coppergate/logo-lockup-white.svg",
   },
 } as const;
 

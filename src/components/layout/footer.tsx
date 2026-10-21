@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Users } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
+import { CoppergateMark } from "@/components/ui/coppergate-mark";
 import { Logo } from "@/components/ui/logo";
 import {
   GithubIcon,
@@ -186,16 +187,20 @@ export function Footer() {
               </span>{" "}
               Review plans before apply · prefer non-production first.
             </p>
-            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-              <a
-                href={SITE.maintainer.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline-offset-2 hover:text-foreground hover:underline"
-              >
-                {SITE.maintainer.label}
-              </a>
-            </p>
+            <a
+              href={SITE.maintainer.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-xs leading-relaxed text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <CoppergateMark className="size-4 text-foreground/80" />
+              <span>
+                Actively developed and maintained by{" "}
+                <span className="font-medium text-foreground/90">
+                  {SITE.maintainer.name}
+                </span>
+              </span>
+            </a>
           </div>
 
           <nav
@@ -222,15 +227,18 @@ export function Footer() {
 
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>
-            © {new Date().getFullYear()} kprompt. {SITE.license} licensed.
-            {" · "}
+          <p className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1">
+            <span>
+              © {new Date().getFullYear()} kprompt. {SITE.license} licensed.
+            </span>
+            <span aria-hidden>·</span>
             <a
               href={SITE.maintainer.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline-offset-2 hover:text-foreground hover:underline"
+              className="inline-flex items-center gap-1.5 underline-offset-2 hover:text-foreground hover:underline"
             >
+              <CoppergateMark className="size-3.5" />
               {SITE.maintainer.name}
             </a>
           </p>
