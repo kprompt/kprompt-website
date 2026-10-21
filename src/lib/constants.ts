@@ -62,6 +62,15 @@ export const SITE = {
   installCommandGitHub: `curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v${CLI_VERSION}/install/install.sh | bash`,
   /** One-liner shown under hero CTAs. */
   walkthroughHint: "No API key · kind Observe demo · ~60 seconds",
+  /**
+   * Active steward — product development & maintenance (not a cloud SaaS claim).
+   * Link out from footer / about surfaces.
+   */
+  maintainer: {
+    name: "Coppergate",
+    url: "https://coppergate.ai",
+    label: "Actively developed and maintained by Coppergate",
+  },
 } as const;
 
 export const NAV_LINKS = [

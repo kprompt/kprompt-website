@@ -154,6 +154,7 @@ export function buildLlmsFullText(): string {
     "",
     `Canonical site: ${SITE.url}`,
     `llms.txt index: ${SITE.url}/llms.txt`,
+    `Maintainer: ${SITE.maintainer.name} (${SITE.maintainer.url}) — ${SITE.maintainer.label}`,
     `GitHub: ${SITE.github}`,
     `X: ${SITE.twitter}`,
     `LinkedIn: ${SITE.linkedin}`,

@@ -18,6 +18,12 @@ export const FAQ: FaqEntry[] = [
     more: { label: "Install", href: "/docs/install" },
   },
   {
+    question: "Who develops and maintains kprompt?",
+    answer:
+      "kprompt is actively developed and maintained by Coppergate. The CLI stays Apache-2.0 open source on GitHub; Coppergate stewards product direction, releases, and the website. Learn more at https://coppergate.ai.",
+    more: { label: "Coppergate", href: "https://coppergate.ai" },
+  },
+  {
     question: "What is an AI Runtime for Kubernetes?",
     answer:
       "kprompt is an AI-powered runtime that understands your Kubernetes environment and turns intent into context-aware operations, investigations, and recommendations. You describe the outcome; it gathers relevant cluster context, reasons about what matters, and produces a reviewable PlanResult before any mutation. It is not a ChatGPT wrapper, a kubectl command generator, a monitoring-only AIOps dashboard, or a silent auto-healer.",

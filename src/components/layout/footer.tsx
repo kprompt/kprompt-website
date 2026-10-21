@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Mail, Users } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
 import { Logo } from "@/components/ui/logo";
-import { RunningMascot } from "@/components/ui/running-mascot";
 import {
   GithubIcon,
   InstagramIcon,
@@ -172,7 +171,6 @@ function FooterNavLink({
 export function Footer() {
   return (
     <footer className="relative border-t border-border bg-muted/40">
-      <RunningMascot />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
           <div className="max-w-sm shrink-0">
@@ -187,6 +185,16 @@ export function Footer() {
                 {SITE.maturityLabel}.
               </span>{" "}
               Review plans before apply · prefer non-production first.
+            </p>
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+              <a
+                href={SITE.maintainer.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-2 hover:text-foreground hover:underline"
+              >
+                {SITE.maintainer.label}
+              </a>
             </p>
           </div>
 
@@ -216,6 +224,15 @@ export function Footer() {
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>
             © {new Date().getFullYear()} kprompt. {SITE.license} licensed.
+            {" · "}
+            <a
+              href={SITE.maintainer.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-2 hover:text-foreground hover:underline"
+            >
+              {SITE.maintainer.name}
+            </a>
           </p>
           <p>Kubernetes is a trademark of The Linux Foundation.</p>
         </div>
