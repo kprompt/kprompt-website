@@ -28,6 +28,7 @@ export const DOCS_FULL_INDEX = [
   { href: "/docs/init", key: "init" },
   { href: "/docs/demo", key: "demo" },
   { href: "/docs/ci", key: "ci" },
+  { href: "/docs/ci-cookbook", key: "ci-cookbook" },
   { href: "/docs/planresult-parity", key: "planresult-parity" },
   { href: "/docs/mcp", key: "mcp" },
 ] as const satisfies ReadonlyArray<{

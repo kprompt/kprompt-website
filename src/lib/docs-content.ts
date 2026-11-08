@@ -2402,14 +2402,68 @@ kprompt config`,
       },
     ],
   },
+  "ci-cookbook": {
+    title: "CI cookbook",
+    description:
+      "Copy-paste GitHub Action that installs kprompt, emits a plan-only PlanResult JSON, and fails on jq gates — example only (IC-007).",
+    blocks: [
+      {
+        type: "p",
+        text: "Example only — not production policy. The workflow is PLAN-ONLY (no --approve). You supply a staging/sandbox kubeconfig via secret KPROMPT_KUBECONFIG_B64. A passing gate means your jq predicates passed, not that the plan is safe for production.",
+      },
+      {
+        type: "p",
+        text: "Canonical files in the product repo: docs/ci-cookbook.md and examples/github-actions/planresult-gate.yml. Copy the YAML into .github/workflows/, edit prompt/namespace, open a PR.",
+        links: [
+          {
+            label: "ci-cookbook.md (GitHub)",
+            href: "https://github.com/kprompt/kprompt/blob/main/docs/ci-cookbook.md",
+          },
+          {
+            label: "planresult-gate.yml (raw)",
+            href: "https://github.com/kprompt/kprompt/blob/main/examples/github-actions/planresult-gate.yml",
+          },
+          { label: "CI / JSON schema", href: "/docs/ci" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "Default jq gates",
+      },
+      {
+        type: "ul",
+        items: [
+          "risk.denied == false",
+          "plan.intent matches your expected intent (example: scale)",
+          "no delete ops in plan.actions",
+          "blastRadius namespaces length ≤ 1 (when present)",
+          "applied == false (plan-only)",
+        ],
+      },
+      {
+        type: "p",
+        text: "Prefer GitOps PR mode or laptop --approve after review for mutations. Optional CI apply behind a GitHub Environment is commented in the example — keep it off unless you accept the risk.",
+        links: [
+          { label: "PlanResult parity", href: "/docs/planresult-parity" },
+          {
+            label: "CI/CD plan gates (blog)",
+            href: "/blog/kubernetes-ci-cd-plan-gates",
+          },
+        ],
+      },
+    ],
+  },
   ci: {
     title: "CI / JSON",
     description: "Stable PlanResult output for pipeline gates.",
     blocks: [
       {
         type: "p",
-        text: "JSON output helps you gate risky plans in CI. It does not remove the need for human judgment — kprompt remains experimental, and auto-approve in pipelines can still apply a bad plan if your checks are too loose. Cross-surface field map (CLI · JSON · proposals · Slack): PlanResult parity.",
-        links: [{ label: "PlanResult parity", href: "/docs/planresult-parity" }],
+        text: "JSON output helps you gate risky plans in CI. It does not remove the need for human judgment — kprompt remains experimental, and auto-approve in pipelines can still apply a bad plan if your checks are too loose. Cross-surface field map (CLI · JSON · proposals · Slack): PlanResult parity. Copy-paste GitHub Action (example only): CI cookbook.",
+        links: [
+          { label: "PlanResult parity", href: "/docs/planresult-parity" },
+          { label: "CI cookbook", href: "/docs/ci-cookbook" },
+        ],
       },
       {
         type: "p",
