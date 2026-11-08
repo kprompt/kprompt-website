@@ -2055,6 +2055,40 @@ kprompt "list pods"`,
       },
     ],
   },
+  "planresult-parity": {
+    title: "PlanResult parity",
+    description:
+      "Same review contract across CLI TTY, JSON PlanResult, AutopilotProposal store, and Slack/Discord alerts — actions, risk, blast/impact, proposal id, approve hint (IC-005).",
+    blocks: [
+      {
+        type: "p",
+        text: "kprompt’s review contract is the same idea everywhere: see what will change, see risk, then approve — never silent mutate. Surfaces differ in density. Slack is not a full TTY diff viewer; it carries proposal id, risk, and an apply hint so an engineer who knows the CLI can approve without a glossary.",
+      },
+      {
+        type: "table",
+        headers: ["Field", "CLI TTY", "JSON PlanResult", "AutopilotProposal", "Slack / Discord"],
+        rows: [
+          ["Actions / steps", "Yes (ops + diff)", "plan.actions[]", "plan.summary + steps[]", "Summary / recommendation only"],
+          ["Risk", "Yes", "risk.level / denied", "risk", "proposalRisk when attached"],
+          ["Blast / impact", "Blast radius block", "blastRadius optional", "expectedImpact / why (text)", "Not in alert body"],
+          ["Proposal id", "N/A (laptop NL)", "N/A", "id", "proposalId"],
+          ["Approve hint", "[y/N] / --approve", "requiresApproval", "proposals apply --approve", "proposalHint + ask approve <id>"],
+          ["Applied", "Session", "applied", "applied + decision", "Pre-apply alert"],
+          ["Verify / Learn", "--wait / verify UX", "verify optional", "verifyStatus / outcome / learnNote", "Not in alert"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Approve vocabulary: TTY Apply this plan? [y/N]; CI --approve; stored proposal agent proposals apply … --approve; Slack ask approve <proposal-id>. Risk labels: low · medium · high · denied. AutopilotProposal is PlanResult-shaped, not byte-identical.",
+        links: [
+          { label: "CI / JSON", href: "/docs/ci" },
+          { label: "Safety", href: "/docs/safety" },
+          { label: "Observe agent", href: "/docs/agent" },
+          { label: "Demo", href: "/docs/demo" },
+        ],
+      },
+    ],
+  },
   demo: {
     title: "Demo",
     description:
@@ -2374,7 +2408,8 @@ kprompt config`,
     blocks: [
       {
         type: "p",
-        text: "JSON output helps you gate risky plans in CI. It does not remove the need for human judgment — kprompt remains experimental, and auto-approve in pipelines can still apply a bad plan if your checks are too loose.",
+        text: "JSON output helps you gate risky plans in CI. It does not remove the need for human judgment — kprompt remains experimental, and auto-approve in pipelines can still apply a bad plan if your checks are too loose. Cross-surface field map (CLI · JSON · proposals · Slack): PlanResult parity.",
+        links: [{ label: "PlanResult parity", href: "/docs/planresult-parity" }],
       },
       {
         type: "p",

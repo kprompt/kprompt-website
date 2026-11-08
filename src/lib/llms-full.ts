@@ -4,7 +4,7 @@ import { FAQ } from "@/lib/faq";
 import { getPostBySlug } from "@/lib/blog-posts";
 
 /** Bump when docs copy changes so sitemap / TechArticle stay fresh. */
-export const DOCS_CONTENT_UPDATED_AT = "2026-10-18";
+export const DOCS_CONTENT_UPDATED_AT = "2026-11-08";
 
 /** Docs pages in canonical nav order, keyed for DOCS_PAGES lookup. */
 export const DOCS_FULL_INDEX = [
@@ -28,6 +28,7 @@ export const DOCS_FULL_INDEX = [
   { href: "/docs/init", key: "init" },
   { href: "/docs/demo", key: "demo" },
   { href: "/docs/ci", key: "ci" },
+  { href: "/docs/planresult-parity", key: "planresult-parity" },
   { href: "/docs/mcp", key: "mcp" },
 ] as const satisfies ReadonlyArray<{
   href: string;
