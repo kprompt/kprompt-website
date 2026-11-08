@@ -47,7 +47,7 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
   "/docs/quickstart": {
     name: "Get started with kprompt on Kubernetes",
     description:
-      "Run the zero-LLM Observe walkthrough on kind in about a minute, then optionally add a BYOK LLM provider and practice the plan → approve loop on a sandbox cluster.",
+      "Run the $0 magic-moment demo on kind (~2 min): failed rollout → proposal → approve → Learn, then optionally add a BYOK LLM provider and practice NL plans on a sandbox cluster.",
     totalTime: "PT8M",
     tools: [
       "kprompt CLI",
@@ -60,7 +60,7 @@ export const DOCS_HOWTOS: Record<string, HowTo> = {
     steps: [
       {
         name: "Try at $0 — no provider key",
-        text: "Run kprompt demo (or kprompt demo --check) for prerequisites, then follow the printed walkthrough: clone kprompt-examples and make walkthrough. That brings up kind, breaks workloads on purpose, and runs the Observe agent in heuristic mode with zero LLM spend.",
+        text: "Run kprompt demo (or kprompt demo --check) for prerequisites, then clone kprompt-examples and make magic-moment. That brings up kind, stalls a failed rollout, stores a PlanResult-shaped proposal, and waits for your [y/N] before apply — zero LLM spend.",
       },
       {
         name: "Level up with NL (Ollama first)",

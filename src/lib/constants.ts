@@ -1,7 +1,7 @@
 const LIVE_ORIGIN = "https://kprompt.ai";
 
 /** Single source of truth for the released CLI version referenced across metadata. */
-const CLI_VERSION = "0.12.2";
+const CLI_VERSION = "0.12.4";
 
 export const SITE = {
   name: "kprompt",
@@ -39,8 +39,8 @@ export const SITE = {
   app: "https://app.kprompt.ai",
   docs: "/docs",
   /**
-   * Primary get-started CTA — zero-LLM kind walkthrough first.
-   * LLM BYOK path is a “level up” section on the same page.
+   * Primary get-started CTA — IC-001 magic-moment ($0) first.
+   * LLM BYOK path is a “level up” section on the quickstart page.
    */
   getStarted: "/docs/quickstart",
   /** Secondary CTA — configure a provider key and run NL prompts. */
@@ -51,7 +51,7 @@ export const SITE = {
   maturityNotice:
     "Early software. Always review the plan before apply, prefer non-production clusters first, and treat --approve with care.",
   /** Primary CTA label — avoid “Start Free” (implies Team signup). */
-  ctaPrimary: "Try walkthrough",
+  ctaPrimary: "Try the demo",
   ctaSecondary: "Add your LLM",
   /** GA4 — public client id; override with NEXT_PUBLIC_GA_MEASUREMENT_ID if needed. */
   gaMeasurementId: "G-E4624KGSE9",
@@ -60,8 +60,8 @@ export const SITE = {
   installCommandBrew: "brew install kprompt/tap/kprompt",
   /** Tag-pinned CDN fallback if the site is unreachable. */
   installCommandGitHub: `curl -fsSL https://cdn.jsdelivr.net/gh/kprompt/kprompt@v${CLI_VERSION}/install/install.sh | bash`,
-  /** One-liner shown under hero CTAs. */
-  walkthroughHint: "No API key · kind Observe demo · ~60 seconds",
+  /** One-liner shown under hero CTAs (IC-001). */
+  walkthroughHint: "No API key · plan → approve → Learn · ~2 min",
   /**
    * Active steward — product development & maintenance (not a cloud SaaS claim).
    * Link out from footer / about surfaces.
@@ -88,6 +88,6 @@ export const NAV_LINKS = [
 export const INSTALL_STEPS = [
   "Install the CLI",
   "Clone kprompt-examples",
-  "make walkthrough ($0 Observe)",
+  "make magic-moment ($0)",
   "Ollama or BYOK for NL (optional)",
 ] as const;

@@ -29,8 +29,16 @@ const post: BlogPost = {
         ],
       },
       {
+        type: "p",
+        text: "Primary product try path is now make magic-moment (one failed rollout → proposal → approve → Learn). This post covers the advanced all-scenarios Observe fixture — make walkthrough — when you want the noisy multi-break demo.",
+        links: [
+          { label: "Quickstart / magic-moment", href: "/docs/quickstart" },
+          { label: "kprompt demo", href: "/docs/demo" },
+        ],
+      },
+      {
         type: "h2",
-        text: "One command",
+        text: "One command (advanced Observe)",
       },
       {
         type: "code",

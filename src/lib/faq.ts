@@ -62,7 +62,7 @@ export const FAQ: FaqEntry[] = [
   {
     question: "What is the Observe agent?",
     answer:
-      "An optional in-cluster Observe agent that watches a namespace, correlates Pods/Events into Incidents, and sends gated Slack/Discord/webhook alerts. Default mode never mutates. Optional Autopilot propose emits a PlanResult; apply stays human-gated. The laptop CLI still works without any agent — try kprompt demo for a $0 kind walkthrough.",
+      "An optional in-cluster Observe agent that watches a namespace, correlates Pods/Events into Incidents, and sends gated Slack/Discord/webhook alerts. Default mode never mutates. Optional Autopilot propose emits a PlanResult; apply stays human-gated. The laptop CLI still works without any agent — try kprompt demo → make magic-moment for a $0 kind demo.",
     more: { label: "Observe agent docs", href: "/docs/agent" },
   },
   {

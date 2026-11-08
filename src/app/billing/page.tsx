@@ -39,7 +39,7 @@ const CLI_FREE_FEATURES = [
   "Plan → approve → apply safety on every action",
   "AI SRE: investigate, why, timeline, impact",
   "Observe agent for continuous correlation",
-  "Works offline for the zero-LLM walkthrough",
+  "Works offline for the $0 magic-moment demo",
   "Apache-2.0 licensed — audit, fork, self-host",
 ] as const;
 

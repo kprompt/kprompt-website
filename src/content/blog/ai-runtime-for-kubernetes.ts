@@ -245,9 +245,9 @@ Apply? [y/N]`,
 kprompt "scale api to 3" -n staging
 # review the plan, then y or --approve
 
-# optional: Observe on kind, zero LLM spend
+# optional: $0 magic-moment on kind (proposal → approve → Learn)
 git clone https://github.com/kprompt/kprompt-examples.git
-cd kprompt-examples && make walkthrough`,
+cd kprompt-examples && make magic-moment`,
       },
       {
         type: "p",

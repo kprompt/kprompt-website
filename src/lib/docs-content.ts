@@ -47,7 +47,7 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "kprompt is The AI Runtime for Kubernetes: an open-source CLI (Apache-2.0) plus an optional in-cluster Observe agent. You state intent in natural language; it gathers cluster context, reasons, and emits a reviewable PlanResult before any mutate. Install from kprompt.ai — curl or Homebrew — then start with the $0 kind Observe walkthrough or Adopt on an existing cluster.",
+        text: "kprompt is The AI Runtime for Kubernetes: an open-source CLI (Apache-2.0) plus an optional in-cluster Observe agent. You state intent in natural language; it gathers cluster context, reasons, and emits a reviewable PlanResult before any mutate. Install from kprompt.ai — curl or Homebrew — then start with the $0 magic-moment demo (kprompt demo → make magic-moment) or Adopt on an existing cluster.",
         links: [
           { label: "Install", href: "/docs/install" },
           { label: "Quickstart", href: "/docs/quickstart" },
@@ -64,10 +64,10 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
       },
       {
         type: "p",
-        text: "The AI Runtime for Kubernetes means: you state intent; kprompt understands cluster context; it reasons; then it operates, investigates, or recommends — with a reviewable PlanResult before mutate. Investigation and AI SRE packs are one capability lane, not the whole product. Natural-language plans use your kubeconfig and your LLM (local Ollama = $0, or BYOK). Fastest first run: zero-LLM kind Observe walkthrough. Already have a cluster? Adopt (15 min) prefers bind-over-install.",
+        text: "The AI Runtime for Kubernetes means: you state intent; kprompt understands cluster context; it reasons; then it operates, investigates, or recommends — with a reviewable PlanResult before mutate. Investigation and AI SRE packs are one capability lane, not the whole product. Natural-language plans use your kubeconfig and your LLM (local Ollama = $0, or BYOK). Fastest first run: $0 magic-moment (failed rollout → proposal → approve → Learn). Already have a cluster? Adopt (15 min) prefers bind-over-install.",
         links: [
-          { label: "zero-LLM kind walkthrough", href: "/docs/quickstart" },
-          { label: "Demo ($0 Observe)", href: "/docs/demo" },
+          { label: "Quickstart ($0 demo)", href: "/docs/quickstart" },
+          { label: "Demo (kprompt demo)", href: "/docs/demo" },
           { label: "Adopt (15 min)", href: "/docs/adopt" },
         ],
       },
@@ -152,8 +152,8 @@ export const DOCS_PAGES: Record<string, DocsPage> = {
     blocks: [
       {
         type: "p",
-        text: "Installing is easy; applying is not automatically safe. After install, the fastest demo is the zero-LLM kind walkthrough ($0, no provider key). For natural-language plans, prefer local Ollama or a sandbox cluster, and leave --approve off until you know how plans look.",
-        links: [{ label: "zero-LLM kind walkthrough", href: "/docs/quickstart" }],
+        text: "Installing is easy; applying is not automatically safe. After install, the fastest demo is magic-moment ($0, no provider key): one failed rollout through proposal → approve → Learn. For natural-language plans, prefer local Ollama or a sandbox cluster, and leave --approve off until you know how plans look.",
+        links: [{ label: "Quickstart ($0 demo)", href: "/docs/quickstart" }],
       },
       {
         type: "h2",
@@ -265,7 +265,7 @@ kprompt doctor --json   # same checks, machine-readable`,
         text: "kprompt doctor is the fastest way to confirm a working setup: it checks that a kubeconfig context resolves, that an LLM provider is usable (Ollama needs no key; cloud BYOK needs your provider env var — not a kprompt purchase), which day-2 integrations were detected, and whether optional Team enrollment (kp_… token) is healthy. It exits non-zero when a required check fails, so it also works as a CI preflight.",
         links: [
           { label: "Providers (Ollama + BYOK)", href: "/docs/providers" },
-          { label: "Try the walkthrough", href: "/docs/quickstart" },
+          { label: "Try the demo", href: "/docs/quickstart" },
         ],
       },
       {
@@ -344,7 +344,7 @@ go install ./cmd/kprompt`,
       },
       {
         type: "p",
-        text: "Source builds need Go 1.23 or newer. Next: try the $0 walkthrough or Ollama, then walk the plan → approve loop on a sandbox cluster.",
+        text: "Source builds need Go 1.23 or newer. Next: try the $0 magic-moment demo or Ollama, then walk the plan → approve loop on a sandbox cluster.",
         links: [
           { label: "Quickstart", href: "/docs/quickstart" },
           { label: "Providers", href: "/docs/providers" },
@@ -356,11 +356,11 @@ go install ./cmd/kprompt`,
   quickstart: {
     title: "Quickstart",
     description:
-      "Try kprompt in ~60 seconds at $0 (kind + Observe walkthrough), then NL plans via local Ollama or your own cloud provider key — nothing to buy from kprompt.",
+      "Try kprompt in ~2 minutes at $0 (kind + magic-moment: proposal → approve → Learn), then NL plans via local Ollama or your own cloud provider key — nothing to buy from kprompt.",
     blocks: [
       {
         type: "p",
-        text: "Funnel: install → kprompt demo ($0 Observe) → kprompt init --ollama for NL ($0) → optional cloud BYOK. kprompt does not sell API keys. Team kp_… tokens are org policy/audit only. When you are ready for natural-language plans on your own cluster, jump to Level up with NL. Already have a real cluster? Prefer the brownfield Adopt playbook (bind tools, read-first) over installing a second stack.",
+        text: "Funnel: install → kprompt demo → make magic-moment ($0) → kprompt init --ollama for NL ($0) → optional cloud BYOK. kprompt does not sell API keys. Team kp_… tokens are org policy/audit only. When you are ready for natural-language plans on your own cluster, jump to Level up with NL. Already have a real cluster? Prefer the brownfield Adopt playbook (bind tools, read-first) over installing a second stack.",
         links: [
           { label: "kprompt demo", href: "/docs/demo" },
           { label: "kprompt-examples", href: "https://github.com/kprompt/kprompt-examples" },
@@ -371,26 +371,26 @@ go install ./cmd/kprompt`,
       {
         type: "h2",
         id: "zero-llm",
-        text: "1. Try at $0 — no provider key (~60s)",
+        text: "1. Try at $0 — no provider key (~2 min)",
       },
       {
         type: "p",
-        text: "Requires Docker (or Colima/Podman), kind, kubectl, and make. Start with kprompt demo for prerequisite checks and the exact commands. The walkthrough is deterministic and offline — zero LLM spend.",
+        text: "Requires Docker (or Colima/Podman), kind, kubectl, and make. Start with kprompt demo for prerequisite checks and the exact commands. Magic-moment is deterministic and offline — zero LLM spend — and still stops for your [y/N] before mutate.",
         links: [{ label: "kprompt demo", href: "/docs/demo" }],
       },
       {
         type: "code",
-        caption: "CLI guide + Observe walkthrough",
+        caption: "CLI guide + magic-moment (IC-001)",
         code: `kprompt demo
 kprompt demo --check
 
 # then (as printed):
 git clone https://github.com/kprompt/kprompt-examples.git
-cd kprompt-examples && make walkthrough`,
+cd kprompt-examples && make magic-moment`,
       },
       {
         type: "p",
-        text: "Prefer one failure at a time? Use make up && make break SCENARIO=01-crashloop && make agent. Full caveats and scenario list: kprompt-examples README.",
+        text: "Want the noisy all-scenarios Observe demo instead? make walkthrough (advanced). Prefer one failure at a time? make up && make break SCENARIO=01-crashloop && make agent. Full caveats: kprompt-examples README.",
         links: [
           {
             label: "kprompt-examples README",
@@ -2045,7 +2045,7 @@ kprompt "list pods"`,
       },
       {
         type: "p",
-        text: "Full provider matrix: Providers. Health re-check: doctor. Host/cluster tool bootstrap: Setup. Existing cluster in ~15 min: Adopt. $0 Observe walkthrough: Demo.",
+        text: "Full provider matrix: Providers. Health re-check: doctor. Host/cluster tool bootstrap: Setup. Existing cluster in ~15 min: Adopt. $0 magic-moment demo: Demo.",
         links: [
           { label: "Providers", href: "/docs/providers" },
           { label: "Setup", href: "/docs/setup" },
@@ -2058,11 +2058,11 @@ kprompt "list pods"`,
   demo: {
     title: "Demo",
     description:
-      "kprompt demo — $0 Observe walkthrough checklist (kind + kprompt-examples). No LLM key. Not the NL plan→approve loop.",
+      "kprompt demo — $0 magic-moment checklist (kind + kprompt-examples): failed rollout → PlanResult proposal → approve → verify → Learn. No LLM key.",
     blocks: [
       {
         type: "p",
-        text: "Prints prerequisite checks (Docker, kind, kubectl, make, git, kprompt) and the exact kprompt-examples commands. Does not clone or mutate — guided checklist MVP.",
+        text: "Prints prerequisite checks (Docker, kind, kubectl, make, git, kprompt) and the exact kprompt-examples commands. Does not clone or mutate by itself — guided checklist that points at make magic-moment.",
         links: [
           {
             label: "kprompt-examples",
@@ -2076,11 +2076,11 @@ kprompt "list pods"`,
 kprompt demo --check
 
 git clone https://github.com/kprompt/kprompt-examples.git
-cd kprompt-examples && make walkthrough`,
+cd kprompt-examples && make magic-moment`,
       },
       {
         type: "p",
-        text: "This is Observe / heuristic (propose-only). For plan-before-apply on your cluster: Init, then a sample prompt.",
+        text: "Heuristic / offline analysis ($0). Mutation still needs a narrow policyAuto allowlist and your explicit [y/N]. Advanced multi-scenario Observe: make walkthrough. For NL plan-before-apply on your cluster: Init, then a sample prompt.",
         links: [{ label: "Init", href: "/docs/init" }],
       },
       {

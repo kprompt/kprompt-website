@@ -45,7 +45,7 @@ export function Drift() {
               "inline-flex"
             )}
           >
-            Try walkthrough
+            {SITE.ctaPrimary}
           </Link>
         </Reveal>
       </div>
