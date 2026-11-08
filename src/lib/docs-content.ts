@@ -2625,6 +2625,40 @@ echo "$json" | jq -e '.risk.level != "high"'`,
       },
       {
         type: "h2",
+        text: "Bridge story: IDE plan → CLI apply",
+      },
+      {
+        type: "p",
+        text: "One contract, two surfaces — same typed PlanResult. Use Cursor / Claude Desktop MCP for read and plan; apply stays a human action in a terminal you control. Never ask the assistant to “just apply it” over MCP — there is no apply tool and no --approve on the wire (ADR-0024).",
+        links: [
+          {
+            label: "ADR-0024",
+            href: "https://github.com/kprompt/kprompt-architecture/blob/main/decisions/ADR-0024-mcp-interop.md",
+          },
+          { label: "Safety", href: "/docs/safety" },
+        ],
+      },
+      {
+        type: "code",
+        caption: "Handoff",
+        code: `Cursor / Claude Desktop
+  └─ MCP tool  kprompt.plan / kprompt.investigate / …
+       └─ PlanResult JSON (risk · actions · blast radius)
+            └─ you review in the IDE
+                 └─ apply out-of-band:
+                      kprompt "scale api to 3" -n payments --approve
+                      # or: kprompt history rerun N --approve`,
+      },
+      {
+        type: "ul",
+        items: [
+          "Do in the IDE (MCP): kprompt.read / investigate / why / timeline / impact / plan / doctor / tools",
+          "Do in the CLI: the same prompts without MCP, plus kprompt \"…\" --approve after you trust the shape",
+          "VS Code PlanResult extension uses the same handoff — review in IDE, approve via local CLI",
+        ],
+      },
+      {
+        type: "h2",
         text: "Editor configuration",
       },
       {
