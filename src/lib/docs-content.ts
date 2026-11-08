@@ -2079,7 +2079,7 @@ kprompt "list pods"`,
       },
       {
         type: "p",
-        text: "Approve vocabulary: TTY Apply this plan? [y/N]; CI --approve; stored proposal agent proposals apply … --approve; Slack ask approve <proposal-id>. Risk labels: low · medium · high · denied. AutopilotProposal is PlanResult-shaped, not byte-identical.",
+        text: "Approve vocabulary (same gate everywhere): TTY Apply this plan? [y/N] → y; CI --approve; stored proposal agent proposals apply … --approve; Slack ask approve <proposal-id> (alias apply <id>). Discord is notify-only — use the CLI hint. Risk labels: low · medium · high · denied. Alerts may show a short Impact line; that is not a full blast-radius dump. AutopilotProposal is PlanResult-shaped, not byte-identical.",
         links: [
           { label: "CI / JSON", href: "/docs/ci" },
           { label: "Safety", href: "/docs/safety" },
