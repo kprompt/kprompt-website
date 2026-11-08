@@ -2402,6 +2402,85 @@ kprompt config`,
       },
     ],
   },
+  "daily-driver": {
+    title: "Daily driver",
+    description:
+      "One week of day-2 Free CLI prompts — health, watch, investigate, optimize, scale/rollback plans, session — shipped capabilities only (IC-015).",
+    blocks: [
+      {
+        type: "p",
+        text: "Muscle memory for the Free CLI after Day-0. Swap payments / api for your namespace and workload. Prefer a sandbox context first. Reads run immediately; mutates stop on a PlanResult unless you say y / --approve.",
+        links: [
+          {
+            label: "daily-driver.md (GitHub)",
+            href: "https://github.com/kprompt/kprompt/blob/main/docs/daily-driver.md",
+          },
+          { label: "Adopt (15 min)", href: "/docs/adopt" },
+          { label: "Safety", href: "/docs/safety" },
+        ],
+      },
+      {
+        type: "h2",
+        text: "The week",
+      },
+      {
+        type: "ul",
+        items: [
+          "Day 1 — Health pulse: kprompt \"how's my cluster\" (no LLM key)",
+          "Day 2 — Laptop scan: kprompt watch -n payments --once (suggestions only; never applies)",
+          "Day 3 — Root cause: kprompt \"investigate api\" -n payments (or why is api crashing)",
+          "Day 4 — Rightsizing read: kprompt \"optimize my cluster\" (report only)",
+          "Day 5 — Scale plan: kprompt \"scale api to 3\" -n payments → review → --approve only if trusted",
+          "Day 6 — Rollback plan: kprompt \"rollback api\" -n payments → same gate",
+          "Day 7 — Habit close: kprompt session · history · optional remember",
+        ],
+      },
+      {
+        type: "code",
+        caption: "Copy-paste",
+        code: `# Day 1–2 — observe
+kprompt "how's my cluster"
+kprompt watch -n payments --once
+
+# Day 3–4 — reason (read-only)
+kprompt "investigate api" -n payments
+kprompt "optimize my cluster"
+
+# Day 5–6 — plan, then maybe approve
+kprompt "scale api to 3" -n payments
+# kprompt "scale api to 3" -n payments --approve
+kprompt "rollback api" -n payments
+
+# Day 7 — local memory
+kprompt session
+kprompt history
+kprompt remember "payments = Team A"`,
+      },
+      {
+        type: "h2",
+        text: "Honesty",
+      },
+      {
+        type: "ul",
+        items: [
+          "Do run Days 1–4 on production if RBAC allows reads",
+          "Do not --approve Days 5–6 against prod on first try",
+          "Escape hatch: kprompt demo ($0 magic moment)",
+          "MCP / IDE is for plan review — apply stays CLI",
+          "Graduate to recipe packs when the week sticks",
+        ],
+      },
+      {
+        type: "p",
+        text: "Related: Demo ($0) · MCP · Adopt.",
+        links: [
+          { label: "Demo ($0)", href: "/docs/demo" },
+          { label: "MCP", href: "/docs/mcp" },
+          { label: "Adopt", href: "/docs/adopt" },
+        ],
+      },
+    ],
+  },
   "ci-cookbook": {
     title: "CI cookbook",
     description:

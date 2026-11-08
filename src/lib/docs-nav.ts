@@ -19,6 +19,7 @@ export const DOCS_NAV_SECTIONS: DocsNavSection[] = [
       { href: "/docs/demo", label: "Demo ($0)" },
       { href: "/docs/agent", label: "Observe agent" },
       { href: "/docs/adopt", label: "Adopt (15 min)" },
+      { href: "/docs/daily-driver", label: "Daily driver" },
       { href: "/docs/init", label: "Init" },
     ],
   },

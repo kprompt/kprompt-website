@@ -12,6 +12,7 @@ export const DOCS_FULL_INDEX = [
   { href: "/docs/install", key: "install" },
   { href: "/docs/quickstart", key: "quickstart" },
   { href: "/docs/adopt", key: "adopt" },
+  { href: "/docs/daily-driver", key: "daily-driver" },
   { href: "/docs/commands", key: "commands" },
   { href: "/docs/dash", key: "dash" },
   { href: "/docs/multi-cluster", key: "multiCluster" },
