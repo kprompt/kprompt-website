@@ -12,8 +12,10 @@ Public Next.js 15 (App Router, Turbopack) + TypeScript + Tailwind + shadcn/radix
 ## Locked constraints
 
 - Category: **The AI Runtime for Kubernetes**. Never compare against ChatGPT / generic AI chat tools.
+- Ban-list: never “Cursor for Kubernetes/infra” or “ChatGPT for kubectl” on public copy.
 - Honesty: shipped-only claims; label MVP; roadmap = "Building next", not fake dates; never "AI auto-fixes everything."
 - Providers / features must match what the product actually ships.
+- Primary try CTA: `kprompt demo` → `make magic-moment`.
 
 ## Style
 

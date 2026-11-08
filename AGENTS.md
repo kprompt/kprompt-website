@@ -7,8 +7,10 @@ Product direction and positioning live in the private `kprompt-architecture` rep
 ## Product DNA (do not contradict)
 
 - Category: **The AI Runtime for Kubernetes** — never position as a generic AI chatbot or compare against ChatGPT.
+- **Ban-list:** never “Cursor for Kubernetes/infra,” never “ChatGPT for kubectl” (private architecture analogy only). Prefer plan-before-apply / PlanResult framing.
 - Lead with the loop (Observe -> Reason -> Plan -> Validate -> Approve -> Execute -> Learn) and trust/safety as the product.
 - Honesty: only claim shipped surfaces as shipped; label MVP; roadmap uses "Building next" not fake dates; never "AI auto-fixes everything."
+- Primary try CTA: `kprompt demo` → `make magic-moment` (not the advanced `walkthrough`).
 
 ## Layout
 
