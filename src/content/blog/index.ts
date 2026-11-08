@@ -1,5 +1,6 @@
 import type { BlogPost } from "@/lib/blog-types";
 import kubectlDescribeExplainedBeginners from "./kubectl-describe-explained-beginners";
+import kpromptMagicMoment from "./kprompt-magic-moment";
 import kpromptKagentIntegration from "./kprompt-kagent-integration";
 import kubernetesConfigmapVsSecretExplained from "./kubernetes-configmap-vs-secret-explained";
 import aiRuntimeVsAiGatewayVsAgentPlatform from "./ai-runtime-vs-ai-gateway-vs-agent-platform";
@@ -76,6 +77,7 @@ import kubernetesNamespacesExplained from "./kubernetes-namespaces-explained";
 
 /** All blog posts in source order (newest-first convention in tree). */
 export const BLOG_POSTS: BlogPost[] = [
+  kpromptMagicMoment,
   kubectlDescribeExplainedBeginners,
   kpromptArgoCd,
   kpromptOpentelemetry,
